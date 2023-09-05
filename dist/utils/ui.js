@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const constants_1 = require("constants");
-const types_1 = require("constants/types");
 const lodash_1 = __importDefault(require("lodash"));
 // Getters
 const getSubtotal = (products) => {
@@ -56,7 +55,7 @@ const getUserTypeDescription = (userType) => {
 exports.getUserTypeDescription = getUserTypeDescription;
 const getCashBreakdownTypeDescription = (category, type) => {
     let description = "";
-    if (category === types_1.cashBreakdownCategories.CASH_BREAKDOWN) {
+    if (category === constants_1.cashBreakdownCategories.CASH_BREAKDOWN) {
         switch (type) {
             case constants_1.cashBreakdownTypes.START_SESSION:
                 description = "Start Session";
@@ -71,7 +70,7 @@ const getCashBreakdownTypeDescription = (category, type) => {
                 description = "";
         }
     }
-    else if (category === types_1.cashBreakdownCategories.CASH_IN) {
+    else if (category === constants_1.cashBreakdownCategories.CASH_IN) {
         description = "Petty Cash | Cash In";
     }
     return description;
@@ -95,6 +94,11 @@ const filterOption = (input, option) => {
     return false;
 };
 exports.filterOption = filterOption;
+// Messages
+// interface Authorization {
+//   title?: string;
+//   onSuccess: any;
+// }
 // TODO: Find another way to implement
 // export const authorization = ({
 // 	title = 'Input Password',

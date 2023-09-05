@@ -1,7 +1,11 @@
 import { message } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
-import { attendanceCategories, cashBreakdownTypes, userTypes } from "constants";
-import { cashBreakdownCategories } from "constants/types";
+import {
+  attendanceCategories,
+  cashBreakdownCategories,
+  cashBreakdownTypes,
+  userTypes,
+} from "constants";
 import _ from "lodash";
 import {
   AttendanceLogCategory,
@@ -122,10 +126,10 @@ export const filterOption = (input: string, option: DefaultOptionType) => {
 };
 
 // Messages
-interface Authorization {
-  title?: string;
-  onSuccess: any;
-}
+// interface Authorization {
+//   title?: string;
+//   onSuccess: any;
+// }
 
 // TODO: Find another way to implement
 // export const authorization = ({

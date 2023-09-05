@@ -1,5 +1,4 @@
 "use strict";
-/* eslint-disable radix */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportTextFile = void 0;
 var ALIGNMENTS;

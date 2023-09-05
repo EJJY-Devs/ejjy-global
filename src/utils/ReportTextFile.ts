@@ -1,5 +1,3 @@
-/* eslint-disable radix */
-
 enum ALIGNMENTS {
   LEFT = "left",
   CENTER = "center",
