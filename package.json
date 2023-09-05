@@ -1,0 +1,30 @@
+{
+  "name": "ejjy-global",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^7.15.0",
+    "eslint-plugin-react-hooks": "^4",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.6",
+    "sass": "^1.49.9",
+    "vite": "^4.4.5"
+  }
+}
