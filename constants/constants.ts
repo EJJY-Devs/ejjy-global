@@ -4,8 +4,8 @@ export const DEFAULT_PAGE_SIZE = 10;
 export const MAX_PAGE_SIZE = 500;
 export const MAX_RETRY = 1;
 export const RETRY_INTERVAL_MS = 300;
-export const REPORTS_RETRY_INTERVAL_MS = 30_000;
-export const NOTIFICATION_INTERVAL_MS = 10_000;
+export const REPORTS_RETRY_INTERVAL_MS = 30000;
+export const NOTIFICATION_INTERVAL_MS = 10000;
 export const GENERIC_ERROR_MESSAGE =
   "An error occurred while processing your request.";
 export const GENERIC_STATUS_500_MESSAGE =
