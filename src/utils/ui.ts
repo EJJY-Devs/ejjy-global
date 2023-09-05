@@ -5,7 +5,7 @@ import {
   cashBreakdownCategories,
   cashBreakdownTypes,
   userTypes,
-} from "globals";
+} from "../globals";
 import _ from "lodash";
 import {
   AttendanceLogCategory,
@@ -15,7 +15,7 @@ import {
   Product,
   TransactionProduct,
   UserType,
-} from "types";
+} from "../types";
 
 // Getters
 export const getSubtotal = (products: TransactionProduct[]) => {

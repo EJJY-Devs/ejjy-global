@@ -1,8 +1,8 @@
-import { Product } from 'types/Product';
-import { Transaction } from 'types/Transaction';
+import { Product } from "./Product";
+import { Transaction } from "./Transaction";
 type User = {
     id: number;
-    user_type: 'admin' | 'office_manager' | 'branch_manager' | 'branch_personnel';
+    user_type: "admin" | "office_manager" | "branch_manager" | "branch_personnel";
     first_name?: string;
     last_name?: string;
     employee_id: string;
@@ -26,7 +26,7 @@ export interface BackOrder {
     products: BackOrderProduct[];
     status: string;
     overall_remarks?: string;
-    type: 'for_return' | 'damaged';
+    type: "for_return" | "damaged";
     transaction: Transaction;
     supplier_name?: string;
     supplier_address?: string;
@@ -44,7 +44,7 @@ export interface CreateBackOrder {
     products: CreateBackOrderProduct[];
     transaction_id: number;
     overall_remarks: string;
-    type: 'for_return' | 'damaged';
+    type: "for_return" | "damaged";
     supplier_name?: string;
     supplier_address?: string;
     supplier_tin?: string;

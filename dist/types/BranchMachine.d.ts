@@ -1,4 +1,4 @@
-import { Branch } from 'types/Branch';
+import { Branch } from "./Branch";
 export interface BranchMachine {
     id: number;
     name: string;
@@ -18,7 +18,7 @@ export interface BranchMachine {
         cash_in: string;
         cash_out: string;
     };
-    type?: 'scale' | 'cashiering' | 'scale_and_cashiering';
+    type?: "scale" | "cashiering" | "scale_and_cashiering";
     is_online: boolean;
     permit_to_use?: string;
     machine_identification_number?: string;

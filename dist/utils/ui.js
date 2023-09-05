@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
-const globals_1 = require("globals");
+const globals_1 = require("../globals");
 const lodash_1 = __importDefault(require("lodash"));
 // Getters
 const getSubtotal = (products) => {

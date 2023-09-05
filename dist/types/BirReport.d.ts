@@ -1,4 +1,4 @@
-import { BranchMachine } from 'types/BranchMachine';
+import { BranchMachine } from "./BranchMachine";
 type BirReportOr = {
     id: number;
     or_number: string;

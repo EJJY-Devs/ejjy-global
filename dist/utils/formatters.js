@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatInPeso = exports.standardRound = exports.formatQuantity = exports.formatDateForAPI = exports.formatDateTime24Hour = exports.formatDateTime = exports.formatDate = exports.convertIntoArray = exports.formatRemoveCommas = exports.formatNumberWithCommas = void 0;
-const globals_1 = require("globals");
+const globals_1 = require("../globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const lodash_1 = __importDefault(require("lodash"));
 const formatNumberWithCommas = (x) => x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

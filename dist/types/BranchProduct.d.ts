@@ -1,7 +1,7 @@
-import { PriceMarkdown } from 'types/PriceMarkdown';
-import { Product } from 'types/Product';
-import { RequisitionSlip } from 'types/RequisitionSlip';
-import { User } from 'types/User';
+import { PriceMarkdown } from "./PriceMarkdown";
+import { Product } from "./Product";
+import { RequisitionSlip } from "./RequisitionSlip";
+import { User } from "./User";
 export interface BranchProduct {
     id: number;
     product: Product;
@@ -20,7 +20,7 @@ export interface BranchProduct {
     bo_balance: string;
     balance_last_updated?: string;
     allowable_spoilage: number;
-    product_status: 'available' | 'reorder' | 'out_of_stock';
+    product_status: "available" | "reorder" | "out_of_stock";
     is_daily_checked: boolean;
     is_randomly_checked: boolean;
     markdown_price_per_piece1: number;

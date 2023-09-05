@@ -1,4 +1,4 @@
-import { saleTypes, transactionStatuses, vatTypes } from "globals";
+import { saleTypes, transactionStatuses, vatTypes } from "../globals";
 import dayjs from "dayjs";
 import {
   BranchMachine,
@@ -7,7 +7,7 @@ import {
   User,
   XReadReport,
   ZReadReport,
-} from "types";
+} from "../types";
 import {
   ReportTextFile,
   formatDate,
@@ -15,7 +15,7 @@ import {
   formatInPeso,
   getComputedDiscount,
   getFullName,
-} from "utils";
+} from "../utils";
 
 const PESO_SIGN = "P";
 const EMPTY_CELL = "";

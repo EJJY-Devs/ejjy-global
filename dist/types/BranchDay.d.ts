@@ -1,4 +1,4 @@
-import { BranchMachine } from 'types/BranchMachine';
+import { BranchMachine } from "./BranchMachine";
 export interface BranchDay {
     id: number;
     started_by: string;

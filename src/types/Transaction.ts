@@ -1,8 +1,8 @@
-import { Account } from "types/Account";
-import { BranchMachine } from "types/BranchMachine";
-import { BranchProduct } from "types/BranchProduct";
-import { DiscountOption } from "types/DiscountOption";
-import { User } from "types/User";
+import { Account } from "./Account";
+import { BranchMachine } from "./BranchMachine";
+import { BranchProduct } from "./BranchProduct";
+import { DiscountOption } from "./DiscountOption";
+import { User } from "./User";
 import { BackOrder } from "./BackOrder";
 
 export interface Client {

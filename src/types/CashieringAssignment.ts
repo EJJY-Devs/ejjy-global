@@ -1,12 +1,12 @@
-import { BranchMachine } from 'types/BranchMachine';
-import { User } from 'types/User';
+import { BranchMachine } from "./BranchMachine";
+import { User } from "./User";
 
 export interface CashieringAssignment {
-	id: number;
-	user: User;
-	datetime_created: string;
-	datetime_start?: string;
-	datetime_end?: string;
-	datetime_invalidated?: string;
-	branch_machine: BranchMachine;
+  id: number;
+  user: User;
+  datetime_created: string;
+  datetime_start?: string;
+  datetime_end?: string;
+  datetime_invalidated?: string;
+  branch_machine: BranchMachine;
 }

@@ -1,5 +1,5 @@
-import { ROW_HEIGHT } from "globals";
-import { CashBreakdown, Transaction } from "types";
+import { ROW_HEIGHT } from "../globals";
+import { CashBreakdown, Transaction } from "../types";
 
 export const calculateTableHeight = (listLength: number) => {
   const MAX_ROW_COUNT = 6;

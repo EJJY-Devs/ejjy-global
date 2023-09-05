@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Moment } from "moment";
-import { Product } from "types";
+import { Product } from "../types";
 export declare const formatNumberWithCommas: (x: number) => string;
 export declare const formatRemoveCommas: (x: number | string) => number;
 export declare const convertIntoArray: (errors: string | string[] | Error | null | unknown, prefixMessage?: string | null) => string[];

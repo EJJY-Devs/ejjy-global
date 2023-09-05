@@ -1,4 +1,4 @@
-import { BranchAssignment } from "types/BranchAssignment";
+import { BranchAssignment } from "./BranchAssignment";
 export type UserType = "admin" | "office_manager" | "branch_manager" | "branch_personnel";
 export interface User {
     id: number;

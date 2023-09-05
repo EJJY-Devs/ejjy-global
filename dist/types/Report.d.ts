@@ -1,5 +1,5 @@
-import { BranchMachine } from 'types/BranchMachine';
-import { CashieringSession } from 'types/CashieringSession';
+import { BranchMachine } from "./BranchMachine";
+import { CashieringSession } from "./CashieringSession";
 type GeneratedByUser = {
     first_name?: string;
     last_name?: string;

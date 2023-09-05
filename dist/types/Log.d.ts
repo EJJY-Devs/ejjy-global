@@ -1,6 +1,6 @@
-import { Branch } from 'types/Branch';
-import { BranchMachine } from 'types/BranchMachine';
-import { User } from 'types/User';
+import { Branch } from "./Branch";
+import { BranchMachine } from "./BranchMachine";
+import { User } from "./User";
 export interface ActionLog {
     id: number;
     branch: Branch;
@@ -11,7 +11,7 @@ export interface ActionLog {
 export interface UserLog {
     id: number;
     datetime_created: string;
-    type: 'login' | 'authentication' | 'transaction' | 'sessions' | 'assignments' | 'products' | 'branch_products' | 'cash';
+    type: "login" | "authentication" | "transaction" | "sessions" | "assignments" | "products" | "branch_products" | "cash";
     description: string;
     acting_user: User;
     branch_machine: BranchMachine;

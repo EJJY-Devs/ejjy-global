@@ -1,5 +1,5 @@
-import { Account } from "types/Account";
-import { Branch } from "types/Branch";
+import { Account } from "./Account";
+import { Branch } from "./Branch";
 export type AttendanceLogCategory = "attendance" | "tracker";
 export type AttendanceLogType = "in" | "out";
 export interface AttendanceLog {

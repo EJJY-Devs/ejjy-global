@@ -1,8 +1,8 @@
-import { DATE_FORMAT, EMPTY_CELL, unitOfMeasurementTypes } from "globals";
+import { DATE_FORMAT, EMPTY_CELL, unitOfMeasurementTypes } from "../globals";
 import dayjs, { Dayjs } from "dayjs";
 import _ from "lodash";
 import { Moment } from "moment";
-import { Product } from "types";
+import { Product } from "../types";
 
 export const formatNumberWithCommas = (x: number) =>
   x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

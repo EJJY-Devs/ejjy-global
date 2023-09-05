@@ -1,5 +1,5 @@
-import { Branch } from 'types/Branch';
-import { User } from 'types/User';
+import { Branch } from "./Branch";
+import { User } from "./User";
 export interface BranchDayAuthorization {
     id: number;
     datetime_created: string;

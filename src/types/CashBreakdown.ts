@@ -1,6 +1,6 @@
-import { BranchMachine } from "types/BranchMachine";
-import { CashieringSession } from "types/CashieringSession";
-import { User } from "types/User";
+import { BranchMachine } from "./BranchMachine";
+import { CashieringSession } from "./CashieringSession";
+import { User } from "./User";
 
 export type CashBreakdownType = "start_session" | "end_session" | "mid_session";
 export type CashBreakdownCategory = "cash_breakdown" | "cash_in" | "cash_out";
