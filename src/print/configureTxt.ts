@@ -8,15 +8,14 @@ import {
   XReadReport,
   ZReadReport,
 } from "types";
-
 import {
+  ReportTextFile,
   formatDate,
   formatDateTime,
   formatInPeso,
   getComputedDiscount,
   getFullName,
 } from "utils";
-import { ReportTextFile } from "utils/ReportTextFile";
 
 const PESO_SIGN = "P";
 const EMPTY_CELL = "";
