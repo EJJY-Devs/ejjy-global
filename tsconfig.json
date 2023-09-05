@@ -17,5 +17,6 @@
     "jsx": "react",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts*", "constants/index.ts"]
+  "include": ["src/**/*.ts*", "constants/index.ts"],
+  "exclude": ["node_modules"]
 }
