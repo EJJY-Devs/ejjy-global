@@ -1,7 +1,7 @@
 {
   "name": "ejjy-global",
   "private": true,
-  "version": "0.0.16",
+  "version": "0.0.17",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -16,6 +16,7 @@
     "antd": "^4.24.13",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

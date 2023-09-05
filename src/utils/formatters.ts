@@ -1,6 +1,7 @@
 import { DATE_FORMAT, EMPTY_CELL, unitOfMeasurementTypes } from "constants";
 import dayjs, { Dayjs } from "dayjs";
 import _ from "lodash";
+import { Moment } from "moment";
 import { Product } from "types";
 
 export const formatNumberWithCommas = (x: number) =>
@@ -38,7 +39,7 @@ export const formatDateTime = (
 export const formatDateTime24Hour = (datetime: string | Dayjs) =>
   dayjs.tz(datetime).format(`${DATE_FORMAT} HH:mm`);
 
-export const formatDateForAPI = (date: Dayjs) => {
+export const formatDateForAPI = (date: Dayjs | Moment) => {
   return date.format("YYYY-MM-DD");
 };
 
