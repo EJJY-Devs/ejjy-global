@@ -8,14 +8,12 @@ import {
 } from "constants";
 import _ from "lodash";
 import {
-  Account,
   AttendanceLogCategory,
   AttendanceLogType,
   CashBreakdownCategory,
   CashBreakdownType,
   Product,
   TransactionProduct,
-  User,
   UserType,
 } from "types";
 
