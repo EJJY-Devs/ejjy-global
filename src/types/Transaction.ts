@@ -3,6 +3,7 @@ import { BranchMachine } from "types/BranchMachine";
 import { BranchProduct } from "types/BranchProduct";
 import { DiscountOption } from "types/DiscountOption";
 import { User } from "types/User";
+import { BackOrder } from "./BackOrder";
 
 export interface Client {
   id: number;
@@ -62,8 +63,16 @@ export interface TransactionProduct {
   amount: number;
 }
 
-// TODO: Add interface
-export interface AdjustmentRemark {}
+interface VoidedTransaction {
+  id: number;
+  invoice: Invoice;
+}
+export interface AdjustmentRemark {
+  previous_voided_transaction: VoidedTransaction;
+  new_updated_transaction: VoidedTransaction;
+  back_order: BackOrder;
+  discount_option: DiscountOption;
+}
 
 export interface Transaction {
   id: number;

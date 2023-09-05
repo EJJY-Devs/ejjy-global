@@ -1,6 +1,8 @@
-import { BranchMachine } from 'types/BranchMachine';
-import { CashieringSession } from 'types/CashieringSession';
-import { User } from 'types/User';
+import { BranchMachine } from "types/BranchMachine";
+import { CashieringSession } from "types/CashieringSession";
+import { User } from "types/User";
+export type CashBreakdownType = "start_session" | "end_session" | "mid_session";
+export type CashBreakdownCategory = "cash_breakdown" | "cash_in" | "cash_out";
 type CashBreakdownMetadata = {
     id: number;
     payee?: string;
@@ -19,8 +21,8 @@ export interface CashBreakdown {
     to_be_uploaded: boolean;
     online_id?: number;
     datetime_created: string;
-    type: 'start_session' | 'end_session' | 'mid_session';
-    category: 'cash_breakdown' | 'cash_in' | 'cash_out';
+    type: CashBreakdownType;
+    category: CashBreakdownCategory;
     remarks?: string;
     coins_25: number;
     coins_1: number;

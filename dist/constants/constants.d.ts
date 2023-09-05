@@ -16,7 +16,7 @@ export declare const VIEW_PRINTING_MODAL_WIDTH = 425;
 export declare const NOT_FOUND_INDEX = -1;
 export declare const SEARCH_DEBOUNCE_TIME = 500;
 export declare const ROW_HEIGHT = 65;
-export declare const DATE_FORMAT = "MM/DD/YY";
+export declare const DATE_FORMAT = "MM/DD/YYYY";
 export declare const RECEIPT_DEFAULT_FONT_FAMILY = "monospace";
 export declare const RECEIPT_DEFAULT_FONT_SIZE = "12";
 export declare const JSPDF_SETTINGS: {

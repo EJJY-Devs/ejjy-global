@@ -3,6 +3,7 @@ import { BranchMachine } from "types/BranchMachine";
 import { BranchProduct } from "types/BranchProduct";
 import { DiscountOption } from "types/DiscountOption";
 import { User } from "types/User";
+import { BackOrder } from "./BackOrder";
 export interface Client {
     id: number;
     name?: string;
@@ -56,7 +57,15 @@ export interface TransactionProduct {
     branch_product: BranchProduct;
     amount: number;
 }
+interface VoidedTransaction {
+    id: number;
+    invoice: Invoice;
+}
 export interface AdjustmentRemark {
+    previous_voided_transaction: VoidedTransaction;
+    new_updated_transaction: VoidedTransaction;
+    back_order: BackOrder;
+    discount_option: DiscountOption;
 }
 export interface Transaction {
     id: number;
@@ -85,3 +94,4 @@ export interface Transaction {
     has_lacking_balance_log: boolean;
     customer_account: Account;
 }
+export {};

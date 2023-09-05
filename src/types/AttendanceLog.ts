@@ -1,14 +1,17 @@
 import { Account } from "types/Account";
 import { Branch } from "types/Branch";
 
+export type AttendanceLogCategory = "attendance" | "tracker";
+export type AttendanceLogType = "in" | "out";
+
 export interface AttendanceLog {
   id: number;
   employee: Account;
   branch: Branch;
   online_id?: number;
   datetime_created: string;
-  attendance_category: "attendance" | "tracker";
-  attendance_type: "in" | "out";
+  attendance_category: AttendanceLogCategory;
+  attendance_type: AttendanceLogType;
   real_time: string;
   scheduled_time?: string;
   suggested_resolved_clock_out_time?: string;
