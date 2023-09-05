@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
-const constants_1 = require("constants");
+const globals_1 = require("globals");
 const lodash_1 = __importDefault(require("lodash"));
 // Getters
 const getSubtotal = (products) => {
@@ -40,13 +40,13 @@ const getKeyDownCombination = (keyboardEvent) => {
 exports.getKeyDownCombination = getKeyDownCombination;
 const getUserTypeDescription = (userType) => {
     switch (userType) {
-        case constants_1.userTypes.ADMIN:
+        case globals_1.userTypes.ADMIN:
             return "Admin";
-        case constants_1.userTypes.BRANCH_MANAGER:
+        case globals_1.userTypes.BRANCH_MANAGER:
             return "Branch Manager";
-        case constants_1.userTypes.BRANCH_PERSONNEL:
+        case globals_1.userTypes.BRANCH_PERSONNEL:
             return "Branch Personnel";
-        case constants_1.userTypes.OFFICE_MANAGER:
+        case globals_1.userTypes.OFFICE_MANAGER:
             return "Office Manager";
         default:
             return "";
@@ -55,22 +55,22 @@ const getUserTypeDescription = (userType) => {
 exports.getUserTypeDescription = getUserTypeDescription;
 const getCashBreakdownTypeDescription = (category, type) => {
     let description = "";
-    if (category === constants_1.cashBreakdownCategories.CASH_BREAKDOWN) {
+    if (category === globals_1.cashBreakdownCategories.CASH_BREAKDOWN) {
         switch (type) {
-            case constants_1.cashBreakdownTypes.START_SESSION:
+            case globals_1.cashBreakdownTypes.START_SESSION:
                 description = "Start Session";
                 break;
-            case constants_1.cashBreakdownTypes.MID_SESSION:
+            case globals_1.cashBreakdownTypes.MID_SESSION:
                 description = "Cash Collection";
                 break;
-            case constants_1.cashBreakdownTypes.END_SESSION:
+            case globals_1.cashBreakdownTypes.END_SESSION:
                 description = "End Session";
                 break;
             default:
                 description = "";
         }
     }
-    else if (category === constants_1.cashBreakdownCategories.CASH_IN) {
+    else if (category === globals_1.cashBreakdownCategories.CASH_IN) {
         description = "Petty Cash | Cash In";
     }
     return description;
@@ -78,10 +78,10 @@ const getCashBreakdownTypeDescription = (category, type) => {
 exports.getCashBreakdownTypeDescription = getCashBreakdownTypeDescription;
 const getAttendanceLogDescription = (category, type) => {
     let description = "";
-    if (category === constants_1.attendanceCategories.ATTENDANCE) {
+    if (category === globals_1.attendanceCategories.ATTENDANCE) {
         description = "Clock";
     }
-    else if (category === constants_1.attendanceCategories.TRACKER) {
+    else if (category === globals_1.attendanceCategories.TRACKER) {
         description = "Time";
     }
     return `${description} ${lodash_1.default.upperFirst(type)}`;
@@ -153,7 +153,7 @@ const showErrorMessages = (errors) => {
 };
 exports.showErrorMessages = showErrorMessages;
 // Others
-const isUserFromBranch = (userType) => [constants_1.userTypes.BRANCH_MANAGER, constants_1.userTypes.BRANCH_PERSONNEL].includes(userType);
+const isUserFromBranch = (userType) => [globals_1.userTypes.BRANCH_MANAGER, globals_1.userTypes.BRANCH_PERSONNEL].includes(userType);
 exports.isUserFromBranch = isUserFromBranch;
 const isDualType = (product) => product.barcode && product.selling_barcode;
 exports.isDualType = isDualType;

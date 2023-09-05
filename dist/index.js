@@ -30,6 +30,6 @@ dayjs_1.default.extend(isToday_1.default);
 dayjs_1.default.extend(relativeTime_1.default);
 dayjs_1.default.tz.setDefault("Asia/Manila");
 __exportStar(require("./utils"), exports);
-__exportStar(require("./constants"), exports);
+__exportStar(require("./globals"), exports);
 __exportStar(require("./print"), exports);
 __exportStar(require("./types"), exports);

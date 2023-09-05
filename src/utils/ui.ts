@@ -5,7 +5,7 @@ import {
   cashBreakdownCategories,
   cashBreakdownTypes,
   userTypes,
-} from "constants";
+} from "globals";
 import _ from "lodash";
 import {
   AttendanceLogCategory,

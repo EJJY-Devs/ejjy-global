@@ -1,4 +1,4 @@
-import { ROW_HEIGHT } from "constants";
+import { ROW_HEIGHT } from "globals";
 import { CashBreakdown, Transaction } from "types";
 
 export const calculateTableHeight = (listLength: number) => {

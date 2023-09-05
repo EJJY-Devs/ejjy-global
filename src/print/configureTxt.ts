@@ -1,4 +1,4 @@
-import { saleTypes, transactionStatuses, vatTypes } from "constants";
+import { saleTypes, transactionStatuses, vatTypes } from "globals";
 import dayjs from "dayjs";
 import {
   BranchMachine,

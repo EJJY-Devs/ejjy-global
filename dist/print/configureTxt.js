@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createZReadTxt = exports.createDailySalesTxt = exports.createXReadTxt = exports.createSalesInvoiceTxt = void 0;
-const constants_1 = require("constants");
+const globals_1 = require("globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("utils");
 const PESO_SIGN = "P";
@@ -139,10 +139,10 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     }
     // Set client name
     let title = "";
-    if (transaction.payment.mode === constants_1.saleTypes.CASH) {
+    if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         title = "CASH SALES INVOICE";
     }
-    else if (transaction.payment.mode === constants_1.saleTypes.CREDIT) {
+    else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
         title = "CHARGE SALES INVOICE";
     }
     // Set client fields
@@ -184,8 +184,8 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     transaction.products.forEach((item) => {
         reportTextFile.write({
             text: `${item.branch_product.product.name} - ${item.branch_product.product.is_vat_exempted
-                ? constants_1.vatTypes.VAT_EMPTY
-                : constants_1.vatTypes.VATABLE}`,
+                ? globals_1.vatTypes.VAT_EMPTY
+                : globals_1.vatTypes.VATABLE}`,
             alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
             rowNumber,
         });
@@ -262,7 +262,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         rowNumber,
     });
     rowNumber += 1;
-    if (transaction.payment.mode === constants_1.saleTypes.CASH) {
+    if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         rowNumber += 1;
         reportTextFile.write({
             text: "   AMOUNT RECEIVED",
@@ -400,7 +400,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     });
     rowNumber += 1;
     rowNumber = writeFooter(reportTextFile, siteSettings, rowNumber);
-    if (transaction.status === constants_1.transactionStatuses.FULLY_PAID) {
+    if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
         rowNumber += 1;
         reportTextFile.write({
             text: isReprint ? "REPRINT ONLY" : siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.invoice_last_message,
@@ -409,8 +409,8 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         });
     }
     if ([
-        constants_1.transactionStatuses.VOID_EDITED,
-        constants_1.transactionStatuses.VOID_CANCELLED,
+        globals_1.transactionStatuses.VOID_EDITED,
+        globals_1.transactionStatuses.VOID_CANCELLED,
     ].includes(transaction.status)) {
         rowNumber += 2;
         reportTextFile.write({

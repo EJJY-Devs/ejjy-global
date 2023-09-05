@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getComputedDiscount = exports.calculateCashBreakdownTotal = exports.countDecimals = exports.calculateTableHeight = void 0;
-const constants_1 = require("constants");
+const globals_1 = require("globals");
 const calculateTableHeight = (listLength) => {
     const MAX_ROW_COUNT = 6;
-    return (constants_1.ROW_HEIGHT * (listLength <= MAX_ROW_COUNT ? listLength : MAX_ROW_COUNT));
+    return (globals_1.ROW_HEIGHT * (listLength <= MAX_ROW_COUNT ? listLength : MAX_ROW_COUNT));
 };
 exports.calculateTableHeight = calculateTableHeight;
 const countDecimals = (value) => {
