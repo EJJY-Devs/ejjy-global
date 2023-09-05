@@ -1,11 +1,13 @@
 {
   "name": "ejjy-global",
   "private": true,
-  "version": "0.0.9",
-  "type": "module",
+  "version": "0.0.10",
+  "main": "dist/myTypes.js",
+  "types": "dist/myTypes.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "tsc": "tsc",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "publish": "npm version patch --no-git-tag-version && git push"
