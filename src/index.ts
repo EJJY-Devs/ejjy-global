@@ -12,5 +12,7 @@ dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 dayjs.tz.setDefault("Asia/Manila");
 
-export * from "./types";
 export * from "./constants";
+export * from "./print";
+export * from "./types";
+export * from "./utils";
