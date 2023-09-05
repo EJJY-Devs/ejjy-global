@@ -1,11 +1,7 @@
 import { message } from "antd";
 import { DefaultOptionType } from "antd/lib/select";
-import {
-  attendanceCategories,
-  cashBreakdownCategories,
-  cashBreakdownTypes,
-  userTypes,
-} from "constants";
+import { attendanceCategories, cashBreakdownTypes, userTypes } from "constants";
+import { cashBreakdownCategories } from "constants/types";
 import _ from "lodash";
 import {
   AttendanceLogCategory,
