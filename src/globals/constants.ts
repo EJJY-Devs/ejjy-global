@@ -1,3 +1,7 @@
+export const LOCAL_API_URL = process.env.REACT_APP_LOCAL_API_URL;
+export const ONLINE_API_URL = process.env.REACT_APP_ONLINE_API_URL;
+export const EXPRESS_API_URL = process.env.REACT_APP_EXPRESS_API_URL;
+
 // Request
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;

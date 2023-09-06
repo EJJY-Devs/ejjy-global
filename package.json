@@ -1,7 +1,7 @@
 {
   "name": "ejjy-global",
   "private": true,
-  "version": "0.0.22",
+  "version": "0.0.23",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,14 +14,17 @@
   },
   "dependencies": {
     "antd": "^4.24.13",
+    "axios": "^0.20.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-query": "^3.34.15"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.197",
+    "@types/node": "^20.5.9",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^5.30.6",

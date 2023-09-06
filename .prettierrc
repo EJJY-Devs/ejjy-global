@@ -1,0 +1,22 @@
+{
+	"bracketSpacing": true,
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": true,
+	"trailingComma": "all",
+	"endOfLine": "auto",
+	"overrides": [
+		{
+			"files": ["*.css", "*.scss", ".prettierrc"],
+			"options": {
+				"tabWidth": 1
+			}
+		},
+		{
+			"files": ["*.tsx", "*.ts"],
+			"options": {
+				"tabWidth": 2
+			}
+		}
+	]
+}
