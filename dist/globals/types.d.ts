@@ -1,3 +1,4 @@
+import { AttendanceLogCategory } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -256,8 +257,8 @@ export declare const requisitionSlipDetailsType: {
     CREATE_EDIT: string;
 };
 export declare const attendanceCategories: {
-    ATTENDANCE: string;
-    TRACKER: string;
+    ATTENDANCE: AttendanceLogCategory;
+    TRACKER: AttendanceLogCategory;
 };
 export declare const attendanceTypes: {
     IN: string;

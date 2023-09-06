@@ -13,19 +13,18 @@ export interface UseRetrieveQuery<T = any> extends Omit<UseListQuery<T>, 'option
 export interface Mutate {
     options?: UseMutationOptions;
 }
-interface UseListQueryOptions<T> extends UseQueryOptions<ListResponseData<T>, Error, QueryResponse<T>> {
-}
-interface UseRetrieveQueryOptions<T> extends UseQueryOptions<T> {
-}
+type UseListQueryOptions<T> = UseQueryOptions<ListResponseData<T>, Error, QueryResponse<T>>;
+type UseRetrieveQueryOptions<T> = UseQueryOptions<T>;
 export interface UseListQueryParams {
     ordering?: string;
     page?: number;
     pageSize?: number;
     fields?: string;
     search?: string;
+    timeRange?: string;
 }
 interface ServiceOptions {
-    type: ServiceType;
-    baseURL: string;
+    type?: ServiceType;
+    baseURL?: string;
 }
 export {};

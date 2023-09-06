@@ -7,7 +7,7 @@ const services_1 = require("../services");
 const helper_1 = require("./helper");
 const useBranches = (data = {}) => {
     const { params, options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useBranches', params === null || params === void 0 ? void 0 : params.page, params === null || params === void 0 ? void 0 : params.pageSize], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchesService.list({
+    return (0, react_query_1.useQuery)(['useBranches', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchesService.list({
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
     }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ placeholderData: {

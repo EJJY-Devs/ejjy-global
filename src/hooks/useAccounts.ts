@@ -17,7 +17,7 @@ const useAccounts = (data: UseListQuery<Account, ListQueryParams> = {}) => {
 	const { params, options, serviceOptions } = data;
 
 	return useQuery<ListResponseData<Account>, Error, QueryResponse<Account>>(
-		['useAccounts', { ...params }],
+		['useAccounts', params],
 		() =>
 			wrapServiceWithCatch(
 				AccountsService.list(

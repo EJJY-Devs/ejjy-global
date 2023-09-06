@@ -18,22 +18,22 @@ const getSubtotal = (products) => {
 exports.getSubtotal = getSubtotal;
 const getFullName = (user) => {
     const name = [user === null || user === void 0 ? void 0 : user.first_name, user === null || user === void 0 ? void 0 : user.middle_name, user === null || user === void 0 ? void 0 : user.last_name].filter(Boolean);
-    return name.join(" ");
+    return name.join(' ');
 };
 exports.getFullName = getFullName;
 const getKeyDownCombination = (keyboardEvent) => {
-    let firstKey = "";
+    let firstKey = '';
     if (keyboardEvent === null || keyboardEvent === void 0 ? void 0 : keyboardEvent.altKey) {
-        firstKey = "alt+";
+        firstKey = 'alt+';
     }
     if (keyboardEvent === null || keyboardEvent === void 0 ? void 0 : keyboardEvent.ctrlKey) {
-        firstKey = "ctrl+";
+        firstKey = 'ctrl+';
     }
     if (keyboardEvent === null || keyboardEvent === void 0 ? void 0 : keyboardEvent.metaKey) {
-        firstKey = "meta+";
+        firstKey = 'meta+';
     }
     if (keyboardEvent === null || keyboardEvent === void 0 ? void 0 : keyboardEvent.shiftKey) {
-        firstKey = "shift+";
+        firstKey = 'shift+';
     }
     return firstKey + (keyboardEvent === null || keyboardEvent === void 0 ? void 0 : keyboardEvent.key);
 };
@@ -41,48 +41,48 @@ exports.getKeyDownCombination = getKeyDownCombination;
 const getUserTypeDescription = (userType) => {
     switch (userType) {
         case globals_1.userTypes.ADMIN:
-            return "Admin";
+            return 'Admin';
         case globals_1.userTypes.BRANCH_MANAGER:
-            return "Branch Manager";
+            return 'Branch Manager';
         case globals_1.userTypes.BRANCH_PERSONNEL:
-            return "Branch Personnel";
+            return 'Branch Personnel';
         case globals_1.userTypes.OFFICE_MANAGER:
-            return "Office Manager";
+            return 'Office Manager';
         default:
-            return "";
+            return '';
     }
 };
 exports.getUserTypeDescription = getUserTypeDescription;
 const getCashBreakdownTypeDescription = (category, type) => {
-    let description = "";
+    let description = '';
     if (category === globals_1.cashBreakdownCategories.CASH_BREAKDOWN) {
         switch (type) {
             case globals_1.cashBreakdownTypes.START_SESSION:
-                description = "Start Session";
+                description = 'Start Session';
                 break;
             case globals_1.cashBreakdownTypes.MID_SESSION:
-                description = "Cash Collection";
+                description = 'Cash Collection';
                 break;
             case globals_1.cashBreakdownTypes.END_SESSION:
-                description = "End Session";
+                description = 'End Session';
                 break;
             default:
-                description = "";
+                description = '';
         }
     }
     else if (category === globals_1.cashBreakdownCategories.CASH_IN) {
-        description = "Petty Cash | Cash In";
+        description = 'Petty Cash | Cash In';
     }
     return description;
 };
 exports.getCashBreakdownTypeDescription = getCashBreakdownTypeDescription;
 const getAttendanceLogDescription = (category, type) => {
-    let description = "";
+    let description = '';
     if (category === globals_1.attendanceCategories.ATTENDANCE) {
-        description = "Clock";
+        description = 'Clock';
     }
     else if (category === globals_1.attendanceCategories.TRACKER) {
-        description = "Time";
+        description = 'Time';
     }
     return `${description} ${lodash_1.default.upperFirst(type)}`;
 };
@@ -144,7 +144,7 @@ exports.filterOption = filterOption;
 // 	});
 // };
 const showErrorMessages = (errors) => {
-    if (typeof errors === "string") {
+    if (typeof errors === 'string') {
         antd_1.message.error(errors);
     }
     else if (Array.isArray(errors)) {

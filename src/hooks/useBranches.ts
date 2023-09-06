@@ -10,7 +10,7 @@ const useBranches = (data: UseListQuery<Branch> = {}) => {
 	const { params, options, serviceOptions } = data;
 
 	return useQuery<ListResponseData<Branch>, Error, QueryResponse<Branch>>(
-		['useBranches', params?.page, params?.pageSize],
+		['useBranches', params],
 		() =>
 			wrapServiceWithCatch(
 				BranchesService.list(

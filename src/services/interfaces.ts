@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosRequestConfig } from 'axios';
 import { ServiceType } from '../globals/enums';
 
 export interface ListQueryParams {
@@ -7,6 +7,7 @@ export interface ListQueryParams {
 	page_size?: number;
 	fields?: string;
 	search?: string;
+	time_range?: string;
 }
 
 export interface ListResponseData<T> {
@@ -16,18 +17,13 @@ export interface ListResponseData<T> {
 	results: T[];
 }
 
-export interface AxiosResponse<T = any> {
-	data: T;
-	status?: number;
-	statusText?: string;
-	headers?: any;
-	config?: AxiosRequestConfig;
-	request?: any;
-}
-
 export interface QueryResponse<T> {
 	list: T[];
 	total: number;
 }
 
 export type Endpoints = Record<ServiceType, string>;
+
+export interface AxiosErrorResponse<T = any> extends AxiosError<T> {
+	errors?: string | string[];
+}

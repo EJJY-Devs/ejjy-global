@@ -7,7 +7,7 @@ const helper_1 = require("./helper");
 const services_1 = require("../services");
 const useAccounts = (data = {}) => {
     const { params, options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useAccounts', Object.assign({}, params)], () => (0, helper_1.wrapServiceWithCatch)(services_1.AccountsService.list({
+    return (0, react_query_1.useQuery)(['useAccounts', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.AccountsService.list({
         account_code: params === null || params === void 0 ? void 0 : params.accountCode,
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,

@@ -22,10 +22,13 @@ export interface Mutate {
 	options?: UseMutationOptions;
 }
 
-interface UseListQueryOptions<T>
-	extends UseQueryOptions<ListResponseData<T>, Error, QueryResponse<T>> {}
+type UseListQueryOptions<T> = UseQueryOptions<
+	ListResponseData<T>,
+	Error,
+	QueryResponse<T>
+>;
 
-interface UseRetrieveQueryOptions<T> extends UseQueryOptions<T> {}
+type UseRetrieveQueryOptions<T> = UseQueryOptions<T>;
 
 export interface UseListQueryParams {
 	ordering?: string;
@@ -33,9 +36,10 @@ export interface UseListQueryParams {
 	pageSize?: number;
 	fields?: string;
 	search?: string;
+	timeRange?: string;
 }
 
 interface ServiceOptions {
-	type: ServiceType;
-	baseURL: string;
+	type?: ServiceType;
+	baseURL?: string;
 }
