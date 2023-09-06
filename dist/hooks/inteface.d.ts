@@ -1,8 +1,8 @@
 import { UseMutationOptions, UseQueryOptions } from 'react-query';
-import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { ServiceType } from '../globals/enums';
-export interface UseListQuery<T = any> {
-    params?: any;
+import { ListResponseData, QueryResponse } from '../services/interfaces';
+export interface UseListQuery<T = any, TParams extends UseListQueryParams = UseListQueryParams> {
+    params?: TParams;
     options?: UseListQueryOptions<T>;
     serviceOptions?: ServiceOptions;
 }
@@ -15,7 +15,14 @@ export interface Mutate {
 }
 interface UseListQueryOptions<T> extends UseQueryOptions<ListResponseData<T>, Error, QueryResponse<T>> {
 }
-interface UseRetrieveQueryOptions<T> extends UseQueryOptions<T, Error, T> {
+interface UseRetrieveQueryOptions<T> extends UseQueryOptions<T> {
+}
+export interface UseListQueryParams {
+    ordering?: string;
+    page?: number;
+    pageSize?: number;
+    fields?: string;
+    search?: string;
 }
 interface ServiceOptions {
     type: ServiceType;

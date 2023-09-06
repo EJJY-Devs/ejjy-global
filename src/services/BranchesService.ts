@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Branch } from '../types';
-import { Endpoints, ListRequest, ListResponseData } from './interfaces';
+import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 import { ServiceType } from '../globals/enums';
 
 interface Modify {
@@ -14,7 +14,7 @@ interface Ping {
 
 const service = {
 	list: async (
-		params: ListRequest,
+		params: ListQueryParams,
 		baseURL?: string,
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {

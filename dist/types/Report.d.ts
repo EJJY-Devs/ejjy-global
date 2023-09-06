@@ -1,10 +1,7 @@
-import { BranchMachine } from "./BranchMachine";
-import { CashieringSession } from "./CashieringSession";
-type GeneratedByUser = {
-    first_name?: string;
-    last_name?: string;
-    employee_id: string;
-};
+import { BranchMachine } from './BranchMachine';
+import { CashieringSession } from './CashieringSession';
+import { User } from './User';
+type GeneratedByUser = Pick<User, 'first_name' | 'last_name' | 'employee_id'>;
 type InvoiceOr = {
     or_number: string;
 };

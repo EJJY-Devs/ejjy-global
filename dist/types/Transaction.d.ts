@@ -1,9 +1,9 @@
-import { Account } from "./Account";
-import { BranchMachine } from "./BranchMachine";
-import { BranchProduct } from "./BranchProduct";
-import { DiscountOption } from "./DiscountOption";
-import { User } from "./User";
-import { BackOrder } from "./BackOrder";
+import { Account } from './Account';
+import { BranchMachine } from './BranchMachine';
+import { BranchProduct } from './BranchProduct';
+import { DiscountOption } from './DiscountOption';
+import { User } from './User';
+import { BackOrder } from './BackOrder';
 export interface Client {
     id: number;
     name?: string;
@@ -36,17 +36,12 @@ export interface Invoice {
 }
 export interface Payment {
     amount_tendered: string;
-    mode: "cash" | "credit_pay";
+    mode: 'cash' | 'credit_pay';
     credit_payment_authorizer: User;
     creditor_account_id: string;
     creditor_account: Account;
 }
-export interface Teller {
-    id: number;
-    first_name?: string;
-    last_name?: string;
-    employee_id: string;
-}
+export type Teller = Pick<User, 'id' | 'first_name' | 'last_name' | 'employee_id'>;
 export interface TransactionProduct {
     id: number;
     datetime_created: string;
@@ -71,7 +66,7 @@ export interface Transaction {
     id: number;
     datetime_created: string;
     overall_discount: string;
-    status: "new" | "hold" | "void_cancelled" | "void_edited" | "fully_paid";
+    status: 'new' | 'hold' | 'void_cancelled' | 'void_edited' | 'fully_paid';
     client: Client;
     reverse: string;
     gross_amount: number;

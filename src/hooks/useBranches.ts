@@ -6,14 +6,7 @@ import { Branch } from '../types';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
 
-interface ListQuery extends UseListQuery<Branch> {
-	params?: {
-		page?: number;
-		pageSize?: number;
-	};
-}
-
-const useBranches = (data: ListQuery = {}) => {
+const useBranches = (data: UseListQuery<Branch> = {}) => {
 	const { params, options, serviceOptions } = data;
 
 	return useQuery<ListResponseData<Branch>, Error, QueryResponse<Branch>>(
@@ -46,7 +39,7 @@ const useBranches = (data: ListQuery = {}) => {
 export const useBranchRetrieve = (data: UseRetrieveQuery<Branch>) => {
 	const { id, options, serviceOptions } = data;
 
-	return useQuery<Branch, Error>(
+	return useQuery<Branch>(
 		['useBranchRetrieve', id],
 		() =>
 			wrapServiceWithCatch(

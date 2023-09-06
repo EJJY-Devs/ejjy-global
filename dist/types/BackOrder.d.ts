@@ -1,12 +1,7 @@
-import { Product } from "./Product";
-import { Transaction } from "./Transaction";
-type User = {
-    id: number;
-    user_type: "admin" | "office_manager" | "branch_manager" | "branch_personnel";
-    first_name?: string;
-    last_name?: string;
-    employee_id: string;
-};
+import { Product } from './Product';
+import { Transaction } from './Transaction';
+import { User } from './User';
+export type BackOrderUser = Pick<User, 'id' | 'user_type' | 'first_name' | 'last_name' | 'employee_id'>;
 export interface BackOrderProduct {
     id: number;
     quantity_returned: string;
@@ -21,17 +16,17 @@ export interface BackOrder {
     datetime_created: string;
     datetime_sent?: string;
     datetime_received?: string;
-    sender: User;
-    receiver: User;
+    sender: BackOrderUser;
+    receiver: BackOrderUser;
     products: BackOrderProduct[];
     status: string;
     overall_remarks?: string;
-    type: "for_return" | "damaged";
+    type: 'for_return' | 'damaged';
     transaction: Transaction;
     supplier_name?: string;
     supplier_address?: string;
     supplier_tin?: string;
-    encoded_by: User;
+    encoded_by: BackOrderUser;
 }
 type CreateBackOrderProduct = {
     quantity_returned: string;
@@ -44,7 +39,7 @@ export interface CreateBackOrder {
     products: CreateBackOrderProduct[];
     transaction_id: number;
     overall_remarks: string;
-    type: "for_return" | "damaged";
+    type: 'for_return' | 'damaged';
     supplier_name?: string;
     supplier_address?: string;
     supplier_tin?: string;

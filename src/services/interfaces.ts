@@ -1,8 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
-import { serviceTypes } from '../globals';
 import { ServiceType } from '../globals/enums';
 
-export interface ListRequest {
+export interface ListQueryParams {
 	ordering?: string;
 	page?: number;
 	page_size?: number;
