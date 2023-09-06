@@ -1,4 +1,5 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from 'axios';
+import { ServiceType } from '../globals/enums';
 export interface ListRequest {
     ordering?: string;
     page?: number;
@@ -24,3 +25,4 @@ export interface QueryResponse<T> {
     list: T[];
     total: number;
 }
+export type Endpoints = Record<ServiceType, string>;
