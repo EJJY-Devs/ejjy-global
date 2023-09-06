@@ -1,6 +1,7 @@
 export declare const LOCAL_API_URL: string | undefined;
 export declare const ONLINE_API_URL: string | undefined;
 export declare const EXPRESS_API_URL: string | undefined;
+export declare const API_TIMEOUT_MS = 0;
 export declare const DEFAULT_PAGE = 1;
 export declare const DEFAULT_PAGE_SIZE = 10;
 export declare const MAX_PAGE_SIZE = 500;
