@@ -7,7 +7,7 @@ import { UseListQuery, UseListQueryParams, UseRetrieveQuery } from './inteface';
 import { AccountsService } from '../services';
 
 interface ListQueryParams extends UseListQueryParams {
-	accountCode: string;
+	accountCode?: string;
 	type?: string;
 	withCreditRegistration?: boolean;
 	withSupplierRegistration?: boolean;
