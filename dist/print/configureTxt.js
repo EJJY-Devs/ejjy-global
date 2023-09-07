@@ -7,14 +7,14 @@ exports.createZReadTxt = exports.createDailySalesTxt = exports.createXReadTxt = 
 const globals_1 = require("../globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../utils");
-const PESO_SIGN = "P";
-const EMPTY_CELL = "";
-const UNDERLINE_TEXT = "---------";
+const PESO_SIGN = 'P';
+const EMPTY_CELL = '';
+const UNDERLINE_TEXT = '---------';
 const writeHeader = (reportTextFile, siteSettings, branchMachine, rowNumber, title) => {
     const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine;
     if (storeName) {
-        const storeNames = storeName.trim().split("\n");
+        const storeNames = storeName.trim().split('\n');
         storeNames.forEach((item) => {
             reportTextFile.write({
                 text: item,
@@ -25,7 +25,7 @@ const writeHeader = (reportTextFile, siteSettings, branchMachine, rowNumber, tit
         });
     }
     if (location) {
-        const locations = location.trim().split("\n");
+        const locations = location.trim().split('\n');
         locations.forEach((item) => {
             reportTextFile.write({
                 text: item,
@@ -84,7 +84,7 @@ const writeFooter = (reportTextFile, siteSettings, rowNumber) => {
     });
     rowNumber += 1;
     if (softwareDeveloperAddress) {
-        const locations = softwareDeveloperAddress.trim().split("\n");
+        const locations = softwareDeveloperAddress.trim().split('\n');
         locations.forEach((name) => {
             reportTextFile.write({
                 text: name,
@@ -138,16 +138,16 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         discountOptionFields = JSON.parse(transaction === null || transaction === void 0 ? void 0 : transaction.discount_option_additional_fields_values);
     }
     // Set client name
-    let title = "";
+    let title = '';
     if (transaction.payment.mode === globals_1.saleTypes.CASH) {
-        title = "CASH SALES INVOICE";
+        title = 'CASH SALES INVOICE';
     }
     else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
-        title = "CHARGE SALES INVOICE";
+        title = 'CHARGE SALES INVOICE';
     }
     // Set client fields
     let fields = [];
-    if (discountOptionFields && typeof discountOptionFields === "object") {
+    if (discountOptionFields && typeof discountOptionFields === 'object') {
         fields = Object.keys(discountOptionFields).map((key) => ({
             key,
             value: discountOptionFields ? discountOptionFields[key] : EMPTY_CELL,
@@ -157,22 +157,22 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         ((_h = transaction.payment) === null || _h === void 0 ? void 0 : _h.creditor_account)) {
         fields = [
             {
-                key: "NAME",
+                key: 'NAME',
                 value: ((_j = transaction.client) === null || _j === void 0 ? void 0 : _j.name) ||
                     (0, utils_1.getFullName)((_k = transaction.payment) === null || _k === void 0 ? void 0 : _k.creditor_account) ||
-                    "",
+                    '',
             },
             {
-                key: "TIN",
+                key: 'TIN',
                 value: ((_l = transaction.client) === null || _l === void 0 ? void 0 : _l.tin) ||
                     ((_o = (_m = transaction.payment) === null || _m === void 0 ? void 0 : _m.creditor_account) === null || _o === void 0 ? void 0 : _o.tin) ||
-                    "",
+                    '',
             },
             {
-                key: "ADDRESS",
+                key: 'ADDRESS',
                 value: ((_p = transaction.client) === null || _p === void 0 ? void 0 : _p.address) ||
                     ((_r = (_q = transaction.payment) === null || _q === void 0 ? void 0 : _q.creditor_account) === null || _r === void 0 ? void 0 : _r.home_address) ||
-                    "",
+                    '',
             },
         ];
     }
@@ -203,14 +203,14 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         rowNumber += 1;
     });
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     if (transaction.discount_option) {
         reportTextFile.write({
-            text: "GROSS AMOUNT",
+            text: 'GROSS AMOUNT',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
             rowNumber,
         });
@@ -233,7 +233,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         rowNumber += 1;
         if (transaction.discount_option.is_special_discount) {
             reportTextFile.write({
-                text: "VAT AMOUNT",
+                text: 'VAT AMOUNT',
                 alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
                 rowNumber,
             });
@@ -245,14 +245,14 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
             rowNumber += 1;
         }
         reportTextFile.write({
-            text: "----------------",
+            text: '----------------',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
             rowNumber,
         });
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "TOTAL AMOUNT",
+        text: 'TOTAL AMOUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -265,7 +265,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         rowNumber += 1;
         reportTextFile.write({
-            text: "   AMOUNT RECEIVED",
+            text: '   AMOUNT RECEIVED',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
             rowNumber,
         });
@@ -276,7 +276,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         });
         rowNumber += 1;
         reportTextFile.write({
-            text: "   AMOUNT DUE",
+            text: '   AMOUNT DUE',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
             rowNumber,
         });
@@ -287,7 +287,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
         });
         rowNumber += 1;
         reportTextFile.write({
-            text: "   CHANGE",
+            text: '   CHANGE',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
             rowNumber,
         });
@@ -300,7 +300,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     }
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Exempt",
+        text: 'VAT Exempt',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -311,7 +311,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VATable Sales",
+        text: 'VATable Sales',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -322,7 +322,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Amount (12%)",
+        text: 'VAT Amount (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -333,7 +333,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ZERO Rated",
+        text: 'ZERO Rated',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -403,7 +403,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
         rowNumber += 1;
         reportTextFile.write({
-            text: isReprint ? "REPRINT ONLY" : siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.invoice_last_message,
+            text: isReprint ? 'REPRINT ONLY' : siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.invoice_last_message,
             alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
             rowNumber,
         });
@@ -414,7 +414,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     ].includes(transaction.status)) {
         rowNumber += 2;
         reportTextFile.write({
-            text: "VOIDED TRANSACTION",
+            text: 'VOIDED TRANSACTION',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
             rowNumber,
         });
@@ -441,7 +441,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     if (report.gross_sales === 0) {
         rowNumber += 1;
         reportTextFile.write({
-            text: "NO TRANSACTION",
+            text: 'NO TRANSACTION',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
             rowNumber,
         });
@@ -449,14 +449,14 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "X-READ",
+        text: 'X-READ',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "INVOICE NUMBER",
+        text: 'INVOICE NUMBER',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -474,7 +474,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "SALES",
+        text: 'SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -498,7 +498,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "TRANSACTION COUNT",
+        text: 'TRANSACTION COUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -523,14 +523,14 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "CURRENT SALES BREAKDOWN",
+        text: 'CURRENT SALES BREAKDOWN',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "CASH SALES",
+        text: 'CASH SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -541,7 +541,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "CREDIT SALES",
+        text: 'CREDIT SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -560,7 +560,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -572,7 +572,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Exempt",
+        text: 'VAT Exempt',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -583,7 +583,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VATable Sales",
+        text: 'VATable Sales',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -594,7 +594,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Amount (12%)",
+        text: 'VAT Amount (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -605,7 +605,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ZERO Rated",
+        text: 'ZERO Rated',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -616,13 +616,13 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -633,7 +633,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   REG. DISCOUNT",
+        text: '   REG. DISCOUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -644,7 +644,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -655,7 +655,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VOIDED SALES",
+        text: '   VOIDED SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -666,7 +666,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VAT AMOUNT (12%)",
+        text: '   VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -685,7 +685,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "NET SALES",
+        text: 'NET SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -696,19 +696,19 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ADJUSTMENT ON VAT:",
+        text: 'ADJUSTMENT ON VAT:',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -719,7 +719,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   OTHERS",
+        text: '   OTHERS',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -738,7 +738,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "   TOTAL",
+        text: '   TOTAL',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -749,13 +749,13 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT AMOUNT (12%)",
+        text: 'VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -766,7 +766,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT ADJ.",
+        text: 'VAT ADJ.',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -785,7 +785,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "VAT PAYABLE",
+        text: 'VAT PAYABLE',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -839,7 +839,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     rowNumber = writeHeader(reportTextFile, siteSettings, branchMachine, rowNumber);
     rowNumber += 1;
     reportTextFile.write({
-        text: "DAILY SALES",
+        text: 'DAILY SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -851,7 +851,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "CASH SALES",
+        text: 'CASH SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -862,7 +862,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "CREDIT SALES",
+        text: 'CREDIT SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -873,7 +873,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -885,7 +885,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Exempt",
+        text: 'VAT Exempt',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -896,7 +896,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VATable Sales",
+        text: 'VATable Sales',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -907,7 +907,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Amount (12%)",
+        text: 'VAT Amount (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -918,7 +918,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ZERO Rated",
+        text: 'ZERO Rated',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -929,13 +929,13 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -946,7 +946,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   REG. DISCOUNT",
+        text: '   REG. DISCOUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -957,7 +957,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -968,7 +968,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VOIDED SALES",
+        text: '   VOIDED SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -979,7 +979,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VAT AMOUNT (12%)",
+        text: '   VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -990,7 +990,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "NET SALES",
+        text: 'NET SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1001,19 +1001,19 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ADJUSTMENT ON VAT:",
+        text: 'ADJUSTMENT ON VAT:',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1024,7 +1024,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   OTHERS",
+        text: '   OTHERS',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1035,7 +1035,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   TOTAL",
+        text: '   TOTAL',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1046,13 +1046,13 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT AMOUNT (12%)",
+        text: 'VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1063,7 +1063,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT ADJ.",
+        text: 'VAT ADJ.',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1074,7 +1074,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT PAYABLE",
+        text: 'VAT PAYABLE',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1123,7 +1123,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     if (report.total_transactions === 0) {
         rowNumber += 1;
         reportTextFile.write({
-            text: "NO TRANSACTION",
+            text: 'NO TRANSACTION',
             alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
             rowNumber,
         });
@@ -1131,14 +1131,14 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "Z-READ",
+        text: 'Z-READ',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "INVOICE NUMBER",
+        text: 'INVOICE NUMBER',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1156,7 +1156,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "SALES",
+        text: 'SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1180,7 +1180,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "TRANSACTION COUNT",
+        text: 'TRANSACTION COUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1205,14 +1205,14 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "ACCUMULATED SALES BREAKDOWN",
+        text: 'ACCUMULATED SALES BREAKDOWN',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "CASH SALES",
+        text: 'CASH SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1223,7 +1223,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "CREDIT SALES",
+        text: 'CREDIT SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1242,7 +1242,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1254,7 +1254,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     rowNumber += 1;
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Exempt",
+        text: 'VAT Exempt',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1265,7 +1265,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Sales",
+        text: 'VAT Sales',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1276,7 +1276,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT Amount (12%)",
+        text: 'VAT Amount (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1287,7 +1287,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ZERO Rated",
+        text: 'ZERO Rated',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1298,13 +1298,13 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "GROSS SALES",
+        text: 'GROSS SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1315,7 +1315,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   REG. DISCOUNT",
+        text: '   REG. DISCOUNT',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1326,7 +1326,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1337,7 +1337,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VOIDED SALES",
+        text: '   VOIDED SALES',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1348,7 +1348,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   VAT AMOUNT (12%)",
+        text: '   VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1367,7 +1367,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "ACCUM. GRAND TOTAL",
+        text: 'ACCUM. GRAND TOTAL',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1378,19 +1378,19 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "ADJUSTMENT ON VAT:",
+        text: 'ADJUSTMENT ON VAT:',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   SC/PWD",
+        text: '   SC/PWD',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1401,7 +1401,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "   OTHERS",
+        text: '   OTHERS',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1420,7 +1420,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "   TOTAL",
+        text: '   TOTAL',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1431,13 +1431,13 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "----------------",
+        text: '----------------',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT AMOUNT (12%)",
+        text: 'VAT AMOUNT (12%)',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1448,7 +1448,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: "VAT ADJ.",
+        text: 'VAT ADJ.',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1467,7 +1467,7 @@ const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent
         rowNumber += 1;
     }
     reportTextFile.write({
-        text: "VAT PAYABLE",
+        text: 'VAT PAYABLE',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });

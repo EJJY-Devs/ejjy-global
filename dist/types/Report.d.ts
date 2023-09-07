@@ -5,10 +5,6 @@ type GeneratedByUser = Pick<User, 'first_name' | 'last_name' | 'employee_id'>;
 type InvoiceOr = {
     or_number: string;
 };
-type DailySalesData = {
-    date: string;
-    cashier: GeneratedByUser;
-};
 export interface XReadReport {
     id: number;
     location?: string;
@@ -40,7 +36,6 @@ export interface XReadReport {
     void: string;
     vat_12_percent: number;
     cashiering_session: CashieringSession;
-    daily_sales_data: DailySalesData;
     branch_machine: BranchMachine;
     regular_discount: string;
     vat_regular_discount: string;
@@ -53,6 +48,13 @@ export interface XReadReport {
     others: number;
     printing_datetime?: string;
     generation_datetime?: string;
+}
+type DailySalesData = {
+    date: string;
+    cashier: GeneratedByUser;
+};
+export interface DailySales extends XReadReport {
+    daily_sales_data: DailySalesData;
 }
 export interface ZReadReport {
     id: number;

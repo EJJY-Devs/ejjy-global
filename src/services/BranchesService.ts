@@ -52,7 +52,7 @@ const service = {
 	},
 
 	create: async (body: Modify, baseURL: string) =>
-		axios.post('/branches/', body, { baseURL }),
+		axios.post<Branch>('/branches/', body, { baseURL }),
 
 	edit: async (id: number, body: Modify, baseURL: string) =>
 		axios.patch(`/branches/${id}/`, body, { baseURL }),
