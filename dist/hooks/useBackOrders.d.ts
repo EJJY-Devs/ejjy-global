@@ -13,8 +13,8 @@ export declare const useBackOrdersCreate: () => import("react-query").UseMutatio
     encodedById: number;
     transactionId: number;
     products: {
-        productId: number;
-        quantityReturned: number;
+        product_id: number;
+        quantity_returned: number;
     }[];
     type: string;
 }, unknown>;

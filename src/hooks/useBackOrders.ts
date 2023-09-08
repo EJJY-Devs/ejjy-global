@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
-import { CamelCasedPropertiesDeep } from 'type-fest';
+import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { BackOrdersService } from '../services';
 import { Create } from '../services/BackOrdersService';
@@ -66,8 +66,8 @@ export const useBackOrdersCreate = () =>
 	useMutation<
 		AxiosResponse<BackOrder>,
 		AxiosErrorResponse,
-		CamelCasedPropertiesDeep<Create>
-	>(({ senderId, encodedById, transactionId, products, type }: any) =>
+		CamelCasedProperties<Create>
+	>(({ senderId, encodedById, transactionId, products, type }) =>
 		BackOrdersService.create({
 			sender_id: senderId,
 			encoded_by_id: encodedById,
