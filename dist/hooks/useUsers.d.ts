@@ -1,8 +1,7 @@
-export declare const useUsers: () => {
-    authenticateUser: (data: any, extraCallback?: null) => void;
-    listOfflineUsers: (extraCallback?: null) => void;
-    status: any;
-    errors: any;
-    reset: () => void;
-};
-export declare const useUsersAuthenticate: () => import("react-query").UseMutationResult<any, any, any, unknown>;
+import { AxiosResponse } from 'axios';
+import { AxiosErrorResponse } from '../services/interfaces';
+export declare const useUsersAuthenticate: () => import("react-query").UseMutationResult<AxiosResponse<string | boolean>, AxiosErrorResponse<any>, {
+    login: string;
+    password: string;
+    description?: string | undefined;
+}, unknown>;

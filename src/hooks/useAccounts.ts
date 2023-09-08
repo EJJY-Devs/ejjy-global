@@ -1,19 +1,16 @@
 import { useQuery } from 'react-query';
+import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
+import { AccountsService } from '../services';
+import { Params } from '../services/AccountsService';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { Account } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery, UseListQueryParams, UseRetrieveQuery } from './inteface';
-import { AccountsService } from '../services';
+import { UseListQuery, UseRetrieveQuery } from './inteface';
 
-interface ListQueryParams extends UseListQueryParams {
-	accountCode?: string;
-	type?: string;
-	withCreditRegistration?: boolean;
-	withSupplierRegistration?: boolean;
-}
-
-const useAccounts = (data: UseListQuery<Account, ListQueryParams> = {}) => {
+const useAccounts = (
+	data: UseListQuery<Account, CamelCasedProperties<Params>> = {},
+) => {
 	const { params, options, serviceOptions } = data;
 
 	return useQuery<ListResponseData<Account>, Error, QueryResponse<Account>>(

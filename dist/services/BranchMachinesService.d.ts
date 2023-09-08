@@ -1,10 +1,10 @@
 import { ServiceType } from '../globals';
 import { BranchMachine } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
     branch_id?: number;
 }
-interface Ping {
+export interface Ping {
     online_branch_machine_id: number;
 }
 declare const service: {

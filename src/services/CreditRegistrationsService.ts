@@ -1,8 +1,7 @@
 import axios from 'axios';
-
-import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 import { ServiceType } from '../globals';
 import { CreditRegistration } from '../types';
+import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
 const service = {
 	list: async (

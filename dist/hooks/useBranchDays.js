@@ -1,10 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useBranchDayEdit = exports.useBranchDayCreate = exports.useBranchDayRetrieve = void 0;
-const helper_1 = require("hooks/helper");
 const react_query_1 = require("react-query");
-const services_1 = require("services");
-const useBranchDayRetrieve = ({ options } = {}) => (0, react_query_1.useQuery)(['useBackOrderRetrieve'], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchDaysService.retrieveToday()), Object.assign({ select: (query) => query.data }, options));
+const services_1 = require("../services");
+const helper_1 = require("./helper");
+const useBranchDayRetrieve = (data = {}) => {
+    const { options, serviceOptions } = data;
+    return (0, react_query_1.useQuery)(['useBranchDayRetrieve'], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchDaysService.retrieveToday(serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ placeholderData: {
+            results: [],
+            count: 0,
+        }, select: (query) => ({
+            list: query.results,
+            total: query.count,
+        }) }, options));
+};
 exports.useBranchDayRetrieve = useBranchDayRetrieve;
 const useBranchDayCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, startedById }) => services_1.BranchDaysService.create({
     branch_machine_id: branchMachineId,

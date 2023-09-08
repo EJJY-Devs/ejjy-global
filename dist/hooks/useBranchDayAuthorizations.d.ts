@@ -1,3 +1,8 @@
-import { UseListQuery } from './inteface';
-declare const useBranchDayAuthorizations: ({ params, options }: UseListQuery) => import("react-query").UseQueryResult<import("../services/interfaces").QueryResponse<any>, Error>;
+import { QueryResponse } from '../services/interfaces';
+import { BranchDayAuthorization } from '../types';
+import { UseListQuery, UseListQueryParams } from './inteface';
+interface ListQueryParams extends UseListQueryParams {
+    branchId?: number;
+}
+declare const useBranchDayAuthorizations: (data?: UseListQuery<BranchDayAuthorization, ListQueryParams>) => import("react-query").UseQueryResult<QueryResponse<BranchDayAuthorization>, Error>;
 export default useBranchDayAuthorizations;

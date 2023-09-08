@@ -25,7 +25,7 @@ const useDailySales = (data = {}) => {
 };
 const useDailySalesCreate = () => {
     const queryClient = (0, react_query_1.useQueryClient)();
-    return (0, react_query_1.useMutation)(({ cashieringSessionIds, userId }) => DailySalesService_1.default.create({
+    return (0, react_query_1.useMutation)(({ cashieringSessionIds, generatedById: userId }) => DailySalesService_1.default.create({
         generated_by_id: userId,
         cashiering_session_ids: cashieringSessionIds,
     }), {

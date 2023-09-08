@@ -2,7 +2,7 @@ import axios from 'axios';
 import { UserLog } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	acting_user_id?: number;
 	type?: string;
 }

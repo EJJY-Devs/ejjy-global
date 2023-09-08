@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { ServiceType } from '../globals';
-import { Endpoints } from './interfaces';
+import { Endpoints, ListQueryParams } from './interfaces';
 import { SiteSettings } from '../types';
 
+export interface Params extends ListQueryParams {
+	branch_id?: number;
+}
+
 const service = {
-	get: async (
+	retrieve: async (
+		params: Params,
 		baseURL?: string,
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
@@ -14,6 +19,7 @@ const service = {
 		};
 
 		const response = await axios.get<SiteSettings>(endpoints[serviceType], {
+			params,
 			baseURL,
 		});
 

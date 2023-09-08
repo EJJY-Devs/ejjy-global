@@ -1,9 +1,9 @@
 import { BranchDay } from '../types';
-interface Create {
+export interface Create {
     branch_machine_id: number;
     started_by_id: number;
 }
-interface Edit {
+export interface Edit {
     branch_machine_id: number;
     ended_by_id: number;
     is_automatically_closed?: boolean;

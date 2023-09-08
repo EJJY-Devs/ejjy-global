@@ -1,16 +1,17 @@
-import { UseListQuery } from './inteface';
-export declare const useTransactions: () => {
-    listTransactions: (data: any, extraCallback?: null) => void;
-    getTransaction: (transactionId: any, extraCallback?: null) => void;
-    createTransaction: (data: any, extraCallback?: null) => void;
-    updateTransaction: (data: any, extraCallback?: null) => void;
-    removeTransaction: (id: any, extraCallback?: null) => void;
-    payTransaction: (data: any, extraCallback?: null) => void;
-    voidTransaction: (data: any, extraCallback?: null) => void;
-    status: any;
-    errors: any;
-};
-declare const useTransactionsNew: ({ params, options }: UseListQuery) => import("react-query").UseQueryResult<TQueryFnData, unknown>;
-export declare const useTransactionRetrieve: ({ id, options }: UseListQuery) => import("react-query").UseQueryResult<TQueryFnData, unknown>;
-export declare const useTransactionComputeDiscount: () => import("react-query").UseMutationResult<any, any, any, unknown>;
-export default useTransactionsNew;
+import { AxiosResponse } from 'axios';
+import { CamelCasedProperties } from 'type-fest';
+import { ComputeDiscountResponse, Params } from '../services/TransactionsService';
+import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
+import { Transaction } from '../types';
+import { UseListQuery, UseRetrieveQuery } from './inteface';
+declare const useTransactions: (data?: UseListQuery<Transaction, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<Transaction>, Error>;
+export declare const useTransactionRetrieve: (data: UseRetrieveQuery<Transaction>) => import("react-query").UseQueryResult<any, unknown>;
+export declare const useTransactionComputeDiscount: () => import("react-query").UseMutationResult<AxiosResponse<ComputeDiscountResponse>, AxiosErrorResponse<any>, {
+    branchProducts: {
+        id: number;
+        quantity: number;
+    }[];
+    discountAmount: string;
+    discountOptionId: number;
+}, unknown>;
+export default useTransactions;

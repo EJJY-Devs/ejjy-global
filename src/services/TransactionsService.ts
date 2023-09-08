@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ListQueryParams, ListResponseData } from './interfaces';
 import { Branch, Transaction } from '../types';
+import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	is_adjusted?: boolean;
 	statuses?: string;
 	teller_id?: number;
@@ -13,7 +13,7 @@ type ComputeDiscountBranchProducts = {
 	quantity: number;
 };
 
-interface ComputeDiscount {
+export interface ComputeDiscount {
 	branch_products: ComputeDiscountBranchProducts[];
 	discount_amount: string;
 	discount_option_id: number;

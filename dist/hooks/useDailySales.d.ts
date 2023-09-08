@@ -1,14 +1,12 @@
 import { AxiosResponse } from 'axios';
+import { CamelCasedProperties } from 'type-fest';
+import { Params } from '../services/DailySalesService';
 import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
 import { DailySales } from '../types';
-import { UseListQuery, UseListQueryParams } from './inteface';
-interface ListQueryParams extends UseListQueryParams {
-    isWithDailySalesData?: boolean;
-}
-declare const useDailySales: (data?: UseListQuery<DailySales, ListQueryParams>) => import("react-query").UseQueryResult<QueryResponse<DailySales>, Error>;
-interface CreateBody {
+import { UseListQuery } from './inteface';
+declare const useDailySales: (data?: UseListQuery<DailySales, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<DailySales>, Error>;
+export declare const useDailySalesCreate: () => import("react-query").UseMutationResult<AxiosResponse<DailySales>, AxiosErrorResponse<any>, {
+    generatedById: number;
     cashieringSessionIds: string;
-    userId: number;
-}
-export declare const useDailySalesCreate: () => import("react-query").UseMutationResult<AxiosResponse<DailySales>, AxiosErrorResponse<any>, CreateBody, unknown>;
+}, unknown>;
 export default useDailySales;

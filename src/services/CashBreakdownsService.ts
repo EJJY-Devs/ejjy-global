@@ -6,11 +6,11 @@ import {
 } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	cashiering_session_id?: number;
 }
 
-interface Create {
+export interface Create {
 	bills_100: number;
 	bills_1000: number;
 	bills_20: number;

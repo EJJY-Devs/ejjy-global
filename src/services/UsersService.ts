@@ -3,7 +3,7 @@ import { ServiceType } from '../globals';
 import { User } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
-interface AuthenticateAnAction {
+export interface AuthenticateAnAction {
 	login: string;
 	password: string;
 	description?: string;

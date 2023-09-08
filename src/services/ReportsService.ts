@@ -3,11 +3,11 @@ import axios from 'axios';
 export type BulkExportData = {
 	folder_name: string;
 	file_name: string;
-	contents: string;
+	contents: string | null;
 };
 
 interface BulkExport {
-	data: BulkExportData[];
+	data?: BulkExportData[];
 }
 
 interface Generate {
@@ -16,10 +16,10 @@ interface Generate {
 
 const service = {
 	bulkExportReports: async (body: BulkExport) =>
-		axios.post('/reports/bulk-export/', body),
+		axios.post<string>('/reports/bulk-export/', body),
 
 	generate: async (body: Generate) =>
-		axios.post('/reports/generate-reports/', body),
+		axios.post<boolean>('/reports/generate-reports/', body),
 };
 
 export default service;

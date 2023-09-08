@@ -9,25 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ejjy_global_1 = require("ejjy-global");
-const helper_1 = require("hooks/helper");
 const react_query_1 = require("react-query");
-const services_1 = require("services");
-const useBirReports = ({ params, options }) => (0, react_query_1.useQuery)([
-    'useBirReports',
-    params === null || params === void 0 ? void 0 : params.branchMachineId,
-    params === null || params === void 0 ? void 0 : params.page,
-    params === null || params === void 0 ? void 0 : params.pageSize,
-    params === null || params === void 0 ? void 0 : params.timeRange,
-], () => __awaiter(void 0, void 0, void 0, function* () {
-    return (0, helper_1.wrapServiceWithCatch)(services_1.BirReportsService.list({
-        branch_machine_id: params === null || params === void 0 ? void 0 : params.branchMachineId,
-        page: (params === null || params === void 0 ? void 0 : params.page) || ejjy_global_1.DEFAULT_PAGE,
-        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || ejjy_global_1.DEFAULT_PAGE_SIZE,
-        time_range: params === null || params === void 0 ? void 0 : params.timeRange,
-    }));
-}), Object.assign({ initialData: { data: { results: [], count: 0 } }, select: (query) => ({
-        birReports: query.data.results,
-        total: query.data.count,
-    }) }, options));
+const globals_1 = require("../globals");
+const services_1 = require("../services");
+const helper_1 = require("./helper");
+const useBirReports = (data = {}) => {
+    const { params, options, serviceOptions } = data;
+    return (0, react_query_1.useQuery)(['useBirReports', params], () => __awaiter(void 0, void 0, void 0, function* () {
+        return (0, helper_1.wrapServiceWithCatch)(services_1.BirReportsService.list({
+            branch_machine_id: params === null || params === void 0 ? void 0 : params.branchMachineId,
+            page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
+            page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
+            time_range: params === null || params === void 0 ? void 0 : params.timeRange,
+        }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL));
+    }), Object.assign({ placeholderData: {
+            results: [],
+            count: 0,
+        }, select: (query) => ({
+            list: query.results,
+            total: query.count,
+        }) }, options));
+};
 exports.default = useBirReports;

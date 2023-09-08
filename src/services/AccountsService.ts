@@ -3,7 +3,7 @@ import { ServiceType } from '../globals/enums';
 import { Account } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	account_code?: string;
 	type?: string;
 	with_credit_registration?: boolean;

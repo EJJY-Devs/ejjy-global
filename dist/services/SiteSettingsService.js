@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const globals_1 = require("../globals");
 const service = {
-    get: (baseURL, serviceType = globals_1.ServiceType.ONLINE) => __awaiter(void 0, void 0, void 0, function* () {
+    retrieve: (params, baseURL, serviceType = globals_1.ServiceType.ONLINE) => __awaiter(void 0, void 0, void 0, function* () {
         const endpoints = {
             [globals_1.ServiceType.ONLINE]: 'site-settings/single/',
             [globals_1.ServiceType.OFFLINE]: 'offline-site-settings/single/',
         };
         const response = yield axios_1.default.get(endpoints[serviceType], {
+            params,
             baseURL,
         });
         return response.data;

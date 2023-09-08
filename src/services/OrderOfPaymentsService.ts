@@ -3,7 +3,7 @@ import { ServiceType } from '../globals';
 import { OrderOfPayment } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	is_pending?: boolean;
 }
 

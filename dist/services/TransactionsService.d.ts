@@ -1,6 +1,6 @@
-import { ListQueryParams, ListResponseData } from './interfaces';
 import { Branch, Transaction } from '../types';
-interface Params extends ListQueryParams {
+import { ListQueryParams, ListResponseData } from './interfaces';
+export interface Params extends ListQueryParams {
     is_adjusted?: boolean;
     statuses?: string;
     teller_id?: number;
@@ -9,7 +9,7 @@ type ComputeDiscountBranchProducts = {
     id: number;
     quantity: number;
 };
-interface ComputeDiscount {
+export interface ComputeDiscount {
     branch_products: ComputeDiscountBranchProducts[];
     discount_amount: string;
     discount_option_id: number;

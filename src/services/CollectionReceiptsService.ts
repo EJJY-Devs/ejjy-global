@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CollectionReceipt } from '../types';
 
-interface Create {
+export interface Create {
 	amount: string;
 	bank_branch?: string;
 	bank_name?: string;

@@ -1,31 +1,44 @@
 import dayjs from 'dayjs';
+import { useMutation, useQuery } from 'react-query';
+import { DEFAULT_PAGE, MAX_PAGE_SIZE } from '../globals';
+import { wrapServiceWithCatch } from '../hooks/helper';
 import {
-	DEFAULT_PAGE,
-	MAX_PAGE_SIZE,
-	ZReadReport,
 	createSalesInvoiceTxt,
 	createXReadTxt,
 	createZReadTxt,
-} from 'ejjy-global';
-import { wrapServiceWithCatch } from 'hooks/helper';
-import { useMutation, useQuery } from 'react-query';
+} from '../print';
 import {
 	ReportsService,
 	TransactionsService,
 	XReadReportsService,
 	ZReadReportsService,
-} from 'services';
-import { BulkExportData } from 'services/ReportsService';
-import { ListResponseData } from 'services/interfaces';
-import { getBranchId, getBranchMachine } from 'utils';
+} from '../services';
+import { BulkExportData } from '../services/ReportsService';
+import { AxiosErrorResponse, ListResponseData } from '../services/interfaces';
+import {
+	BranchMachine,
+	SiteSettings,
+	Transaction,
+	User,
+	XReadReport,
+	ZReadReport,
+} from '../types';
+import { AxiosResponse } from 'axios';
 
-const formatDateTime = (dateTime: string): string => {
+const formatDateTime = (dateTime?: string): string => {
 	return dayjs.tz(dateTime).format('MMDDYYYY');
 };
 
+interface BulkExport {
+	branchMachine: BranchMachine;
+	siteSettings: SiteSettings;
+	timeRange: string;
+	user: User;
+}
+
 export const useBulkExport = () =>
-	useMutation<any, any, any>(
-		async ({ branchMachineId, siteSettings, timeRange, user }: any) => {
+	useMutation<Awaited<AxiosResponse<string>[]>, AxiosErrorResponse, BulkExport>(
+		async ({ branchMachine, siteSettings, timeRange, user }) => {
 			const params = {
 				page_size: MAX_PAGE_SIZE,
 				page: DEFAULT_PAGE,
@@ -33,25 +46,29 @@ export const useBulkExport = () =>
 			};
 
 			const [transactions, xreadReports, zreadReports] = await Promise.all<
-				[any, any, PromiseLike<ListResponseData<ZReadReport>>]
+				[
+					PromiseLike<ListResponseData<Transaction>>,
+					PromiseLike<ListResponseData<XReadReport>>,
+					PromiseLike<ListResponseData<ZReadReport>>,
+				]
 			>([
 				TransactionsService.list(params),
 				XReadReportsService.list({
 					...params,
-					branch_machine_id: branchMachineId,
+					branch_machine_id: branchMachine.id,
 					is_with_daily_sales_data: false,
 				}),
 				ZReadReportsService.list({
 					...params,
-					branch_machine_id: branchMachineId,
+					branch_machine_id: branchMachine.id,
 				}),
 			]);
 
 			const requests = [];
-			if (transactions.data.results.length > 0) {
+			if (transactions.results.length > 0) {
 				requests.push(
 					ReportsService.bulkExportReports({
-						data: transactions.data.results
+						data: transactions.results
 							.filter((transaction) => transaction.invoice !== null)
 							.map((transaction) => ({
 								folder_name: `invoices/${formatDateTime(
@@ -61,7 +78,7 @@ export const useBulkExport = () =>
 								contents: createSalesInvoiceTxt(
 									transaction,
 									siteSettings,
-									getBranchMachine(),
+									branchMachine,
 									true,
 									true,
 								),
@@ -70,10 +87,10 @@ export const useBulkExport = () =>
 				);
 			}
 
-			if (xreadReports.data.results.length > 0) {
+			if (xreadReports.results.length > 0) {
 				requests.push(
 					ReportsService.bulkExportReports({
-						data: xreadReports.data.results.map((report) => ({
+						data: xreadReports.results.map((report) => ({
 							folder_name: 'reports/xread',
 							file_name: `XReadReport_${formatDateTime(
 								report.generation_datetime,
@@ -82,7 +99,7 @@ export const useBulkExport = () =>
 								report,
 								siteSettings,
 								user,
-								getBranchMachine(),
+								branchMachine,
 								true,
 							),
 						})),
@@ -103,7 +120,7 @@ export const useBulkExport = () =>
 									report,
 									siteSettings,
 									user,
-									getBranchMachine(),
+									branchMachine,
 									true,
 								),
 							}),
@@ -116,11 +133,18 @@ export const useBulkExport = () =>
 		},
 	);
 
-export const useGenerateReports = (enabled: boolean) => {
-	const REFETCH_INTERVAL_MS = 20_000;
-	const branchId = getBranchId();
+interface GenerateReports {
+	enabled: boolean;
+	intervalMs: number;
+	branchId: number;
+}
 
-	return useQuery(
+export const useGenerateReports = ({
+	branchId,
+	enabled,
+	intervalMs,
+}: GenerateReports) =>
+	useQuery(
 		['useGenerateReports', branchId],
 		() =>
 			wrapServiceWithCatch(
@@ -130,9 +154,8 @@ export const useGenerateReports = (enabled: boolean) => {
 			),
 		{
 			enabled: Number(branchId) > 0 && enabled,
-			refetchInterval: REFETCH_INTERVAL_MS,
+			refetchInterval: intervalMs,
 			refetchIntervalInBackground: true,
 			notifyOnChangeProps: [],
 		},
 	);
-};

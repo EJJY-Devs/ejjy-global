@@ -21,12 +21,14 @@ const service = {
         });
         return response.data;
     }),
-    retrieve: (id) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield axios_1.default.get(`/cashiering-sessions/${id}/`);
+    retrieve: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield axios_1.default.get(`/cashiering-sessions/${id}/`, {
+            baseURL,
+        });
         return response.data;
     }),
     start: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/cashiering-sessions/start/', body); }),
-    end: (id, body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/cashiering-sessions/${id}/end/`, body); }),
+    end: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/cashiering-sessions/${body.id}/end/`, body); }),
     validate: (id) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/cashiering-sessions/${id}/validate/`); }),
 };
 exports.default = service;

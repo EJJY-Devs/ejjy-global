@@ -2,14 +2,15 @@ import axios from 'axios';
 import { CashieringSession } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Start {
+export interface Start {
 	login: string;
 	password: string;
 	branch_machine_id: number;
 	branch_machine_registration_count: number;
 }
 
-interface End {
+export interface End {
+	id: number;
 	branch_machine_id: number;
 	is_automatically_closed: boolean;
 }
@@ -27,9 +28,12 @@ const service = {
 		return response.data;
 	},
 
-	retrieve: async (id: number) => {
+	retrieve: async (id: number, baseURL?: string) => {
 		const response = await axios.get<CashieringSession>(
 			`/cashiering-sessions/${id}/`,
+			{
+				baseURL,
+			},
 		);
 
 		return response.data;
@@ -38,8 +42,8 @@ const service = {
 	start: async (body: Start) =>
 		axios.post<CashieringSession>('/cashiering-sessions/start/', body),
 
-	end: async (id: number, body: End) =>
-		axios.post<CashieringSession>(`/cashiering-sessions/${id}/end/`, body),
+	end: async (body: End) =>
+		axios.post<CashieringSession>(`/cashiering-sessions/${body.id}/end/`, body),
 
 	validate: async (id: number) =>
 		axios.post<boolean>(`/cashiering-sessions/${id}/validate/`),

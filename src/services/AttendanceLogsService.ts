@@ -6,14 +6,14 @@ import {
 } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	attendance_category?: AttendanceLogCategory;
 	attendance_type?: AttendanceLogType;
 	branch_id?: number;
 	employee_id?: string;
 }
 
-interface Create {
+export interface Create {
 	account_code: number;
 	attendance_category: AttendanceLogCategory;
 	branch_id: number;

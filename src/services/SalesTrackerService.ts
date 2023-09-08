@@ -2,11 +2,11 @@ import axios from 'axios';
 import { SalesTracker } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	branch_machine_id?: number;
 }
 
-interface Reset {
+export interface Reset {
 	branch_machine_id: number;
 }
 

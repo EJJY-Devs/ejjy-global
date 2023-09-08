@@ -2,18 +2,17 @@ import { UseMutationOptions, UseQueryOptions } from 'react-query';
 import { ServiceType } from '../globals/enums';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 
-// TODO Remove any once strict is set to `true`
 export interface UseListQuery<
-	T = any,
+	T,
 	TParams extends UseListQueryParams = UseListQueryParams,
+	TOptions = UseListQueryOptions<T>,
 > {
 	params?: TParams;
-	options?: UseListQueryOptions<T>;
+	options?: TOptions;
 	serviceOptions?: ServiceOptions;
 }
 
-export interface UseRetrieveQuery<T = any>
-	extends Omit<UseListQuery<T>, 'options'> {
+export interface UseRetrieveQuery<T> extends Omit<UseListQuery<T>, 'options'> {
 	id: number;
 	options?: UseRetrieveQueryOptions<T>;
 }

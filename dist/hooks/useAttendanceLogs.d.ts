@@ -1,18 +1,13 @@
 import { AxiosResponse } from 'axios';
+import { CamelCasedProperties } from 'type-fest';
+import { Params } from '../services/AttendanceLogsService';
 import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
-import { AttendanceLog, AttendanceLogCategory, AttendanceLogType } from '../types';
-import { UseListQuery, UseListQueryParams } from './inteface';
-interface ListQueryParams extends UseListQueryParams {
-    attendanceCategory?: AttendanceLogCategory;
-    attendanceType?: AttendanceLogType;
-    branchId?: number;
-    employeeId?: string;
-}
-declare const useAttendanceLogs: (data?: UseListQuery<AttendanceLog, ListQueryParams>) => import("react-query").UseQueryResult<QueryResponse<AttendanceLog>, Error>;
-interface CreateBody {
+import { AttendanceLog } from '../types';
+import { UseListQuery } from './inteface';
+declare const useAttendanceLogs: (data?: UseListQuery<AttendanceLog, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<AttendanceLog>, Error>;
+export declare const useAttendanceLogCreate: () => import("react-query").UseMutationResult<AxiosResponse<AttendanceLog>, AxiosErrorResponse<any>, {
     accountCode: number;
-    attendanceCategory: AttendanceLogCategory;
+    attendanceCategory: import("../types").AttendanceLogCategory;
     branchId: number;
-}
-export declare const useAttendanceLogCreate: () => import("react-query").UseMutationResult<AxiosResponse<AttendanceLog>, AxiosErrorResponse<any>, CreateBody, unknown>;
+}, unknown>;
 export default useAttendanceLogs;
