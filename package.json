@@ -21,7 +21,8 @@
 		"moment": "^2.29.4",
 		"react": "^16.14.0",
 		"react-dom": "^16.13.1",
-		"react-query": "^3.34.15"
+		"react-query": "^3.34.15",
+		"type-fest": "^4.3.1"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.197",

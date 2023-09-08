@@ -25,7 +25,7 @@ interface ListQueryParams extends UseListQueryParams {
 const useAttendanceLogs = (
 	data: UseListQuery<AttendanceLog, ListQueryParams> = {},
 ) => {
-	const { params, options } = data;
+	const { params, options, serviceOptions } = data;
 
 	return useQuery<
 		ListResponseData<AttendanceLog>,
@@ -35,15 +35,18 @@ const useAttendanceLogs = (
 		['useAttendanceLogs', params],
 		() =>
 			wrapServiceWithCatch(
-				AttendanceLogsService.list({
-					attendance_category: params?.attendanceCategory,
-					attendance_type: params?.attendanceType,
-					branch_id: params?.branchId,
-					employee_id: params?.employeeId,
-					page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-					page: params?.page || DEFAULT_PAGE,
-					time_range: params?.timeRange,
-				}),
+				AttendanceLogsService.list(
+					{
+						attendance_category: params?.attendanceCategory,
+						attendance_type: params?.attendanceType,
+						branch_id: params?.branchId,
+						employee_id: params?.employeeId,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						page: params?.page || DEFAULT_PAGE,
+						time_range: params?.timeRange,
+					},
+					serviceOptions?.baseURL,
+				),
 			),
 		{
 			placeholderData: {

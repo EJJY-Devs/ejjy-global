@@ -41,6 +41,7 @@ __exportStar(require("./Product"), exports);
 __exportStar(require("./ProductCategory"), exports);
 __exportStar(require("./Report"), exports);
 __exportStar(require("./RequisitionSlip"), exports);
+__exportStar(require("./SalesTracker"), exports);
 __exportStar(require("./SiteSettings"), exports);
 __exportStar(require("./Transaction"), exports);
 __exportStar(require("./User"), exports);

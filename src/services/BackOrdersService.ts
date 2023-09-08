@@ -12,7 +12,7 @@ type CreateProduct = {
 	quantity_returned: number;
 };
 
-interface Create {
+export interface Create {
 	sender_id: number;
 	encoded_by_id: number;
 	transaction_id: number;
