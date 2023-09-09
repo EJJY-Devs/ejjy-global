@@ -432,7 +432,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     return null;
 };
 exports.createSalesInvoiceTxt = createSalesInvoiceTxt;
-const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent = false) => {
+const createXReadTxt = (report, siteSettings, branchMachine, user, returnContent = false) => {
     var _a, _b, _c;
     const reportTextFile = new utils_1.ReportTextFile();
     let rowNumber = 0;
@@ -832,7 +832,7 @@ const createXReadTxt = (report, siteSettings, user, branchMachine, returnContent
     return null;
 };
 exports.createXReadTxt = createXReadTxt;
-const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
+const createDailySalesTxt = (dailySales, siteSettings, branchMachine, user) => {
     var _a;
     const reportTextFile = new utils_1.ReportTextFile();
     let rowNumber = 0;
@@ -1114,7 +1114,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user, branchMachine) => {
     return null;
 };
 exports.createDailySalesTxt = createDailySalesTxt;
-const createZReadTxt = (report, siteSettings, user, branchMachine, returnContent = false) => {
+const createZReadTxt = (report, siteSettings, branchMachine, user, returnContent = false) => {
     var _a, _b, _c;
     const reportTextFile = new utils_1.ReportTextFile();
     let rowNumber = 0;

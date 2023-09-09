@@ -98,8 +98,8 @@ export const useBulkExport = () =>
 							contents: createXReadTxt(
 								report,
 								siteSettings,
-								user,
 								branchMachine,
+								user,
 								true,
 							),
 						})),
@@ -119,8 +119,8 @@ export const useBulkExport = () =>
 								contents: createZReadTxt(
 									report,
 									siteSettings,
-									user,
 									branchMachine,
+									user,
 									true,
 								),
 							}),

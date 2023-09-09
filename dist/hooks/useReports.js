@@ -53,7 +53,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
             data: xreadReports.results.map((report) => ({
                 folder_name: 'reports/xread',
                 file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                contents: (0, print_1.createXReadTxt)(report, siteSettings, user, branchMachine, true),
+                contents: (0, print_1.createXReadTxt)(report, siteSettings, branchMachine, user, true),
             })),
         }));
     }
@@ -62,7 +62,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
             data: zreadReports.results.map((report) => ({
                 folder_name: 'reports/zread',
                 file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                contents: (0, print_1.createZReadTxt)(report, siteSettings, user, branchMachine, true),
+                contents: (0, print_1.createZReadTxt)(report, siteSettings, branchMachine, user, true),
             })),
         }));
     }

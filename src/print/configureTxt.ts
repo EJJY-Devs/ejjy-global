@@ -569,8 +569,8 @@ export const createSalesInvoiceTxt = (
 export const createXReadTxt = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
-	user: User,
 	branchMachine: BranchMachine,
+	user: User,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();
@@ -1031,8 +1031,8 @@ export const createXReadTxt = (
 export const createDailySalesTxt = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
-	user: User,
 	branchMachine: BranchMachine,
+	user: User,
 ) => {
 	const reportTextFile = new ReportTextFile();
 	let rowNumber = 0;
@@ -1358,8 +1358,8 @@ export const createDailySalesTxt = (
 export const createZReadTxt = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
-	user: User,
 	branchMachine: BranchMachine,
+	user: User,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();
