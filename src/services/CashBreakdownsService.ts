@@ -26,10 +26,10 @@ export interface Create {
 	bills_200?: number;
 	bills_50?: number;
 	bills_500?: number;
-	branch_machine_id: number;
+	branch_machine_id?: number;
 	cash_out_metadata?: CashOutMetadata;
-	cashiering_session_id: number;
-	category: CashBreakdownCategory;
+	cashiering_session_id?: number;
+	category?: CashBreakdownCategory;
 	coins_1?: number;
 	coins_10?: number;
 	coins_20?: number;
@@ -37,7 +37,7 @@ export interface Create {
 	coins_5?: number;
 	coins_50?: number;
 	remarks?: string;
-	type: CashBreakdownType;
+	type?: CashBreakdownType;
 }
 
 const service = {

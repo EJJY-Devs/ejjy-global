@@ -53,7 +53,7 @@ export const useCashBreakdownCreate = () =>
 	useMutation<
 		AxiosResponse<CashBreakdown>,
 		AxiosErrorResponse,
-		CamelCasedPropertiesDeep<Create>
+		CamelCasedPropertiesDeep<Partial<Create>>
 	>((body) =>
 		CashBreakdownsService.create({
 			bills_100: body.bills100,

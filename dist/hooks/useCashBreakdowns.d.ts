@@ -12,7 +12,7 @@ export declare const useCashBreakdownCreate: () => import("react-query").UseMuta
     bills200?: number | undefined;
     bills50?: number | undefined;
     bills500?: number | undefined;
-    branchMachineId: number;
+    branchMachineId?: number | undefined;
     cashOutMetadata?: {
         payee: string;
         particulars: string;
@@ -21,8 +21,8 @@ export declare const useCashBreakdownCreate: () => import("react-query").UseMuta
         approvedByUserId: number;
         receivedBy: string;
     } | undefined;
-    cashieringSessionId: number;
-    category: import("../types").CashBreakdownCategory;
+    cashieringSessionId?: number | undefined;
+    category?: import("../types").CashBreakdownCategory | undefined;
     coins1?: number | undefined;
     coins10?: number | undefined;
     coins20?: number | undefined;
@@ -30,6 +30,6 @@ export declare const useCashBreakdownCreate: () => import("react-query").UseMuta
     coins5?: number | undefined;
     coins50?: number | undefined;
     remarks?: string | undefined;
-    type: import("../types").CashBreakdownType;
+    type?: import("../types").CashBreakdownType | undefined;
 }, unknown>;
 export default useCashBreakdowns;
