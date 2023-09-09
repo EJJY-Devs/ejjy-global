@@ -1,4 +1,4 @@
-import { Branch, Transaction } from '../types';
+import { Transaction } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Params extends ListQueryParams {
     is_adjusted?: boolean;
@@ -29,7 +29,7 @@ export interface ComputeDiscountResponse {
 }
 declare const service: {
     list: (params: Params, baseURL?: string) => Promise<ListResponseData<Transaction>>;
-    retrieve: (id: number, baseURL?: string) => Promise<Branch>;
+    retrieve: (id: number, baseURL?: string) => Promise<Transaction>;
     compute: (body: ComputeDiscount) => Promise<import("axios").AxiosResponse<ComputeDiscountResponse>>;
 };
 export default service;

@@ -27,7 +27,7 @@ export const useCollectionReceiptCreate = (
 			checkNumber,
 			createdById,
 			orderOfPaymentId,
-		}: any) =>
+		}) =>
 			CollectionReceiptsService.create({
 				amount,
 				bank_branch: bankBranch,

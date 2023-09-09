@@ -56,7 +56,7 @@ const useTransactions = (
 export const useTransactionRetrieve = (data: UseRetrieveQuery<Transaction>) => {
 	const { id, options, serviceOptions } = data;
 
-	return useQuery<any>(
+	return useQuery<Transaction>(
 		['useTransactionRetrieve', id],
 		() => TransactionsService.retrieve(id, serviceOptions?.baseURL),
 		{

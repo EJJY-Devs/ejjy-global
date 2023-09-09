@@ -47,7 +47,7 @@ const service = {
 	},
 
 	retrieve: async (id: number, baseURL?: string) => {
-		const response = await axios.get<Branch>(`/transactions/${id}/`, {
+		const response = await axios.get<Transaction>(`/transactions/${id}/`, {
 			baseURL,
 		});
 
