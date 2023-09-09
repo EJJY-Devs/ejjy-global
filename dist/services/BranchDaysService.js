@@ -21,6 +21,6 @@ const service = {
         return response.data;
     }),
     create: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/branches-days/', body); }),
-    edit: (id, body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/branches-days/${id}/`, body); }),
+    edit: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/branches-days/${id}/`, body); }),
 };
 exports.default = service;

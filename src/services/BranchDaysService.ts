@@ -7,8 +7,9 @@ export interface Create {
 }
 
 export interface Edit {
+	id: number;
 	branch_machine_id: number;
-	ended_by_id: number;
+	ended_by_id?: number;
 	is_automatically_closed?: boolean;
 }
 
@@ -24,7 +25,7 @@ const service = {
 	create: async (body: Create) =>
 		axios.post<BranchDay>('/branches-days/', body),
 
-	edit: async (id: number, body: Edit) =>
+	edit: async (body: Edit) =>
 		axios.patch<BranchDay>(`/branches-days/${id}/`, body),
 };
 

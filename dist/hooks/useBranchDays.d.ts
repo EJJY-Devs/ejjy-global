@@ -8,7 +8,8 @@ export declare const useBranchDayCreate: () => import("react-query").UseMutation
     startedById: number;
 }, unknown>;
 export declare const useBranchDayEdit: () => import("react-query").UseMutationResult<AxiosResponse<BranchDay>, AxiosErrorResponse<any>, {
+    id: number;
     branchMachineId: number;
-    endedById: number;
+    endedById?: number | undefined;
     isAutomaticallyClosed?: boolean | undefined;
 }, unknown>;

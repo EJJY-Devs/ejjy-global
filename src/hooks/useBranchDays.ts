@@ -40,8 +40,9 @@ export const useBranchDayEdit = () =>
 		AxiosResponse<BranchDay>,
 		AxiosErrorResponse,
 		CamelCasedProperties<Edit>
-	>(({ id, branchMachineId, endedById, isAutomaticallyClosed }: any) =>
-		BranchDaysService.edit(id, {
+	>(({ id, branchMachineId, endedById, isAutomaticallyClosed }) =>
+		BranchDaysService.edit({
+			id,
 			branch_machine_id: branchMachineId,
 			ended_by_id: endedById,
 			is_automatically_closed: isAutomaticallyClosed,

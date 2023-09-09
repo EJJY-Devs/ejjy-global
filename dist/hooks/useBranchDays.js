@@ -14,7 +14,8 @@ const useBranchDayCreate = () => (0, react_query_1.useMutation)(({ branchMachine
     started_by_id: startedById,
 }));
 exports.useBranchDayCreate = useBranchDayCreate;
-const useBranchDayEdit = () => (0, react_query_1.useMutation)(({ id, branchMachineId, endedById, isAutomaticallyClosed }) => services_1.BranchDaysService.edit(id, {
+const useBranchDayEdit = () => (0, react_query_1.useMutation)(({ id, branchMachineId, endedById, isAutomaticallyClosed }) => services_1.BranchDaysService.edit({
+    id,
     branch_machine_id: branchMachineId,
     ended_by_id: endedById,
     is_automatically_closed: isAutomaticallyClosed,
