@@ -1,12 +1,13 @@
 import { message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
+import _ from 'lodash';
+import { FilterFunc } from 'rc-select/lib/Select';
 import {
 	attendanceCategories,
 	cashBreakdownCategories,
 	cashBreakdownTypes,
 	userTypes,
 } from '../globals';
-import _ from 'lodash';
 import {
 	AttendanceLogCategory,
 	AttendanceLogType,
@@ -115,8 +116,13 @@ export const getAttendanceLogDescription = (
 	return `${description} ${_.upperFirst(type)}`;
 };
 
-export const filterOption = (input: string, option: DefaultOptionType) => {
-	if (option.children) {
+interface FilterOptions extends FilterFunc<DefaultOptionType> {}
+
+export const filterOption = (
+	input: string,
+	option?: DefaultOptionType | undefined,
+) => {
+	if (option?.children) {
 		return (
 			option.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0
 		);

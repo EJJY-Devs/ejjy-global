@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
-const globals_1 = require("../globals");
 const lodash_1 = __importDefault(require("lodash"));
+const globals_1 = require("../globals");
 // Getters
 const getSubtotal = (products) => {
     let amount = 0;
@@ -88,7 +88,7 @@ const getAttendanceLogDescription = (category, type) => {
 };
 exports.getAttendanceLogDescription = getAttendanceLogDescription;
 const filterOption = (input, option) => {
-    if (option.children) {
+    if (option === null || option === void 0 ? void 0 : option.children) {
         return (option.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0);
     }
     return false;
