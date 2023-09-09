@@ -26,7 +26,7 @@ const service = {
 		axios.post<BranchDay>('/branches-days/', body),
 
 	edit: async (body: Edit) =>
-		axios.patch<BranchDay>(`/branches-days/${id}/`, body),
+		axios.patch<BranchDay>(`/branches-days/${body.id}/`, body),
 };
 
 export default service;
