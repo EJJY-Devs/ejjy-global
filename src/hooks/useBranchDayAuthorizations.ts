@@ -1,16 +1,14 @@
 import { useQuery } from 'react-query';
+import { CamelCasedProperties } from 'type-fest';
 import { BranchDayAuthorizationsService } from '../services';
+import { Params } from '../services/BranchDayAuthorizationsService';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { BranchDayAuthorization } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery, UseListQueryParams } from './inteface';
-
-interface ListQueryParams extends UseListQueryParams {
-	branchId?: number;
-}
+import { UseListQuery } from './inteface';
 
 const useBranchDayAuthorizations = (
-	data: UseListQuery<BranchDayAuthorization, ListQueryParams> = {},
+	data: UseListQuery<BranchDayAuthorization, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options, serviceOptions } = data;
 

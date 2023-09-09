@@ -1,6 +1,9 @@
+import { AxiosResponse } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { ZReadReportsService } from '../services';
+import { Create, Params } from '../services/ZReadReportsService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -8,16 +11,10 @@ import {
 } from '../services/interfaces';
 import { ZReadReport } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery, UseListQueryParams } from './inteface';
-import { AxiosResponse } from 'axios';
-
-interface ListQueryParams extends UseListQueryParams {
-	branchMachineId?: number;
-	branchMachineName?: string;
-}
+import { UseListQuery } from './inteface';
 
 const useZReadReports = (
-	data: UseListQuery<ZReadReport, ListQueryParams> = {},
+	data: UseListQuery<ZReadReport, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options } = data;
 
@@ -51,19 +48,13 @@ const useZReadReports = (
 	);
 };
 
-interface CreateBody {
-	branchMachineId: number;
-	date: string;
-	userId: number;
-}
-
 export const useZReadReportCreate = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation<
 		AxiosResponse<ZReadReport>,
 		AxiosErrorResponse,
-		CreateBody
+		CamelCasedProperties<Create>
 	>(
 		({ branchMachineId, date, userId }) =>
 			ZReadReportsService.create({

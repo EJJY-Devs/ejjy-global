@@ -1,6 +1,6 @@
 import { ListQueryParams, ListResponseData } from './interfaces';
 import { BirReport } from '../types';
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
     branch_machine_id?: number;
 }
 declare const service: {

@@ -3,7 +3,7 @@ import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 import { ServiceType } from '../globals';
 import { BranchDayAuthorization } from '../types';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	branch_id?: number;
 }
 

@@ -1,12 +1,10 @@
 import { AxiosResponse } from 'axios';
+import { CamelCasedProperties } from 'type-fest';
+import { Params } from '../services/BackOrdersService';
 import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
 import { BackOrder } from '../types';
-import { UseListQuery, UseListQueryParams, UseRetrieveQuery } from './inteface';
-interface ListQueryParams extends UseListQueryParams {
-    transactionId?: number;
-    type?: string;
-}
-declare const useBackOrders: (data?: UseListQuery<BackOrder, ListQueryParams>) => import("react-query").UseQueryResult<QueryResponse<BackOrder>, Error>;
+import { UseListQuery, UseRetrieveQuery } from './inteface';
+declare const useBackOrders: (data?: UseListQuery<BackOrder, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<BackOrder>, Error>;
 export declare const useBackOrderRetrieve: (data: UseRetrieveQuery<BackOrder>) => import("react-query").UseQueryResult<BackOrder, unknown>;
 export declare const useBackOrdersCreate: () => import("react-query").UseMutationResult<AxiosResponse<BackOrder>, AxiosErrorResponse<any>, {
     senderId: number;

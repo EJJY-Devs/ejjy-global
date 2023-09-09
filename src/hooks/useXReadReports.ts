@@ -1,7 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { XReadReportsService } from '../services';
+import { Create, Params } from '../services/XReadReportsService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -9,15 +11,10 @@ import {
 } from '../services/interfaces';
 import { XReadReport } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery, UseListQueryParams } from './inteface';
-
-interface ListQueryParams extends UseListQueryParams {
-	branchMachineId?: number;
-	isWithDailySalesData?: boolean;
-}
+import { UseListQuery } from './inteface';
 
 const useXReadReports = (
-	data: UseListQuery<XReadReport, ListQueryParams> = {},
+	data: UseListQuery<XReadReport, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options } = data;
 
@@ -51,19 +48,13 @@ const useXReadReports = (
 	);
 };
 
-interface CreateBody {
-	branchMachineId: number;
-	date: string;
-	userId: number;
-}
-
 export const useXReadReportCreate = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation<
 		AxiosResponse<XReadReport>,
 		AxiosErrorResponse,
-		CreateBody
+		CamelCasedProperties<Create>
 	>(
 		({ branchMachineId, date, userId }) =>
 			XReadReportsService.create({

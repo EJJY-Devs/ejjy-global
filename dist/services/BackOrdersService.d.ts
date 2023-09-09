@@ -1,6 +1,6 @@
 import { BackOrder } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
     transaction_id?: number;
     type?: string;
 }

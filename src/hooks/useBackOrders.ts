@@ -3,7 +3,7 @@ import { useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { BackOrdersService } from '../services';
-import { Create } from '../services/BackOrdersService';
+import { Create, Params } from '../services/BackOrdersService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -11,14 +11,11 @@ import {
 } from '../services/interfaces';
 import { BackOrder } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery, UseListQueryParams, UseRetrieveQuery } from './inteface';
+import { UseListQuery, UseRetrieveQuery } from './inteface';
 
-interface ListQueryParams extends UseListQueryParams {
-	transactionId?: number;
-	type?: string;
-}
-
-const useBackOrders = (data: UseListQuery<BackOrder, ListQueryParams> = {}) => {
+const useBackOrders = (
+	data: UseListQuery<BackOrder, CamelCasedProperties<Params>> = {},
+) => {
 	const { params, options } = data;
 
 	return useQuery<ListResponseData<BackOrder>, Error, QueryResponse<BackOrder>>(

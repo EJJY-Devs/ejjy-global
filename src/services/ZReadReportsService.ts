@@ -2,19 +2,19 @@ import axios from 'axios';
 import { ListQueryParams, ListResponseData } from './interfaces';
 import { ZReadReport } from '../types';
 
-export interface List extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	branch_machine_id?: number;
 	branch_machine_name?: string;
 }
 
-interface Create {
+export interface Create {
 	branch_machine_id: number;
 	date: string;
 	user_id: number;
 }
 
 const service = {
-	list: async (params: List, baseURL?: string) => {
+	list: async (params: Params, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<ZReadReport>>(
 			'/zread-reports/',
 			{ params, baseURL },

@@ -2,12 +2,12 @@ import axios from 'axios';
 import { ListQueryParams, ListResponseData } from './interfaces';
 import { XReadReport } from '../types';
 
-interface Params extends ListQueryParams {
+export interface Params extends ListQueryParams {
 	branch_machine_id?: number;
 	is_with_daily_sales_data?: boolean;
 }
 
-interface Create {
+export interface Create {
 	branch_machine_id: number;
 	date: string;
 	user_id: number;
