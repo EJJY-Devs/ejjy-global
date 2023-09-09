@@ -774,7 +774,7 @@ export const printDailySales = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 	isPdf = false,
 ) => {
 	const data = `
