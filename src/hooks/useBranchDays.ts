@@ -9,7 +9,7 @@ import { wrapServiceWithCatch } from './helper';
 import { UseRetrieveQuery } from './inteface';
 
 export const useBranchDayRetrieve = (
-	data: Partial<UseRetrieveQuery<BranchDay>>,
+	data: Partial<UseRetrieveQuery<BranchDay>> = {},
 ) => {
 	const { options, serviceOptions } = data;
 

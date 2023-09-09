@@ -4,7 +4,7 @@ exports.useBranchDayEdit = exports.useBranchDayCreate = exports.useBranchDayRetr
 const react_query_1 = require("react-query");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
-const useBranchDayRetrieve = (data) => {
+const useBranchDayRetrieve = (data = {}) => {
     const { options, serviceOptions } = data;
     return (0, react_query_1.useQuery)(['useBranchDayRetrieve'], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchDaysService.retrieveToday(serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), options);
 };
