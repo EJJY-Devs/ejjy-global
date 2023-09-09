@@ -3,7 +3,7 @@ import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Params extends ListQueryParams {
     cashiering_session_id?: number;
 }
-interface CashOutMetadata {
+export interface CashOutMetadata {
     payee: string;
     particulars: string;
     amount: string;
