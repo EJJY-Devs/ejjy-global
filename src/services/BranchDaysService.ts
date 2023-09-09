@@ -9,7 +9,7 @@ export interface Create {
 export interface Edit {
 	id: number;
 	branch_machine_id: number;
-	ended_by_id?: number;
+	ended_by_id: number | null;
 	is_automatically_closed?: boolean;
 }
 

@@ -10,6 +10,6 @@ export declare const useBranchDayCreate: () => import("react-query").UseMutation
 export declare const useBranchDayEdit: () => import("react-query").UseMutationResult<AxiosResponse<BranchDay>, AxiosErrorResponse<any>, {
     id: number;
     branchMachineId: number;
-    endedById?: number | undefined;
+    endedById: number | null;
     isAutomaticallyClosed?: boolean | undefined;
 }, unknown>;
