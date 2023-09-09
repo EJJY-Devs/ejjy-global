@@ -2,6 +2,7 @@ import {
 	AttendanceLogCategory,
 	CashBreakdownCategory,
 	CashBreakdownType,
+	PaymentType,
 } from '../types';
 
 export const appVersions = {
@@ -115,9 +116,9 @@ export const saleTypes = {
 };
 
 export const paymentTypes = {
-	CASH: 'cash',
-	CHEQUE: 'cheque',
-	CREDIT: 'credit_pay',
+	CASH: 'cash' as PaymentType,
+	CHEQUE: 'cheque' as PaymentType,
+	CREDIT: 'credit_pay' as PaymentType,
 };
 
 export const orderOfPaymentPurposes = {

@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType } from '../types';
+import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -91,9 +91,9 @@ export declare const saleTypes: {
     CREDIT: string;
 };
 export declare const paymentTypes: {
-    CASH: string;
-    CHEQUE: string;
-    CREDIT: string;
+    CASH: PaymentType;
+    CHEQUE: PaymentType;
+    CREDIT: PaymentType;
 };
 export declare const orderOfPaymentPurposes: {
     PARTIAL_PAYMENT: string;

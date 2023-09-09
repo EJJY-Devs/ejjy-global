@@ -37,9 +37,11 @@ export interface Invoice {
 	vat_amount: number;
 }
 
+export type PaymentType = 'cash' | 'credit_pay';
+
 export interface Payment {
 	amount_tendered: string;
-	mode: 'cash' | 'credit_pay';
+	mode: PaymentType;
 	credit_payment_authorizer: User;
 	creditor_account_id: string;
 	creditor_account: Account;
