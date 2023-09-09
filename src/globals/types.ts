@@ -111,8 +111,8 @@ export const connectivityTypes = {
 };
 
 export const saleTypes = {
-	CASH: 'cash',
-	CREDIT: 'credit_pay',
+	CASH: 'cash' as PaymentType,
+	CREDIT: 'credit_pay' as PaymentType,
 };
 
 export const paymentTypes = {

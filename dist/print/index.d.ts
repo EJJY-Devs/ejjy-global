@@ -1,1 +1,2 @@
-export * from "./configureTxt";
+export * from './configurePrinter';
+export * from './configureTxt';

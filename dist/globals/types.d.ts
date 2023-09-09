@@ -87,8 +87,8 @@ export declare const connectivityTypes: {
     OFFLINE_TO_ONLINE: string;
 };
 export declare const saleTypes: {
-    CASH: string;
-    CREDIT: string;
+    CASH: PaymentType;
+    CREDIT: PaymentType;
 };
 export declare const paymentTypes: {
     CASH: PaymentType;
