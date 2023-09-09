@@ -43,7 +43,7 @@ let printerName: string;
 let printerFontSize: string;
 let printerFontFamily: string;
 
-const configurePrinter = (
+export const configurePrinter = (
 	appPrinterName: string,
 	appprinterFontSize: string,
 	appprinterFontFamily: string,
@@ -1947,5 +1947,3 @@ export const printCashOut = (
 
 	print(data, 'Cash Out');
 };
-
-export default configurePrinter;

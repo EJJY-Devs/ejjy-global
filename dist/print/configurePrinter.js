@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.printCashOut = exports.printBirReport = exports.printCashBreakdown = exports.printZReadReport = exports.printXReadReport = exports.printDailySales = exports.printSalesInvoice = exports.printCollectionReceipt = exports.openCashDrawer = void 0;
+exports.printCashOut = exports.printBirReport = exports.printCashBreakdown = exports.printZReadReport = exports.printXReadReport = exports.printDailySales = exports.printSalesInvoice = exports.printCollectionReceipt = exports.openCashDrawer = exports.configurePrinter = void 0;
 const antd_1 = require("antd");
 const dayjs_1 = __importDefault(require("dayjs"));
 const qz_tray_1 = __importDefault(require("qz-tray"));
@@ -55,6 +55,7 @@ const configurePrinter = (appPrinterName, appprinterFontSize, appprinterFontFami
         });
     }
 };
+exports.configurePrinter = configurePrinter;
 const openCashDrawer = () => __awaiter(void 0, void 0, void 0, function* () {
     if (!qz_tray_1.default.websocket.isActive()) {
         antd_1.message.error({
@@ -1507,4 +1508,3 @@ const printCashOut = (cashOut, siteSettings, branchMachine) => {
     print(data, 'Cash Out');
 };
 exports.printCashOut = printCashOut;
-exports.default = configurePrinter;
