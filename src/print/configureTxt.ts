@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import {
 	BranchMachine,
 	DailySales,
+	GeneratedByUser,
 	SiteSettings,
 	Transaction,
 	User,
@@ -570,7 +571,7 @@ export const createXReadTxt = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();
@@ -1032,7 +1033,7 @@ export const createDailySalesTxt = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 ) => {
 	const reportTextFile = new ReportTextFile();
 	let rowNumber = 0;
@@ -1359,7 +1360,7 @@ export const createZReadTxt = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();
