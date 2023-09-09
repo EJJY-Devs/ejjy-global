@@ -3,35 +3,23 @@ import { useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { BranchDaysService } from '../services';
 import { Create, Edit } from '../services/BranchDaysService';
-import {
-	AxiosErrorResponse,
-	ListResponseData,
-	QueryResponse,
-} from '../services/interfaces';
+import { AxiosErrorResponse } from '../services/interfaces';
 import { BranchDay } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery } from './inteface';
+import { UseRetrieveQuery } from './inteface';
 
-export const useBranchDayRetrieve = (data: UseListQuery<BranchDay> = {}) => {
+export const useBranchDayRetrieve = (
+	data: Partial<UseRetrieveQuery<BranchDay>>,
+) => {
 	const { options, serviceOptions } = data;
 
-	return useQuery<ListResponseData<BranchDay>, Error, QueryResponse<BranchDay>>(
+	return useQuery<BranchDay>(
 		['useBranchDayRetrieve'],
 		() =>
 			wrapServiceWithCatch(
 				BranchDaysService.retrieveToday(serviceOptions?.baseURL),
 			),
-		{
-			placeholderData: {
-				results: [],
-				count: 0,
-			},
-			select: (query) => ({
-				list: query.results,
-				total: query.count,
-			}),
-			...options,
-		},
+		options,
 	);
 };
 

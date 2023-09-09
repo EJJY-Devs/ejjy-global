@@ -4,15 +4,9 @@ exports.useBranchDayEdit = exports.useBranchDayCreate = exports.useBranchDayRetr
 const react_query_1 = require("react-query");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
-const useBranchDayRetrieve = (data = {}) => {
+const useBranchDayRetrieve = (data) => {
     const { options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useBranchDayRetrieve'], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchDaysService.retrieveToday(serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ placeholderData: {
-            results: [],
-            count: 0,
-        }, select: (query) => ({
-            list: query.results,
-            total: query.count,
-        }) }, options));
+    return (0, react_query_1.useQuery)(['useBranchDayRetrieve'], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchDaysService.retrieveToday(serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), options);
 };
 exports.useBranchDayRetrieve = useBranchDayRetrieve;
 const useBranchDayCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, startedById }) => services_1.BranchDaysService.create({
