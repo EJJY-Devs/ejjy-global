@@ -4,10 +4,11 @@ import { CamelCasedProperties } from 'type-fest';
 import { UsersService } from '../services';
 import { AuthenticateAnAction } from '../services/UsersService';
 import { AxiosErrorResponse } from '../services/interfaces';
+import { User } from '../types';
 
 export const useUsersAuthenticate = () =>
 	useMutation<
-		AxiosResponse<boolean | string>,
+		AxiosResponse<User>,
 		AxiosErrorResponse,
 		CamelCasedProperties<AuthenticateAnAction>
 	>(({ login, password, description }) =>

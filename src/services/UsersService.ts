@@ -32,7 +32,7 @@ const service = {
 	},
 
 	authenticateAnAction: async (body: AuthenticateAnAction) =>
-		axios.post<boolean | string>('users/authenticate/', body),
+		axios.post<User>('users/authenticate/', body),
 };
 
 export default service;

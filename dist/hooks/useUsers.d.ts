@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { AxiosErrorResponse } from '../services/interfaces';
-export declare const useUsersAuthenticate: () => import("react-query").UseMutationResult<AxiosResponse<string | boolean>, AxiosErrorResponse<any>, {
+import { User } from '../types';
+export declare const useUsersAuthenticate: () => import("react-query").UseMutationResult<AxiosResponse<User>, AxiosErrorResponse<any>, {
     login: string;
     password: string;
     description?: string | undefined;
