@@ -1,4 +1,4 @@
-import { AttendanceLogCategory } from '../types';
+import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -26,14 +26,14 @@ export declare const userTypes: {
     BRANCH_PERSONNEL: string;
 };
 export declare const cashBreakdownTypes: {
-    START_SESSION: string;
-    MID_SESSION: string;
-    END_SESSION: string;
+    START_SESSION: CashBreakdownType;
+    MID_SESSION: CashBreakdownType;
+    END_SESSION: CashBreakdownType;
 };
 export declare const cashBreakdownCategories: {
-    CASH_BREAKDOWN: string;
-    CASH_IN: string;
-    CASH_OUT: string;
+    CASH_BREAKDOWN: CashBreakdownCategory;
+    CASH_IN: CashBreakdownCategory;
+    CASH_OUT: CashBreakdownCategory;
 };
 export declare const branchProductStatuses: {
     AVAILABLE: string;

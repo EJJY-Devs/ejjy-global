@@ -50,14 +50,16 @@ const useBranchMachines = (
 export const useBranchMachineRetrieve = (
 	data: UseRetrieveQuery<BranchMachine>,
 ) => {
-	const { serviceOptions } = data;
+	const { serviceOptions, options } = data;
 
-	return useMutation<BranchMachine, AxiosErrorResponse, number>((id: number) =>
-		BranchMachinesService.retrieve(
-			id,
-			serviceOptions?.baseURL,
-			serviceOptions?.type,
-		),
+	return useMutation<BranchMachine, AxiosErrorResponse, number>(
+		(id: number) =>
+			BranchMachinesService.retrieve(
+				id,
+				serviceOptions?.baseURL,
+				serviceOptions?.type,
+			),
+		options,
 	);
 };
 
