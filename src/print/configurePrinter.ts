@@ -15,6 +15,7 @@ import {
 	CashBreakdown,
 	CollectionReceipt,
 	DailySales,
+	GeneratedByUser,
 	SiteSettings,
 	Transaction,
 	User,
@@ -974,7 +975,7 @@ export const printXReadReport = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 	isPdf = false,
 ) => {
 	const data = `
@@ -1247,7 +1248,7 @@ export const printZReadReport = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
 	branchMachine: BranchMachine,
-	user: User,
+	user: GeneratedByUser,
 	isPdf = false,
 ) => {
 	const data = `

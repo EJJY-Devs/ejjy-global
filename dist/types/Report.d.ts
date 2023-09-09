@@ -1,7 +1,7 @@
 import { BranchMachine } from './BranchMachine';
 import { CashieringSession } from './CashieringSession';
 import { User } from './User';
-type GeneratedByUser = Pick<User, 'first_name' | 'last_name' | 'employee_id'>;
+export type GeneratedByUser = Pick<User, 'first_name' | 'last_name' | 'employee_id'>;
 type InvoiceOr = {
     or_number: string;
 };
