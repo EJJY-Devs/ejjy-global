@@ -45,12 +45,12 @@ let printerFontFamily: string;
 
 export const configurePrinter = (
 	appPrinterName: string,
-	appprinterFontSize: string,
-	appprinterFontFamily: string,
+	appPrinterFontSize: string,
+	appPrinterFontFamily: string,
 ) => {
 	printerName = appPrinterName;
-	printerFontSize = appprinterFontSize;
-	printerFontFamily = appprinterFontFamily;
+	printerFontSize = appPrinterFontSize;
+	printerFontFamily = appPrinterFontFamily;
 
 	if (!qz.websocket.isActive()) {
 		authenticateQZTray(qz);

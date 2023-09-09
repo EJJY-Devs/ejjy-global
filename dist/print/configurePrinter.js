@@ -27,10 +27,10 @@ const PRINT_MESSAGE_KEY = 'PRINT_MESSAGE_KEY';
 let printerName;
 let printerFontSize;
 let printerFontFamily;
-const configurePrinter = (appPrinterName, appprinterFontSize, appprinterFontFamily) => {
+const configurePrinter = (appPrinterName, appPrinterFontSize, appPrinterFontFamily) => {
     printerName = appPrinterName;
-    printerFontSize = appprinterFontSize;
-    printerFontFamily = appprinterFontFamily;
+    printerFontSize = appPrinterFontSize;
+    printerFontFamily = appPrinterFontFamily;
     if (!qz_tray_1.default.websocket.isActive()) {
         (0, utils_1.authenticateQZTray)(qz_tray_1.default);
         antd_1.message.loading({

@@ -1,5 +1,5 @@
 import { BirReport, BranchMachine, CashBreakdown, CollectionReceipt, DailySales, SiteSettings, Transaction, User, XReadReport, ZReadReport } from '../types';
-export declare const configurePrinter: (appPrinterName: string, appprinterFontSize: string, appprinterFontFamily: string) => void;
+export declare const configurePrinter: (appPrinterName: string, appPrinterFontSize: string, appPrinterFontFamily: string) => void;
 export declare const openCashDrawer: () => Promise<void>;
 export declare const printCollectionReceipt: (collectionReceipt: CollectionReceipt, siteSettings: SiteSettings, branchMachine: BranchMachine) => void;
 export declare const printSalesInvoice: (transaction: Transaction, siteSettings: SiteSettings, branchMachine: BranchMachine, isReprint?: boolean, isPdf?: boolean) => string | undefined;

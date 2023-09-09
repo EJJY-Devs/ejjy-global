@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
-import { CamelCasedProperties } from 'type-fest';
+import { CamelCasedProperties, CamelCasedPropertiesDeep } from 'type-fest';
 import { DEFAULT_PAGE, MAX_PAGE_SIZE } from '../globals';
 import { CashBreakdownsService } from '../services';
 import { Create, Params } from '../services/CashBreakdownsService';
@@ -53,7 +53,7 @@ export const useCashBreakdownCreate = () =>
 	useMutation<
 		AxiosResponse<CashBreakdown>,
 		AxiosErrorResponse,
-		CamelCasedProperties<Create>
+		CamelCasedPropertiesDeep<Create>
 	>((body) =>
 		CashBreakdownsService.create({
 			bills_100: body.bills100,
