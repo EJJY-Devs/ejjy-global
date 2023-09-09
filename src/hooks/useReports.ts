@@ -32,7 +32,7 @@ const formatDateTime = (dateTime?: string): string => {
 interface BulkExport {
 	branchMachine: BranchMachine;
 	siteSettings: SiteSettings;
-	timeRange: string;
+	timeRange?: string;
 	user: User;
 }
 

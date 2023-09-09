@@ -38,6 +38,7 @@ export { default as useTransactions } from './useTransactions';
 export * from './useUserLogs';
 export { default as useUserLogs } from './useUserLogs';
 export * from './useUsers';
+export { default as useUsers } from './useUsers';
 export * from './useXReadReports';
 export { default as useXReadReports } from './useXReadReports';
 export * from './useZReadReports';
