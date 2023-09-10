@@ -26,6 +26,8 @@ export * from './useDiscountOptions';
 export { default as useDiscountOptions } from './useDiscountOptions';
 export * from './useOrderOfPayments';
 export { default as useOrderOfPayments } from './useOrderOfPayments';
+export * from './usePdf';
+export { default as usePdf } from './usePdf';
 export * from './useReports';
 export * from './useResetLogs';
 export { default as useResetLogs } from './useResetLogs';
