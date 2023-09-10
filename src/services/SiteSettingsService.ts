@@ -9,7 +9,7 @@ export interface Params extends ListQueryParams {
 
 const service = {
 	retrieve: async (
-		params: Params,
+		params?: Params,
 		baseURL?: string,
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
