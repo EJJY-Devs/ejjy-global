@@ -7,13 +7,13 @@ exports.formatInPeso = exports.standardRound = exports.formatQuantity = exports.
 const globals_1 = require("../globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const lodash_1 = __importDefault(require("lodash"));
-const formatNumberWithCommas = (x) => x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+const formatNumberWithCommas = (x) => x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 exports.formatNumberWithCommas = formatNumberWithCommas;
-const formatRemoveCommas = (x) => { var _a; return Number(((_a = x === null || x === void 0 ? void 0 : x.toString()) === null || _a === void 0 ? void 0 : _a.replace(/,/g, "")) || ""); };
+const formatRemoveCommas = (x) => { var _a; return Number(((_a = x === null || x === void 0 ? void 0 : x.toString()) === null || _a === void 0 ? void 0 : _a.replace(/,/g, '')) || ''); };
 exports.formatRemoveCommas = formatRemoveCommas;
 const convertIntoArray = (errors, prefixMessage = null) => {
-    const prefix = prefixMessage ? `${prefixMessage}: ` : "";
-    if (typeof errors === "string") {
+    const prefix = prefixMessage ? `${prefixMessage}: ` : '';
+    if (typeof errors === 'string') {
         return [prefix + errors];
     }
     if (Array.isArray(errors)) {
@@ -25,14 +25,14 @@ exports.convertIntoArray = convertIntoArray;
 const formatDate = (datetime) => dayjs_1.default.tz(datetime).format(globals_1.DATE_FORMAT);
 exports.formatDate = formatDate;
 const formatDateTime = (datetime, withTimezone = true) => {
-    const dt = withTimezone ? dayjs_1.default.tz(datetime, "GMT") : (0, dayjs_1.default)(datetime);
+    const dt = withTimezone ? dayjs_1.default.tz(datetime, 'GMT') : (0, dayjs_1.default)(datetime);
     return dt.format(`${globals_1.DATE_FORMAT} h:mmA`);
 };
 exports.formatDateTime = formatDateTime;
 const formatDateTime24Hour = (datetime) => dayjs_1.default.tz(datetime).format(`${globals_1.DATE_FORMAT} HH:mm`);
 exports.formatDateTime24Hour = formatDateTime24Hour;
 const formatDateForAPI = (date) => {
-    return date.format("YYYY-MM-DD");
+    return date.format('YYYY-MM-DD');
 };
 exports.formatDateForAPI = formatDateForAPI;
 const formatQuantity = (quantity, product, type = null) => {
@@ -47,10 +47,10 @@ const formatQuantity = (quantity, product, type = null) => {
 exports.formatQuantity = formatQuantity;
 const standardRound = (value) => lodash_1.default.round(value, 2).toFixed(2);
 exports.standardRound = standardRound;
-const formatInPeso = (value, pesoSign = "₱") => {
+const formatInPeso = (value, pesoSign = '₱') => {
     const x = Number(value);
     return lodash_1.default.isNaN(x)
         ? globals_1.EMPTY_CELL
-        : `${x < 0 ? "-" : ""}${pesoSign}${(0, exports.formatNumberWithCommas)(Number((0, exports.standardRound)(Math.abs(x))))}`;
+        : `${x < 0 ? '-' : ''}${pesoSign}${(0, exports.formatNumberWithCommas)((0, exports.standardRound)(Math.abs(x)))}`;
 };
 exports.formatInPeso = formatInPeso;
