@@ -66,7 +66,7 @@ export const useCashieringSessionRetrieve = (
 };
 
 export const useCashieringSessionValidate = (
-	options: UseMutationOptions<
+	options?: UseMutationOptions<
 		AxiosResponse<boolean>,
 		AxiosErrorResponse,
 		number
@@ -77,7 +77,13 @@ export const useCashieringSessionValidate = (
 		options,
 	);
 
-export const useCashieringSessionStart = () => {
+export const useCashieringSessionStart = (
+	options: UseMutationOptions<
+		AxiosResponse<CashieringSession>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Start>
+	>,
+) => {
 	// TODO: Call this action on the app side and not here.
 	// const saveSession = useActionDispatch(actions.save);
 
@@ -93,6 +99,7 @@ export const useCashieringSessionStart = () => {
 				login,
 				password,
 			}),
+		options,
 		// {
 		// TODO: Call this action on the app side and not here.
 		// 	onSuccess: async ({ data }) => {
@@ -107,11 +114,14 @@ export const useCashieringSessionStart = () => {
 	);
 };
 
-export const useCashieringSessionEnd = () => {
-	// TODO: Call this action on the app side and not here.
-	// const clearSession = useActionDispatch(actions.clear);
-
-	return useMutation<
+export const useCashieringSessionEnd = (
+	options?: UseMutationOptions<
+		AxiosResponse<CashieringSession>,
+		AxiosErrorResponse,
+		CamelCasedProperties<End>
+	>,
+) =>
+	useMutation<
 		AxiosResponse<CashieringSession>,
 		AxiosErrorResponse,
 		CamelCasedProperties<End>
@@ -122,12 +132,7 @@ export const useCashieringSessionEnd = () => {
 				branch_machine_id: branchMachineId,
 				is_automatically_closed: isAutomaticallyClosed,
 			}),
-
-		// TODO: Call this action on the app side and not here.
-		// {
-		// 	onSuccess: clearSession,
-		// },
+		options,
 	);
-};
 
 export default useCashieringSessions;
