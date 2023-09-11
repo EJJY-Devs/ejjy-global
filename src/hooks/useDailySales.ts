@@ -18,7 +18,7 @@ import { UseListQuery } from './inteface';
 const useDailySales = (
 	data: UseListQuery<DailySales, CamelCasedProperties<Params>> = {},
 ) => {
-	const { params, options } = data;
+	const { params, options, serviceOptions } = data;
 
 	return useQuery<
 		ListResponseData<DailySales>,
@@ -28,12 +28,15 @@ const useDailySales = (
 		['useDailySales', params],
 		() =>
 			wrapServiceWithCatch(
-				DailySalesService.list({
-					is_with_daily_sales_data: params?.isWithDailySalesData,
-					page: params?.page || DEFAULT_PAGE,
-					page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-					time_range: params?.timeRange,
-				}),
+				DailySalesService.list(
+					{
+						is_with_daily_sales_data: params?.isWithDailySalesData,
+						page: params?.page || DEFAULT_PAGE,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						time_range: params?.timeRange,
+					},
+					serviceOptions?.baseURL,
+				),
 			),
 		{
 			placeholderData: {

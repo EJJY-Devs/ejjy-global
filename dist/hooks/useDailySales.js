@@ -9,13 +9,13 @@ const globals_1 = require("../globals");
 const DailySalesService_1 = __importDefault(require("../services/DailySalesService"));
 const helper_1 = require("./helper");
 const useDailySales = (data = {}) => {
-    const { params, options } = data;
+    const { params, options, serviceOptions } = data;
     return (0, react_query_1.useQuery)(['useDailySales', params], () => (0, helper_1.wrapServiceWithCatch)(DailySalesService_1.default.list({
         is_with_daily_sales_data: params === null || params === void 0 ? void 0 : params.isWithDailySalesData,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         time_range: params === null || params === void 0 ? void 0 : params.timeRange,
-    })), Object.assign({ placeholderData: {
+    }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ placeholderData: {
             results: [],
             count: 0,
         }, select: (query) => ({

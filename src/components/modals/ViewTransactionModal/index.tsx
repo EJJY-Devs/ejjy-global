@@ -78,7 +78,7 @@ export const ViewTransactionModal = ({
 				return undefined;
 			}
 
-			printSalesInvoice(
+			return printSalesInvoice(
 				transactionData,
 				siteSettings,
 				transactionData.branch_machine,

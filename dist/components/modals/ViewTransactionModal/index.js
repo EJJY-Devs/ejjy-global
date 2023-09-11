@@ -59,7 +59,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            (0, print_1.printSalesInvoice)(transactionData, siteSettings, transactionData.branch_machine, true, true);
+            return (0, print_1.printSalesInvoice)(transactionData, siteSettings, transactionData.branch_machine, true, true);
         },
     });
     const { data: transactionRetrieved, isFetching } = (0, hooks_1.useTransactionRetrieve)({
