@@ -1,4 +1,3 @@
-import './index.css';
 export * from './components';
 export * from './globals';
 export * from './hooks';
