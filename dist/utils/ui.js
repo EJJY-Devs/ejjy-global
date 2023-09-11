@@ -158,10 +158,10 @@ exports.filterOption = filterOption;
 // 	});
 // };
 const showErrorMessages = (errors) => {
-    if (typeof errors === 'string') {
+    if (typeof errors === 'string' && errors.length > 0) {
         antd_1.message.error(errors);
     }
-    else if (Array.isArray(errors)) {
+    else if (Array.isArray(errors) && errors.length > 0) {
         errors.forEach((error) => antd_1.message.error(error));
     }
 };

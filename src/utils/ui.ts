@@ -198,9 +198,9 @@ export const filterOption = (
 // };
 
 export const showErrorMessages = (errors: string | string[]) => {
-	if (typeof errors === 'string') {
+	if (typeof errors === 'string' && errors.length > 0) {
 		message.error(errors);
-	} else if (Array.isArray(errors)) {
+	} else if (Array.isArray(errors) && errors.length > 0) {
 		errors.forEach((error) => message.error(error));
 	}
 };
