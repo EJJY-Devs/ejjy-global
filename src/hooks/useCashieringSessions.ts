@@ -78,16 +78,13 @@ export const useCashieringSessionValidate = (
 	);
 
 export const useCashieringSessionStart = (
-	options: UseMutationOptions<
+	options?: UseMutationOptions<
 		AxiosResponse<CashieringSession>,
 		AxiosErrorResponse,
 		CamelCasedProperties<Start>
 	>,
-) => {
-	// TODO: Call this action on the app side and not here.
-	// const saveSession = useActionDispatch(actions.save);
-
-	return useMutation<
+) =>
+	useMutation<
 		AxiosResponse<CashieringSession>,
 		AxiosErrorResponse,
 		CamelCasedProperties<Start>
@@ -100,19 +97,7 @@ export const useCashieringSessionStart = (
 				password,
 			}),
 		options,
-		// {
-		// TODO: Call this action on the app side and not here.
-		// 	onSuccess: async ({ data }) => {
-		// 		const { data: siteSettings } = await SiteSettingsService.get();
-
-		// 		saveSession({
-		// 			...data,
-		// 			siteSettings,
-		// 		});
-		// 	},
-		// },
 	);
-};
 
 export const useCashieringSessionEnd = (
 	options?: UseMutationOptions<

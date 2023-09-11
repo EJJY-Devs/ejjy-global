@@ -26,16 +26,12 @@ const useCashieringSessionRetrieve = (data) => {
 exports.useCashieringSessionRetrieve = useCashieringSessionRetrieve;
 const useCashieringSessionValidate = (options) => (0, react_query_1.useMutation)((id) => services_1.CashieringSessionsService.validate(id), options);
 exports.useCashieringSessionValidate = useCashieringSessionValidate;
-const useCashieringSessionStart = (options) => {
-    // TODO: Call this action on the app side and not here.
-    // const saveSession = useActionDispatch(actions.save);
-    return (0, react_query_1.useMutation)(({ branchMachineId, branchMachineRegistrationCount, login, password }) => services_1.CashieringSessionsService.start({
-        branch_machine_id: branchMachineId,
-        branch_machine_registration_count: branchMachineRegistrationCount,
-        login,
-        password,
-    }), options);
-};
+const useCashieringSessionStart = (options) => (0, react_query_1.useMutation)(({ branchMachineId, branchMachineRegistrationCount, login, password }) => services_1.CashieringSessionsService.start({
+    branch_machine_id: branchMachineId,
+    branch_machine_registration_count: branchMachineRegistrationCount,
+    login,
+    password,
+}), options);
 exports.useCashieringSessionStart = useCashieringSessionStart;
 const useCashieringSessionEnd = (options) => (0, react_query_1.useMutation)(({ id, branchMachineId, isAutomaticallyClosed }) => services_1.CashieringSessionsService.end({
     id,

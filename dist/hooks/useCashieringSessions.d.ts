@@ -8,7 +8,7 @@ import { UseListQuery, UseRetrieveQuery } from './inteface';
 declare const useCashieringSessions: (data?: UseListQuery<CashieringSession>) => import("react-query").UseQueryResult<QueryResponse<CashieringSession>, Error>;
 export declare const useCashieringSessionRetrieve: (data: UseRetrieveQuery<CashieringSession>) => import("react-query").UseQueryResult<CashieringSession, unknown>;
 export declare const useCashieringSessionValidate: (options?: UseMutationOptions<AxiosResponse<boolean>, AxiosErrorResponse, number>) => import("react-query").UseMutationResult<AxiosResponse<boolean>, AxiosErrorResponse<any>, number, unknown>;
-export declare const useCashieringSessionStart: (options: UseMutationOptions<AxiosResponse<CashieringSession>, AxiosErrorResponse, CamelCasedProperties<Start>>) => import("react-query").UseMutationResult<AxiosResponse<CashieringSession>, AxiosErrorResponse<any>, {
+export declare const useCashieringSessionStart: (options?: UseMutationOptions<AxiosResponse<CashieringSession>, AxiosErrorResponse, CamelCasedProperties<Start>>) => import("react-query").UseMutationResult<AxiosResponse<CashieringSession>, AxiosErrorResponse<any>, {
     login: string;
     password: string;
     branchMachineId: number;
