@@ -29,6 +29,7 @@ dayjs_1.default.extend(timezone_1.default);
 dayjs_1.default.extend(isToday_1.default);
 dayjs_1.default.extend(relativeTime_1.default);
 dayjs_1.default.tz.setDefault('Asia/Manila');
+__exportStar(require("./components"), exports);
 __exportStar(require("./globals"), exports);
 __exportStar(require("./hooks"), exports);
 __exportStar(require("./print"), exports);
