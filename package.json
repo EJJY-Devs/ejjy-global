@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.61",
+	"version": "0.0.62",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -11,7 +11,8 @@
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
 		"preview": "vite preview",
-		"p": "npm version patch --no-git-tag-version && git push && cd ../ejjy-app-cashiering && npm run ug"
+		"pre-commit": "npm version patch --no-git-tag-version && git add .",
+		"post-commit": "git push && cd ../ejjy-app-cashiering && npm run ug"
 	},
 	"dependencies": {
 		"antd": "^4.24.13",
