@@ -30,7 +30,7 @@ export declare const useTransactionCreate: () => import("react-query").UseMutati
         quantity: number;
     }[];
     status?: string | undefined;
-    tellerId: string;
+    tellerId: number;
 }, unknown>;
 export declare const useTransactionPay: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
     amountTendered: string;

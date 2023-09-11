@@ -56,7 +56,7 @@ export interface Create {
     previous_voided_transaction_id?: number;
     products: TransactionProduct[];
     status?: string;
-    teller_id: string;
+    teller_id: number;
 }
 export interface Edit {
     id: number;
