@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const globals_1 = require("../globals");
@@ -87,6 +87,20 @@ const getAttendanceLogDescription = (category, type) => {
     return `${description} ${lodash_1.default.upperFirst(type)}`;
 };
 exports.getAttendanceLogDescription = getAttendanceLogDescription;
+const getModeOfPaymentDescription = (modeOfPayment) => {
+    let description;
+    if (modeOfPayment === globals_1.paymentTypes.CASH) {
+        description = 'Cash';
+    }
+    else if (modeOfPayment === globals_1.paymentTypes.CREDIT) {
+        description = 'Charge';
+    }
+    else if (modeOfPayment === globals_1.paymentTypes.CHEQUE) {
+        description = 'Cheque';
+    }
+    return description;
+};
+exports.getModeOfPaymentDescription = getModeOfPaymentDescription;
 const filterOption = (input, option) => {
     if (option === null || option === void 0 ? void 0 : option.children) {
         return (option.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0);

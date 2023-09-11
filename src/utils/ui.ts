@@ -1,11 +1,11 @@
 import { message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import _ from 'lodash';
-import { FilterFunc } from 'rc-select/lib/Select';
 import {
 	attendanceCategories,
 	cashBreakdownCategories,
 	cashBreakdownTypes,
+	paymentTypes,
 	userTypes,
 } from '../globals';
 import {
@@ -13,6 +13,7 @@ import {
 	AttendanceLogType,
 	CashBreakdownCategory,
 	CashBreakdownType,
+	PaymentType,
 	Product,
 	TransactionProduct,
 	UserType,
@@ -116,7 +117,19 @@ export const getAttendanceLogDescription = (
 	return `${description} ${_.upperFirst(type)}`;
 };
 
-interface FilterOptions extends FilterFunc<DefaultOptionType> {}
+export const getModeOfPaymentDescription = (modeOfPayment: PaymentType) => {
+	let description;
+
+	if (modeOfPayment === paymentTypes.CASH) {
+		description = 'Cash';
+	} else if (modeOfPayment === paymentTypes.CREDIT) {
+		description = 'Charge';
+	} else if (modeOfPayment === paymentTypes.CHEQUE) {
+		description = 'Cheque';
+	}
+
+	return description;
+};
 
 export const filterOption = (
 	input: string,
