@@ -208,8 +208,6 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
                 "PB: ",
                 ((_d = report === null || report === void 0 ? void 0 : report.generated_by) === null || _d === void 0 ? void 0 : _d.employee_id) || globals_1.EMPTY_CELL)),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
-        react_1.default.createElement("div", { 
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewZReadReportModal = ViewZReadReportModal;

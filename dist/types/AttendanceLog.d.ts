@@ -1,7 +1,7 @@
-import { Account } from "./Account";
-import { Branch } from "./Branch";
-export type AttendanceLogCategory = "attendance" | "tracker";
-export type AttendanceLogType = "in" | "out";
+import { Account } from './Account';
+import { Branch } from './Branch';
+export type AttendanceLogCategory = 'attendance' | 'tracker';
+export type AttendanceLogType = 'in' | 'out';
 export interface AttendanceLog {
     id: number;
     employee: Account;
@@ -32,8 +32,8 @@ export interface ProblematicAttendanceLog {
     branch: Branch;
     online_id?: number;
     datetime_created: string;
-    attendance_category: "attendance" | "tracker";
-    attendance_type: "in" | "out";
+    attendance_category: 'attendance' | 'tracker';
+    attendance_type: 'in' | 'out';
     real_time: string;
     scheduled_time?: string;
     suggested_resolved_clock_out_time?: string;

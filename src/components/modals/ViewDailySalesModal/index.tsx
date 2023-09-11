@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Descriptions, Modal, Space, Typography } from 'antd';
 import React, { useState } from 'react';

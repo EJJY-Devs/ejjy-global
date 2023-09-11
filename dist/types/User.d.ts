@@ -1,5 +1,5 @@
-import { BranchAssignment } from "./BranchAssignment";
-export type UserType = "admin" | "office_manager" | "branch_manager" | "branch_personnel";
+import { BranchAssignment } from './BranchAssignment';
+export type UserType = 'admin' | 'office_manager' | 'branch_manager' | 'branch_personnel';
 export interface User {
     id: number;
     last_login?: string;
@@ -23,6 +23,6 @@ export interface UserPendingApproval {
     user: User;
     deleted: string;
     datetime_created: string;
-    approval_type: "create" | "update_user_type" | "delete";
+    approval_type: 'create' | 'update_user_type' | 'delete';
     new_user_type?: UserType;
 }

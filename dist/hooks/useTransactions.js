@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useTransactionComputeDiscount = exports.useTransactionRetrieve = void 0;
+exports.useTransactionDelete = exports.useTransactionVoid = exports.useTransactionEdit = exports.useTransactionPay = exports.useTransactionCreate = exports.useTransactionComputeDiscount = exports.useTransactionRetrieve = void 0;
 const react_query_1 = require("react-query");
 const globals_1 = require("../globals");
 const services_1 = require("../services");
@@ -14,7 +14,7 @@ const useTransactions = (data = {}) => {
         statuses: params === null || params === void 0 ? void 0 : params.statuses,
         teller_id: params === null || params === void 0 ? void 0 : params.tellerId,
         time_range: (params === null || params === void 0 ? void 0 : params.timeRange) || globals_1.timeRangeTypes.DAILY,
-    })), Object.assign({ placeholderData: {
+    }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ placeholderData: {
             results: [],
             count: 0,
         }, select: (query) => ({
@@ -33,4 +33,44 @@ const useTransactionComputeDiscount = () => (0, react_query_1.useMutation)(({ br
     discount_option_id: discountOptionId,
 }));
 exports.useTransactionComputeDiscount = useTransactionComputeDiscount;
+const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount, previousVoidedTransactionId, products, status, tellerId, }) => services_1.TransactionsService.create({
+    branch_machine_id: branchMachineId,
+    client,
+    customer_account_id: customerAccountId,
+    overall_discount: overallDiscount,
+    previous_voided_transaction_id: previousVoidedTransactionId,
+    products,
+    status,
+    teller_id: tellerId,
+}));
+exports.useTransactionCreate = useTransactionCreate;
+const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered, branchMachineId, cashierUserId, creditPaymentAuthorizerId, creditorAccountId, discountAuthorizerId, discountAmount, discountOptionAdditionalFieldsValues, discountOptionId, transactionId, }) => services_1.TransactionsService.pay({
+    amount_tendered: amountTendered,
+    branch_machine_id: branchMachineId,
+    cashier_user_id: cashierUserId,
+    credit_payment_authorizer_id: creditPaymentAuthorizerId,
+    creditor_account_id: creditorAccountId,
+    discount_authorizer_id: discountAuthorizerId,
+    discount_amount: discountAmount,
+    discount_option_additional_fields_values: discountOptionAdditionalFieldsValues,
+    discount_option_id: discountOptionId,
+    transaction_id: transactionId,
+}));
+exports.useTransactionPay = useTransactionPay;
+const useTransactionEdit = () => (0, react_query_1.useMutation)(({ id, products, overallDiscount, status }) => services_1.TransactionsService.update({
+    id,
+    products: products,
+    overall_discount: overallDiscount,
+    status,
+}));
+exports.useTransactionEdit = useTransactionEdit;
+const useTransactionVoid = () => (0, react_query_1.useMutation)(({ id, branchMachineId, cashierUserId, voidAuthorizerId }) => services_1.TransactionsService.void({
+    id,
+    branch_machine_id: branchMachineId,
+    cashier_user_id: cashierUserId,
+    void_authorizer_id: voidAuthorizerId,
+}));
+exports.useTransactionVoid = useTransactionVoid;
+const useTransactionDelete = () => (0, react_query_1.useMutation)((id) => services_1.TransactionsService.delete(id));
+exports.useTransactionDelete = useTransactionDelete;
 exports.default = useTransactions;

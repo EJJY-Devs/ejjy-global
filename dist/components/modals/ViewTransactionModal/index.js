@@ -253,8 +253,6 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 "\"", siteSettings === null || siteSettings === void 0 ? void 0 :
                 siteSettings.thank_you_message,
                 "\"")))),
-        react_1.default.createElement("div", { 
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewTransactionModal = ViewTransactionModal;

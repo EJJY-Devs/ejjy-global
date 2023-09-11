@@ -1,6 +1,6 @@
-import { BranchMachine } from "./BranchMachine";
-import { OrderOfPayment } from "./OrderOfPayment";
-import { User } from "./User";
+import { BranchMachine } from './BranchMachine';
+import { OrderOfPayment } from './OrderOfPayment';
+import { User } from './User';
 export interface CollectionReceipt {
     id: number;
     datetime_created: string;

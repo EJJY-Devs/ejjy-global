@@ -30,5 +30,10 @@ const service = {
     compute: (body) => __awaiter(void 0, void 0, void 0, function* () {
         return axios_1.default.post('/transactions/compute-discount/', body);
     }),
+    pay: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/payments/', body); }),
+    create: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/transactions/', body); }),
+    void: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/transactions/${body.id}/void/`, body); }),
+    update: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/transactions/${body.id}/`, body); }),
+    delete: (id) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`/transactions/${id}/`); }),
 };
 exports.default = service;

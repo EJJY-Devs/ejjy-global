@@ -1,5 +1,5 @@
-import { BranchMachine } from "./BranchMachine";
-import { User } from "./User";
+import { BranchMachine } from './BranchMachine';
+import { User } from './User';
 export interface CashieringAssignment {
     id: number;
     user: User;

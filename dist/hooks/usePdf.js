@@ -17,7 +17,6 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     const previewPdf = () => {
         setLoadingPdf(true);
-        // eslint-disable-next-line new-cap
         const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
         pdf.setProperties({ title });
         const dataHtml = print === null || print === void 0 ? void 0 : print();
@@ -42,7 +41,6 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
     };
     const downloadPdf = () => {
         setLoadingPdf(true);
-        // eslint-disable-next-line new-cap
         const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
         pdf.setProperties({ title });
         const dataHtml = print === null || print === void 0 ? void 0 : print();

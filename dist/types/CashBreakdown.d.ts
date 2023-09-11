@@ -1,8 +1,8 @@
-import { BranchMachine } from "./BranchMachine";
-import { CashieringSession } from "./CashieringSession";
-import { User } from "./User";
-export type CashBreakdownType = "start_session" | "end_session" | "mid_session";
-export type CashBreakdownCategory = "cash_breakdown" | "cash_in" | "cash_out";
+import { BranchMachine } from './BranchMachine';
+import { CashieringSession } from './CashieringSession';
+import { User } from './User';
+export type CashBreakdownType = 'start_session' | 'end_session' | 'mid_session';
+export type CashBreakdownCategory = 'cash_breakdown' | 'cash_in' | 'cash_out';
 type CashBreakdownMetadata = {
     id: number;
     payee?: string;

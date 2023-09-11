@@ -29,7 +29,6 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 	const previewPdf = () => {
 		setLoadingPdf(true);
 
-		// eslint-disable-next-line new-cap
 		const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
 		pdf.setProperties({ title });
 
@@ -59,7 +58,6 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 	const downloadPdf = () => {
 		setLoadingPdf(true);
 
-		// eslint-disable-next-line new-cap
 		const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
 		pdf.setProperties({ title });
 

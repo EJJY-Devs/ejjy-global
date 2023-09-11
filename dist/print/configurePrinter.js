@@ -96,9 +96,7 @@ const openCashDrawer = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const config = qz_tray_1.default.configs.create(printerName);
             yield qz_tray_1.default.print(config, [
-                // eslint-disable-next-line no-useless-concat
                 '\x1B' + '\x40',
-                // eslint-disable-next-line no-useless-concat
                 '\x10' + '\x14' + '\x01' + '\x00' + '\x05',
             ]);
             antd_1.message.success({

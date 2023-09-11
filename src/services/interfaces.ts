@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
 import { ServiceType } from '../globals/enums';
 
 export interface ListQueryParams {

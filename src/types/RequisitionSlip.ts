@@ -1,4 +1,4 @@
 // TODO: Add interface
 export interface RequisitionSlip {
-  id: number;
+	id: number;
 }

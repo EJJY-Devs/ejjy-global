@@ -15,10 +15,10 @@ class ReportTextFile {
         this.MAX_SIZE = 71;
         this.MIDDLE_INDEX = parseInt(`${this.MAX_SIZE / 2}`);
         this.contents = Array(this.MAX_SIZE)
-            .fill(" ")
-            .map(() => Array(this.MAX_SIZE).fill(" "));
+            .fill(' ')
+            .map(() => Array(this.MAX_SIZE).fill(' '));
     }
-    write({ text = "", alignment, rowNumber }) {
+    write({ text = '', alignment, rowNumber }) {
         const elements = [...text];
         if (alignment === ReportTextFile.ALIGNMENTS.LEFT) {
             elements.forEach((c, index) => {
@@ -39,13 +39,13 @@ class ReportTextFile {
         }
     }
     get() {
-        return this.contents.map((row) => row.join("")).join("\n");
+        return this.contents.map((row) => row.join('')).join('\n');
     }
     export(fileName) {
-        const content = this.contents.map((row) => row.join("")).join("\n");
-        const element = document.createElement("a");
+        const content = this.contents.map((row) => row.join('')).join('\n');
+        const element = document.createElement('a');
         const file = new Blob([content], {
-            type: "text/plain",
+            type: 'text/plain',
         });
         element.href = URL.createObjectURL(file);
         element.download = fileName;

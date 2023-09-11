@@ -5,7 +5,7 @@ declare enum ALIGNMENTS {
 }
 interface Write {
     text?: string;
-    alignment: "left" | "center" | "right";
+    alignment: 'left' | 'center' | 'right';
     rowNumber: number;
 }
 export declare class ReportTextFile {

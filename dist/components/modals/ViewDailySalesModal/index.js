@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViewDailySalesModal = void 0;
-/* eslint-disable react/no-danger */
 const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
 const react_1 = __importStar(require("react"));

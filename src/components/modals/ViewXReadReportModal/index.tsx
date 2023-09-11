@@ -361,7 +361,6 @@ export const ViewXReadReportModal = ({
 			<ReceiptFooter siteSettings={siteSettings} />
 
 			<div
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>

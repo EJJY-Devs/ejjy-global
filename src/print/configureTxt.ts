@@ -1,12 +1,11 @@
-import { saleTypes, transactionStatuses, vatTypes } from '../globals';
 import dayjs from 'dayjs';
+import { saleTypes, transactionStatuses, vatTypes } from '../globals';
 import {
 	BranchMachine,
 	DailySales,
 	GeneratedByUser,
 	SiteSettings,
 	Transaction,
-	User,
 	XReadReport,
 	ZReadReport,
 } from '../types';

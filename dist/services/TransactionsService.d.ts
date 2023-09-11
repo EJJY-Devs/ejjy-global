@@ -27,9 +27,57 @@ export interface ComputeDiscountResponse {
     vat_sales_discount: string;
     vat_exempt_discount: string;
 }
+export interface Pay {
+    amount_tendered: string;
+    branch_machine_id?: number;
+    cashier_user_id: number;
+    credit_payment_authorizer_id?: number;
+    creditor_account_id?: number;
+    discount_authorizer_id: number;
+    discount_amount?: number;
+    discount_option_additional_fields_values?: string;
+    discount_option_id?: string;
+    transaction_id: number;
+}
+type TransactionProduct = {
+    transaction_product_id?: number;
+    product_id: number;
+    quantity: number;
+};
+export interface Create {
+    branch_machine_id: number;
+    client?: {
+        name: string;
+        address: string;
+        tin: string;
+    };
+    customer_account_id?: number;
+    overall_discount?: string;
+    previous_voided_transaction_id?: number;
+    products: TransactionProduct[];
+    status?: string;
+    teller_id: string;
+}
+export interface Edit {
+    id: number;
+    products: TransactionProduct[];
+    overall_discount?: number;
+    status?: string;
+}
+export interface Void {
+    id: number;
+    branch_machine_id: number;
+    cashier_user_id: number;
+    void_authorizer_id: number;
+}
 declare const service: {
     list: (params: Params, baseURL?: string) => Promise<ListResponseData<Transaction>>;
     retrieve: (id: number, baseURL?: string) => Promise<Transaction>;
     compute: (body: ComputeDiscount) => Promise<import("axios").AxiosResponse<ComputeDiscountResponse>>;
+    pay: (body: Pay) => Promise<import("axios").AxiosResponse<Transaction>>;
+    create: (body: Create) => Promise<import("axios").AxiosResponse<Transaction>>;
+    void: (body: Void) => Promise<import("axios").AxiosResponse<Transaction>>;
+    update: (body: Edit) => Promise<import("axios").AxiosResponse<Transaction>>;
+    delete: (id: number) => Promise<import("axios").AxiosResponse<void>>;
 };
 export default service;

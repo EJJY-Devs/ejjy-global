@@ -14,4 +14,51 @@ export declare const useTransactionComputeDiscount: () => import("react-query").
     discountAmount: string;
     discountOptionId: number;
 }, unknown>;
+export declare const useTransactionCreate: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
+    branchMachineId: number;
+    client?: {
+        name: string;
+        address: string;
+        tin: string;
+    } | undefined;
+    customerAccountId?: number | undefined;
+    overallDiscount?: string | undefined;
+    previousVoidedTransactionId?: number | undefined;
+    products: {
+        transaction_product_id?: number | undefined;
+        product_id: number;
+        quantity: number;
+    }[];
+    status?: string | undefined;
+    tellerId: string;
+}, unknown>;
+export declare const useTransactionPay: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
+    amountTendered: string;
+    branchMachineId?: number | undefined;
+    cashierUserId: number;
+    creditPaymentAuthorizerId?: number | undefined;
+    creditorAccountId?: number | undefined;
+    discountAuthorizerId: number;
+    discountAmount?: number | undefined;
+    discountOptionAdditionalFieldsValues?: string | undefined;
+    discountOptionId?: string | undefined;
+    transactionId: number;
+}, unknown>;
+export declare const useTransactionEdit: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
+    id: number;
+    products: {
+        transaction_product_id?: number | undefined;
+        product_id: number;
+        quantity: number;
+    }[];
+    overallDiscount?: number | undefined;
+    status?: string | undefined;
+}, unknown>;
+export declare const useTransactionVoid: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
+    id: number;
+    branchMachineId: number;
+    cashierUserId: number;
+    voidAuthorizerId: number;
+}, unknown>;
+export declare const useTransactionDelete: () => import("react-query").UseMutationResult<AxiosResponse<void>, AxiosErrorResponse<any>, number, unknown>;
 export default useTransactions;

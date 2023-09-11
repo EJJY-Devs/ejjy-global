@@ -132,9 +132,7 @@ export const openCashDrawer = async () => {
 			const config = qz.configs.create(printerName);
 
 			await qz.print(config, [
-				// eslint-disable-next-line no-useless-concat
 				'\x1B' + '\x40', // init
-				// eslint-disable-next-line no-useless-concat
 				'\x10' + '\x14' + '\x01' + '\x00' + '\x05',
 			]);
 
