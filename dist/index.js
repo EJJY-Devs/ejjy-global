@@ -23,6 +23,7 @@ const isToday_1 = __importDefault(require("dayjs/plugin/isToday"));
 const relativeTime_1 = __importDefault(require("dayjs/plugin/relativeTime"));
 const timezone_1 = __importDefault(require("dayjs/plugin/timezone"));
 const utc_1 = __importDefault(require("dayjs/plugin/utc"));
+require("./index.css");
 dayjs_1.default.extend(customParseFormat_1.default);
 dayjs_1.default.extend(utc_1.default);
 dayjs_1.default.extend(timezone_1.default);

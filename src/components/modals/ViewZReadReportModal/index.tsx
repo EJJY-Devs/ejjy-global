@@ -1,7 +1,7 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Descriptions, Modal, Space, Typography } from 'antd';
-import imgNoTransaction from 'assets/images/no-transaction.png';
 import React, { useState } from 'react';
+import imgNoTransaction from '../../../assets/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createZReadTxt, printZReadReport } from '../../../print';
@@ -116,7 +116,7 @@ export const ViewZReadReportModal = ({
 			{report.total_transactions === 0 && (
 				<img
 					alt="no transaction"
-					className="img-no-transaction"
+					className="absolute bottom-0 left-0 w-full"
 					src={imgNoTransaction}
 				/>
 			)}

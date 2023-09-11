@@ -29,14 +29,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViewXReadReportModal = void 0;
 const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
-const no_transaction_png_1 = __importDefault(require("assets/images/no-transaction.png"));
+const no_transaction_png_1 = __importDefault(require("../../../assets/no-transaction.png"));
 const react_1 = __importStar(require("react"));
 const globals_1 = require("../../../globals");
 const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
-require("../style.scss");
 const { Text } = antd_1.Typography;
 const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
     var _a, _b, _c, _d;
@@ -70,7 +69,7 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "img-no-transaction", src: no_transaction_png_1.default })),
+        report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "absolute bottom-0 left-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
             react_1.default.createElement(Text, { className: "w-100" }, "X-READ"),

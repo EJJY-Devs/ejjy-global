@@ -20,6 +20,7 @@ import {
 import { Transaction } from '../types';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
+import { standardRound } from '../utils';
 
 const useTransactions = (
 	data: UseListQuery<Transaction, CamelCasedProperties<Params>> = {},
@@ -96,7 +97,7 @@ export const useTransactionCreate = () =>
 			branchMachineId,
 			client,
 			customerAccountId,
-			overallDiscount,
+			overallDiscount = 0,
 			previousVoidedTransactionId,
 			products,
 			status,
@@ -106,7 +107,7 @@ export const useTransactionCreate = () =>
 				branch_machine_id: branchMachineId,
 				client,
 				customer_account_id: customerAccountId,
-				overall_discount: overallDiscount,
+				overall_discount: standardRound(Number(overallDiscount)),
 				previous_voided_transaction_id: previousVoidedTransactionId,
 				products,
 				status,

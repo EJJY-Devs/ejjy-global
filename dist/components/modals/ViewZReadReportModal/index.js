@@ -29,8 +29,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViewZReadReportModal = void 0;
 const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
-const no_transaction_png_1 = __importDefault(require("assets/images/no-transaction.png"));
 const react_1 = __importStar(require("react"));
+const no_transaction_png_1 = __importDefault(require("../../../assets/no-transaction.png"));
 const globals_1 = require("../../../globals");
 const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
@@ -69,7 +69,7 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Z-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.total_transactions === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "img-no-transaction", src: no_transaction_png_1.default })),
+        report.total_transactions === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "absolute bottom-0 left-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
             react_1.default.createElement(Text, { className: "w-100" }, "Z-READ"),

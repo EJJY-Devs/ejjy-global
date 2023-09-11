@@ -5,6 +5,7 @@ const react_query_1 = require("react-query");
 const globals_1 = require("../globals");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
+const utils_1 = require("../utils");
 const useTransactions = (data = {}) => {
     const { params, options, serviceOptions } = data;
     return (0, react_query_1.useQuery)(['useTransactions', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
@@ -33,11 +34,11 @@ const useTransactionComputeDiscount = () => (0, react_query_1.useMutation)(({ br
     discount_option_id: discountOptionId,
 }));
 exports.useTransactionComputeDiscount = useTransactionComputeDiscount;
-const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount, previousVoidedTransactionId, products, status, tellerId, }) => services_1.TransactionsService.create({
+const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount = 0, previousVoidedTransactionId, products, status, tellerId, }) => services_1.TransactionsService.create({
     branch_machine_id: branchMachineId,
     client,
     customer_account_id: customerAccountId,
-    overall_discount: overallDiscount,
+    overall_discount: (0, utils_1.standardRound)(Number(overallDiscount)),
     previous_voided_transaction_id: previousVoidedTransactionId,
     products,
     status,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { SiteSettings, XReadReport } from '../../../types';
-import '../style.scss';
 interface Props {
     report: XReadReport;
     siteSettings: SiteSettings;

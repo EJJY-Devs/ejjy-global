@@ -1,6 +1,6 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Descriptions, Modal, Space, Typography } from 'antd';
-import imgNoTransaction from 'assets/images/no-transaction.png';
+import imgNoTransaction from '../../../assets/no-transaction.png';
 import React, { useState } from 'react';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
@@ -14,7 +14,6 @@ import {
 	ReceiptReportSummary,
 	ReceiptUnderlinedValue,
 } from '../../Printing';
-import '../style.scss';
 
 interface Props {
 	report: XReadReport;
@@ -117,7 +116,7 @@ export const ViewXReadReportModal = ({
 			{report.gross_sales === 0 && (
 				<img
 					alt="no transaction"
-					className="img-no-transaction"
+					className="absolute bottom-0 left-0 w-full"
 					src={imgNoTransaction}
 				/>
 			)}
