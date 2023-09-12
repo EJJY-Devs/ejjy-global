@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { Input, Modal, Space, Typography, message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import _ from 'lodash';
 import {
@@ -18,6 +18,7 @@ import {
 	TransactionProduct,
 	UserType,
 } from '../types';
+import React, { useState } from 'react';
 
 // Getters
 export const getSubtotal = (products: TransactionProduct[]) => {
@@ -145,57 +146,56 @@ export const filterOption = (
 };
 
 // Messages
-// interface Authorization {
-//   title?: string;
-//   onSuccess: any;
-// }
+interface Authorization {
+	title?: string;
+	onSuccess: () => void;
+}
 
-// TODO: Find another way to implement
-// export const authorization = ({
-// 	title = 'Input Password',
-// 	onSuccess,
-// }: Authorization) => {
-// 	let username = '';
-// 	let password = '';
+export const authorization = ({
+	title = 'Input Password',
+	onSuccess,
+}: Authorization) => {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 
-// 	Modal.confirm({
-// 		title,
-// 		centered: true,
-// 		className: 'Modal__hasFooter',
-// 		okText: 'Submit',
-// 		content: (
-// 			<Space className="w-100" direction="vertical">
-// 				<div>
-// 					<Label label="Username" spacing />
-// 					<UncontrolledInput
-// 						type="text"
-// 						onChange={(value) => {
-// 							username = value;
-// 						}}
-// 					/>
-// 				</div>
+	Modal.confirm({
+		title,
+		centered: true,
+		className: 'Modal__hasFooter',
+		okText: 'Submit',
+		content: (
+			<Space className="w-100" direction="vertical">
+				<>
+					<Typography.Text>Username</Typography.Text>
+					<Input
+						value={username}
+						onChange={(event) => {
+							setUsername(event.target.value);
+						}}
+					/>
+				</>
 
-// 				<div>
-// 					<Label label="Password" spacing />
-// 					<UncontrolledInput
-// 						type="password"
-// 						onChange={(value) => {
-// 							password = value;
-// 						}}
-// 					/>
-// 				</div>
-// 			</Space>
-// 		),
-// 		onOk: (close) => {
-// 			if (username === 'admin' && password === 'generic123') {
-// 				onSuccess();
-// 				close();
-// 			} else {
-// 				message.error('Incorrect username/password');
-// 			}
-// 		},
-// 	});
-// };
+				<>
+					<Typography.Text>Password</Typography.Text>
+					<Input.Password
+						value={password}
+						onChange={(event) => {
+							setPassword(event.target.value);
+						}}
+					/>
+				</>
+			</Space>
+		),
+		onOk: (close) => {
+			if (username === 'admin' && password === 'generic123') {
+				onSuccess();
+				close();
+			} else {
+				message.error('Incorrect username/password');
+			}
+		},
+	});
+};
 
 export const showErrorMessages = (errors: string | string[]) => {
 	if (typeof errors === 'string' && errors.length > 0) {

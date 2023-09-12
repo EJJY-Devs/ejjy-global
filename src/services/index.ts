@@ -5,6 +5,7 @@ export { default as BirReportsService } from './BirReportsService';
 export { default as BranchDayAuthorizationsService } from './BranchDayAuthorizationsService';
 export { default as BranchDaysService } from './BranchDaysService';
 export { default as BranchMachinesService } from './BranchMachinesService';
+export { default as BranchProductsService } from './BranchProductsService';
 export { default as BranchesService } from './BranchesService';
 export { default as CashBreakdownsService } from './CashBreakdownsService';
 export { default as CashieringSessionsService } from './CashieringSessionsService';

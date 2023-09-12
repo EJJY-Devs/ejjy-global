@@ -1,12 +1,36 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.filterOption = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const globals_1 = require("../globals");
+const react_1 = __importStar(require("react"));
 // Getters
 const getSubtotal = (products) => {
     let amount = 0;
@@ -108,55 +132,37 @@ const filterOption = (input, option) => {
     return false;
 };
 exports.filterOption = filterOption;
-// Messages
-// interface Authorization {
-//   title?: string;
-//   onSuccess: any;
-// }
-// TODO: Find another way to implement
-// export const authorization = ({
-// 	title = 'Input Password',
-// 	onSuccess,
-// }: Authorization) => {
-// 	let username = '';
-// 	let password = '';
-// 	Modal.confirm({
-// 		title,
-// 		centered: true,
-// 		className: 'Modal__hasFooter',
-// 		okText: 'Submit',
-// 		content: (
-// 			<Space className="w-100" direction="vertical">
-// 				<div>
-// 					<Label label="Username" spacing />
-// 					<UncontrolledInput
-// 						type="text"
-// 						onChange={(value) => {
-// 							username = value;
-// 						}}
-// 					/>
-// 				</div>
-// 				<div>
-// 					<Label label="Password" spacing />
-// 					<UncontrolledInput
-// 						type="password"
-// 						onChange={(value) => {
-// 							password = value;
-// 						}}
-// 					/>
-// 				</div>
-// 			</Space>
-// 		),
-// 		onOk: (close) => {
-// 			if (username === 'admin' && password === 'generic123') {
-// 				onSuccess();
-// 				close();
-// 			} else {
-// 				message.error('Incorrect username/password');
-// 			}
-// 		},
-// 	});
-// };
+const authorization = ({ title = 'Input Password', onSuccess, }) => {
+    const [username, setUsername] = (0, react_1.useState)('');
+    const [password, setPassword] = (0, react_1.useState)('');
+    antd_1.Modal.confirm({
+        title,
+        centered: true,
+        className: 'Modal__hasFooter',
+        okText: 'Submit',
+        content: (react_1.default.createElement(antd_1.Space, { className: "w-100", direction: "vertical" },
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
+                react_1.default.createElement(antd_1.Input, { value: username, onChange: (event) => {
+                        setUsername(event.target.value);
+                    } })),
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
+                react_1.default.createElement(antd_1.Input.Password, { value: password, onChange: (event) => {
+                        setPassword(event.target.value);
+                    } })))),
+        onOk: (close) => {
+            if (username === 'admin' && password === 'generic123') {
+                onSuccess();
+                close();
+            }
+            else {
+                antd_1.message.error('Incorrect username/password');
+            }
+        },
+    });
+};
+exports.authorization = authorization;
 const showErrorMessages = (errors) => {
     if (typeof errors === 'string' && errors.length > 0) {
         antd_1.message.error(errors);
