@@ -42,7 +42,7 @@ const formatQuantity = (quantity, product, type = null) => {
     if (product.unit_of_measurement === globals_1.unitOfMeasurementTypes.NON_WEIGHING) {
         return Number(quantity).toFixed(0);
     }
-    return 0;
+    return '';
 };
 exports.formatQuantity = formatQuantity;
 const standardRound = (value) => lodash_1.default.round(value, 2).toFixed(2);

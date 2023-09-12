@@ -60,7 +60,7 @@ export const formatQuantity = (
 		return Number(quantity).toFixed(0);
 	}
 
-	return 0;
+	return '';
 };
 
 export const standardRound = (value: number) => _.round(value, 2).toFixed(2);
