@@ -79,7 +79,7 @@ export const useTransactionComputeDiscount = () =>
 		AxiosResponse<ComputeDiscountResponse>,
 		AxiosErrorResponse,
 		CamelCasedProperties<ComputeDiscount>
-	>(({ branchProducts, discountAmount, discountOptionId }: any) =>
+	>(({ branchProducts, discountAmount, discountOptionId }) =>
 		TransactionsService.compute({
 			branch_products: branchProducts,
 			discount_amount: discountAmount,

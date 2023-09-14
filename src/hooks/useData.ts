@@ -1,0 +1,65 @@
+import _ from 'lodash';
+import {
+	UseMutationOptions,
+	UseQueryOptions,
+	useMutation,
+	useQuery,
+} from 'react-query';
+import { wrapServiceWithCatch } from './helper';
+import { Params, Upload } from '../services/DataService';
+import { DataService } from '../services';
+import { UseListQuery } from './inteface';
+import { CamelCasedProperties } from 'type-fest';
+import { AxiosErrorResponse } from '../services/interfaces';
+import { AxiosResponse } from 'axios';
+
+export const REFETCH_SYNC_INTERVAL_MS = 60000;
+
+export const useUploadData = (
+	options?: UseMutationOptions<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Upload>
+	>,
+) =>
+	useMutation<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Upload>
+	>(
+		({ isBackOffice }) =>
+			DataService.upload({
+				is_back_office: isBackOffice,
+			}),
+		{
+			...options,
+		},
+	);
+
+interface InitializeDataQuery<T, TParams> {
+	options: UseQueryOptions<T, Error>;
+	params: TParams;
+}
+
+export const useInitializeData = (
+	data: InitializeDataQuery<void, CamelCasedProperties<Params>>,
+) => {
+	const { params, options } = data;
+
+	return useQuery<void, Error>(
+		['useInitializeData', params],
+		() =>
+			wrapServiceWithCatch(
+				DataService.initialize({
+					branch_id: params?.branchId,
+					branch_machine_id: params?.branchMachineId,
+				}),
+			),
+		{
+			refetchInterval: REFETCH_SYNC_INTERVAL_MS,
+			refetchIntervalInBackground: true,
+			notifyOnChangeProps: ['isLoading'],
+			...options,
+		},
+	);
+};

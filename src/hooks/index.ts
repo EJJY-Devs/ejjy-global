@@ -25,6 +25,7 @@ export * from './useCreditRegistrations';
 export { default as useCreditRegistrations } from './useCreditRegistrations';
 export * from './useDailySales';
 export { default as useDailySales } from './useDailySales';
+export * from './useData';
 export * from './useDiscountOptions';
 export { default as useDiscountOptions } from './useDiscountOptions';
 export * from './useOrderOfPayments';

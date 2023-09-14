@@ -13,6 +13,7 @@ export { default as CollectionReceiptsService } from './CollectionReceiptsServic
 export { default as ConnectivityLogsService } from './ConnectivityLogsService';
 export { default as CreditRegistrationsService } from './CreditRegistrationsService';
 export { default as DailySalesService } from './DailySalesService';
+export { default as DataService } from './DataService';
 export { default as DiscountOptionsService } from './DiscountOptionsService';
 export { default as OrderOfPaymentsService } from './OrderOfPaymentsService';
 export { default as ReportsService } from './ReportsService';

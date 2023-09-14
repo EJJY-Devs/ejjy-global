@@ -56,6 +56,7 @@ Object.defineProperty(exports, "useCreditRegistrations", { enumerable: true, get
 __exportStar(require("./useDailySales"), exports);
 var useDailySales_1 = require("./useDailySales");
 Object.defineProperty(exports, "useDailySales", { enumerable: true, get: function () { return __importDefault(useDailySales_1).default; } });
+__exportStar(require("./useData"), exports);
 __exportStar(require("./useDiscountOptions"), exports);
 var useDiscountOptions_1 = require("./useDiscountOptions");
 Object.defineProperty(exports, "useDiscountOptions", { enumerable: true, get: function () { return __importDefault(useDiscountOptions_1).default; } });
