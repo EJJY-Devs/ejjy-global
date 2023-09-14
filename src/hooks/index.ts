@@ -32,6 +32,7 @@ export * from './useOrderOfPayments';
 export { default as useOrderOfPayments } from './useOrderOfPayments';
 export * from './usePdf';
 export { default as usePdf } from './usePdf';
+export { default as useQueryParams } from './useQueryParams';
 export * from './useReports';
 export * from './useResetLogs';
 export { default as useResetLogs } from './useResetLogs';
