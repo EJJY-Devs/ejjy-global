@@ -34,12 +34,12 @@ export const useUploadData = (
 	);
 
 interface InitializeDataQuery<T, TParams> {
-	options: UseQueryOptions<T, Error>;
-	params: TParams;
+	options?: UseQueryOptions<T, Error>;
+	params?: TParams;
 }
 
 export const useInitializeData = (
-	data: InitializeDataQuery<void, CamelCasedProperties<Params>>,
+	data: InitializeDataQuery<void, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options } = data;
 

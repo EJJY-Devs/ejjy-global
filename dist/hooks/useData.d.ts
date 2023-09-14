@@ -9,8 +9,8 @@ export declare const useUploadData: (options?: UseMutationOptions<AxiosResponse<
     isBackOffice: boolean;
 }, unknown>;
 interface InitializeDataQuery<T, TParams> {
-    options: UseQueryOptions<T, Error>;
-    params: TParams;
+    options?: UseQueryOptions<T, Error>;
+    params?: TParams;
 }
-export declare const useInitializeData: (data: InitializeDataQuery<void, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<void, Error>;
+export declare const useInitializeData: (data?: InitializeDataQuery<void, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<void, Error>;
 export {};

@@ -10,7 +10,7 @@ const useUploadData = (options) => (0, react_query_1.useMutation)(({ branchMachi
     is_back_office: isBackOffice,
 }), options);
 exports.useUploadData = useUploadData;
-const useInitializeData = (data) => {
+const useInitializeData = (data = {}) => {
     const { params, options } = data;
     return (0, react_query_1.useQuery)(['useInitializeData', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.DataService.initialize({
         branch_id: params === null || params === void 0 ? void 0 : params.branchId,
