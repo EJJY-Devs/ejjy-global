@@ -25,8 +25,9 @@ export const useUploadData = (
 		AxiosErrorResponse,
 		CamelCasedProperties<Upload>
 	>(
-		({ isBackOffice }) =>
+		({ branchMachineId, isBackOffice }) =>
 			DataService.upload({
+				branch_machine_id: branchMachineId,
 				is_back_office: isBackOffice,
 			}),
 		options,

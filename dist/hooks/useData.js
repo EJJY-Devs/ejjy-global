@@ -5,7 +5,8 @@ const react_query_1 = require("react-query");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
 exports.REFETCH_SYNC_INTERVAL_MS = 60000;
-const useUploadData = (options) => (0, react_query_1.useMutation)(({ isBackOffice }) => services_1.DataService.upload({
+const useUploadData = (options) => (0, react_query_1.useMutation)(({ branchMachineId, isBackOffice }) => services_1.DataService.upload({
+    branch_machine_id: branchMachineId,
     is_back_office: isBackOffice,
 }), options);
 exports.useUploadData = useUploadData;

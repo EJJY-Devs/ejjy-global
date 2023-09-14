@@ -7,6 +7,7 @@ export interface Params extends ListQueryParams {
 }
 
 export interface Upload {
+	branch_machine_id?: number;
 	is_back_office: boolean;
 }
 
