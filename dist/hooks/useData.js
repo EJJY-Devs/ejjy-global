@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useInitializeData = exports.useUploadData = exports.REFETCH_SYNC_INTERVAL_MS = void 0;
 const react_query_1 = require("react-query");
-const helper_1 = require("./helper");
 const services_1 = require("../services");
+const helper_1 = require("./helper");
 exports.REFETCH_SYNC_INTERVAL_MS = 60000;
 const useUploadData = (options) => (0, react_query_1.useMutation)(({ isBackOffice }) => services_1.DataService.upload({
     is_back_office: isBackOffice,
-}), Object.assign({}, options));
+}), options);
 exports.useUploadData = useUploadData;
 const useInitializeData = (data) => {
     const { params, options } = data;

@@ -1,17 +1,15 @@
-import _ from 'lodash';
+import { AxiosResponse } from 'axios';
 import {
 	UseMutationOptions,
 	UseQueryOptions,
 	useMutation,
 	useQuery,
 } from 'react-query';
-import { wrapServiceWithCatch } from './helper';
-import { Params, Upload } from '../services/DataService';
-import { DataService } from '../services';
-import { UseListQuery } from './inteface';
 import { CamelCasedProperties } from 'type-fest';
+import { DataService } from '../services';
+import { Params, Upload } from '../services/DataService';
 import { AxiosErrorResponse } from '../services/interfaces';
-import { AxiosResponse } from 'axios';
+import { wrapServiceWithCatch } from './helper';
 
 export const REFETCH_SYNC_INTERVAL_MS = 60000;
 
@@ -31,9 +29,7 @@ export const useUploadData = (
 			DataService.upload({
 				is_back_office: isBackOffice,
 			}),
-		{
-			...options,
-		},
+		options,
 	);
 
 interface InitializeDataQuery<T, TParams> {
