@@ -3,6 +3,7 @@ import {
 	CashBreakdownCategory,
 	CashBreakdownType,
 	PaymentType,
+	ProductEntryType,
 } from '../types';
 
 export const appVersions = {
@@ -152,8 +153,8 @@ export const priceCodes = {
 };
 
 export const productEntryTypes = {
-	SEARCHED: 'searched',
-	SCANNED: 'scanned',
+	SEARCHED: 'searched' as ProductEntryType,
+	SCANNED: 'scanned' as ProductEntryType,
 };
 
 export const pdfButtonsKey = {

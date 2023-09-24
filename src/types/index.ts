@@ -11,6 +11,7 @@ export * from './BranchMachine';
 export * from './BranchProduct';
 export * from './BranchTransfer';
 export * from './CashBreakdown';
+export * from './Cashiering';
 export * from './CashieringAssignment';
 export * from './CashieringSession';
 export * from './CollectionReceipt';
