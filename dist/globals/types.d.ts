@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType } from '../types';
+import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -121,8 +121,8 @@ export declare const priceCodes: {
     Z: string;
 };
 export declare const productEntryTypes: {
-    SEARCHED: string;
-    SCANNED: string;
+    SEARCHED: ProductEntryType;
+    SCANNED: ProductEntryType;
 };
 export declare const pdfButtonsKey: {
     DOWNLOAD: string;

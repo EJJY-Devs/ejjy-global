@@ -27,6 +27,7 @@ __exportStar(require("./BranchMachine"), exports);
 __exportStar(require("./BranchProduct"), exports);
 __exportStar(require("./BranchTransfer"), exports);
 __exportStar(require("./CashBreakdown"), exports);
+__exportStar(require("./Cashiering"), exports);
 __exportStar(require("./CashieringAssignment"), exports);
 __exportStar(require("./CashieringSession"), exports);
 __exportStar(require("./CollectionReceipt"), exports);
