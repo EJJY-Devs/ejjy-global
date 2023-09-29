@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType } from '../types';
+import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -61,8 +61,8 @@ export declare const vatTypes: {
     VAT_EMPTY: string;
 };
 export declare const unitOfMeasurementTypes: {
-    WEIGHING: string;
-    NON_WEIGHING: string;
+    WEIGHING: UnitOfMeasurement;
+    NON_WEIGHING: UnitOfMeasurement;
 };
 export declare const machineInputTypes: {
     KEYBOARD: string;

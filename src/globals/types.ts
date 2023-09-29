@@ -4,6 +4,7 @@ import {
 	CashBreakdownType,
 	PaymentType,
 	ProductEntryType,
+	UnitOfMeasurement,
 } from '../types';
 
 export const appVersions = {
@@ -80,8 +81,8 @@ export const vatTypes = {
 };
 
 export const unitOfMeasurementTypes = {
-	WEIGHING: 'weighing',
-	NON_WEIGHING: 'non_weighing',
+	WEIGHING: 'weighing' as UnitOfMeasurement,
+	NON_WEIGHING: 'non_weighing' as UnitOfMeasurement,
 };
 
 export const machineInputTypes = {

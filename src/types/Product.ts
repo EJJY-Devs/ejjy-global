@@ -1,5 +1,7 @@
 import { PointSystemTag } from './PointSystemTag';
 
+export type UnitOfMeasurement = 'weighing' | 'non_weighing';
+
 export interface Product {
 	id: number;
 	datetime_created: string;
@@ -9,9 +11,9 @@ export interface Product {
 	textcode?: string;
 	name: string;
 	type: 'wet' | 'dry';
-	unit_of_measurement: 'weighing' | 'non_weighing';
-	selling_barcode_unit_of_measurement: 'weighing' | 'non_weighing';
-	packing_barcode_unit_of_measurement: 'weighing' | 'non_weighing';
+	unit_of_measurement: UnitOfMeasurement;
+	selling_barcode_unit_of_measurement: UnitOfMeasurement;
+	packing_barcode_unit_of_measurement: UnitOfMeasurement;
 	is_vat_exempted: boolean;
 	print_details?: string;
 	description?: string;
