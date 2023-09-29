@@ -24,11 +24,7 @@ export declare const useTransactionCreate: () => import("react-query").UseMutati
     customerAccountId?: number | undefined;
     overallDiscount?: string | undefined;
     previousVoidedTransactionId?: number | undefined;
-    products: {
-        transaction_product_id?: number | undefined;
-        product_id: number;
-        quantity: number;
-    }[];
+    products: import("../services/TransactionsService").TransactionProduct[];
     status?: string | undefined;
     tellerId: number;
 }, unknown>;
@@ -46,11 +42,7 @@ export declare const useTransactionPay: () => import("react-query").UseMutationR
 }, unknown>;
 export declare const useTransactionEdit: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
     id: number;
-    products: {
-        transaction_product_id?: number | undefined;
-        product_id: number;
-        quantity: number;
-    }[];
+    products: import("../services/TransactionsService").TransactionProductEdit[];
     overallDiscount?: number | undefined;
     status?: string | undefined;
 }, unknown>;

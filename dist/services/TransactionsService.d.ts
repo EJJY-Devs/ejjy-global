@@ -39,7 +39,7 @@ export interface Pay {
     discount_option_id?: string;
     transaction_id: number;
 }
-interface TransactionProduct {
+export interface TransactionProduct {
     transaction_product_id?: number;
     product_id: number;
     quantity: number;
@@ -58,10 +58,7 @@ export interface Create {
     status?: string;
     teller_id: number;
 }
-interface TransactionProductEdit extends TransactionProduct {
-    transaction_product_id?: number;
-    product_id: number;
-    quantity: number;
+export interface TransactionProductEdit extends TransactionProduct {
     price_per_piece: number;
     discount_per_piece: number;
 }

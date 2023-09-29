@@ -156,7 +156,7 @@ export const useTransactionEdit = () =>
 	>(({ id, products, overallDiscount, status }) =>
 		TransactionsService.update({
 			id,
-			products: products,
+			products,
 			overall_discount: overallDiscount,
 			status,
 		}),

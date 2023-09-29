@@ -46,7 +46,7 @@ export interface Pay {
 	transaction_id: number;
 }
 
-interface TransactionProduct {
+export interface TransactionProduct {
 	transaction_product_id?: number;
 	product_id: number;
 	quantity: number;
@@ -67,10 +67,7 @@ export interface Create {
 	teller_id: number;
 }
 
-interface TransactionProductEdit extends TransactionProduct {
-	transaction_product_id?: number;
-	product_id: number;
-	quantity: number;
+export interface TransactionProductEdit extends TransactionProduct {
 	price_per_piece: number;
 	discount_per_piece: number;
 }

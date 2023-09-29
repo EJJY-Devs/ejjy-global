@@ -60,7 +60,7 @@ const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered
 exports.useTransactionPay = useTransactionPay;
 const useTransactionEdit = () => (0, react_query_1.useMutation)(({ id, products, overallDiscount, status }) => services_1.TransactionsService.update({
     id,
-    products: products,
+    products,
     overall_discount: overallDiscount,
     status,
 }));
