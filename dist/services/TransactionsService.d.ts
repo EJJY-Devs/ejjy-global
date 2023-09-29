@@ -60,7 +60,7 @@ export interface Create {
 }
 export interface TransactionProductEdit extends TransactionProduct {
     price_per_piece: number;
-    discount_per_piece: number;
+    discount_per_piece?: number;
 }
 export interface Edit {
     id: number;
