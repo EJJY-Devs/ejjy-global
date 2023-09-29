@@ -39,11 +39,11 @@ export interface Pay {
     discount_option_id?: string;
     transaction_id: number;
 }
-type TransactionProduct = {
+interface TransactionProduct {
     transaction_product_id?: number;
     product_id: number;
     quantity: number;
-};
+}
 export interface Create {
     branch_machine_id: number;
     client?: {
@@ -58,9 +58,16 @@ export interface Create {
     status?: string;
     teller_id: number;
 }
+interface TransactionProductEdit extends TransactionProduct {
+    transaction_product_id?: number;
+    product_id: number;
+    quantity: number;
+    price_per_piece: number;
+    discount_per_piece: number;
+}
 export interface Edit {
     id: number;
-    products: TransactionProduct[];
+    products: TransactionProductEdit[];
     overall_discount?: number;
     status?: string;
 }
