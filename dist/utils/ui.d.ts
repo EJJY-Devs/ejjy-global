@@ -1,6 +1,6 @@
 import { DefaultOptionType } from 'antd/lib/select';
-import { AttendanceLogCategory, AttendanceLogType, CashBreakdownCategory, CashBreakdownType, PaymentType, Product, TransactionProduct, UserType } from '../types';
-export declare const getSubtotal: (products: TransactionProduct[]) => number;
+import { AttendanceLogCategory, AttendanceLogType, CashBreakdownCategory, CashBreakdownType, CashieringTransactionProduct, PaymentType, Product, UserType } from '../types';
+export declare const getSubtotal: (products: CashieringTransactionProduct[]) => number;
 export declare const getFullName: (user: any) => string;
 export declare const getKeyDownCombination: (keyboardEvent: KeyboardEvent) => string;
 export declare const getUserTypeDescription: (userType: UserType) => "" | "Admin" | "Branch Manager" | "Branch Personnel" | "Office Manager";

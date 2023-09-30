@@ -1,6 +1,7 @@
 import { Input, Modal, Space, Typography, message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import _ from 'lodash';
+import React, { useState } from 'react';
 import {
 	attendanceCategories,
 	cashBreakdownCategories,
@@ -13,15 +14,14 @@ import {
 	AttendanceLogType,
 	CashBreakdownCategory,
 	CashBreakdownType,
+	CashieringTransactionProduct,
 	PaymentType,
 	Product,
-	TransactionProduct,
 	UserType,
 } from '../types';
-import React, { useState } from 'react';
 
 // Getters
-export const getSubtotal = (products: TransactionProduct[]) => {
+export const getSubtotal = (products: CashieringTransactionProduct[]) => {
 	let amount = 0;
 
 	products.forEach(({ price_per_piece, quantity }) => {
