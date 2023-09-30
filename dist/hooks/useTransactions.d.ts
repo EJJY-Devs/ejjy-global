@@ -17,9 +17,9 @@ export declare const useTransactionComputeDiscount: () => import("react-query").
 export declare const useTransactionCreate: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
     branchMachineId: number;
     client?: {
-        name: string;
-        address: string;
-        tin: string;
+        name?: string | undefined;
+        address?: string | undefined;
+        tin?: string | undefined;
     } | undefined;
     customerAccountId?: number | undefined;
     overallDiscount?: string | undefined;

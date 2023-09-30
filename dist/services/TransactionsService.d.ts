@@ -47,9 +47,9 @@ export interface TransactionProduct {
 export interface Create {
     branch_machine_id: number;
     client?: {
-        name: string;
-        address: string;
-        tin: string;
+        name?: string;
+        address?: string;
+        tin?: string;
     };
     customer_account_id?: number;
     overall_discount?: string;
