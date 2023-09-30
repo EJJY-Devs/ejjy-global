@@ -34,7 +34,7 @@ export declare const useTransactionPay: () => import("react-query").UseMutationR
     cashierUserId: number;
     creditPaymentAuthorizerId?: number | undefined;
     creditorAccountId?: number | undefined;
-    discountAuthorizerId: number;
+    discountAuthorizerId?: number | undefined;
     discountAmount?: number | undefined;
     discountOptionAdditionalFieldsValues?: string | undefined;
     discountOptionId?: string | undefined;

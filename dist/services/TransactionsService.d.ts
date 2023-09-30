@@ -33,7 +33,7 @@ export interface Pay {
     cashier_user_id: number;
     credit_payment_authorizer_id?: number;
     creditor_account_id?: number;
-    discount_authorizer_id: number;
+    discount_authorizer_id?: number;
     discount_amount?: number;
     discount_option_additional_fields_values?: string;
     discount_option_id?: string;
