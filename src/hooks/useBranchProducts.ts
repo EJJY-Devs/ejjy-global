@@ -27,6 +27,7 @@ export const useBranchProductsOffline = (
 						identifier: params?.identifier,
 						is_shown_in_scale_list: params?.isShownInScaleList,
 						is_sold_in_branch: params?.isSoldInBranch,
+						ordering: params?.ordering,
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 						page: params?.page || DEFAULT_PAGE,
 						search: params?.search,

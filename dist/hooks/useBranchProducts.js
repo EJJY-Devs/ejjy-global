@@ -12,6 +12,7 @@ const useBranchProductsOffline = (data = {}) => {
         identifier: params === null || params === void 0 ? void 0 : params.identifier,
         is_shown_in_scale_list: params === null || params === void 0 ? void 0 : params.isShownInScaleList,
         is_sold_in_branch: params === null || params === void 0 ? void 0 : params.isSoldInBranch,
+        ordering: params === null || params === void 0 ? void 0 : params.ordering,
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         search: params === null || params === void 0 ? void 0 : params.search,
