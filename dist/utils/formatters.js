@@ -22,14 +22,14 @@ const convertIntoArray = (errors, prefixMessage = null) => {
     return [];
 };
 exports.convertIntoArray = convertIntoArray;
-const formatDate = (datetime) => dayjs_1.default.tz(datetime).format(globals_1.DATE_FORMAT);
+const formatDate = (datetime) => dayjs_1.default.tz(datetime).format(globals_1.DATE_FORMAT_UI);
 exports.formatDate = formatDate;
 const formatDateTime = (datetime, withTimezone = true) => {
     const dt = withTimezone ? dayjs_1.default.tz(datetime, 'GMT') : (0, dayjs_1.default)(datetime);
-    return dt.format(`${globals_1.DATE_FORMAT} h:mmA`);
+    return dt.format(`${globals_1.DATE_FORMAT_UI} h:mmA`);
 };
 exports.formatDateTime = formatDateTime;
-const formatDateTime24Hour = (datetime) => dayjs_1.default.tz(datetime).format(`${globals_1.DATE_FORMAT} HH:mm`);
+const formatDateTime24Hour = (datetime) => dayjs_1.default.tz(datetime).format(`${globals_1.DATE_FORMAT_UI} HH:mm`);
 exports.formatDateTime24Hour = formatDateTime24Hour;
 const formatDateForAPI = (date) => {
     return date.format('YYYY-MM-DD');

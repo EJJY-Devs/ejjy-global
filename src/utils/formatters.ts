@@ -1,4 +1,4 @@
-import { DATE_FORMAT, EMPTY_CELL, unitOfMeasurementTypes } from '../globals';
+import { DATE_FORMAT_UI, EMPTY_CELL, unitOfMeasurementTypes } from '../globals';
 import dayjs, { Dayjs } from 'dayjs';
 import _ from 'lodash';
 import { Moment } from 'moment';
@@ -26,18 +26,18 @@ export const convertIntoArray = (
 };
 
 export const formatDate = (datetime: string | Dayjs) =>
-	dayjs.tz(datetime).format(DATE_FORMAT);
+	dayjs.tz(datetime).format(DATE_FORMAT_UI);
 
 export const formatDateTime = (
 	datetime: string | Dayjs,
 	withTimezone = true,
 ) => {
 	const dt = withTimezone ? dayjs.tz(datetime, 'GMT') : dayjs(datetime);
-	return dt.format(`${DATE_FORMAT} h:mmA`);
+	return dt.format(`${DATE_FORMAT_UI} h:mmA`);
 };
 
 export const formatDateTime24Hour = (datetime: string | Dayjs) =>
-	dayjs.tz(datetime).format(`${DATE_FORMAT} HH:mm`);
+	dayjs.tz(datetime).format(`${DATE_FORMAT_UI} HH:mm`);
 
 export const formatDateForAPI = (date: Dayjs | Moment) => {
 	return date.format('YYYY-MM-DD');
