@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties, CamelCasedPropertiesDeep } from 'type-fest';
-import { DEFAULT_PAGE, MAX_PAGE_SIZE } from '../globals';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { CashBreakdownsService } from '../services';
 import { Create, Params } from '../services/CashBreakdownsService';
 import {
@@ -28,9 +28,9 @@ const useCashBreakdowns = (
 			wrapServiceWithCatch(
 				CashBreakdownsService.list(
 					{
-						page: DEFAULT_PAGE,
-						page_size: MAX_PAGE_SIZE,
 						cashiering_session_id: params?.cashieringSessionId,
+						page: params?.page || DEFAULT_PAGE,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 					},
 					serviceOptions?.baseURL,
 				),

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { DEFAULT_PAGE, MAX_PAGE_SIZE } from '../globals';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { CreditRegistrationsService } from '../services';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { CreditRegistration } from '../types';
@@ -22,8 +22,8 @@ const useCreditRegistrations = (
 				CreditRegistrationsService.list(
 					{
 						search: params?.search,
-						page: DEFAULT_PAGE,
-						page_size: MAX_PAGE_SIZE,
+						page: params?.page || DEFAULT_PAGE,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,

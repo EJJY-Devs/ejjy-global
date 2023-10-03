@@ -8,8 +8,8 @@ const useCreditRegistrations = (data = {}) => {
     const { params, options, serviceOptions } = data;
     return (0, react_query_1.useQuery)(['useCreditRegistrations', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.CreditRegistrationsService.list({
         search: params === null || params === void 0 ? void 0 : params.search,
-        page: globals_1.DEFAULT_PAGE,
-        page_size: globals_1.MAX_PAGE_SIZE,
+        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
+        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
     }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ placeholderData: {
             results: [],
             count: 0,

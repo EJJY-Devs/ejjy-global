@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
-import { DEFAULT_PAGE, MAX_PAGE_SIZE, timeRangeTypes } from '../globals';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, timeRangeTypes } from '../globals';
 import { TransactionsService } from '../services';
 import {
 	ComputeDiscount,
@@ -18,9 +18,9 @@ import {
 	QueryResponse,
 } from '../services/interfaces';
 import { Transaction } from '../types';
+import { standardRound } from '../utils';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
-import { standardRound } from '../utils';
 
 const useTransactions = (
 	data: UseListQuery<Transaction, CamelCasedProperties<Params>> = {},
@@ -38,7 +38,7 @@ const useTransactions = (
 				TransactionsService.list(
 					{
 						is_adjusted: params?.isAdjusted,
-						page_size: params?.pageSize || MAX_PAGE_SIZE,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 						page: params?.page || DEFAULT_PAGE,
 						statuses: params?.statuses,
 						teller_id: params?.tellerId,

@@ -4,13 +4,13 @@ exports.useTransactionDelete = exports.useTransactionVoid = exports.useTransacti
 const react_query_1 = require("react-query");
 const globals_1 = require("../globals");
 const services_1 = require("../services");
-const helper_1 = require("./helper");
 const utils_1 = require("../utils");
+const helper_1 = require("./helper");
 const useTransactions = (data = {}) => {
     const { params, options, serviceOptions } = data;
     return (0, react_query_1.useQuery)(['useTransactions', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
         is_adjusted: params === null || params === void 0 ? void 0 : params.isAdjusted,
-        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.MAX_PAGE_SIZE,
+        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         statuses: params === null || params === void 0 ? void 0 : params.statuses,
         teller_id: params === null || params === void 0 ? void 0 : params.tellerId,
