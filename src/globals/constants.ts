@@ -29,6 +29,7 @@ export const NOT_FOUND_INDEX = -1;
 export const SEARCH_DEBOUNCE_TIME = 500;
 export const ROW_HEIGHT = 65;
 export const DATE_FORMAT = 'MM/DD/YYYY';
+export const DATE_FORMAT_API = 'MM/DD/YY';
 export const RECEIPT_DEFAULT_FONT_FAMILY = 'monospace';
 export const RECEIPT_DEFAULT_FONT_SIZE = '12';
 export const JSPDF_SETTINGS = {

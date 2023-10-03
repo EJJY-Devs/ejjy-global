@@ -4,20 +4,13 @@ import { ParsedQuery } from 'query-string';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
+import { DEFAULT_PAGE } from '../globals';
 
 interface Props {
-	page?: number | string;
-	pageSize?: number | string;
-	debounceTime?: number;
 	onParamsCheck?: (currentParams: ParsedQuery<string>) => ParsedQuery<string>;
 }
 
-const useQueryParams = ({
-	page: currentPage,
-	pageSize: currentPageSize,
-	debounceTime = 500,
-	onParamsCheck,
-}: Props = {}) => {
+const useQueryParams = ({ onParamsCheck }: Props = {}) => {
 	const history = useHistory();
 	const params: ParsedQuery<string> = queryString.parse(
 		history.location.search,
@@ -38,17 +31,6 @@ const useQueryParams = ({
 		}
 	}, []);
 
-	const handleChange = () => {
-		const pageSize = params.pageSize || currentPageSize;
-		const page = params.page || currentPage;
-	};
-
-	const debouncedOnChange = useDebouncedCallback(handleChange, debounceTime);
-
-	useEffect(() => {
-		debouncedOnChange();
-	}, [history.location.search]);
-
 	/**
 	 * @param param
 	 * @param options
@@ -64,14 +46,14 @@ const useQueryParams = ({
 				url: '',
 				query: {
 					...(shouldIncludeCurrentParams ? currentParams : {}),
-					...(shouldResetPage ? { page: 1 } : {}),
+					...(shouldResetPage ? { page: DEFAULT_PAGE } : {}),
 					...param,
 				},
 			}),
 		);
 	};
 
-	return { params, setQueryParams, refreshList: handleChange };
+	return { params, setQueryParams };
 };
 
 export default useQueryParams;

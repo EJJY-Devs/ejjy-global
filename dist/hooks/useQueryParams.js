@@ -30,8 +30,8 @@ const lodash_1 = __importDefault(require("lodash"));
 const queryString = __importStar(require("query-string"));
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");
-const use_debounce_1 = require("use-debounce");
-const useQueryParams = ({ page: currentPage, pageSize: currentPageSize, debounceTime = 500, onParamsCheck, } = {}) => {
+const globals_1 = require("../globals");
+const useQueryParams = ({ onParamsCheck } = {}) => {
     const history = (0, react_router_dom_1.useHistory)();
     const params = queryString.parse(history.location.search);
     (0, react_1.useEffect)(() => {
@@ -45,14 +45,6 @@ const useQueryParams = ({ page: currentPage, pageSize: currentPageSize, debounce
             });
         }
     }, []);
-    const handleChange = () => {
-        const pageSize = params.pageSize || currentPageSize;
-        const page = params.page || currentPage;
-    };
-    const debouncedOnChange = (0, use_debounce_1.useDebouncedCallback)(handleChange, debounceTime);
-    (0, react_1.useEffect)(() => {
-        debouncedOnChange();
-    }, [history.location.search]);
     /**
      * @param param
      * @param options
@@ -61,9 +53,9 @@ const useQueryParams = ({ page: currentPage, pageSize: currentPageSize, debounce
         const currentParams = queryString.parse(history.location.search);
         history.push(queryString.stringifyUrl({
             url: '',
-            query: Object.assign(Object.assign(Object.assign({}, (shouldIncludeCurrentParams ? currentParams : {})), (shouldResetPage ? { page: 1 } : {})), param),
+            query: Object.assign(Object.assign(Object.assign({}, (shouldIncludeCurrentParams ? currentParams : {})), (shouldResetPage ? { page: globals_1.DEFAULT_PAGE } : {})), param),
         }));
     };
-    return { params, setQueryParams, refreshList: handleChange };
+    return { params, setQueryParams };
 };
 exports.default = useQueryParams;
