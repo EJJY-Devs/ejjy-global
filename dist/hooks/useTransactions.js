@@ -8,7 +8,7 @@ const utils_1 = require("../utils");
 const helper_1 = require("./helper");
 const useTransactions = (data = {}) => {
     const { params, options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useTransactions', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
+    return (0, react_query_1.useQuery)(['useTransactions', Object.assign({}, params)], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
         is_adjusted: params === null || params === void 0 ? void 0 : params.isAdjusted,
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
