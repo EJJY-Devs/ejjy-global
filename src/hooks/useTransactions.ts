@@ -32,7 +32,15 @@ const useTransactions = (
 		Error,
 		QueryResponse<Transaction>
 	>(
-		['useTransactions', { ...params }],
+		[
+			'useTransactions',
+			params?.isAdjusted,
+			params?.pageSize,
+			params?.page,
+			params?.statuses,
+			params?.tellerId,
+			params?.timeRange,
+		],
 		() =>
 			wrapServiceWithCatch(
 				TransactionsService.list(
