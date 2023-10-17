@@ -76,7 +76,6 @@ export const useTransactionRetrieve = (data: UseRetrieveQuery<Transaction>) => {
 		['useTransactionRetrieve', id],
 		() => TransactionsService.retrieve(id, serviceOptions?.baseURL),
 		{
-			enabled: typeof id === 'number',
 			...options,
 		},
 	);
