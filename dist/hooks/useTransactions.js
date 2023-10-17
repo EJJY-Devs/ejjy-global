@@ -33,7 +33,6 @@ const useTransactions = (data = {}) => {
 };
 const useTransactionRetrieve = (data) => {
     const { id, options, serviceOptions } = data;
-    console.log('optionsf', Object.assign({ enabled: typeof id === 'number' }, options));
     return (0, react_query_1.useQuery)(['useTransactionRetrieve', id], () => services_1.TransactionsService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL), Object.assign({ enabled: typeof id === 'number' }, options));
 };
 exports.useTransactionRetrieve = useTransactionRetrieve;
