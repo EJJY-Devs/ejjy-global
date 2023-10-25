@@ -116,7 +116,12 @@ export const ViewXReadReportModal = ({
 			{report.gross_sales === 0 && (
 				<img
 					alt="no transaction"
-					className="absolute bottom-0 left-0 w-full"
+					style={{
+						width: '100%',
+						position: 'absolute',
+						left: 0,
+						bottom: 0,
+					}}
 					src={imgNoTransaction}
 				/>
 			)}
