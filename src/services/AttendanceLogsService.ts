@@ -14,7 +14,7 @@ export interface Params extends ListQueryParams {
 }
 
 export interface Create {
-	account_code: number;
+	account_code: string;
 	attendance_category: AttendanceLogCategory;
 	branch_id: number;
 }
