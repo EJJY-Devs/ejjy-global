@@ -69,7 +69,14 @@ const useTransactions = (
 	);
 };
 
-export const useTransactionRetrieve = (data: UseRetrieveQuery<Transaction>) => {
+interface UseTransactionRetrieveQuery<T>
+	extends Omit<UseRetrieveQuery<T>, 'id'> {
+	id: number | string;
+}
+
+export const useTransactionRetrieve = (
+	data: UseTransactionRetrieveQuery<Transaction>,
+) => {
 	const { id, options, serviceOptions } = data;
 
 	const idType = typeof id;

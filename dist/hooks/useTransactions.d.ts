@@ -5,7 +5,10 @@ import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
 import { Transaction } from '../types';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
 declare const useTransactions: (data?: UseListQuery<Transaction, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<Transaction>, Error>;
-export declare const useTransactionRetrieve: (data: UseRetrieveQuery<Transaction>) => import("react-query").UseQueryResult<Transaction, unknown>;
+interface UseTransactionRetrieveQuery<T> extends Omit<UseRetrieveQuery<T>, 'id'> {
+    id: number | string;
+}
+export declare const useTransactionRetrieve: (data: UseTransactionRetrieveQuery<Transaction>) => import("react-query").UseQueryResult<Transaction, unknown>;
 export declare const useTransactionComputeDiscount: () => import("react-query").UseMutationResult<AxiosResponse<ComputeDiscountResponse>, AxiosErrorResponse<any>, {
     branchProducts: {
         id: number;

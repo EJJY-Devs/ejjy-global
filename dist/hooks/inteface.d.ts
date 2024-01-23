@@ -7,7 +7,7 @@ export interface UseListQuery<T, TParams extends UseListQueryParams = UseListQue
     serviceOptions?: ServiceOptions;
 }
 export interface UseRetrieveQuery<T> extends Omit<UseListQuery<T>, 'options'> {
-    id: number | string;
+    id: number;
     options?: UseRetrieveQueryOptions<T>;
 }
 export interface Mutate {
