@@ -76,7 +76,7 @@ export interface Void {
 }
 declare const service: {
     list: (params: Params, baseURL?: string) => Promise<ListResponseData<Transaction>>;
-    retrieve: (id: number, baseURL?: string) => Promise<Transaction>;
+    retrieve: (id: number | string, baseURL?: string) => Promise<Transaction>;
     compute: (body: ComputeDiscount) => Promise<import("axios").AxiosResponse<ComputeDiscountResponse>>;
     pay: (body: Pay) => Promise<import("axios").AxiosResponse<Transaction>>;
     create: (body: Create) => Promise<import("axios").AxiosResponse<Transaction>>;

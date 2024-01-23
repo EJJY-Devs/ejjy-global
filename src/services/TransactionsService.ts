@@ -99,7 +99,7 @@ const service = {
 		return response.data;
 	},
 
-	retrieve: async (id: number, baseURL?: string) => {
+	retrieve: async (id: number | string, baseURL?: string) => {
 		const response = await axios.get<Transaction>(`/transactions/${id}/`, {
 			baseURL,
 		});
