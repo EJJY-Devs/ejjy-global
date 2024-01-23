@@ -13,7 +13,7 @@ export interface UseListQuery<
 }
 
 export interface UseRetrieveQuery<T> extends Omit<UseListQuery<T>, 'options'> {
-	id: number;
+	id: number | string;
 	options?: UseRetrieveQueryOptions<T>;
 }
 
