@@ -33,7 +33,8 @@ const useTransactions = (data = {}) => {
 };
 const useTransactionRetrieve = (data) => {
     const { id, options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useTransactionRetrieve', id], () => services_1.TransactionsService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL), Object.assign({ enabled: typeof id === 'number' }, options));
+    const idType = typeof id;
+    return (0, react_query_1.useQuery)(['useTransactionRetrieve', id], () => services_1.TransactionsService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL), Object.assign({ enabled: idType === 'number' || idType === 'string' }, options));
 };
 exports.useTransactionRetrieve = useTransactionRetrieve;
 const useTransactionComputeDiscount = () => (0, react_query_1.useMutation)(({ branchProducts, discountAmount, discountOptionId }) => services_1.TransactionsService.compute({

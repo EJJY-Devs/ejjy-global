@@ -72,11 +72,13 @@ const useTransactions = (
 export const useTransactionRetrieve = (data: UseRetrieveQuery<Transaction>) => {
 	const { id, options, serviceOptions } = data;
 
+	const idType = typeof id;
+
 	return useQuery<Transaction>(
 		['useTransactionRetrieve', id],
 		() => TransactionsService.retrieve(id, serviceOptions?.baseURL),
 		{
-			enabled: typeof id === 'number',
+			enabled: idType === 'number' || idType === 'string',
 			...options,
 		},
 	);
