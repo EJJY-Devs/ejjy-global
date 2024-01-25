@@ -5,7 +5,8 @@ export interface Connect {
 }
 
 const service = {
-	connect: async (body: Connect) => axios.post<boolean>('/connect/', body),
+	connect: async (body: Connect, baseURL: string) =>
+		axios.post<boolean>('/connect/', body, { baseURL }),
 
 	getWeight: async (baseURL: string) => {
 		const response = await axios.get<number>('/weight', { baseURL });

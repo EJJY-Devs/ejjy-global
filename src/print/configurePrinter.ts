@@ -137,7 +137,7 @@ export const openCashDrawer = async () => {
 			]);
 
 			message.success({
-				content: 'Cash has been opened.',
+				content: 'Cash drawer has been opened.',
 				key: PRINT_MESSAGE_KEY,
 			});
 		} catch (e) {

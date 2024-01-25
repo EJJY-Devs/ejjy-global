@@ -100,7 +100,7 @@ const openCashDrawer = () => __awaiter(void 0, void 0, void 0, function* () {
                 '\x10' + '\x14' + '\x01' + '\x00' + '\x05',
             ]);
             antd_1.message.success({
-                content: 'Cash has been opened.',
+                content: 'Cash drawer has been opened.',
                 key: PRINT_MESSAGE_KEY,
             });
         }
