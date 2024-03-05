@@ -811,7 +811,7 @@ export const createXReadTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
@@ -882,7 +882,7 @@ export const createXReadTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
@@ -1177,7 +1177,7 @@ export const createDailySalesTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
@@ -1239,7 +1239,7 @@ export const createDailySalesTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
@@ -1600,7 +1600,7 @@ export const createZReadTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
@@ -1671,7 +1671,7 @@ export const createZReadTxt = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: '   SC/PWD',
+		text: '   Special',
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});

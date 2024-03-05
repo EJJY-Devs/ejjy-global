@@ -862,7 +862,7 @@ export const printDailySales = (
 				)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${formatInPeso(
 					dailySales.special_discount,
 					PESO_SIGN,
@@ -898,7 +898,7 @@ export const printDailySales = (
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${formatInPeso(
 					dailySales.vat_special_discount,
 					PESO_SIGN,
@@ -1128,7 +1128,7 @@ export const printXReadReport = (
 				)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${formatInPeso(
 					report.special_discount,
 					PESO_SIGN,
@@ -1163,7 +1163,7 @@ export const printXReadReport = (
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${formatInPeso(
 					report.vat_special_discount,
 					PESO_SIGN,
@@ -1400,7 +1400,7 @@ export const printZReadReport = (
 				)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${formatInPeso(
 					report.special_discount,
 					PESO_SIGN,
@@ -1435,7 +1435,7 @@ export const printZReadReport = (
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${formatInPeso(
 					report.vat_special_discount,
 					PESO_SIGN,
@@ -1850,11 +1850,11 @@ export const printBirReport = (
         </tr>
         <tr class="nested-row" style="font-weight: bold">
           <td>Regular Discount</td>
-          <td>SC/PWD (SC/PWD)</td>
+          <td>Special (Special)</td>
           <td>Returns</td>
           <td>Void</td>
           <td>Total Deductions</td>
-          <td>VAT on SC/PWDs</td>
+          <td>VAT on Specials</td>
           <td>VAT on Returns</td>
           <td>Others </td>
           <td>Total VAT Adj.</td>
