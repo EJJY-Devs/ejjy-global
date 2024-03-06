@@ -1,2 +1,13 @@
-export * from './configurePrinter';
-export * from './configureTxt';
+export { configurePrinter } from './helper-receipt';
+export * from './receipt/printBirReport';
+export * from './receipt/printCashBreakdown';
+export * from './receipt/printCashOut';
+export * from './receipt/printCollectionReceipt';
+export * from './receipt/printDailySales';
+export * from './receipt/printSalesInvoice';
+export * from './receipt/printXReadReport';
+export * from './receipt/printZReadReport';
+export * from './txt/createDailySalesTxt';
+export * from './txt/createSalesInvoiceTxt';
+export * from './txt/createXReadTxt';
+export * from './txt/createZReadTxt';

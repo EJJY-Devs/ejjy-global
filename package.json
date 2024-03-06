@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.109",
+	"version": "0.0.110",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -14,7 +14,7 @@
 		"tsc": "tsc -w",
 		"tw": "npx tailwindcss -i src/index.css -o ./dist/styles.min.css --minify",
 		"pre-commit": "npm version patch --no-git-tag-version && npm run tw && git add .",
-		"post-commit": "git push && cd ../ejjy-app-cashiering && npm run ug"
+		"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\""
 	},
 	"dependencies": {
 		"antd": "^4.24.13",
@@ -42,6 +42,7 @@
 		"@typescript-eslint/parser": "^5.0.0",
 		"@vitejs/plugin-react": "^4.0.3",
 		"autoprefixer": "^10.4.15",
+		"concurrently": "^8.2.2",
 		"eslint": "^7.15.0",
 		"eslint-plugin-react-hooks": "^4",
 		"eslint-plugin-react-refresh": "^0.4.3",
