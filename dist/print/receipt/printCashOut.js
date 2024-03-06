@@ -7,13 +7,14 @@ exports.printCashOut = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printCashOut = (cashOut, siteSettings, branchMachine) => {
+const printCashOut = (cashOut, siteSettings, isPdf = false) => {
     const metadata = cashOut.cash_out_metadata;
     const { payee, particulars, received_by: receivedBy, prepared_by_user: preparedByUser, } = metadata;
     const datetime = (0, utils_1.formatDateTime)(cashOut.datetime_created);
-    const amount = (0, utils_1.formatInPeso)(metadata.amount, 'P');
+    const amount = (0, utils_1.formatInPeso)(metadata.amount, helper_receipt_1.PESO_SIGN);
     const preparedBy = (0, utils_1.getFullName)(metadata.prepared_by_user);
     const approvedBy = (0, utils_1.getFullName)(metadata.approved_by_user);
+    const branchMachine = cashOut.branch_machine;
     const data = `
 	<div style="${(0, helper_receipt_1.getPageStyle)()}">
     ${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine, 'DISBURSEMENT VOUCHER')}
@@ -67,6 +68,9 @@ const printCashOut = (cashOut, siteSettings, branchMachine) => {
     ${(0, helper_receipt_1.getFooter)(siteSettings)}
 	</div>
 	`;
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(data);
+    }
     (0, helper_receipt_1.print)(data, 'Cash Out');
 };
 exports.printCashOut = printCashOut;

@@ -1,18 +1,24 @@
 import dayjs from 'dayjs';
 import { cashBreakdownCategories } from '../../globals';
-import { BranchMachine, CashBreakdown, SiteSettings } from '../../types';
+import { CashBreakdown, SiteSettings } from '../../types';
 import {
 	calculateCashBreakdownTotal,
 	formatDateTime,
 	formatInPeso,
 	getCashBreakdownTypeDescription,
 } from '../../utils';
-import { PESO_SIGN, getFooter, getPageStyle, print } from '../helper-receipt';
+import {
+	PESO_SIGN,
+	appendHtmlElement,
+	getFooter,
+	getPageStyle,
+	print,
+} from '../helper-receipt';
 
 export const printCashBreakdown = (
 	cashBreakdown: CashBreakdown,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
+	isPdf = false,
 ) => {
 	const breakdownCoins = [
 		{
@@ -135,7 +141,7 @@ export const printCashBreakdown = (
       <span style="white-space: pre-line">${
 				siteSettings.address_of_tax_payer
 			}</span>
-      <span>${branchMachine?.name}</span>
+      <span>${cashBreakdown.branch_machine.name}</span>
 
 			<br />
 
@@ -178,7 +184,6 @@ export const printCashBreakdown = (
 			</div>
 		</div>
 
-
 		<div style="display: flex; align-items: center; justify-content: space-evenly">
 			<span>TOTAL</span>
 			<span>${formatInPeso(
@@ -203,6 +208,10 @@ export const printCashBreakdown = (
     ${getFooter(siteSettings)}
 	</div>
 	`;
+
+	if (isPdf) {
+		return appendHtmlElement(data);
+	}
 
 	print(data, 'Cash Breakdown');
 };

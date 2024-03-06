@@ -1,12 +1,19 @@
 import dayjs from 'dayjs';
-import { BranchMachine, CashBreakdown, SiteSettings } from '../../types';
+import { CashBreakdown, SiteSettings } from '../../types';
 import { formatDateTime, formatInPeso, getFullName } from '../../utils';
-import { getFooter, getHeader, getPageStyle, print } from '../helper-receipt';
+import {
+	PESO_SIGN,
+	appendHtmlElement,
+	getFooter,
+	getHeader,
+	getPageStyle,
+	print,
+} from '../helper-receipt';
 
 export const printCashOut = (
 	cashOut: CashBreakdown,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
+	isPdf = false,
 ) => {
 	const metadata = cashOut.cash_out_metadata;
 
@@ -17,9 +24,10 @@ export const printCashOut = (
 		prepared_by_user: preparedByUser,
 	} = metadata;
 	const datetime = formatDateTime(cashOut.datetime_created);
-	const amount = formatInPeso(metadata.amount, 'P');
+	const amount = formatInPeso(metadata.amount, PESO_SIGN);
 	const preparedBy = getFullName(metadata.prepared_by_user);
 	const approvedBy = getFullName(metadata.approved_by_user);
+	const branchMachine = cashOut.branch_machine;
 
 	const data = `
 	<div style="${getPageStyle()}">
@@ -74,6 +82,10 @@ export const printCashOut = (
     ${getFooter(siteSettings)}
 	</div>
 	`;
+
+	if (isPdf) {
+		return appendHtmlElement(data);
+	}
 
 	print(data, 'Cash Out');
 };

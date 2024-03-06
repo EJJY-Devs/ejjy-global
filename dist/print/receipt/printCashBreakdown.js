@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printCashBreakdown = (cashBreakdown, siteSettings, branchMachine) => {
+const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
     const breakdownCoins = [
         {
             label: '0.25',
@@ -115,7 +115,7 @@ const printCashBreakdown = (cashBreakdown, siteSettings, branchMachine) => {
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${siteSettings.store_name}</span>
       <span style="white-space: pre-line">${siteSettings.address_of_tax_payer}</span>
-      <span>${branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name}</span>
+      <span>${cashBreakdown.branch_machine.name}</span>
 
 			<br />
 
@@ -155,7 +155,6 @@ const printCashBreakdown = (cashBreakdown, siteSettings, branchMachine) => {
 			</div>
 		</div>
 
-
 		<div style="display: flex; align-items: center; justify-content: space-evenly">
 			<span>TOTAL</span>
 			<span>${(0, utils_1.formatInPeso)((0, utils_1.calculateCashBreakdownTotal)(cashBreakdown), helper_receipt_1.PESO_SIGN)}</span>
@@ -175,6 +174,9 @@ const printCashBreakdown = (cashBreakdown, siteSettings, branchMachine) => {
     ${(0, helper_receipt_1.getFooter)(siteSettings)}
 	</div>
 	`;
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(data);
+    }
     (0, helper_receipt_1.print)(data, 'Cash Breakdown');
 };
 exports.printCashBreakdown = printCashBreakdown;
