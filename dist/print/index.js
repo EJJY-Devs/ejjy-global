@@ -29,3 +29,4 @@ __exportStar(require("./txt/createDailySalesTxt"), exports);
 __exportStar(require("./txt/createSalesInvoiceTxt"), exports);
 __exportStar(require("./txt/createXReadTxt"), exports);
 __exportStar(require("./txt/createZReadTxt"), exports);
+__exportStar(require("./utils/cashier"), exports);
