@@ -16,6 +16,7 @@ import {
 	formatInPeso,
 	getComputedDiscount,
 	getFullName,
+	getTaxTypeDescription,
 } from '../utils';
 
 const PESO_SIGN = 'P';
@@ -82,7 +83,7 @@ const writeHeader = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: `${taxType} | ${tin}`,
+		text: `${getTaxTypeDescription(taxType)} | ${tin}`,
 		alignment: ReportTextFile.ALIGNMENTS.CENTER,
 		rowNumber,
 	});
@@ -163,7 +164,7 @@ const writeFooter = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: `Date Issued: ${posAccreditationDate}`,
+		text: `Validity: ${posAccreditationDate}`,
 		alignment: ReportTextFile.ALIGNMENTS.CENTER,
 		rowNumber,
 	});

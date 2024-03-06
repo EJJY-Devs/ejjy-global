@@ -1,6 +1,7 @@
 import { Space, Typography } from 'antd';
 import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
+import { getTaxTypeDescription } from '../../utils';
 
 const { Text } = Typography;
 
@@ -41,7 +42,9 @@ export const ReceiptHeader = ({
 			<Text style={{ whiteSpace: 'pre-line' }}>{location}</Text>
 			<Text>{[contactNumber, name].filter(Boolean).join(' | ')}</Text>
 			<Text>{proprietor}</Text>
-			<Text>{[taxType, tin].filter(Boolean).join(' | ')}</Text>
+			<Text>
+				{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
+			</Text>
 			<Text>{machineID}</Text>
 			<Text>{posTerminal}</Text>
 

@@ -48,7 +48,7 @@ const writeHeader = (reportTextFile, siteSettings, branchMachine, rowNumber, tit
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: `${taxType} | ${tin}`,
+        text: `${(0, utils_1.getTaxTypeDescription)(taxType)} | ${tin}`,
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });
@@ -107,7 +107,7 @@ const writeFooter = (reportTextFile, siteSettings, rowNumber) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: `Date Issued: ${posAccreditationDate}`,
+        text: `Validity: ${posAccreditationDate}`,
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });
@@ -644,7 +644,7 @@ const createXReadTxt = (report, siteSettings, branchMachine, user, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -708,7 +708,7 @@ const createXReadTxt = (report, siteSettings, branchMachine, user, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -957,7 +957,7 @@ const createDailySalesTxt = (dailySales, siteSettings, branchMachine, user) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1013,7 +1013,7 @@ const createDailySalesTxt = (dailySales, siteSettings, branchMachine, user) => {
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1326,7 +1326,7 @@ const createZReadTxt = (report, siteSettings, branchMachine, user, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
@@ -1390,7 +1390,7 @@ const createZReadTxt = (report, siteSettings, branchMachine, user, returnContent
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: '   SC/PWD',
+        text: '   Special',
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });

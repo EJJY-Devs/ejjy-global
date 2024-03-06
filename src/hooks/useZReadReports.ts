@@ -16,7 +16,7 @@ import { UseListQuery } from './inteface';
 const useZReadReports = (
 	data: UseListQuery<ZReadReport, CamelCasedProperties<Params>> = {},
 ) => {
-	const { params, options } = data;
+	const { params, options, serviceOptions } = data;
 
 	return useQuery<
 		ListResponseData<ZReadReport>,
@@ -26,13 +26,16 @@ const useZReadReports = (
 		['useZReadReports', params],
 		() =>
 			wrapServiceWithCatch(
-				ZReadReportsService.list({
-					branch_machine_id: params?.branchMachineId,
-					branch_machine_name: params?.branchMachineName,
-					page: params?.page || DEFAULT_PAGE,
-					page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-					time_range: params?.timeRange,
-				}),
+				ZReadReportsService.list(
+					{
+						branch_machine_id: params?.branchMachineId,
+						branch_machine_name: params?.branchMachineName,
+						page: params?.page || DEFAULT_PAGE,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						time_range: params?.timeRange,
+					},
+					serviceOptions?.baseURL,
+				),
 			),
 		{
 			placeholderData: {

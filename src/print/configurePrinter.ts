@@ -31,6 +31,7 @@ import {
 	getCashBreakdownTypeDescription,
 	getComputedDiscount,
 	getFullName,
+	getTaxTypeDescription,
 } from '../utils';
 
 const PESO_SIGN = 'P';
@@ -303,9 +304,9 @@ const getHeader = (
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${storeName}</span>
       <span style="white-space: pre-line">${location}</span>
-      <span>${contactNumber} | ${name}</span>
+      <span>${contactNumber} ${name ? '| ' + name : ''}</span>
 			<span>${proprietor}</span>
-			<span>${taxType} | ${tin}</span>
+			<span>${getTaxTypeDescription(taxType)} | ${tin}</span>
       <span>${machineID}</span>
       <span>${posTerminal}</span>
       ${title ? '</br>' : ''}
@@ -330,7 +331,8 @@ const getFooter = (siteSettings: SiteSettings) => {
 			<span style="white-space: pre-line">${softwareDeveloperAddress}</span>
 			<span>${softwareDeveloperTin}</span>
 			<span>Acc No: ${posAccreditationNumber}</span>
-			<span>Date Issued: ${posAccreditationDate}</span><br/>
+			<span>Validity: ${posAccreditationDate}</span>
+      <br/>
       <span>PTU No: ${ptuNumber}</span>
       <span>Date Issued: ${ptuDate}</span>
 			<br />

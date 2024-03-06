@@ -17,6 +17,7 @@ import {
 	CashieringTransactionProduct,
 	PaymentType,
 	Product,
+	TaxType,
 	UserType,
 } from '../types';
 
@@ -130,6 +131,18 @@ export const getModeOfPaymentDescription = (modeOfPayment: PaymentType) => {
 	}
 
 	return description;
+};
+
+export const getTaxTypeDescription = (taxType?: TaxType) => {
+	let data = '';
+
+	if (taxType === 'VAT') {
+		data = 'VAT REG TIN';
+	} else if (taxType === 'NVAT') {
+		data = 'NON VAT REG TIN';
+	}
+
+	return data;
 };
 
 export const filterOption = (

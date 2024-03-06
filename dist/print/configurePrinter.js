@@ -225,9 +225,9 @@ const getHeader = (siteSettings, branchMachine, title) => {
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${storeName}</span>
       <span style="white-space: pre-line">${location}</span>
-      <span>${contactNumber} | ${name}</span>
+      <span>${contactNumber} ${name ? '| ' + name : ''}</span>
 			<span>${proprietor}</span>
-			<span>${taxType} | ${tin}</span>
+			<span>${(0, utils_1.getTaxTypeDescription)(taxType)} | ${tin}</span>
       <span>${machineID}</span>
       <span>${posTerminal}</span>
       ${title ? '</br>' : ''}
@@ -242,7 +242,8 @@ const getFooter = (siteSettings) => {
 			<span style="white-space: pre-line">${softwareDeveloperAddress}</span>
 			<span>${softwareDeveloperTin}</span>
 			<span>Acc No: ${posAccreditationNumber}</span>
-			<span>Date Issued: ${posAccreditationDate}</span><br/>
+			<span>Validity: ${posAccreditationDate}</span>
+      <br/>
       <span>PTU No: ${ptuNumber}</span>
       <span>Date Issued: ${ptuDate}</span>
 			<br />
@@ -666,7 +667,7 @@ const printDailySales = (dailySales, siteSettings, branchMachine, user, isPdf = 
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(dailySales.regular_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(dailySales.special_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
@@ -690,7 +691,7 @@ const printDailySales = (dailySales, siteSettings, branchMachine, user, isPdf = 
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${(0, utils_1.formatInPeso)(dailySales.vat_special_discount, PESO_SIGN)}&nbsp;</td>
       </tr>
       <tr>
@@ -855,7 +856,7 @@ const printXReadReport = (report, siteSettings, branchMachine, user, isPdf = fal
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(report.regular_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(report.special_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
@@ -879,7 +880,7 @@ const printXReadReport = (report, siteSettings, branchMachine, user, isPdf = fal
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${(0, utils_1.formatInPeso)(report.vat_special_discount, PESO_SIGN)}&nbsp;</td>
       </tr>
       <tr>
@@ -1047,7 +1048,7 @@ const printZReadReport = (report, siteSettings, branchMachine, user, isPdf = fal
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(report.regular_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">(${(0, utils_1.formatInPeso)(report.special_discount, PESO_SIGN)})</td>
       </tr>
       <tr>
@@ -1071,7 +1072,7 @@ const printZReadReport = (report, siteSettings, branchMachine, user, isPdf = fal
         <td>ADJUSTMENT ON VAT:</td>
       </tr>
       <tr>
-        <td style="padding-left: 15px">SC/PWD</td>
+        <td style="padding-left: 15px">Special</td>
         <td style="text-align: right">${(0, utils_1.formatInPeso)(report.vat_special_discount, PESO_SIGN)}&nbsp;</td>
       </tr>
       <tr>
@@ -1421,11 +1422,11 @@ const printBirReport = (birReports, siteSettings, branchMachine, user) => {
         </tr>
         <tr class="nested-row" style="font-weight: bold">
           <td>Regular Discount</td>
-          <td>SC/PWD (SC/PWD)</td>
+          <td>Special (Special)</td>
           <td>Returns</td>
           <td>Void</td>
           <td>Total Deductions</td>
-          <td>VAT on SC/PWDs</td>
+          <td>VAT on Specials</td>
           <td>VAT on Returns</td>
           <td>Others </td>
           <td>Total VAT Adj.</td>

@@ -1,3 +1,5 @@
+export type TaxType = 'VAT' | 'NVAT';
+
 export interface SiteSettings {
 	id: number;
 	close_day_deadline: string;
@@ -23,7 +25,7 @@ export interface SiteSettings {
 	ptu_valid_until_date?: string;
 	contact_number?: string;
 	product_version?: string;
-	tax_type?: 'VAT' | 'NVAT';
+	tax_type?: TaxType;
 	datetime_last_updated_products?: string;
 	reporting_period_day_of_month: number;
 	reset_counter_notification_threshold_amount: number;

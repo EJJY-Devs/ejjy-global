@@ -3,7 +3,6 @@ import * as queryString from 'query-string';
 import { ParsedQuery } from 'query-string';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDebouncedCallback } from 'use-debounce';
 import { DEFAULT_PAGE } from '../globals';
 
 interface Props {

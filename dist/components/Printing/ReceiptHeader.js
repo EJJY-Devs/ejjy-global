@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReceiptHeader = void 0;
 const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
+const utils_1 = require("../../utils");
 const { Text } = antd_1.Typography;
 const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
     const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
@@ -15,7 +16,7 @@ const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
         react_1.default.createElement(Text, { style: { whiteSpace: 'pre-line' } }, location),
         react_1.default.createElement(Text, null, [contactNumber, name].filter(Boolean).join(' | ')),
         react_1.default.createElement(Text, null, proprietor),
-        react_1.default.createElement(Text, null, [taxType, tin].filter(Boolean).join(' | ')),
+        react_1.default.createElement(Text, null, [(0, utils_1.getTaxTypeDescription)(taxType), tin].filter(Boolean).join(' | ')),
         react_1.default.createElement(Text, null, machineID),
         react_1.default.createElement(Text, null, posTerminal),
         title && (react_1.default.createElement(react_1.default.Fragment, null,

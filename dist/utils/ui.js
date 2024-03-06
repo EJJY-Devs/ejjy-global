@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importStar(require("react"));
@@ -125,6 +125,17 @@ const getModeOfPaymentDescription = (modeOfPayment) => {
     return description;
 };
 exports.getModeOfPaymentDescription = getModeOfPaymentDescription;
+const getTaxTypeDescription = (taxType) => {
+    let data = '';
+    if (taxType === 'VAT') {
+        data = 'VAT REG TIN';
+    }
+    else if (taxType === 'NVAT') {
+        data = 'NON VAT REG TIN';
+    }
+    return data;
+};
+exports.getTaxTypeDescription = getTaxTypeDescription;
 const filterOption = (input, option) => {
     if (option === null || option === void 0 ? void 0 : option.children) {
         return (option.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0);
