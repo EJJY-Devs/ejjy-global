@@ -59,7 +59,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            return (0, print_1.printSalesInvoice)(transactionData, siteSettings, transactionData.branch_machine, true, true);
+            return (0, print_1.printSalesInvoice)(transactionData, siteSettings, true, true);
         },
     });
     const { data: transactionRetrieved, isFetching } = (0, hooks_1.useTransactionRetrieve)({
@@ -139,7 +139,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
             antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
             return;
         }
-        (0, print_1.printSalesInvoice)(transactionData, siteSettings, transactionData.branch_machine, true);
+        (0, print_1.printSalesInvoice)(transactionData, siteSettings, true);
     };
     const handleCreateTxt = () => {
         if (!transactionData) {
@@ -147,7 +147,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
             return;
         }
         setIsCreatingTxt(true);
-        (0, print_1.createSalesInvoiceTxt)(transactionData, siteSettings, transactionData.branch_machine, true);
+        (0, print_1.createSalesInvoiceTxt)(transactionData, siteSettings, true);
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { footer: [

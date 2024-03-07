@@ -78,7 +78,6 @@ export const useBulkExport = () =>
 								contents: createSalesInvoiceTxt(
 									transaction,
 									siteSettings,
-									branchMachine,
 									true,
 									true,
 								),
@@ -95,13 +94,7 @@ export const useBulkExport = () =>
 							file_name: `XReadReport_${formatDateTime(
 								report.generation_datetime,
 							)}_${report.id}.txt`,
-							contents: createXReadTxt(
-								report,
-								siteSettings,
-								branchMachine,
-								user,
-								true,
-							),
+							contents: createXReadTxt(report, siteSettings, user, true),
 						})),
 					}),
 				);
@@ -116,13 +109,7 @@ export const useBulkExport = () =>
 								file_name: `ZReadReport_${formatDateTime(
 									report.generation_datetime,
 								)}_${report.id}.txt`,
-								contents: createZReadTxt(
-									report,
-									siteSettings,
-									branchMachine,
-									user,
-									true,
-								),
+								contents: createZReadTxt(report, siteSettings, user, true),
 							}),
 						),
 					}),

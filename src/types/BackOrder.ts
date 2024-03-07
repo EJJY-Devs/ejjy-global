@@ -7,6 +7,7 @@ export type BackOrderUser = Pick<
 	'id' | 'user_type' | 'first_name' | 'last_name' | 'employee_id'
 >;
 
+export type BackOrderType = 'for_return' | 'damaged';
 export interface BackOrderProduct {
 	id: number;
 	quantity_returned: string;
@@ -27,7 +28,7 @@ export interface BackOrder {
 	products: BackOrderProduct[];
 	status: string;
 	overall_remarks?: string;
-	type: 'for_return' | 'damaged';
+	type: BackOrderType;
 	transaction: Transaction;
 	supplier_name?: string;
 	supplier_address?: string;
@@ -47,9 +48,28 @@ export interface CreateBackOrder {
 	products: CreateBackOrderProduct[];
 	transaction_id: number;
 	overall_remarks: string;
-	type: 'for_return' | 'damaged';
+	type: BackOrderType;
 	supplier_name?: string;
 	supplier_address?: string;
 	supplier_tin?: string;
 	encoded_by_id: number;
 }
+
+export type ReceivingVoucherProduct = {
+	id: number;
+	cost_per_piece: number;
+	quantity: number;
+	product: Product;
+};
+
+export type ReceivingVoucher = {
+	id: number;
+	datetime_created: string;
+	supplier_name: string;
+	supplier_address: string;
+	supplier_tin: string;
+	encoded_by: User;
+	checked_by: User;
+	products: ReceivingVoucherProduct[];
+	amount_paid: number;
+};

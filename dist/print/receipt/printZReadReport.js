@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.printZReadReport = void 0;
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printZReadReport = (report, siteSettings, branchMachine, user, isPdf = false) => {
+const printZReadReport = (report, siteSettings, user, isPdf = false) => {
     var _a, _b, _c;
     const data = `
 	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-		${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine)}
+		${(0, helper_receipt_1.getHeader)(siteSettings, report.branch_machine)}
 
     <br />
 

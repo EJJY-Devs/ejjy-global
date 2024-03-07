@@ -78,13 +78,7 @@ export const ViewTransactionModal = ({
 				return undefined;
 			}
 
-			return printSalesInvoice(
-				transactionData,
-				siteSettings,
-				transactionData.branch_machine,
-				true,
-				true,
-			);
+			return printSalesInvoice(transactionData, siteSettings, true, true);
 		},
 	});
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({
@@ -188,12 +182,7 @@ export const ViewTransactionModal = ({
 			return;
 		}
 
-		printSalesInvoice(
-			transactionData,
-			siteSettings,
-			transactionData.branch_machine,
-			true,
-		);
+		printSalesInvoice(transactionData, siteSettings, true);
 	};
 
 	const handleCreateTxt = () => {
@@ -203,12 +192,7 @@ export const ViewTransactionModal = ({
 		}
 
 		setIsCreatingTxt(true);
-		createSalesInvoiceTxt(
-			transactionData,
-			siteSettings,
-			transactionData.branch_machine,
-			true,
-		);
+		createSalesInvoiceTxt(transactionData, siteSettings, true);
 		setIsCreatingTxt(false);
 	};
 

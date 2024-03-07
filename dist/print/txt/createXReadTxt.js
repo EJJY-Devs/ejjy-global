@@ -4,11 +4,11 @@ exports.createXReadTxt = void 0;
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const helper_txt_1 = require("../helper-txt");
-const createXReadTxt = (report, siteSettings, branchMachine, user, returnContent = false) => {
+const createXReadTxt = (report, siteSettings, user, returnContent = false) => {
     var _a, _b, _c;
     const reportTextFile = new utils_1.ReportTextFile();
     let rowNumber = 0;
-    rowNumber = (0, helper_txt_1.writeHeader)(reportTextFile, siteSettings, branchMachine, rowNumber);
+    rowNumber = (0, helper_txt_1.writeHeader)(reportTextFile, siteSettings, report.branch_machine, rowNumber);
     rowNumber += 1;
     if (report.gross_sales === 0) {
         rowNumber += 1;

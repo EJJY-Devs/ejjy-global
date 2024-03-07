@@ -7,7 +7,7 @@ exports.printBirReport = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printBirReport = (birReports, siteSettings, branchMachine, user) => {
+const printBirReport = (birReports, siteSettings, user, branchMachine) => {
     const birReportsRow = birReports
         .map((report) => {
         var _a, _b;
@@ -132,7 +132,7 @@ const printBirReport = (birReports, siteSettings, branchMachine, user) => {
         </tr>
         <tr class="nested-row" style="font-weight: bold">
           <td>Regular Discount</td>
-          <td>Special (Special)</td>
+          <td>Special Discount</td>
           <td>Returns</td>
           <td>Void</td>
           <td>Total Deductions</td>

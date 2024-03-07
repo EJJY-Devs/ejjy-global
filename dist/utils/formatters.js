@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatInPeso = exports.standardRound = exports.formatQuantity = exports.formatDateForAPI = exports.formatDateTime24Hour = exports.formatDateTime = exports.formatDate = exports.convertIntoArray = exports.formatRemoveCommas = exports.formatNumberWithCommas = void 0;
+exports.formatTimeOnly = exports.formatInPeso = exports.standardRound = exports.formatQuantity = exports.formatDateForAPI = exports.formatDateTime24Hour = exports.formatDateTime = exports.formatDate = exports.convertIntoArray = exports.formatRemoveCommas = exports.formatNumberWithCommas = void 0;
 const globals_1 = require("../globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const lodash_1 = __importDefault(require("lodash"));
@@ -54,3 +54,5 @@ const formatInPeso = (value, pesoSign = '₱') => {
         : `${x < 0 ? '-' : ''}${pesoSign}${(0, exports.formatNumberWithCommas)((0, exports.standardRound)(Math.abs(x)))}`;
 };
 exports.formatInPeso = formatInPeso;
+const formatTimeOnly = (time) => (0, dayjs_1.default)(time, 'HH:mm:ss').format('h:mmA');
+exports.formatTimeOnly = formatTimeOnly;

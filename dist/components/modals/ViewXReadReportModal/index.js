@@ -53,15 +53,15 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printXReadReport)(report, siteSettings, report.branch_machine, report === null || report === void 0 ? void 0 : report.generated_by, true),
+        print: () => (0, print_1.printXReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by, true),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printXReadReport)(report, siteSettings, report.branch_machine, report === null || report === void 0 ? void 0 : report.generated_by);
+        (0, print_1.printXReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by);
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);
-        (0, print_1.createXReadTxt)(report, siteSettings, report.branch_machine, report === null || report === void 0 ? void 0 : report.generated_by);
+        (0, print_1.createXReadTxt)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by);
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { className: "ViewReportModal", footer: [

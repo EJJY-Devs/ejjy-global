@@ -7,10 +7,10 @@ exports.printDailySales = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printDailySales = (dailySales, siteSettings, branchMachine, user, isPdf = false) => {
+const printDailySales = (dailySales, siteSettings, user, isPdf = false) => {
     const data = `
 	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-    ${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine)}
+    ${(0, helper_receipt_1.getHeader)(siteSettings, dailySales.branch_machine)}
 
     <br />
 

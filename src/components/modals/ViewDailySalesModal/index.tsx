@@ -28,33 +28,17 @@ export const ViewDailySalesModal = ({
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `DailySales_${dailySales.id}`,
 		print: () =>
-			printDailySales(
-				dailySales,
-				siteSettings,
-				dailySales.branch_machine,
-				dailySales?.generated_by,
-				true,
-			),
+			printDailySales(dailySales, siteSettings, dailySales?.generated_by, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printDailySales(
-			dailySales,
-			siteSettings,
-			dailySales.branch_machine,
-			dailySales?.generated_by,
-		);
+		printDailySales(dailySales, siteSettings, dailySales?.generated_by);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createDailySalesTxt(
-			dailySales,
-			siteSettings,
-			dailySales.branch_machine,
-			dailySales?.generated_by,
-		);
+		createDailySalesTxt(dailySales, siteSettings, dailySales?.generated_by);
 		setIsCreatingTxt(false);
 	};
 

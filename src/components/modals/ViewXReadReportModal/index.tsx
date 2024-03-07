@@ -45,33 +45,17 @@ export const ViewXReadReportModal = ({
 				  }
 				: undefined,
 		print: () =>
-			printXReadReport(
-				report,
-				siteSettings,
-				report.branch_machine,
-				report?.generated_by,
-				true,
-			),
+			printXReadReport(report, siteSettings, report?.generated_by, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printXReadReport(
-			report,
-			siteSettings,
-			report.branch_machine,
-			report?.generated_by,
-		);
+		printXReadReport(report, siteSettings, report?.generated_by);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createXReadTxt(
-			report,
-			siteSettings,
-			report.branch_machine,
-			report?.generated_by,
-		);
+		createXReadTxt(report, siteSettings, report?.generated_by);
 		setIsCreatingTxt(false);
 	};
 

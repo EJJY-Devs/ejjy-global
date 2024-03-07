@@ -74,3 +74,6 @@ export const formatInPeso = (value: string | number, pesoSign = '₱') => {
 				standardRound(Math.abs(x)),
 		  )}`;
 };
+
+export const formatTimeOnly = (time: string) =>
+	dayjs(time, 'HH:mm:ss').format('h:mmA');

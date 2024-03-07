@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printCollectionReceipt = (collectionReceipt, siteSettings, branchMachine) => {
+const printCollectionReceipt = (collectionReceipt, siteSettings) => {
     var _a, _b, _c;
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
     const orderOfPayment = collectionReceipt.order_of_payment;
@@ -22,7 +22,7 @@ const printCollectionReceipt = (collectionReceipt, siteSettings, branchMachine) 
     }
     const data = `
   <div style="${(0, helper_receipt_1.getPageStyle)()}">
-      ${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine, 'COLLECTION RECEIPT')}
+      ${(0, helper_receipt_1.getHeader)(siteSettings, collectionReceipt.branch_machine, 'COLLECTION RECEIPT')}
 
       <br />
 

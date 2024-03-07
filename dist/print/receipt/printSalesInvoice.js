@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printSalesInvoice = (transaction, siteSettings, branchMachine, isReprint = false, isPdf = false) => {
+const printSalesInvoice = (transaction, siteSettings, isReprint = false, isPdf = false) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
     const change = Number(transaction.payment.amount_tendered) - transaction.total_amount;
     const previousTransactionOrNumber = (_c = (_b = (_a = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _a === void 0 ? void 0 : _a.previous_voided_transaction) === null || _b === void 0 ? void 0 : _b.invoice) === null || _c === void 0 ? void 0 : _c.or_number;
@@ -59,7 +59,7 @@ const printSalesInvoice = (transaction, siteSettings, branchMachine, isReprint =
     }
     const data = `
 	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-		${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine, title)}
+		${(0, helper_receipt_1.getHeader)(siteSettings, transaction.branch_machine, title)}
 
 		<br />
 

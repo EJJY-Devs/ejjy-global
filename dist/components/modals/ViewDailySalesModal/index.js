@@ -40,15 +40,15 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `DailySales_${dailySales.id}`,
-        print: () => (0, print_1.printDailySales)(dailySales, siteSettings, dailySales.branch_machine, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by, true),
+        print: () => (0, print_1.printDailySales)(dailySales, siteSettings, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by, true),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printDailySales)(dailySales, siteSettings, dailySales.branch_machine, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by);
+        (0, print_1.printDailySales)(dailySales, siteSettings, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by);
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);
-        (0, print_1.createDailySalesTxt)(dailySales, siteSettings, dailySales.branch_machine, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by);
+        (0, print_1.createDailySalesTxt)(dailySales, siteSettings, dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by);
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { footer: [

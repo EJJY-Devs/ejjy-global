@@ -1,10 +1,5 @@
 import dayjs from 'dayjs';
-import {
-	BranchMachine,
-	DailySales,
-	GeneratedByUser,
-	SiteSettings,
-} from '../../types';
+import { DailySales, GeneratedByUser, SiteSettings } from '../../types';
 import {
 	ReportTextFile,
 	formatDate,
@@ -17,7 +12,6 @@ import { writeFooter, writeHeader } from '../helper-txt';
 export const createDailySalesTxt = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	user: GeneratedByUser,
 ) => {
 	const reportTextFile = new ReportTextFile();
@@ -26,7 +20,7 @@ export const createDailySalesTxt = (
 	rowNumber = writeHeader(
 		reportTextFile,
 		siteSettings,
-		branchMachine,
+		dailySales.branch_machine,
 		rowNumber,
 	);
 	rowNumber += 1;

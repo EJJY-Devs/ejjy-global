@@ -1,10 +1,5 @@
 import dayjs from 'dayjs';
-import {
-	BranchMachine,
-	DailySales,
-	GeneratedByUser,
-	SiteSettings,
-} from '../../types';
+import { DailySales, GeneratedByUser, SiteSettings } from '../../types';
 import { formatDate, formatDateTime, formatInPeso } from '../../utils';
 import {
 	EMPTY_CELL,
@@ -19,13 +14,12 @@ import {
 export const printDailySales = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	user: GeneratedByUser,
 	isPdf = false,
 ) => {
 	const data = `
 	<div class="container" style="${getPageStyle()}">
-    ${getHeader(siteSettings, branchMachine)}
+    ${getHeader(siteSettings, dailySales.branch_machine)}
 
     <br />
 

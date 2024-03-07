@@ -5,7 +5,7 @@ const globals_1 = require("../globals");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
 const useUserLogs = (data = {}) => {
-    const { params, options, serviceOptions } = data;
+    const { params, options } = data;
     return (0, react_query_1.useQuery)(['useUserLogs', params], () => (0, helper_1.wrapServiceWithCatch)(services_1.UserLogsService.list({
         acting_user_id: params === null || params === void 0 ? void 0 : params.actingUserId,
         page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,

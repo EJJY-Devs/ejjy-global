@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { saleTypes, transactionStatuses, vatTypes } from '../../globals';
-import { BranchMachine, SiteSettings, Transaction } from '../../types';
+import { SiteSettings, Transaction } from '../../types';
 import {
 	formatDateTime,
 	formatInPeso,
@@ -20,7 +20,6 @@ import {
 export const printSalesInvoice = (
 	transaction: Transaction,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	isReprint = false,
 	isPdf = false,
 ) => {
@@ -88,7 +87,7 @@ export const printSalesInvoice = (
 
 	const data = `
 	<div class="container" style="${getPageStyle()}">
-		${getHeader(siteSettings, branchMachine, title)}
+		${getHeader(siteSettings, transaction.branch_machine, title)}
 
 		<br />
 

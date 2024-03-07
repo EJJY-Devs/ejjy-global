@@ -1,9 +1,4 @@
-import {
-	BranchMachine,
-	GeneratedByUser,
-	SiteSettings,
-	XReadReport,
-} from '../../types';
+import { GeneratedByUser, SiteSettings, XReadReport } from '../../types';
 import { ReportTextFile, formatDateTime, formatInPeso } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN, UNDERLINE_TEXT } from '../helper-receipt';
 import { writeFooter, writeHeader } from '../helper-txt';
@@ -11,7 +6,6 @@ import { writeFooter, writeHeader } from '../helper-txt';
 export const createXReadTxt = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	user: GeneratedByUser,
 	returnContent = false,
 ) => {
@@ -21,7 +15,7 @@ export const createXReadTxt = (
 	rowNumber = writeHeader(
 		reportTextFile,
 		siteSettings,
-		branchMachine,
+		report.branch_machine,
 		rowNumber,
 	);
 	rowNumber += 1;

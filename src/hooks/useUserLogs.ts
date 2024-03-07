@@ -11,7 +11,7 @@ import { UseListQuery } from './inteface';
 const useUserLogs = (
 	data: UseListQuery<UserLog, CamelCasedProperties<Params>> = {},
 ) => {
-	const { params, options, serviceOptions } = data;
+	const { params, options } = data;
 
 	return useQuery<ListResponseData<UserLog>, Error, QueryResponse<UserLog>>(
 		['useUserLogs', params],

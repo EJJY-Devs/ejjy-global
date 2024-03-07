@@ -24,7 +24,7 @@ type ForPrintingAttendanceLogSingleLog = {
 };
 export interface PrintingAttendanceLog {
     employee: Account;
-    logs: ForPrintingAttendanceLogSingleLog;
+    logs: ForPrintingAttendanceLogSingleLog[];
 }
 export interface ProblematicAttendanceLog {
     id: number;

@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importStar(require("react"));
@@ -136,6 +136,72 @@ const getTaxTypeDescription = (taxType) => {
     return data;
 };
 exports.getTaxTypeDescription = getTaxTypeDescription;
+const getTransactionStatusDescription = (status) => {
+    switch (status) {
+        case globals_1.transactionStatuses.NEW: {
+            return 'New';
+        }
+        case globals_1.transactionStatuses.FULLY_PAID: {
+            return 'Fully Paid';
+        }
+        case globals_1.transactionStatuses.QUEUE: {
+            return 'Hold';
+        }
+        case globals_1.transactionStatuses.VOID_CANCELLED: {
+            return 'Cancelled';
+        }
+        case globals_1.transactionStatuses.VOID_EDITED: {
+            return 'Edited';
+        }
+        default: {
+            return globals_1.EMPTY_CELL;
+        }
+    }
+};
+exports.getTransactionStatusDescription = getTransactionStatusDescription;
+const getRequestor = (requisitionSlip) => {
+    const user = (requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.requesting_user) || {};
+    const data = [];
+    if (user) {
+        data.push((0, exports.getFullName)(user));
+    }
+    if (user.branch) {
+        data.push(user.branch.name);
+    }
+    return data.join(' - ');
+};
+exports.getRequestor = getRequestor;
+const getProductCode = (product) => (product === null || product === void 0 ? void 0 : product.barcode) ||
+    (product === null || product === void 0 ? void 0 : product.selling_barcode) ||
+    (product === null || product === void 0 ? void 0 : product.textcode) ||
+    globals_1.EMPTY_CELL;
+exports.getProductCode = getProductCode;
+const getOrderSlipStatusBranchManagerText = (status, percentage, osdrStatus) => {
+    switch (status) {
+        case globals_1.orderSlipStatus.PREPARING: {
+            return `Preparing (${percentage}%)`;
+        }
+        case globals_1.orderSlipStatus.PREPARED: {
+            return 'Prepared';
+        }
+        case globals_1.orderSlipStatus.DELIVERED: {
+            return 'Delivered';
+        }
+        case globals_1.orderSlipStatus.RECEIVED: {
+            if (osdrStatus === globals_1.OSDRStatus.DONE) {
+                return 'Received (Done)';
+            }
+            if (osdrStatus === globals_1.OSDRStatus.ERROR) {
+                return 'Received (Error)';
+            }
+            return 'Received';
+        }
+        default:
+            return '';
+    }
+};
+exports.getOrderSlipStatusBranchManagerText = getOrderSlipStatusBranchManagerText;
+// Others
 const filterOption = (input, option) => {
     if (option === null || option === void 0 ? void 0 : option.children) {
         return (option.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0);

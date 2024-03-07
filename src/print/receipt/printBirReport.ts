@@ -6,8 +6,8 @@ import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
 export const printBirReport = (
 	birReports: BirReport[],
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	user: User,
+	branchMachine?: BranchMachine,
 ) => {
 	const birReportsRow = birReports
 		.map(
@@ -143,7 +143,7 @@ export const printBirReport = (
         </tr>
         <tr class="nested-row" style="font-weight: bold">
           <td>Regular Discount</td>
-          <td>Special (Special)</td>
+          <td>Special Discount</td>
           <td>Returns</td>
           <td>Void</td>
           <td>Total Deductions</td>

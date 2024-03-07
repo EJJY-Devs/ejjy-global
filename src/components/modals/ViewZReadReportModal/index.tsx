@@ -45,33 +45,17 @@ export const ViewZReadReportModal = ({
 				  }
 				: undefined,
 		print: () =>
-			printZReadReport(
-				report,
-				siteSettings,
-				report.branch_machine,
-				report?.generated_by,
-				true,
-			),
+			printZReadReport(report, siteSettings, report?.generated_by, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printZReadReport(
-			report,
-			siteSettings,
-			report.branch_machine,
-			report?.generated_by,
-		);
+		printZReadReport(report, siteSettings, report?.generated_by);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createZReadTxt(
-			report,
-			siteSettings,
-			report.branch_machine,
-			report.generated_by,
-		);
+		createZReadTxt(report, siteSettings, report.generated_by);
 		setIsCreatingTxt(false);
 	};
 

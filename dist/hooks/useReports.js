@@ -43,7 +43,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
                 return ({
                     folder_name: `invoices/${formatDateTime(transaction.invoice.datetime_created)}/${((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || 'NO_CASHIER'}`,
                     file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
-                    contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, branchMachine, true, true),
+                    contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
                 });
             }),
         }));
@@ -53,7 +53,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
             data: xreadReports.results.map((report) => ({
                 folder_name: 'reports/xread',
                 file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                contents: (0, print_1.createXReadTxt)(report, siteSettings, branchMachine, user, true),
+                contents: (0, print_1.createXReadTxt)(report, siteSettings, user, true),
             })),
         }));
     }
@@ -62,7 +62,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
             data: zreadReports.results.map((report) => ({
                 folder_name: 'reports/zread',
                 file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                contents: (0, print_1.createZReadTxt)(report, siteSettings, branchMachine, user, true),
+                contents: (0, print_1.createZReadTxt)(report, siteSettings, user, true),
             })),
         }));
     }

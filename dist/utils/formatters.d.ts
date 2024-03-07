@@ -11,3 +11,4 @@ export declare const formatDateForAPI: (date: Dayjs | Moment) => string;
 export declare const formatQuantity: (quantity: number, product: Product, type?: string | null) => string;
 export declare const standardRound: (value: number) => string;
 export declare const formatInPeso: (value: string | number, pesoSign?: string) => string;
+export declare const formatTimeOnly: (time: string) => string;

@@ -9,7 +9,7 @@ const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const helper_txt_1 = require("../helper-txt");
-const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isReprint = false, returnContent = false) => {
+const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, returnContent = false) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
     const change = Number(transaction.payment.amount_tendered) - transaction.total_amount;
     const previousTransactionOrNumber = (_c = (_b = (_a = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _a === void 0 ? void 0 : _a.previous_voided_transaction) === null || _b === void 0 ? void 0 : _b.invoice) === null || _c === void 0 ? void 0 : _c.or_number;
@@ -60,7 +60,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, branchMachine, isRepri
     }
     const reportTextFile = new utils_1.ReportTextFile();
     let rowNumber = 0;
-    rowNumber = (0, helper_txt_1.writeHeader)(reportTextFile, siteSettings, branchMachine, rowNumber, title);
+    rowNumber = (0, helper_txt_1.writeHeader)(reportTextFile, siteSettings, transaction.branch_machine, rowNumber, title);
     rowNumber += 1;
     rowNumber += 1;
     transaction.products.forEach((item) => {

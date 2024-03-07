@@ -1,9 +1,4 @@
-import {
-	BranchMachine,
-	GeneratedByUser,
-	SiteSettings,
-	ZReadReport,
-} from '../../types';
+import { GeneratedByUser, SiteSettings, ZReadReport } from '../../types';
 import { formatDateTime, formatInPeso } from '../../utils';
 import {
 	EMPTY_CELL,
@@ -20,13 +15,12 @@ import {
 export const printZReadReport = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	user: GeneratedByUser,
 	isPdf = false,
 ) => {
 	const data = `
 	<div class="container" style="${getPageStyle()}">
-		${getHeader(siteSettings, branchMachine)}
+		${getHeader(siteSettings, report.branch_machine)}
 
     <br />
 

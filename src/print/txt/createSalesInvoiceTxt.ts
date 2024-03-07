@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { saleTypes, transactionStatuses, vatTypes } from '../../globals';
-import { BranchMachine, SiteSettings, Transaction } from '../../types';
+import { SiteSettings, Transaction } from '../../types';
 import {
 	ReportTextFile,
 	formatDateTime,
@@ -19,7 +19,6 @@ type DiscountOptionField = {
 export const createSalesInvoiceTxt = (
 	transaction: Transaction,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 	isReprint = false,
 	returnContent = false,
 ) => {
@@ -91,7 +90,7 @@ export const createSalesInvoiceTxt = (
 	rowNumber = writeHeader(
 		reportTextFile,
 		siteSettings,
-		branchMachine,
+		transaction.branch_machine,
 		rowNumber,
 		title,
 	);

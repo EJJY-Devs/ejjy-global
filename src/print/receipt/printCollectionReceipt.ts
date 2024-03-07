@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { orderOfPaymentPurposes } from '../../globals';
-import { BranchMachine, CollectionReceipt, SiteSettings } from '../../types';
+import { CollectionReceipt, SiteSettings } from '../../types';
 import {
 	formatDate,
 	formatDateTime,
@@ -19,7 +19,6 @@ import {
 export const printCollectionReceipt = (
 	collectionReceipt: CollectionReceipt,
 	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
 ) => {
 	const invoice =
 		collectionReceipt.order_of_payment?.charge_sales_transaction?.invoice;
@@ -37,7 +36,11 @@ export const printCollectionReceipt = (
 
 	const data = `
   <div style="${getPageStyle()}">
-      ${getHeader(siteSettings, branchMachine, 'COLLECTION RECEIPT')}
+      ${getHeader(
+				siteSettings,
+				collectionReceipt.branch_machine,
+				'COLLECTION RECEIPT',
+			)}
 
       <br />
 

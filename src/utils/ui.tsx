@@ -3,10 +3,14 @@ import { DefaultOptionType } from 'antd/lib/select';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import {
+	EMPTY_CELL,
+	OSDRStatus,
 	attendanceCategories,
 	cashBreakdownCategories,
 	cashBreakdownTypes,
+	orderSlipStatus,
 	paymentTypes,
+	transactionStatuses,
 	userTypes,
 } from '../globals';
 import {
@@ -17,6 +21,7 @@ import {
 	CashieringTransactionProduct,
 	PaymentType,
 	Product,
+	RequisitionSlip,
 	TaxType,
 	UserType,
 } from '../types';
@@ -144,6 +149,83 @@ export const getTaxTypeDescription = (taxType?: TaxType) => {
 
 	return data;
 };
+
+export const getTransactionStatusDescription = (status: string) => {
+	switch (status) {
+		case transactionStatuses.NEW: {
+			return 'New';
+		}
+		case transactionStatuses.FULLY_PAID: {
+			return 'Fully Paid';
+		}
+		case transactionStatuses.QUEUE: {
+			return 'Hold';
+		}
+		case transactionStatuses.VOID_CANCELLED: {
+			return 'Cancelled';
+		}
+		case transactionStatuses.VOID_EDITED: {
+			return 'Edited';
+		}
+		default: {
+			return EMPTY_CELL;
+		}
+	}
+};
+
+export const getRequestor = (requisitionSlip: RequisitionSlip) => {
+	const user = requisitionSlip?.requesting_user || {};
+
+	const data = [];
+	if (user) {
+		data.push(getFullName(user));
+	}
+
+	if (user.branch) {
+		data.push(user.branch.name);
+	}
+
+	return data.join(' - ');
+};
+
+export const getProductCode = (product: Product) =>
+	product?.barcode ||
+	product?.selling_barcode ||
+	product?.textcode ||
+	EMPTY_CELL;
+
+export const getOrderSlipStatusBranchManagerText = (
+	status: string,
+	percentage?: number,
+	osdrStatus?: string,
+) => {
+	switch (status) {
+		case orderSlipStatus.PREPARING: {
+			return `Preparing (${percentage}%)`;
+		}
+		case orderSlipStatus.PREPARED: {
+			return 'Prepared';
+		}
+		case orderSlipStatus.DELIVERED: {
+			return 'Delivered';
+		}
+		case orderSlipStatus.RECEIVED: {
+			if (osdrStatus === OSDRStatus.DONE) {
+				return 'Received (Done)';
+			}
+
+			if (osdrStatus === OSDRStatus.ERROR) {
+				return 'Received (Error)';
+			}
+
+			return 'Received';
+		}
+		default:
+			return '';
+	}
+};
+
+// Others
 
 export const filterOption = (
 	input: string,
