@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
+import { AttendanceLogCategory, AttendanceLogType, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -261,8 +261,8 @@ export declare const attendanceCategories: {
     TRACKER: AttendanceLogCategory;
 };
 export declare const attendanceTypes: {
-    IN: string;
-    OUT: string;
+    IN: AttendanceLogType;
+    OUT: AttendanceLogType;
 };
 export declare const attendanceSchedulePeriods: {
     MORNING: string;

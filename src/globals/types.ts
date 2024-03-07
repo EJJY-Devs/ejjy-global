@@ -1,5 +1,6 @@
 import {
 	AttendanceLogCategory,
+	AttendanceLogType,
 	CashBreakdownCategory,
 	CashBreakdownType,
 	PaymentType,
@@ -321,8 +322,8 @@ export const attendanceCategories = {
 };
 
 export const attendanceTypes = {
-	IN: 'in',
-	OUT: 'out',
+	IN: 'in' as AttendanceLogType,
+	OUT: 'out' as AttendanceLogType,
 };
 
 export const attendanceSchedulePeriods = {
