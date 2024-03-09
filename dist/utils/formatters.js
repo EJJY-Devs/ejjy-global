@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatTimeOnly = exports.formatInPeso = exports.standardRound = exports.formatQuantity = exports.formatDateForAPI = exports.formatDateTime24Hour = exports.formatDateTime = exports.formatDate = exports.convertIntoArray = exports.formatRemoveCommas = exports.formatNumberWithCommas = void 0;
-const globals_1 = require("../globals");
 const dayjs_1 = __importDefault(require("dayjs"));
 const lodash_1 = __importDefault(require("lodash"));
+const globals_1 = require("../globals");
 const formatNumberWithCommas = (x) => x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 exports.formatNumberWithCommas = formatNumberWithCommas;
 const formatRemoveCommas = (x) => { var _a; return Number(((_a = x === null || x === void 0 ? void 0 : x.toString()) === null || _a === void 0 ? void 0 : _a.replace(/,/g, '')) || ''); };
@@ -32,7 +32,7 @@ exports.formatDateTime = formatDateTime;
 const formatDateTime24Hour = (datetime) => dayjs_1.default.tz(datetime).format(`${globals_1.DATE_FORMAT_UI} HH:mm`);
 exports.formatDateTime24Hour = formatDateTime24Hour;
 const formatDateForAPI = (date) => {
-    return date.format('YYYY-MM-DD');
+    return date.format(globals_1.DATE_FORMAT_API);
 };
 exports.formatDateForAPI = formatDateForAPI;
 const formatQuantity = (quantity, product, type = null) => {

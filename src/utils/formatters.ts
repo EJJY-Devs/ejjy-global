@@ -1,7 +1,12 @@
-import { DATE_FORMAT_UI, EMPTY_CELL, unitOfMeasurementTypes } from '../globals';
 import dayjs, { Dayjs } from 'dayjs';
 import _ from 'lodash';
 import { Moment } from 'moment';
+import {
+	DATE_FORMAT_API,
+	DATE_FORMAT_UI,
+	EMPTY_CELL,
+	unitOfMeasurementTypes,
+} from '../globals';
 import { Product } from '../types';
 
 export const formatNumberWithCommas = (x: number | string) =>
@@ -40,7 +45,7 @@ export const formatDateTime24Hour = (datetime: string | Dayjs) =>
 	dayjs.tz(datetime).format(`${DATE_FORMAT_UI} HH:mm`);
 
 export const formatDateForAPI = (date: Dayjs | Moment) => {
-	return date.format('YYYY-MM-DD');
+	return date.format(DATE_FORMAT_API);
 };
 
 export const formatQuantity = (
