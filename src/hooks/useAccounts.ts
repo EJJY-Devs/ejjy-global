@@ -48,7 +48,7 @@ const useAccounts = (
 export const useAccountRetrieve = (data: UseRetrieveQuery<Account>) => {
 	const { id, options, serviceOptions } = data;
 
-	useQuery<Account>(
+	return useQuery<Account>(
 		['useAccountRetrieve', id],
 		() =>
 			wrapServiceWithCatch(

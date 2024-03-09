@@ -25,7 +25,7 @@ const useAccounts = (data = {}) => {
 };
 const useAccountRetrieve = (data) => {
     const { id, options, serviceOptions } = data;
-    (0, react_query_1.useQuery)(['useAccountRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.AccountsService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ enabled: typeof id === 'number' }, options));
+    return (0, react_query_1.useQuery)(['useAccountRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.AccountsService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ enabled: typeof id === 'number' }, options));
 };
 exports.useAccountRetrieve = useAccountRetrieve;
 exports.default = useAccounts;

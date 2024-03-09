@@ -52,7 +52,7 @@ export const useBranchMachineRetrieve = (
 ) => {
 	const { id, options, serviceOptions } = data;
 
-	useQuery<BranchMachine>(
+	return useQuery<BranchMachine>(
 		['useBranchMachineRetrieve', id],
 		() =>
 			wrapServiceWithCatch(
