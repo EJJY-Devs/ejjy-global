@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.120",
+	"version": "0.0.121",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -18,7 +18,7 @@
 	},
 	"peerDependencies": {
 		"react": "^16.14.0",
-		"antd": "^4.24.13",
+		"antd": "^4.24.8",
 		"axios": "^0.20.0",
 		"dayjs": "^1.11.9",
 		"lodash": "^4.17.21",
