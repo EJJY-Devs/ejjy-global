@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.123",
+	"version": "0.0.124",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -17,7 +17,8 @@
 		"post-commit": "git push"
 	},
 	"peerDependencies": {
-		"react": "^16.13.1"
+		"react": "^16.13.1",
+		"react-router-dom": "^5.3.4"
 	},
 	"dependencies": {
 		"jspdf": "^2.5.1",
@@ -52,7 +53,6 @@
 		"vite": "^4.4.5",
 		"react-dom": "^16.13.1",
 		"react-query": "^3.34.15",
-		"react-router-dom": "^5.3.4",
 		"type-fest": "^4.3.1"
 	}
 }
