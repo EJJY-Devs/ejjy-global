@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.121",
+	"version": "0.0.122",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -17,7 +17,7 @@
 		"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\""
 	},
 	"peerDependencies": {
-		"react": "^16.14.0",
+		"react": "^16.13.1",
 		"antd": "^4.24.8",
 		"axios": "^0.20.0",
 		"dayjs": "^1.11.9",
@@ -50,7 +50,6 @@
 		"tailwindcss": "^3.3.3",
 		"typescript": "^4.1.6",
 		"vite": "^4.4.5",
-		"react": "^16.14.0",
 		"react-dom": "^16.13.1",
 		"react-query": "^3.34.15",
 		"react-router-dom": "^5.3.4",
