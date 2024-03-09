@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.122",
+	"version": "0.0.123",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -14,10 +14,14 @@
 		"tsc": "tsc -w",
 		"tw": "npx tailwindcss -i src/index.css -o ./dist/styles.min.css --minify",
 		"pre-commit": "npm version patch --no-git-tag-version && npm run tw && git add .",
-		"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\""
+		"post-commit": "git push"
 	},
 	"peerDependencies": {
-		"react": "^16.13.1",
+		"react": "^16.13.1"
+	},
+	"dependencies": {
+		"jspdf": "^2.5.1",
+		"use-debounce": "^7.0.1",
 		"antd": "^4.24.8",
 		"axios": "^0.20.0",
 		"dayjs": "^1.11.9",
@@ -25,10 +29,6 @@
 		"moment": "^2.29.4",
 		"query-string": "^7.1.3",
 		"qz-tray": "^2.2.2"
-	},
-	"dependencies": {
-		"jspdf": "^2.5.1",
-		"use-debounce": "^7.0.1"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.197",
