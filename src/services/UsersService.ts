@@ -16,8 +16,8 @@ const service = {
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
 		const endpoints: Endpoints = {
-			[ServiceType.ONLINE]: '/users',
-			[ServiceType.OFFLINE]: '/offline-users',
+			[ServiceType.ONLINE]: '/users/',
+			[ServiceType.OFFLINE]: '/offline-users/',
 		};
 
 		const response = await axios.get<ListResponseData<User>>(

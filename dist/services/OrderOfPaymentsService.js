@@ -17,8 +17,8 @@ const globals_1 = require("../globals");
 const service = {
     list: (params, baseURL, serviceType = globals_1.ServiceType.ONLINE) => __awaiter(void 0, void 0, void 0, function* () {
         const endpoints = {
-            [globals_1.ServiceType.ONLINE]: '/order-of-payments',
-            [globals_1.ServiceType.OFFLINE]: '/offline-order-of-payments',
+            [globals_1.ServiceType.ONLINE]: '/order-of-payments/',
+            [globals_1.ServiceType.OFFLINE]: '/offline-order-of-payments/',
         };
         const response = yield axios_1.default.get(endpoints[serviceType], {
             baseURL,

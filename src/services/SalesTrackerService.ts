@@ -13,7 +13,7 @@ export interface Reset {
 export const service = {
 	list: async (params: Params, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<SalesTracker>>(
-			'/sales-tracker',
+			'/sales-tracker/',
 			{
 				baseURL,
 				params,

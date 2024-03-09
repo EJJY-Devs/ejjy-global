@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const service = {
     list: (params, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield axios_1.default.get('/user-logs', {
+        const response = yield axios_1.default.get('/user-logs/', {
             baseURL,
             params,
         });

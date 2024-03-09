@@ -10,8 +10,8 @@ const service = {
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
 		const endpoints: Endpoints = {
-			[ServiceType.ONLINE]: '/discount-options',
-			[ServiceType.OFFLINE]: '/offline-discount-options',
+			[ServiceType.ONLINE]: '/discount-options/',
+			[ServiceType.OFFLINE]: '/offline-discount-options/',
 		};
 
 		const response = await axios.get<ListResponseData<DiscountOption>>(

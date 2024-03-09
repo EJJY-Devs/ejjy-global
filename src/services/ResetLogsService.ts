@@ -5,7 +5,7 @@ import { ListQueryParams, ListResponseData } from './interfaces';
 const service = {
 	list: async (params: ListQueryParams, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<ResetLog>>(
-			'/reset-logs',
+			'/reset-logs/',
 			{
 				baseURL,
 				params,

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const service = {
     retrieveToday: (baseURL) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield axios_1.default.get('branches-days/latest-today', {
+        const response = yield axios_1.default.get('branches-days/latest-today/', {
             baseURL,
         });
         return response.data;

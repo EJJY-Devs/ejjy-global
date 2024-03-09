@@ -89,7 +89,7 @@ export interface Void {
 const service = {
 	list: async (params: Params, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<Transaction>>(
-			'/transactions',
+			'/transactions/',
 			{
 				baseURL,
 				params,

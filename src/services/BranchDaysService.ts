@@ -15,7 +15,7 @@ export interface Edit {
 
 const service = {
 	retrieveToday: async (baseURL?: string) => {
-		const response = await axios.get<BranchDay>('branches-days/latest-today', {
+		const response = await axios.get<BranchDay>('branches-days/latest-today/', {
 			baseURL,
 		});
 

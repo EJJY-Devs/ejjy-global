@@ -22,7 +22,7 @@ export interface Create {
 const service = {
 	list: async (params: Params, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<AttendanceLog>>(
-			'/attendance-logs',
+			'/attendance-logs/',
 			{
 				baseURL,
 				params,

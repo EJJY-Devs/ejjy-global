@@ -16,7 +16,7 @@ exports.service = void 0;
 const axios_1 = __importDefault(require("axios"));
 exports.service = {
     list: (params, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield axios_1.default.get('/sales-tracker', {
+        const response = yield axios_1.default.get('/sales-tracker/', {
             baseURL,
             params,
         });

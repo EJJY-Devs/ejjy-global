@@ -17,8 +17,8 @@ const useBranchMachines = (data = {}) => {
         }) }, options));
 };
 const useBranchMachineRetrieve = (data) => {
-    const { serviceOptions, options } = data;
-    return (0, react_query_1.useMutation)((id) => services_1.BranchMachinesService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type), options);
+    const { id, options, serviceOptions } = data;
+    (0, react_query_1.useQuery)(['useBranchMachineRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchMachinesService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ enabled: typeof id === 'number' }, options));
 };
 exports.useBranchMachineRetrieve = useBranchMachineRetrieve;
 const useBranchMachinePing = () => (0, react_query_1.useMutation)((id) => services_1.BranchMachinesService.ping({

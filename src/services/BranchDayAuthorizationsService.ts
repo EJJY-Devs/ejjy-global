@@ -14,8 +14,8 @@ const service = {
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
 		const endpoints: Endpoints = {
-			[ServiceType.ONLINE]: '/branches-day-authorizations',
-			[ServiceType.OFFLINE]: '/offline-branches-day-authorizations',
+			[ServiceType.ONLINE]: '/branches-day-authorizations/',
+			[ServiceType.OFFLINE]: '/offline-branches-day-authorizations/',
 		};
 
 		const response = await axios.get<ListResponseData<BranchDayAuthorization>>(

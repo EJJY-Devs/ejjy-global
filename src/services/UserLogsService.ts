@@ -9,7 +9,7 @@ export interface Params extends ListQueryParams {
 
 const service = {
 	list: async (params: Params, baseURL?: string) => {
-		const response = await axios.get<ListResponseData<UserLog>>('/user-logs', {
+		const response = await axios.get<ListResponseData<UserLog>>('/user-logs/', {
 			baseURL,
 			params,
 		});
