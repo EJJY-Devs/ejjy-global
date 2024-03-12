@@ -34,9 +34,14 @@ const useTransactions = (
 	>(
 		[
 			'useTransactions',
-			params?.isAdjusted,
 			params?.pageSize,
 			params?.page,
+			params?.branchId,
+			params?.branchMachineId,
+			params?.discountName,
+			params?.isAdjusted,
+			params?.modeOfPayment,
+			params?.payorCreditorAccountId,
 			params?.statuses,
 			params?.tellerId,
 			params?.timeRange,
@@ -45,9 +50,14 @@ const useTransactions = (
 			wrapServiceWithCatch(
 				TransactionsService.list(
 					{
-						is_adjusted: params?.isAdjusted,
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 						page: params?.page || DEFAULT_PAGE,
+						branch_id: params?.branchId,
+						branch_machine_id: params?.branchMachineId,
+						discount_name: params?.discountName,
+						is_adjusted: params?.isAdjusted,
+						mode_of_payment: params?.modeOfPayment,
+						payor_creditor_account_id: params?.payorCreditorAccountId,
 						statuses: params?.statuses,
 						teller_id: params?.tellerId,
 						time_range: params?.timeRange || timeRangeTypes.DAILY,
