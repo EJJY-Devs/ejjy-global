@@ -8,6 +8,7 @@ const utils_1 = require("../utils");
 const helper_1 = require("./helper");
 const useTransactions = (data = {}) => {
     const { params, options, serviceOptions } = data;
+    console.log('params', params);
     return (0, react_query_1.useQuery)([
         'useTransactions',
         params === null || params === void 0 ? void 0 : params.pageSize,
@@ -22,13 +23,13 @@ const useTransactions = (data = {}) => {
         params === null || params === void 0 ? void 0 : params.tellerId,
         params === null || params === void 0 ? void 0 : params.timeRange,
     ], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
-        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
-        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         branch_id: params === null || params === void 0 ? void 0 : params.branchId,
         branch_machine_id: params === null || params === void 0 ? void 0 : params.branchMachineId,
         discount_name: params === null || params === void 0 ? void 0 : params.discountName,
         is_adjusted: params === null || params === void 0 ? void 0 : params.isAdjusted,
         mode_of_payment: params === null || params === void 0 ? void 0 : params.modeOfPayment,
+        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
+        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         payor_creditor_account_id: params === null || params === void 0 ? void 0 : params.payorCreditorAccountId,
         statuses: params === null || params === void 0 ? void 0 : params.statuses,
         teller_id: params === null || params === void 0 ? void 0 : params.tellerId,

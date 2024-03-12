@@ -26,7 +26,7 @@ const useTransactions = (
 	data: UseListQuery<Transaction, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options, serviceOptions } = data;
-
+	console.log('params', params);
 	return useQuery<
 		ListResponseData<Transaction>,
 		Error,
@@ -50,13 +50,13 @@ const useTransactions = (
 			wrapServiceWithCatch(
 				TransactionsService.list(
 					{
-						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-						page: params?.page || DEFAULT_PAGE,
 						branch_id: params?.branchId,
 						branch_machine_id: params?.branchMachineId,
 						discount_name: params?.discountName,
 						is_adjusted: params?.isAdjusted,
 						mode_of_payment: params?.modeOfPayment,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						page: params?.page || DEFAULT_PAGE,
 						payor_creditor_account_id: params?.payorCreditorAccountId,
 						statuses: params?.statuses,
 						teller_id: params?.tellerId,
