@@ -11,6 +11,17 @@ export interface Ping {
 	online_branch_machine_id: number;
 }
 
+export type Modify = {
+	branch_id: string;
+	machine_identification_number: string;
+	name: string;
+	permit_to_use: string;
+	pos_terminal: string;
+	server_url: string;
+	type: string;
+	storage_serial_number: string;
+};
+
 const service = {
 	list: async (
 		params: Params,
@@ -52,6 +63,15 @@ const service = {
 
 	ping: async (body: Ping) =>
 		axios.post('/offline-branch-machines/ping/', body),
+
+	create: async (body: Modify, baseURL?: string) =>
+		axios.post<BranchMachine>('/branch-machines/', body, { baseURL }),
+
+	edit: async (id: number, body: Modify, baseURL?: string) =>
+		axios.patch<BranchMachine>(`/branch-machines/${id}/`, body, { baseURL }),
+
+	delete: async (id: number, baseURL?: string) =>
+		axios.delete(`/branch-machines/${id}/`, { baseURL }),
 };
 
 export default service;

@@ -37,5 +37,8 @@ const service = {
         return response.data;
     }),
     ping: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/offline-branch-machines/ping/', body); }),
+    create: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/branch-machines/', body, { baseURL }); }),
+    edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/branch-machines/${id}/`, body, { baseURL }); }),
+    delete: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`/branch-machines/${id}/`, { baseURL }); }),
 };
 exports.default = service;

@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { UseMutationOptions, useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { BranchMachinesService } from '../services';
-import { Params } from '../services/BranchMachinesService';
+import { Modify, Params } from '../services/BranchMachinesService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -75,6 +75,98 @@ export const useBranchMachinePing = () =>
 			BranchMachinesService.ping({
 				online_branch_machine_id: id,
 			}),
+	);
+
+export const useBranchMachineCreate = (
+	options?: UseMutationOptions<
+		AxiosResponse<BranchMachine>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<BranchMachine>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>(
+		({
+			branchId,
+			machineIdentificationNumber,
+			name,
+			permitToUse,
+			posTerminal,
+			serverUrl,
+			storageSerialNumber,
+			type,
+		}: any) =>
+			BranchMachinesService.create(
+				{
+					branch_id: branchId,
+					machine_identification_number: machineIdentificationNumber,
+					name,
+					permit_to_use: permitToUse,
+					pos_terminal: posTerminal,
+					server_url: serverUrl,
+					storage_serial_number: storageSerialNumber,
+					type,
+				},
+				baseURL,
+			),
+		options,
+	);
+
+export const useBranchMachineEdit = (
+	options?: UseMutationOptions<
+		AxiosResponse<BranchMachine>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<BranchMachine>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>(
+		({
+			id,
+			branchId,
+			machineIdentificationNumber,
+			name,
+			permitToUse,
+			posTerminal,
+			serverUrl,
+			storageSerialNumber,
+			type,
+		}: any) =>
+			BranchMachinesService.edit(
+				id,
+				{
+					branch_id: branchId,
+					machine_identification_number: machineIdentificationNumber,
+					name,
+					permit_to_use: permitToUse,
+					pos_terminal: posTerminal,
+					server_url: serverUrl,
+					storage_serial_number: storageSerialNumber,
+					type,
+				},
+				baseURL,
+			),
+		options,
+	);
+
+export const useBranchMachineDelete = (
+	options?: UseMutationOptions<
+		AxiosResponse<BranchMachine>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<AxiosResponse<void>, AxiosErrorResponse, number>((id: number) =>
+		BranchMachinesService.delete(id, baseURL),
 	);
 
 export default useBranchMachines;

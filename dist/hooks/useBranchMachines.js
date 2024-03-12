@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useBranchMachinePing = exports.useBranchMachineRetrieve = void 0;
+exports.useBranchMachineDelete = exports.useBranchMachineEdit = exports.useBranchMachineCreate = exports.useBranchMachinePing = exports.useBranchMachineRetrieve = void 0;
 const react_query_1 = require("react-query");
 const services_1 = require("../services");
 const helper_1 = require("./helper");
@@ -25,4 +25,28 @@ const useBranchMachinePing = () => (0, react_query_1.useMutation)((id) => servic
     online_branch_machine_id: id,
 }));
 exports.useBranchMachinePing = useBranchMachinePing;
+const useBranchMachineCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ branchId, machineIdentificationNumber, name, permitToUse, posTerminal, serverUrl, storageSerialNumber, type, }) => services_1.BranchMachinesService.create({
+    branch_id: branchId,
+    machine_identification_number: machineIdentificationNumber,
+    name,
+    permit_to_use: permitToUse,
+    pos_terminal: posTerminal,
+    server_url: serverUrl,
+    storage_serial_number: storageSerialNumber,
+    type,
+}, baseURL), options);
+exports.useBranchMachineCreate = useBranchMachineCreate;
+const useBranchMachineEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, branchId, machineIdentificationNumber, name, permitToUse, posTerminal, serverUrl, storageSerialNumber, type, }) => services_1.BranchMachinesService.edit(id, {
+    branch_id: branchId,
+    machine_identification_number: machineIdentificationNumber,
+    name,
+    permit_to_use: permitToUse,
+    pos_terminal: posTerminal,
+    server_url: serverUrl,
+    storage_serial_number: storageSerialNumber,
+    type,
+}, baseURL), options);
+exports.useBranchMachineEdit = useBranchMachineEdit;
+const useBranchMachineDelete = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.BranchMachinesService.delete(id, baseURL));
+exports.useBranchMachineDelete = useBranchMachineDelete;
 exports.default = useBranchMachines;
