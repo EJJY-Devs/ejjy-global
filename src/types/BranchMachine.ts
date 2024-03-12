@@ -1,10 +1,13 @@
 import { Branch } from './Branch';
 
+export type BranchMachineType = 'scale' | 'cashiering' | 'scale_and_cashiering';
+
 export interface BranchMachine {
 	id: number;
 	name: string;
 	server_url?: string;
 	pos_terminal?: string;
+	storage_serial_number?: string;
 	sales: {
 		cash_sales: string;
 		credit_payments: string;
@@ -19,7 +22,7 @@ export interface BranchMachine {
 		cash_in: string;
 		cash_out: string;
 	};
-	type?: 'scale' | 'cashiering' | 'scale_and_cashiering';
+	type?: BranchMachineType;
 	is_online: boolean;
 	permit_to_use?: string;
 	machine_identification_number?: string;

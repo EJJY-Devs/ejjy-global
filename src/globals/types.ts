@@ -1,6 +1,7 @@
 import {
 	AttendanceLogCategory,
 	AttendanceLogType,
+	BranchMachineType,
 	CashBreakdownCategory,
 	CashBreakdownType,
 	PaymentType,
@@ -347,9 +348,9 @@ export const userLogTypes = {
 };
 
 export const branchMachineTypes = {
-	SCALE: 'scale',
-	CASHIERING: 'cashiering',
-	SCALE_AND_CASHIERING: 'scale_and_cashiering',
+	SCALE: 'scale' as BranchMachineType,
+	CASHIERING: 'cashiering' as BranchMachineType,
+	SCALE_AND_CASHIERING: 'scale_and_cashiering' as BranchMachineType,
 };
 
 export const closingTypes = {

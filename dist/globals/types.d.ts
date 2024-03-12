@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, AttendanceLogType, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
+import { AttendanceLogCategory, AttendanceLogType, BranchMachineType, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -282,9 +282,9 @@ export declare const userLogTypes: {
     BRANCH_PRODUCTS: string;
 };
 export declare const branchMachineTypes: {
-    SCALE: string;
-    CASHIERING: string;
-    SCALE_AND_CASHIERING: string;
+    SCALE: BranchMachineType;
+    CASHIERING: BranchMachineType;
+    SCALE_AND_CASHIERING: BranchMachineType;
 };
 export declare const closingTypes: {
     ALL: string;

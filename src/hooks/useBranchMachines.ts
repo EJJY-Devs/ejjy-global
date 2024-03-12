@@ -95,7 +95,6 @@ export const useBranchMachineCreate = (
 			machineIdentificationNumber,
 			name,
 			permitToUse,
-			posTerminal,
 			serverUrl,
 			storageSerialNumber,
 			type,
@@ -106,7 +105,6 @@ export const useBranchMachineCreate = (
 					machine_identification_number: machineIdentificationNumber,
 					name,
 					permit_to_use: permitToUse,
-					pos_terminal: posTerminal,
 					server_url: serverUrl,
 					storage_serial_number: storageSerialNumber,
 					type,
@@ -135,7 +133,6 @@ export const useBranchMachineEdit = (
 			machineIdentificationNumber,
 			name,
 			permitToUse,
-			posTerminal,
 			serverUrl,
 			storageSerialNumber,
 			type,
@@ -147,7 +144,6 @@ export const useBranchMachineEdit = (
 					machine_identification_number: machineIdentificationNumber,
 					name,
 					permit_to_use: permitToUse,
-					pos_terminal: posTerminal,
 					server_url: serverUrl,
 					storage_serial_number: storageSerialNumber,
 					type,
@@ -158,15 +154,12 @@ export const useBranchMachineEdit = (
 	);
 
 export const useBranchMachineDelete = (
-	options?: UseMutationOptions<
-		AxiosResponse<BranchMachine>,
-		AxiosErrorResponse,
-		CamelCasedProperties<Modify>
-	>,
+	options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>,
 	baseURL?: string,
 ) =>
-	useMutation<AxiosResponse<void>, AxiosErrorResponse, number>((id: number) =>
-		BranchMachinesService.delete(id, baseURL),
+	useMutation<AxiosResponse<void>, AxiosErrorResponse, number>(
+		(id: number) => BranchMachinesService.delete(id, baseURL),
+		options,
 	);
 
 export default useBranchMachines;

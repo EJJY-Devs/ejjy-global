@@ -12,7 +12,6 @@ export type Modify = {
     machine_identification_number: string;
     name: string;
     permit_to_use: string;
-    pos_terminal: string;
     server_url: string;
     type: string;
     storage_serial_number: string;
