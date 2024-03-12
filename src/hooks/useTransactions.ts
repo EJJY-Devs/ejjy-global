@@ -26,7 +26,7 @@ const useTransactions = (
 	data: UseListQuery<Transaction, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options, serviceOptions } = data;
-	console.log('params', params);
+
 	return useQuery<
 		ListResponseData<Transaction>,
 		Error,

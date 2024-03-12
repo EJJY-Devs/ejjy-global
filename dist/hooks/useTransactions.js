@@ -8,7 +8,6 @@ const utils_1 = require("../utils");
 const helper_1 = require("./helper");
 const useTransactions = (data = {}) => {
     const { params, options, serviceOptions } = data;
-    console.log('params', params);
     return (0, react_query_1.useQuery)([
         'useTransactions',
         params === null || params === void 0 ? void 0 : params.pageSize,
