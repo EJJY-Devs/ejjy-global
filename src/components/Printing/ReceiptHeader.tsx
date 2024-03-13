@@ -34,7 +34,7 @@ export const ReceiptHeader = ({
 	return (
 		<Space
 			align="center"
-			className="w-100 text-center"
+			className="w-full text-center"
 			direction="vertical"
 			size={0}
 		>

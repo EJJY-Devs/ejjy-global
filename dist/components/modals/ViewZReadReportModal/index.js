@@ -71,9 +71,9 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
         ], title: "Z-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         report.total_transactions === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
-            react_1.default.createElement(Text, { className: "w-100" }, "Z-READ"),
-            react_1.default.createElement(Text, { className: "w-100 mt-2 d-block" }, "INVOICE NUMBER"),
+        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
+            react_1.default.createElement(Text, { className: "w-full" }, "Z-READ"),
+            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "INVOICE NUMBER"),
             react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
                     {
                         label: 'Beg Invoice #',
@@ -84,20 +84,20 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
                         value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                     },
                 ] }),
-            react_1.default.createElement(Text, { className: "w-100 mt-2 d-block" }, "SALES"),
+            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "SALES"),
             react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
                     { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
                     { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales) },
                     { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
                 ] }),
-            react_1.default.createElement(Text, { className: "w-100 mt-2 d-block" }, "TRANSACTION COUNT"),
+            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "TRANSACTION COUNT"),
             react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
                     { label: 'Beg', value: report.beginning_transactions_count },
                     { label: 'Cur', value: report.total_transactions },
                     { label: 'End', value: report.ending_transactions_count },
                 ] })),
-        react_1.default.createElement(Text, { className: "w-100 mt-6 text-center d-block" }, "ACCUMULATED SALES BREAKDOWN"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement(Text, { className: "w-full mt-6 text-center d-block" }, "ACCUMULATED SALES BREAKDOWN"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -111,7 +111,7 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "GROSS SALES" },
                 (0, utils_1.formatInPeso)(report.gross_sales),
                 "\u00A0")),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -129,8 +129,8 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "ZERO Rated", labelStyle: { paddingLeft: 30 } },
                 (0, utils_1.formatInPeso)(0),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -156,8 +156,8 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { contentStyle: { fontWeight: 'bold' }, label: "ACCUM. GRAND TOTAL", labelStyle: { fontWeight: 'bold' } },
                 (0, utils_1.formatInPeso)(report.net_sales),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -172,8 +172,8 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL", labelStyle: { paddingLeft: 30 } },
                 (0, utils_1.formatInPeso)(report.total_vat_adjusted),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -187,7 +187,7 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT PAYABLE" },
                 (0, utils_1.formatInPeso)(report.vat_payable),
                 "\u00A0")),
-        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
+        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
             react_1.default.createElement(Text, null,
                 "GDT:",
                 ' ',
@@ -200,7 +200,7 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
                 report.printing_datetime
                     ? (0, utils_1.formatDateTime)(report.printing_datetime)
                     : globals_1.EMPTY_CELL)),
-        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-100 justify-space-between" },
+        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-full justify-space-between" },
             react_1.default.createElement(Text, null,
                 "C: ",
                 ((_c = report === null || report === void 0 ? void 0 : report.generated_by) === null || _c === void 0 ? void 0 : _c.employee_id) || globals_1.EMPTY_CELL),

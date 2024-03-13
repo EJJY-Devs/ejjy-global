@@ -11,7 +11,7 @@ const { Text } = antd_1.Typography;
 const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
     const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine;
-    return (react_1.default.createElement(antd_1.Space, { align: "center", className: "w-100 text-center", direction: "vertical", size: 0 },
+    return (react_1.default.createElement(antd_1.Space, { align: "center", className: "w-full text-center", direction: "vertical", size: 0 },
         react_1.default.createElement(Text, { style: { whiteSpace: 'pre-line' } }, storeName),
         react_1.default.createElement(Text, { style: { whiteSpace: 'pre-line' } }, location),
         react_1.default.createElement(Text, null, [contactNumber, name].filter(Boolean).join(' | ')),

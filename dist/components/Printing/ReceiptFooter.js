@@ -9,7 +9,7 @@ const react_1 = __importDefault(require("react"));
 const { Text } = antd_1.Typography;
 const ReceiptFooter = ({ siteSettings }) => {
     const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
-    return (react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-8 w-100 text-center", direction: "vertical", size: 0 },
+    return (react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-8 w-full text-center", direction: "vertical", size: 0 },
         react_1.default.createElement(Text, null, softwareDeveloper),
         react_1.default.createElement(Text, { style: { whiteSpace: 'pre-line' } }, softwareDeveloperAddress),
         react_1.default.createElement(Text, null, softwareDeveloperTin),

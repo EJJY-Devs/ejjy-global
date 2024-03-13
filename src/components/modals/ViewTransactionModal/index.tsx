@@ -252,7 +252,7 @@ export const ViewTransactionModal = ({
 						/>
 
 						<Descriptions
-							className="mt-6 w-100"
+							className="mt-6 w-full"
 							colon={false}
 							column={1}
 							contentStyle={{
@@ -291,7 +291,7 @@ export const ViewTransactionModal = ({
 
 						{transactionData.payment.mode === saleTypes.CASH && (
 							<Descriptions
-								className="mt-6 w-100"
+								className="mt-6 w-full"
 								colon={false}
 								column={1}
 								contentStyle={{
@@ -324,7 +324,7 @@ export const ViewTransactionModal = ({
 						)}
 
 						<Descriptions
-							className="mt-6 w-100"
+							className="mt-6 w-full"
 							colon={false}
 							column={1}
 							contentStyle={{
@@ -350,13 +350,13 @@ export const ViewTransactionModal = ({
 							</Descriptions.Item>
 						</Descriptions>
 
-						<Space className="mt-6 w-100" direction="vertical">
+						<Space className="mt-6 w-full" direction="vertical">
 							<Text>
 								GDT: {formatDateTime(transactionData.invoice.datetime_created)}
 							</Text>
 							<Text>PDT: {formatDateTime(dayjs(), false)}</Text>
 
-							<Space className="w-100 justify-space-between">
+							<Space className="w-full justify-space-between">
 								<Text>{transactionData.invoice.or_number}</Text>
 								<Text>{dataSource.length} item(s)</Text>
 							</Space>
@@ -366,7 +366,7 @@ export const ViewTransactionModal = ({
 
 						{transactionData?.adjustment_remarks
 							?.previous_voided_transaction && (
-							<Space className="w-100 justify-space-between">
+							<Space className="w-full justify-space-between">
 								<Text>
 									Prev Invoice #:{' '}
 									{
@@ -377,7 +377,7 @@ export const ViewTransactionModal = ({
 							</Space>
 						)}
 						{transactionData?.adjustment_remarks?.new_updated_transaction && (
-							<Space className="w-100 justify-space-between">
+							<Space className="w-full justify-space-between">
 								<Text>
 									New Invoice #:{' '}
 									{

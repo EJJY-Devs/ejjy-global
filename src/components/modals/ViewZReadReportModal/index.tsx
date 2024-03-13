@@ -110,10 +110,10 @@ export const ViewZReadReportModal = ({
 				siteSettings={siteSettings}
 			/>
 
-			<Space className="mt-6 w-100" direction="vertical">
-				<Text className="w-100">Z-READ</Text>
+			<Space className="mt-6 w-full" direction="vertical">
+				<Text className="w-full">Z-READ</Text>
 
-				<Text className="w-100 mt-2 d-block">INVOICE NUMBER</Text>
+				<Text className="w-full mt-2 d-block">INVOICE NUMBER</Text>
 				<ReceiptReportSummary
 					data={[
 						{
@@ -127,7 +127,7 @@ export const ViewZReadReportModal = ({
 					]}
 				/>
 
-				<Text className="w-100 mt-2 d-block">SALES</Text>
+				<Text className="w-full mt-2 d-block">SALES</Text>
 				<ReceiptReportSummary
 					data={[
 						{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
@@ -136,7 +136,7 @@ export const ViewZReadReportModal = ({
 					]}
 				/>
 
-				<Text className="w-100 mt-2 d-block">TRANSACTION COUNT</Text>
+				<Text className="w-full mt-2 d-block">TRANSACTION COUNT</Text>
 				<ReceiptReportSummary
 					data={[
 						{ label: 'Beg', value: report.beginning_transactions_count },
@@ -146,12 +146,12 @@ export const ViewZReadReportModal = ({
 				/>
 			</Space>
 
-			<Text className="w-100 mt-6 text-center d-block">
+			<Text className="w-full mt-6 text-center d-block">
 				ACCUMULATED SALES BREAKDOWN
 			</Text>
 
 			<Descriptions
-				className="mt-6 w-100"
+				className="mt-6 w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -175,7 +175,7 @@ export const ViewZReadReportModal = ({
 			</Descriptions>
 
 			<Descriptions
-				className="mt-6 w-100"
+				className="mt-6 w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -204,12 +204,12 @@ export const ViewZReadReportModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -258,12 +258,12 @@ export const ViewZReadReportModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -287,12 +287,12 @@ export const ViewZReadReportModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -320,7 +320,7 @@ export const ViewZReadReportModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Space className="mt-6 w-100" direction="vertical">
+			<Space className="mt-6 w-full" direction="vertical">
 				<Text>
 					GDT:{' '}
 					{report.generation_datetime
@@ -335,7 +335,7 @@ export const ViewZReadReportModal = ({
 				</Text>
 			</Space>
 
-			<Space className="mt-2 w-100 justify-space-between">
+			<Space className="mt-2 w-full justify-space-between">
 				<Text>C: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
 				<Text>PB: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
 			</Space>

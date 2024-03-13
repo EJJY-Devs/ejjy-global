@@ -22,7 +22,7 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 	return (
 		<Space
 			align="center"
-			className="mt-8 w-100 text-center"
+			className="mt-8 w-full text-center"
 			direction="vertical"
 			size={0}
 		>

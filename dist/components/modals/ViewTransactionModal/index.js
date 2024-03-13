@@ -158,7 +158,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
         react_1.default.createElement(antd_1.Spin, { spinning: isFetching }, (transactionData === null || transactionData === void 0 ? void 0 : transactionData.id) && (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: transactionData.branch_machine, siteSettings: siteSettings, title: title }),
             react_1.default.createElement(antd_1.Table, { className: "mt-6", columns: columns, dataSource: dataSource, pagination: false, size: "small", bordered: true }),
-            react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+            react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                     textAlign: 'right',
                     display: 'block',
                 }, labelStyle: {
@@ -179,7 +179,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 react_1.default.createElement(antd_1.Descriptions.Item, { contentStyle: { fontWeight: 'bold' }, label: "TOTAL AMOUNT" },
                     (0, utils_1.formatInPeso)(transactionData.total_amount),
                     "\u00A0")),
-            transactionData.payment.mode === globals_1.saleTypes.CASH && (react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+            transactionData.payment.mode === globals_1.saleTypes.CASH && (react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                     textAlign: 'right',
                     display: 'block',
                 }, labelStyle: {
@@ -196,7 +196,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                     (0, utils_1.formatInPeso)(Number(transactionData.payment.amount_tendered) -
                         Number(transactionData.total_amount)),
                     "\u00A0"))),
-            react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+            react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                     textAlign: 'right',
                     display: 'block',
                 }, labelStyle: {
@@ -214,26 +214,26 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 react_1.default.createElement(antd_1.Descriptions.Item, { label: "ZERO Rated" },
                     (0, utils_1.formatInPeso)(0),
                     "\u00A0")),
-            react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
+            react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
                 react_1.default.createElement(Text, null,
                     "GDT: ",
                     (0, utils_1.formatDateTime)(transactionData.invoice.datetime_created)),
                 react_1.default.createElement(Text, null,
                     "PDT: ",
                     (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-                react_1.default.createElement(antd_1.Space, { className: "w-100 justify-space-between" },
+                react_1.default.createElement(antd_1.Space, { className: "w-full justify-space-between" },
                     react_1.default.createElement(Text, null, transactionData.invoice.or_number),
                     react_1.default.createElement(Text, null,
                         dataSource.length,
                         " item(s)")),
                 react_1.default.createElement(Text, null, transactionData.teller.employee_id)),
-            ((_b = transactionData === null || transactionData === void 0 ? void 0 : transactionData.adjustment_remarks) === null || _b === void 0 ? void 0 : _b.previous_voided_transaction) && (react_1.default.createElement(antd_1.Space, { className: "w-100 justify-space-between" },
+            ((_b = transactionData === null || transactionData === void 0 ? void 0 : transactionData.adjustment_remarks) === null || _b === void 0 ? void 0 : _b.previous_voided_transaction) && (react_1.default.createElement(antd_1.Space, { className: "w-full justify-space-between" },
                 react_1.default.createElement(Text, null,
                     "Prev Invoice #:",
                     ' ',
                     transactionData.adjustment_remarks
                         .previous_voided_transaction.invoice.or_number))),
-            ((_c = transactionData === null || transactionData === void 0 ? void 0 : transactionData.adjustment_remarks) === null || _c === void 0 ? void 0 : _c.new_updated_transaction) && (react_1.default.createElement(antd_1.Space, { className: "w-100 justify-space-between" },
+            ((_c = transactionData === null || transactionData === void 0 ? void 0 : transactionData.adjustment_remarks) === null || _c === void 0 ? void 0 : _c.new_updated_transaction) && (react_1.default.createElement(antd_1.Space, { className: "w-full justify-space-between" },
                 react_1.default.createElement(Text, null,
                     "New Invoice #:",
                     ' ',

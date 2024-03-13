@@ -217,7 +217,7 @@ const authorization = ({ title = 'Input Password', onSuccess, }) => {
         centered: true,
         className: 'Modal__hasFooter',
         okText: 'Submit',
-        content: (react_1.default.createElement(antd_1.Space, { className: "w-100", direction: "vertical" },
+        content: (react_1.default.createElement(antd_1.Space, { className: "w-full", direction: "vertical" },
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
                 react_1.default.createElement(antd_1.Input, { value: username, onChange: (event) => {

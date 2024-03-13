@@ -1,0 +1,43 @@
+import { Descriptions } from 'antd';
+import React from 'react';
+import { ReceiptUnderlinedValue } from './ReceiptUnderlinedValue';
+
+type Items = {
+	label: string;
+	value: string | number | React.ReactElement;
+	isIndented?: boolean;
+	isUnderlined?: boolean;
+	isParenthesized?: boolean;
+};
+
+type ItemBlockProps = {
+	items: Items[];
+};
+
+export const ItemBlock = ({ items }: ItemBlockProps) => {
+	return (
+		<Descriptions
+			className="w-full"
+			colon={false}
+			column={1}
+			contentStyle={{ textAlign: 'right', display: 'block' }}
+			labelStyle={{ width: 200 }}
+			size="small"
+		>
+			{items.map((item) => (
+				<Descriptions.Item
+					label="Deduction"
+					labelStyle={{ paddingLeft: item.isIndented ? 30 : 0 }}
+				>
+					{item.isParenthesized ? '(' : ' '}
+					{item.isUnderlined ? (
+						<ReceiptUnderlinedValue value={item.value as number} />
+					) : (
+						item.value
+					)}
+					{item.isParenthesized ? ')' : ' '}
+				</Descriptions.Item>
+			))}
+		</Descriptions>
+	);
+};

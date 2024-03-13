@@ -36,6 +36,8 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
+const XAccruedContent_1 = require("./XAccruedContent");
+const XReadContent_1 = require("./XReadContent");
 const { Text } = antd_1.Typography;
 const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
     var _a, _b;
@@ -71,7 +73,7 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent, { report: report }))),
+        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(XAccruedContent_1.XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent_1.XReadContent, { report: report }))),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(Text, { className: "block" },
             "GDT:",
@@ -85,7 +87,7 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
             report.printing_datetime
                 ? (0, utils_1.formatDateTime)(report.printing_datetime)
                 : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", { className: "w-100 flex justify-between" },
+        react_1.default.createElement("div", { className: "w-full flex justify-between" },
             react_1.default.createElement(Text, null,
                 "C: ",
                 ((_a = report === null || report === void 0 ? void 0 : report.cashiering_session) === null || _a === void 0 ? void 0 : _a.user.employee_id) || globals_1.EMPTY_CELL),
@@ -96,262 +98,3 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewXReadReportModal = ViewXReadReportModal;
-const XAccruedContent = ({ report }) => {
-    var _a, _b;
-    return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Text, { strong: true, className: "block" }, "Current Day Accumulated Report"),
-        react_1.default.createElement(Text, { strong: true, className: "block" }, "X-READ (end session report)"),
-        react_1.default.createElement(Text, { className: "block mt-4" }, "INVOICE NUMBER"),
-        react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
-                {
-                    label: 'Beg Invoice #',
-                    value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
-                },
-                {
-                    label: 'End Invoice #',
-                    value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
-                },
-            ] }),
-        react_1.default.createElement(Text, { className: "block" }, "SALES"),
-        react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
-                { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
-                { label: 'Cur', value: (0, utils_1.formatInPeso)(report.gross_sales) },
-                { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
-            ] }),
-        react_1.default.createElement(Text, { className: "block" }, "TRANSACTION COUNT"),
-        react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
-                { label: 'Beg', value: report.beginning_transactions_count },
-                { label: 'Cur', value: report.total_transactions },
-                { label: 'End', value: report.ending_transactions_count },
-            ] }),
-        react_1.default.createElement(Text, { className: "w-100 mt-4 text-center block" }, "CURRENT SALES BREAKDOWN"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash Sales" },
-                (0, utils_1.formatInPeso)(report.cash_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Sales" },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: Number(report.credit_pay) })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Gross Sales" },
-                (0, utils_1.formatInPeso)(report.gross_sales),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Breakdown of Sales"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Exempt" },
-                (0, utils_1.formatInPeso)(report.vat_exempt),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VATable Sales" },
-                (0, utils_1.formatInPeso)(report.vat_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)" },
-                (0, utils_1.formatInPeso)(report.vat_amount),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "ZERO Rated" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Gross Sales" },
-                (0, utils_1.formatInPeso)(report.gross_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Deduction", labelStyle: { paddingLeft: 30 } },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: 0 })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)", labelStyle: { paddingLeft: 30 } },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: report.total_vat_adjusted })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { contentStyle: { fontWeight: 'bold' }, label: "NET SALES", labelStyle: { fontWeight: 'bold' } },
-                (0, utils_1.formatInPeso)(report.net_sales),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Deductions"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. SC" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. PWD" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. NAAC" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. Solo Parent" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. Others" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Return" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Void" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL" }, null)),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "VAT Adjustment"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. SC" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. PWD" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Disc. Others" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT on Returns" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Others" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL" }, null)),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "VAT Payable"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)" },
-                (0, utils_1.formatInPeso)(report.vat_amount),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Adj." },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: report.total_vat_adjusted })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL" },
-                (0, utils_1.formatInPeso)(report.vat_payable),
-                "\u00A0"))));
-};
-const XReadContent = ({ report }) => {
-    var _a, _b;
-    const cashieringSession = report.cashiering_session;
-    return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Text, { className: "font-bold block text-center" }, "X-READING REPORT"),
-        react_1.default.createElement(Text, { className: "mt-4 block text-center" }, "Report Generation Datetime"),
-        react_1.default.createElement(Text, { className: "block text-center" },
-            (0, utils_1.formatDate)(report.datetime_created),
-            " -",
-            ' ',
-            (0, utils_1.formatTime)(report.datetime_created)),
-        cashieringSession && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(Text, { className: "block text-center" }, "Session Datetime"),
-            react_1.default.createElement(Text, { className: "block text-center" },
-                (0, utils_1.formatDate)(cashieringSession.date),
-                " |",
-                ' ',
-                [
-                    (0, utils_1.formatDate)(cashieringSession.datetime_started),
-                    cashieringSession.datetime_ended
-                        ? (0, utils_1.formatDate)(cashieringSession.datetime_ended)
-                        : null,
-                ]
-                    .filter(Boolean)
-                    .join(' - ')),
-            react_1.default.createElement(Text, { className: "block text-center" },
-                "Cashier: ",
-                cashieringSession.user.employee_id,
-                " |",
-                ' ',
-                (0, utils_1.getFullName)(cashieringSession.user)))),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100 mt-4", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Beg Invoice #" }, ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "End Invoice #" }, ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Trans. Count" },
-                (0, utils_1.formatInPeso)(report.beginning_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Opening Fund" },
-                (0, utils_1.formatInPeso)(report.total_transactions),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash Sales" },
-                (0, utils_1.formatInPeso)(report.cash_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Sales" },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: Number(report.credit_pay) }))),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Payment Received"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Check" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Card" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Total Payments" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Transaction Adjustments"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Void" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Refund" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Withdrawals" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0")),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Transaction Summary"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash in Drawer" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Check" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Card" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Opening fund" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Withdrawal", labelStyle: { paddingLeft: 30 } },
-                "(",
-                (0, utils_1.formatInPeso)(0),
-                ")"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Payment Received", labelStyle: { paddingLeft: 30 } },
-                "(",
-                (0, utils_1.formatInPeso)(0),
-                ")"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Short / Over" },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0"))));
-};
-// type Items = {
-// 	label: string;
-// 	value: string | number | React.ReactElement;
-// 	isIndented: boolean;
-// 	isUnderlined: boolean;
-// 	isParenthesized: boolean;
-// };
-// type ItemBlockProps = {
-// 	items: Items[];
-// };
-// const ItemBlock = ({ items }: ItemBlockProps) => {
-// 	return (
-// 		<>
-// 			{items.map((item) => (
-// 				<div key={item.label} className="w-full grid grid-cols-2">
-// 					<span className={cn({ 'pl-8': item.isIndented })}>{item.label}</span>
-// 					<span className="text-right">
-// 						{item.isParenthesized ? '(' : ' '}
-// 						{item.value}
-// 						{item.isParenthesized ? ')' : ' '}
-// 					</span>
-// 				</div>
-// 			))}
-// 		</>
-// 	);
-// };

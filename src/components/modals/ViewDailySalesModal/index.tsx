@@ -84,13 +84,13 @@ export const ViewDailySalesModal = ({
 				siteSettings={siteSettings}
 			/>
 
-			<Space align="center" className="mt-6 w-100 justify-space-between">
+			<Space align="center" className="mt-6 w-full justify-space-between">
 				<Text>DAILY SALES</Text>
 				<Text>{`For ${formatDate(dailySales.daily_sales_data.date)}`}</Text>
 			</Space>
 
 			<Descriptions
-				className="mt-6 w-100"
+				className="mt-6 w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -114,7 +114,7 @@ export const ViewDailySalesModal = ({
 			</Descriptions>
 
 			<Descriptions
-				className="mt-6 w-100"
+				className="mt-6 w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -141,12 +141,12 @@ export const ViewDailySalesModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -191,12 +191,12 @@ export const ViewDailySalesModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -220,12 +220,12 @@ export const ViewDailySalesModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<div className="w-100" style={{ textAlign: 'right' }}>
+			<div className="w-full" style={{ textAlign: 'right' }}>
 				----------------
 			</div>
 
 			<Descriptions
-				className="w-100"
+				className="w-full"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -249,7 +249,7 @@ export const ViewDailySalesModal = ({
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Space className="mt-6 w-100" direction="vertical">
+			<Space className="mt-6 w-full" direction="vertical">
 				<Text>
 					GDT:{' '}
 					{dailySales.generation_datetime
@@ -264,7 +264,7 @@ export const ViewDailySalesModal = ({
 				</Text>
 			</Space>
 
-			<Space className="mt-2 w-100 justify-space-between">
+			<Space className="mt-2 w-full justify-space-between">
 				<Text>C: {dailySales?.generated_by?.employee_id || EMPTY_CELL}</Text>
 				<Text>PB: {dailySales?.generated_by?.employee_id || EMPTY_CELL}</Text>
 			</Space>

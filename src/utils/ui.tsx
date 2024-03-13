@@ -259,7 +259,7 @@ export const authorization = ({
 		className: 'Modal__hasFooter',
 		okText: 'Submit',
 		content: (
-			<Space className="w-100" direction="vertical">
+			<Space className="w-full" direction="vertical">
 				<>
 					<Typography.Text>Username</Typography.Text>
 					<Input

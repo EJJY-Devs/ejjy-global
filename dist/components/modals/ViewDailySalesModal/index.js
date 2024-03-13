@@ -57,10 +57,10 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Daily Sales", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-6 w-100 justify-space-between" },
+        react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-6 w-full justify-space-between" },
             react_1.default.createElement(Text, null, "DAILY SALES"),
             react_1.default.createElement(Text, null, `For ${(0, utils_1.formatDate)(dailySales.daily_sales_data.date)}`)),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -75,7 +75,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "GROSS SALES" },
                 (0, utils_1.formatInPeso)(dailySales.gross_sales),
                 "\u00A0")),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -93,8 +93,8 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "ZERO Rated" },
                 (0, utils_1.formatInPeso)(0),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -122,8 +122,8 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { contentStyle: { fontWeight: 'bold' }, label: "NET SALES", labelStyle: { fontWeight: 'bold' } },
                 (0, utils_1.formatInPeso)(dailySales.net_sales),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -139,8 +139,8 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL", labelStyle: { paddingLeft: 30 } },
                 (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted),
                 "\u00A0")),
-        react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
                 textAlign: 'right',
                 display: 'block',
             }, labelStyle: {
@@ -156,7 +156,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT PAYABLE" },
                 (0, utils_1.formatInPeso)(dailySales.vat_payable),
                 "\u00A0")),
-        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-100", direction: "vertical" },
+        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
             react_1.default.createElement(Text, null,
                 "GDT:",
                 ' ',
@@ -169,7 +169,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
                 dailySales.printing_datetime
                     ? (0, utils_1.formatDateTime)(dailySales.printing_datetime)
                     : globals_1.EMPTY_CELL)),
-        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-100 justify-space-between" },
+        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-full justify-space-between" },
             react_1.default.createElement(Text, null,
                 "C: ",
                 ((_a = dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
