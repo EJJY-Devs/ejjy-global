@@ -101,12 +101,7 @@ export const ViewXReadReportModal = ({
 			{report.gross_sales === 0 && (
 				<img
 					alt="no transaction"
-					style={{
-						width: '100%',
-						position: 'absolute',
-						left: 0,
-						bottom: 0,
-					}}
+					className="w-full absolute top-0 left-0 pointer-events-none"
 					src={imgNoTransaction}
 				/>
 			)}
@@ -145,7 +140,7 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				X-READ (end session report)
 			</Text>
 
-			<Text className="block">INVOICE NUMBER</Text>
+			<Text className="block mt-4">INVOICE NUMBER</Text>
 			<ReceiptReportSummary
 				data={[
 					{
@@ -252,24 +247,13 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				}}
 				size="small"
 			>
-				<Descriptions.Item label="GROSS SALES">
+				<Descriptions.Item label="Gross Sales">
 					{formatInPeso(report.gross_sales)}&nbsp;
 				</Descriptions.Item>
-				<Descriptions.Item
-					label="REG. DISCOUNT"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					({formatInPeso(report.regular_discount)})
+				<Descriptions.Item label="Deduction" labelStyle={{ paddingLeft: 30 }}>
+					<ReceiptUnderlinedValue postfix=")" prefix="(" value={0} />
 				</Descriptions.Item>
-				<Descriptions.Item label="Special" labelStyle={{ paddingLeft: 30 }}>
-					({formatInPeso(report.special_discount)})
-				</Descriptions.Item>
-				<Descriptions.Item
-					label="VOIDED SALES"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					({formatInPeso(report.void)})
-				</Descriptions.Item>
+
 				<Descriptions.Item
 					label="VAT Amount (12%)"
 					labelStyle={{ paddingLeft: 30 }}
@@ -362,7 +346,7 @@ const XAccruedContent = ({ report }: ContentProps) => {
 						value={report.total_vat_adjusted}
 					/>
 				</Descriptions.Item>
-				<Descriptions.Item label="VAT PAYABLE">
+				<Descriptions.Item label="TOTAL">
 					{formatInPeso(report.vat_payable)}
 					&nbsp;
 				</Descriptions.Item>

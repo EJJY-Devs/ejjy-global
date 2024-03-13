@@ -1,13 +1,7 @@
 import React from 'react';
 
-type Props = {
-	className?: string;
-};
-
-export const Divider = ({ className }: Props) => (
+export const Divider = () => (
 	<div
-		className={
-			'mt-6 mb-6 border-b-[1px] border-dashed border-black w-[80%] mx-auto'
-		}
+		className={'mx-auto my-2 border-dashed border-black border-b-[1px] w-[80%]'}
 	></div>
 );

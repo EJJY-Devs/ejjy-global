@@ -100,12 +100,7 @@ export const ViewZReadReportModal = ({
 			{report.total_transactions === 0 && (
 				<img
 					alt="no transaction"
-					style={{
-						width: '100%',
-						position: 'absolute',
-						left: 0,
-						bottom: 0,
-					}}
+					className="w-full absolute top-0 left-0 pointer-events-none"
 					src={imgNoTransaction}
 				/>
 			)}

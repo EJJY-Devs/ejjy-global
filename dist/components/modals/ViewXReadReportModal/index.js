@@ -68,12 +68,7 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", style: {
-                width: '100%',
-                position: 'absolute',
-                left: 0,
-                bottom: 0,
-            }, src: no_transaction_png_1.default })),
+        report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         report.generated_by ? (react_1.default.createElement(XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent, { report: report })),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
