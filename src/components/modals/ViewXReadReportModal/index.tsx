@@ -1,12 +1,12 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Descriptions, Modal, Space, Typography } from 'antd';
+import { Button, Descriptions, Modal, Typography } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createXReadTxt, printXReadReport } from '../../../print';
 import { SiteSettings, XReadReport } from '../../../types';
-import { cn, formatDateTime, formatInPeso } from '../../../utils';
+import { formatDateTime, formatInPeso } from '../../../utils';
 import {
 	Divider,
 	PdfButtons,
@@ -138,8 +138,12 @@ type ContentProps = {
 const XAccruedContent = ({ report }: ContentProps) => {
 	return (
 		<>
-			<Text className="font-bold">Current Day Accumulated Report</Text>
-			<Text className="font-bold">X-READ (end session report)</Text>
+			<Text strong className="block">
+				Current Day Accumulated Report
+			</Text>
+			<Text strong className="block">
+				X-READ (end session report)
+			</Text>
 
 			<Text className="block">INVOICE NUMBER</Text>
 			<ReceiptReportSummary

@@ -83,8 +83,8 @@ exports.ViewXReadReportModal = ViewXReadReportModal;
 const XAccruedContent = ({ report }) => {
     var _a, _b, _c, _d;
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Text, { className: "font-bold" }, "Current Day Accumulated Report"),
-        react_1.default.createElement(Text, { className: "font-bold" }, "X-READ (end session report)"),
+        react_1.default.createElement(Text, { strong: true, className: "block" }, "Current Day Accumulated Report"),
+        react_1.default.createElement(Text, { strong: true, className: "block" }, "X-READ (end session report)"),
         react_1.default.createElement(Text, { className: "block" }, "INVOICE NUMBER"),
         react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
                 {
