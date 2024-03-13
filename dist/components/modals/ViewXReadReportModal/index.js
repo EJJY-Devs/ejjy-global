@@ -38,6 +38,7 @@ const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const { Text } = antd_1.Typography;
 const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
+    var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -70,13 +71,33 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement("div", { className: "mt-6" }, report.generated_by ? (react_1.default.createElement(XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent, { report: report }))),
+        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent, { report: report }))),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(Text, { className: "block" },
+            "GDT:",
+            ' ',
+            report.generation_datetime
+                ? (0, utils_1.formatDateTime)(report.generation_datetime)
+                : globals_1.EMPTY_CELL),
+        react_1.default.createElement(Text, { className: "block" },
+            "PDT:",
+            ' ',
+            report.printing_datetime
+                ? (0, utils_1.formatDateTime)(report.printing_datetime)
+                : globals_1.EMPTY_CELL),
+        react_1.default.createElement("div", { className: "w-100 flex justify-between" },
+            react_1.default.createElement(Text, null,
+                "C: ",
+                ((_a = report === null || report === void 0 ? void 0 : report.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
+            react_1.default.createElement(Text, null,
+                "PB: ",
+                ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) || globals_1.EMPTY_CELL)),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewXReadReportModal = ViewXReadReportModal;
 const XAccruedContent = ({ report }) => {
-    var _a, _b, _c, _d;
+    var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Text, { strong: true, className: "block" }, "Current Day Accumulated Report"),
         react_1.default.createElement(Text, { strong: true, className: "block" }, "X-READ (end session report)"),
@@ -110,12 +131,12 @@ const XAccruedContent = ({ report }) => {
             }, labelStyle: {
                 width: 200,
             }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "CASH SALES" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash Sales" },
                 (0, utils_1.formatInPeso)(report.cash_sales),
                 "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "CREDIT SALES" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Sales" },
                 react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: Number(report.credit_pay) })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "GROSS SALES" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Gross Sales" },
                 (0, utils_1.formatInPeso)(report.gross_sales),
                 "\u00A0")),
         react_1.default.createElement(Printing_1.Divider, null),
@@ -193,36 +214,120 @@ const XAccruedContent = ({ report }) => {
             }, labelStyle: {
                 width: 200,
             }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT AMOUNT (12%)" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)" },
                 (0, utils_1.formatInPeso)(report.vat_amount),
                 "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT ADJ." },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Adj." },
                 react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: report.total_vat_adjusted })),
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL" },
                 (0, utils_1.formatInPeso)(report.vat_payable),
+                "\u00A0"))));
+};
+const XReadContent = ({ report }) => {
+    var _a, _b;
+    const cashieringSession = report.cashiering_session;
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement(Text, { className: "font-bold block text-center" }, "X-READING REPORT"),
+        react_1.default.createElement(Text, { className: "mt-4 block text-center" }, "Report Generation Datetime"),
+        react_1.default.createElement(Text, { className: "block text-center" },
+            (0, utils_1.formatDate)(report.datetime_created),
+            " -",
+            ' ',
+            (0, utils_1.formatTime)(report.datetime_created)),
+        react_1.default.createElement(Text, { className: "block text-center" }, "Session Datetime"),
+        react_1.default.createElement(Text, { className: "block text-center" },
+            (0, utils_1.formatDate)(cashieringSession.date),
+            " |",
+            ' ',
+            [
+                (0, utils_1.formatDate)(cashieringSession.datetime_started),
+                cashieringSession.datetime_ended
+                    ? (0, utils_1.formatDate)(cashieringSession.datetime_ended)
+                    : null,
+            ]
+                .filter(Boolean)
+                .join(' - ')),
+        react_1.default.createElement(Text, { className: "block text-center" },
+            "Cashier: ",
+            cashieringSession.user.employee_id,
+            " |",
+            ' ',
+            (0, utils_1.getFullName)(cashieringSession.user)),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100 mt-4", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Beg Invoice #" }, ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "End Invoice #" }, ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Trans. Count" },
+                (0, utils_1.formatInPeso)(report.beginning_sales),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Opening Fund" },
+                (0, utils_1.formatInPeso)(report.total_transactions),
                 "\u00A0")),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "block" },
-            "GDT:",
-            ' ',
-            report.generation_datetime
-                ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement(Text, { className: "block" },
-            "PDT:",
-            ' ',
-            report.printing_datetime
-                ? (0, utils_1.formatDateTime)(report.printing_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", { className: "w-100 flex justify-between" },
-            react_1.default.createElement(Text, null,
-                "C: ",
-                ((_c = report === null || report === void 0 ? void 0 : report.generated_by) === null || _c === void 0 ? void 0 : _c.employee_id) || globals_1.EMPTY_CELL),
-            react_1.default.createElement(Text, null,
-                "PB: ",
-                ((_d = report === null || report === void 0 ? void 0 : report.generated_by) === null || _d === void 0 ? void 0 : _d.employee_id) || globals_1.EMPTY_CELL))));
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash Sales" },
+                (0, utils_1.formatInPeso)(report.cash_sales),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Sales" },
+                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: Number(report.credit_pay) }))),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Payment Received"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Check" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Card" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Total Payments" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0")),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Transaction Adjustments"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Void" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Refund" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Withdrawals" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0")),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(Text, { className: "w-100 text-center block" }, "Transaction Summary"),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", colon: false, column: 1, contentStyle: {
+                textAlign: 'right',
+                display: 'block',
+            }, labelStyle: {
+                width: 200,
+            }, size: "small" },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Cash in Drawer" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Check" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Credit Card" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Opening fund" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Withdrawal", labelStyle: { paddingLeft: 30 } },
+                "(",
+                (0, utils_1.formatInPeso)(0),
+                ")"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Payment Received", labelStyle: { paddingLeft: 30 } },
+                "(",
+                (0, utils_1.formatInPeso)(0),
+                ")"),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Short / Over" },
+                (0, utils_1.formatInPeso)(0),
+                "\u00A0"))));
 };
-const XReadContent = ({ report }) => null;
 // type Items = {
 // 	label: string;
 // 	value: string | number | React.ReactElement;

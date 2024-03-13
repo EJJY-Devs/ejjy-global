@@ -185,6 +185,10 @@
   text-align: right;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
 .leading-none {
   line-height: 1;
 }

@@ -23,6 +23,7 @@ export declare const ROW_HEIGHT = 65;
 export declare const DATE_FORMAT = "MM/DD/YY";
 export declare const DATE_FORMAT_UI = "MM/DD/YYYY";
 export declare const DATE_FORMAT_API = "YYYY-MM-DD";
+export declare const TIME_FORMAT_UI = "h:mmA";
 export declare const RECEIPT_DEFAULT_FONT_FAMILY = "monospace";
 export declare const RECEIPT_DEFAULT_FONT_SIZE = "12";
 export declare const JSPDF_SETTINGS: {

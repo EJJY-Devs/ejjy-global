@@ -5,6 +5,7 @@ import {
 	DATE_FORMAT_API,
 	DATE_FORMAT_UI,
 	EMPTY_CELL,
+	TIME_FORMAT_UI,
 	unitOfMeasurementTypes,
 } from '../globals';
 import { Product } from '../types';
@@ -33,12 +34,15 @@ export const convertIntoArray = (
 export const formatDate = (datetime: string | Dayjs) =>
 	dayjs.tz(datetime).format(DATE_FORMAT_UI);
 
+export const formatTime = (datetime: string | Dayjs) =>
+	dayjs.tz(datetime).format(TIME_FORMAT_UI);
+
 export const formatDateTime = (
 	datetime: string | Dayjs,
 	withTimezone = true,
 ) => {
 	const dt = withTimezone ? dayjs.tz(datetime, 'GMT') : dayjs(datetime);
-	return dt.format(`${DATE_FORMAT_UI} h:mmA`);
+	return dt.format(`${DATE_FORMAT_UI} ${TIME_FORMAT_UI}`);
 };
 
 export const formatDateTime24Hour = (datetime: string | Dayjs) =>
@@ -81,4 +85,4 @@ export const formatInPeso = (value: string | number, pesoSign = '₱') => {
 };
 
 export const formatTimeOnly = (time: string) =>
-	dayjs(time, 'HH:mm:ss').format('h:mmA');
+	dayjs(time, 'HH:mm:ss').format(TIME_FORMAT_UI);
