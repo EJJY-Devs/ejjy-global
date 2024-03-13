@@ -88,7 +88,7 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
         react_1.default.createElement("div", { className: "w-100 flex justify-between" },
             react_1.default.createElement(Text, null,
                 "C: ",
-                ((_a = report === null || report === void 0 ? void 0 : report.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
+                ((_a = report === null || report === void 0 ? void 0 : report.cashiering_session) === null || _a === void 0 ? void 0 : _a.user.employee_id) || globals_1.EMPTY_CELL),
             react_1.default.createElement(Text, null,
                 "PB: ",
                 ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) || globals_1.EMPTY_CELL)),
@@ -234,25 +234,26 @@ const XReadContent = ({ report }) => {
             " -",
             ' ',
             (0, utils_1.formatTime)(report.datetime_created)),
-        react_1.default.createElement(Text, { className: "block text-center" }, "Session Datetime"),
-        react_1.default.createElement(Text, { className: "block text-center" },
-            (0, utils_1.formatDate)(cashieringSession.date),
-            " |",
-            ' ',
-            [
-                (0, utils_1.formatDate)(cashieringSession.datetime_started),
-                cashieringSession.datetime_ended
-                    ? (0, utils_1.formatDate)(cashieringSession.datetime_ended)
-                    : null,
-            ]
-                .filter(Boolean)
-                .join(' - ')),
-        react_1.default.createElement(Text, { className: "block text-center" },
-            "Cashier: ",
-            cashieringSession.user.employee_id,
-            " |",
-            ' ',
-            (0, utils_1.getFullName)(cashieringSession.user)),
+        cashieringSession && (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement(Text, { className: "block text-center" }, "Session Datetime"),
+            react_1.default.createElement(Text, { className: "block text-center" },
+                (0, utils_1.formatDate)(cashieringSession.date),
+                " |",
+                ' ',
+                [
+                    (0, utils_1.formatDate)(cashieringSession.datetime_started),
+                    cashieringSession.datetime_ended
+                        ? (0, utils_1.formatDate)(cashieringSession.datetime_ended)
+                        : null,
+                ]
+                    .filter(Boolean)
+                    .join(' - ')),
+            react_1.default.createElement(Text, { className: "block text-center" },
+                "Cashier: ",
+                cashieringSession.user.employee_id,
+                " |",
+                ' ',
+                (0, utils_1.getFullName)(cashieringSession.user)))),
         react_1.default.createElement(antd_1.Descriptions, { className: "w-100 mt-4", colon: false, column: 1, contentStyle: { textAlign: 'right', display: 'block' }, labelStyle: { width: 200 }, size: "small" },
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Beg Invoice #" }, ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL),
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "End Invoice #" }, ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL),

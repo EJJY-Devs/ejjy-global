@@ -139,7 +139,9 @@ export const ViewXReadReportModal = ({
 					: EMPTY_CELL}
 			</Text>
 			<div className="w-100 flex justify-between">
-				<Text>C: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
+				<Text>
+					C: {report?.cashiering_session?.user.employee_id || EMPTY_CELL}
+				</Text>
 				<Text>PB: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
 			</div>
 
@@ -391,22 +393,26 @@ const XReadContent = ({ report }: ContentProps) => {
 				{formatDate(report.datetime_created)} -{' '}
 				{formatTime(report.datetime_created)}
 			</Text>
-			<Text className="block text-center">Session Datetime</Text>
-			<Text className="block text-center">
-				{formatDate(cashieringSession.date)} |{' '}
-				{[
-					formatDate(cashieringSession.datetime_started),
-					cashieringSession.datetime_ended
-						? formatDate(cashieringSession.datetime_ended)
-						: null,
-				]
-					.filter(Boolean)
-					.join(' - ')}
-			</Text>
-			<Text className="block text-center">
-				Cashier: {cashieringSession.user.employee_id} |{' '}
-				{getFullName(cashieringSession.user)}
-			</Text>
+			{cashieringSession && (
+				<>
+					<Text className="block text-center">Session Datetime</Text>
+					<Text className="block text-center">
+						{formatDate(cashieringSession.date)} |{' '}
+						{[
+							formatDate(cashieringSession.datetime_started),
+							cashieringSession.datetime_ended
+								? formatDate(cashieringSession.datetime_ended)
+								: null,
+						]
+							.filter(Boolean)
+							.join(' - ')}
+					</Text>
+					<Text className="block text-center">
+						Cashier: {cashieringSession.user.employee_id} |{' '}
+						{getFullName(cashieringSession.user)}
+					</Text>
+				</>
+			)}
 
 			<Descriptions
 				className="w-100 mt-4"
