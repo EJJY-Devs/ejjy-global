@@ -115,7 +115,7 @@ export const ViewZReadReportModal = ({
 
 				<Text className="w-full mt-2 d-block">INVOICE NUMBER</Text>
 				<ReceiptReportSummary
-					data={[
+					items={[
 						{
 							label: 'Beg Invoice #',
 							value: report.beginning_or?.or_number || EMPTY_CELL,
@@ -129,7 +129,7 @@ export const ViewZReadReportModal = ({
 
 				<Text className="w-full mt-2 d-block">SALES</Text>
 				<ReceiptReportSummary
-					data={[
+					items={[
 						{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
 						{ label: 'Cur', value: formatInPeso(report.current_sales) },
 						{ label: 'End', value: formatInPeso(report.ending_sales) },
@@ -138,7 +138,7 @@ export const ViewZReadReportModal = ({
 
 				<Text className="w-full mt-2 d-block">TRANSACTION COUNT</Text>
 				<ReceiptReportSummary
-					data={[
+					items={[
 						{ label: 'Beg', value: report.beginning_transactions_count },
 						{ label: 'Cur', value: report.total_transactions },
 						{ label: 'End', value: report.ending_transactions_count },

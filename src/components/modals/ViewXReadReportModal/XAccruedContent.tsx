@@ -8,6 +8,7 @@ import {
 	ReceiptReportSummary,
 	ReceiptUnderlinedValue,
 } from '../../Printing';
+import { ItemBlock } from '../../Printing/ItemBlock';
 
 const { Text } = Typography;
 
@@ -26,7 +27,7 @@ export const XAccruedContent = ({ report }: Props) => (
 
 		<Text className="block mt-4">INVOICE NUMBER</Text>
 		<ReceiptReportSummary
-			data={[
+			items={[
 				{
 					label: 'Beg Invoice #',
 					value: report.beginning_or?.or_number || EMPTY_CELL,
@@ -40,7 +41,7 @@ export const XAccruedContent = ({ report }: Props) => (
 
 		<Text className="block">SALES</Text>
 		<ReceiptReportSummary
-			data={[
+			items={[
 				{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
 				{ label: 'Cur', value: formatInPeso(report.gross_sales) },
 				{ label: 'End', value: formatInPeso(report.ending_sales) },
@@ -49,7 +50,7 @@ export const XAccruedContent = ({ report }: Props) => (
 
 		<Text className="block">TRANSACTION COUNT</Text>
 		<ReceiptReportSummary
-			data={[
+			items={[
 				{ label: 'Beg', value: report.beginning_transactions_count },
 				{ label: 'Cur', value: report.total_transactions },
 				{ label: 'End', value: report.ending_transactions_count },
@@ -59,181 +60,165 @@ export const XAccruedContent = ({ report }: Props) => (
 		<Text className="w-full mt-4 text-center block">
 			CURRENT SALES BREAKDOWN
 		</Text>
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="Cash Sales">
-				{formatInPeso(report.cash_sales)}&nbsp;
-			</Descriptions.Item>
-			<Descriptions.Item label="Credit Sales">
-				<ReceiptUnderlinedValue
-					postfix="&nbsp;"
-					value={Number(report.credit_pay)}
-				/>
-			</Descriptions.Item>
-			<Descriptions.Item label="Gross Sales">
-				{formatInPeso(report.gross_sales)}&nbsp;
-			</Descriptions.Item>
-		</Descriptions>
-
+		<ItemBlock
+			items={[
+				{
+					label: 'Cash Sales',
+					value: formatInPeso(report.cash_sales),
+				},
+				{
+					label: 'Credit Sales',
+					value: formatInPeso(report.credit_pay),
+					isUnderlined: true,
+				},
+				{
+					label: 'Gross Sales',
+					value: formatInPeso(report.gross_sales),
+				},
+			]}
+		/>
 		<Divider />
+
 		<Text className="w-full text-center block">Breakdown of Sales</Text>
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="VAT Exempt">
-				{formatInPeso(report.vat_exempt)}&nbsp;
-			</Descriptions.Item>
-
-			<Descriptions.Item label="VATable Sales">
-				{formatInPeso(report.vat_sales)}&nbsp;
-			</Descriptions.Item>
-			<Descriptions.Item label="VAT Amount (12%)">
-				{formatInPeso(report.vat_amount)}&nbsp;
-			</Descriptions.Item>
-
-			<Descriptions.Item label="ZERO Rated">
-				{formatInPeso(0)}&nbsp;
-			</Descriptions.Item>
-		</Descriptions>
+		<ItemBlock
+			items={[
+				{
+					label: 'VAT Exempt',
+					value: formatInPeso(report.vat_exempt),
+				},
+				{
+					label: 'VATable Sales',
+					value: formatInPeso(report.vat_sales),
+				},
+				{
+					label: 'VAT Amount (12%)',
+					value: formatInPeso(report.vat_amount),
+				},
+				{
+					label: 'ZERO Rated',
+					value: formatInPeso(0),
+				},
+			]}
+		/>
 
 		<Divider />
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="Gross Sales">
-				{formatInPeso(report.gross_sales)}&nbsp;
-			</Descriptions.Item>
-			<Descriptions.Item label="Deduction" labelStyle={{ paddingLeft: 30 }}>
-				<ReceiptUnderlinedValue postfix=")" prefix="(" value={0} />
-			</Descriptions.Item>
 
-			<Descriptions.Item
-				label="VAT Amount (12%)"
-				labelStyle={{ paddingLeft: 30 }}
-			>
-				<ReceiptUnderlinedValue
-					postfix=")"
-					prefix="("
-					value={report.total_vat_adjusted}
-				/>
-			</Descriptions.Item>
-			<Descriptions.Item
-				contentStyle={{ fontWeight: 'bold' }}
-				label="NET SALES"
-				labelStyle={{ fontWeight: 'bold' }}
-			>
-				{formatInPeso(report.net_sales)}&nbsp;
-			</Descriptions.Item>
-		</Descriptions>
-
+		<ItemBlock
+			items={[
+				{
+					label: 'Gross Sales',
+					value: formatInPeso(report.gross_sales),
+				},
+				{
+					label: 'Deduction',
+					value: formatInPeso(0),
+					isUnderlined: true,
+					isParenthesized: true,
+				},
+				{
+					label: 'VAT Amount (12%)',
+					value: formatInPeso(report.total_vat_adjusted),
+					isUnderlined: true,
+					isParenthesized: true,
+				},
+				{
+					label: 'NET SALES',
+					value: formatInPeso(report.net_sales),
+					contentStyle: { fontWeight: 'bold' },
+					labelStyle: { fontWeight: 'bold' },
+				},
+			]}
+		/>
 		<Divider />
+
 		<Text className="w-full text-center block">Deductions</Text>
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="Disc. SC">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. PWD">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. NAAC">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. Solo Parent">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. Others">{null}</Descriptions.Item>
-			<Descriptions.Item label="Return">{null}</Descriptions.Item>
-			<Descriptions.Item label="Void">{null}</Descriptions.Item>
-			<Descriptions.Item label="TOTAL">{null}</Descriptions.Item>
-		</Descriptions>
-
+		<ItemBlock
+			items={[
+				{
+					label: 'Disc. SC',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. PWD',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. NAAC',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. Solo Parent',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. Others',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Return',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Void',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'TOTAL',
+					value: formatInPeso(0),
+				},
+			]}
+		/>
 		<Divider />
+
 		<Text className="w-full text-center block">VAT Adjustment</Text>
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="Disc. SC">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. PWD">{null}</Descriptions.Item>
-			<Descriptions.Item label="Disc. Others">{null}</Descriptions.Item>
-			<Descriptions.Item label="VAT on Returns">{null}</Descriptions.Item>
-			<Descriptions.Item label="Others">{null}</Descriptions.Item>
-			<Descriptions.Item label="TOTAL">{null}</Descriptions.Item>
-		</Descriptions>
-
+		<ItemBlock
+			items={[
+				{
+					label: 'Disc. SC',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. PWD',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Disc. Others',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'VAT on Returns',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'Others',
+					value: formatInPeso(0),
+				},
+				{
+					label: 'TOTAL',
+					value: formatInPeso(0),
+				},
+			]}
+		/>
 		<Divider />
+
 		<Text className="w-full text-center block">VAT Payable</Text>
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{
-				textAlign: 'right',
-				display: 'block',
-			}}
-			labelStyle={{
-				width: 200,
-			}}
-			size="small"
-		>
-			<Descriptions.Item label="VAT Amount (12%)">
-				{formatInPeso(report.vat_amount)}&nbsp;
-			</Descriptions.Item>
-			<Descriptions.Item label="VAT Adj.">
-				<ReceiptUnderlinedValue
-					postfix=")"
-					prefix="("
-					value={report.total_vat_adjusted}
-				/>
-			</Descriptions.Item>
-			<Descriptions.Item label="TOTAL">
-				{formatInPeso(report.vat_payable)}
-				&nbsp;
-			</Descriptions.Item>
-		</Descriptions>
+		<ItemBlock
+			items={[
+				{
+					label: 'VAT Amount (12%)',
+					value: formatInPeso(report.vat_amount),
+				},
+				{
+					label: 'VAT Adj.',
+					value: formatInPeso(report.total_vat_adjusted),
+					isUnderlined: true,
+					isParenthesized: true,
+				},
+				{
+					label: 'TOTAL',
+					value: formatInPeso(report.vat_payable),
+				},
+			]}
+		/>
 	</>
 );

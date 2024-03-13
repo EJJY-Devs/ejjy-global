@@ -74,7 +74,7 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
         react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
             react_1.default.createElement(Text, { className: "w-full" }, "Z-READ"),
             react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "INVOICE NUMBER"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
+            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                     {
                         label: 'Beg Invoice #',
                         value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
@@ -85,13 +85,13 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
                     },
                 ] }),
             react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "SALES"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
+            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                     { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
                     { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales) },
                     { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
                 ] }),
             react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "TRANSACTION COUNT"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { data: [
+            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                     { label: 'Beg', value: report.beginning_transactions_count },
                     { label: 'Cur', value: report.total_transactions },
                     { label: 'End', value: report.ending_transactions_count },
