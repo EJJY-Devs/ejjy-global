@@ -16,23 +16,35 @@ import { UseListQuery } from './inteface';
 const useXReadReports = (
 	data: UseListQuery<XReadReport, CamelCasedProperties<Params>> = {},
 ) => {
-	const { params, options } = data;
+	const { params, options, serviceOptions } = data;
 
 	return useQuery<
 		ListResponseData<XReadReport>,
 		Error,
 		QueryResponse<XReadReport>
 	>(
-		['useXReadReports', params],
+		[
+			'useXReadReports',
+			params?.branchMachineId,
+			params?.branchMachineName,
+			params?.isWithDailySalesData,
+			params?.pageSize,
+			params?.page,
+			params?.timeRange,
+		],
 		() =>
 			wrapServiceWithCatch(
-				XReadReportsService.list({
-					branch_machine_id: params?.branchMachineId,
-					is_with_daily_sales_data: params?.isWithDailySalesData,
-					page: params?.page || DEFAULT_PAGE,
-					page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-					time_range: params?.timeRange,
-				}),
+				XReadReportsService.list(
+					{
+						branch_machine_id: params?.branchMachineId,
+						branch_machine_name: params?.branchMachineName,
+						is_with_daily_sales_data: params?.isWithDailySalesData,
+						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						page: params?.page || DEFAULT_PAGE,
+						time_range: params?.timeRange,
+					},
+					serviceOptions?.baseURL,
+				),
 			),
 		{
 			placeholderData: {
