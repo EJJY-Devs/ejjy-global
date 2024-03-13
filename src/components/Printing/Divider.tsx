@@ -1,5 +1,4 @@
 import React from 'react';
-import { cn } from '../../utils';
 
 type Props = {
 	className?: string;
@@ -7,9 +6,8 @@ type Props = {
 
 export const Divider = ({ className }: Props) => (
 	<div
-		className={cn(
-			'mt-6 mb-6 border-b-[1px] border-dashed border-black',
-			className,
-		)}
+		className={
+			'mt-6 mb-6 border-b-[1px] border-dashed border-black w-[80%] mx-auto'
+		}
 	></div>
 );

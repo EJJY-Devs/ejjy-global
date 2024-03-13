@@ -16,7 +16,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ReportTextFile"), exports);
 __exportStar(require("./calculate"), exports);
-__exportStar(require("./dev"), exports);
 __exportStar(require("./formatters"), exports);
 __exportStar(require("./qztray"), exports);
 __exportStar(require("./ui"), exports);
