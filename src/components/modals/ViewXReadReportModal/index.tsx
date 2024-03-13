@@ -110,11 +110,13 @@ export const ViewXReadReportModal = ({
 				siteSettings={siteSettings}
 			/>
 
-			{report.generated_by ? (
-				<XAccruedContent report={report} />
-			) : (
-				<XReadContent report={report} />
-			)}
+			<div className="mt-6">
+				{report.generated_by ? (
+					<XAccruedContent report={report} />
+				) : (
+					<XReadContent report={report} />
+				)}
+			</div>
 
 			<ReceiptFooter siteSettings={siteSettings} />
 
