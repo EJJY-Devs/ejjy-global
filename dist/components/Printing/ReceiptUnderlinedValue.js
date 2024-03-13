@@ -7,9 +7,9 @@ exports.ReceiptUnderlinedValue = void 0;
 const react_1 = __importDefault(require("react"));
 const utils_1 = require("../../utils");
 const ReceiptUnderlinedValue = ({ value, prefix, postfix }) => (react_1.default.createElement(react_1.default.Fragment, null,
-    react_1.default.createElement("span", { style: { display: 'inline-block' } },
+    react_1.default.createElement("span", { className: "inline-block" },
         prefix,
         (0, utils_1.formatInPeso)(value),
         postfix),
-    Number(value) > 0 && (react_1.default.createElement("div", { className: "w-100", style: { textAlign: 'right', lineHeight: 0.2 } }, "-----------"))));
+    Number(value) > 0 && (react_1.default.createElement("div", { className: "w-full text-right leading-none" }, "-----------"))));
 exports.ReceiptUnderlinedValue = ReceiptUnderlinedValue;

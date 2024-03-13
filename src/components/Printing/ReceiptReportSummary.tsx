@@ -5,11 +5,11 @@ interface Props {
 }
 
 export const ReceiptReportSummary = ({ data }: Props) => (
-	<table style={{ marginLeft: '50px' }}>
+	<table className="ml-12">
 		{data.map((d) => (
 			<tr key={d.value}>
-				<td style={{ width: '100px' }}>{d.label}:</td>
-				<td style={{ textAlign: 'right' }}>{d.value}</td>
+				<td className="w-[100px]">{d.label}:</td>
+				<td className="text-right">{d.value}</td>
 			</tr>
 		))}
 	</table>

@@ -9,16 +9,14 @@ interface Props {
 
 export const ReceiptUnderlinedValue = ({ value, prefix, postfix }: Props) => (
 	<>
-		<span style={{ display: 'inline-block' }}>
+		<span className="inline-block">
 			{prefix}
 			{formatInPeso(value)}
 			{postfix}
 		</span>
 
 		{Number(value) > 0 && (
-			<div className="w-100" style={{ textAlign: 'right', lineHeight: 0.2 }}>
-				-----------
-			</div>
+			<div className="w-full text-right leading-none">-----------</div>
 		)}
 	</>
 );

@@ -4,11 +4,10 @@ import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
-import { createXReadTxt, printXReadReport } from '../../../print';
-import { SiteSettings, XReadReport } from '../../../types';
-import { cn, formatDateTime, formatInPeso } from '../../../utils';
+import { createZReadTxt, printZReadReport } from '../../../print';
+import { SiteSettings, ZReadReport } from '../../../types';
+import { formatDateTime, formatInPeso } from '../../../utils';
 import {
-	Divider,
 	PdfButtons,
 	ReceiptFooter,
 	ReceiptHeader,
@@ -16,27 +15,27 @@ import {
 	ReceiptUnderlinedValue,
 } from '../../Printing';
 
+const { Text } = Typography;
+
 interface Props {
-	report: XReadReport;
+	report: ZReadReport;
 	siteSettings: SiteSettings;
 	onClose: () => void;
 }
 
-const { Text } = Typography;
-
-export const ViewXReadReportModal = ({
+export const ViewZReadReportModal = ({
 	report,
 	siteSettings,
 	onClose,
 }: Props) => {
 	// STATES
-	const [isCreatingTxt, setIsCreatingTxt] = useState(false);
+	const [isCreatingTxt, setIsCreatingTxt] = useState<boolean>(false);
 
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `XReadReport_${report.id}`,
+		title: `ZReadReport_${report.id}`,
 		image:
-			report?.gross_sales === 0
+			report.total_transactions === 0
 				? {
 						src: imgNoTransaction,
 						x: 50,
@@ -46,17 +45,17 @@ export const ViewXReadReportModal = ({
 				  }
 				: undefined,
 		print: () =>
-			printXReadReport(report, siteSettings, report?.generated_by, true),
+			printZReadReport(report, siteSettings, report?.generated_by, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printXReadReport(report, siteSettings, report?.generated_by);
+		printZReadReport(report, siteSettings, report?.generated_by);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createXReadTxt(report, siteSettings, report?.generated_by);
+		createZReadTxt(report, siteSettings, report.generated_by);
 		setIsCreatingTxt(false);
 	};
 
@@ -91,14 +90,14 @@ export const ViewXReadReportModal = ({
 					Create TXT
 				</Button>,
 			]}
-			title="X-Read Report"
+			title="Z-Read Report"
 			width={425}
 			centered
 			closable
 			open
 			onCancel={onClose}
 		>
-			{report.gross_sales === 0 && (
+			{report.total_transactions === 0 && (
 				<img
 					alt="no transaction"
 					style={{
@@ -110,74 +109,54 @@ export const ViewXReadReportModal = ({
 					src={imgNoTransaction}
 				/>
 			)}
+
 			<ReceiptHeader
 				branchMachine={report.branch_machine}
 				siteSettings={siteSettings}
 			/>
 
-			{report.generated_by ? (
-				<XAccruedContent report={report} />
-			) : (
-				<XReadContent report={report} />
-			)}
+			<Space className="mt-6 w-100" direction="vertical">
+				<Text className="w-100">Current Day Accumulated Report</Text>
 
-			<ReceiptFooter siteSettings={siteSettings} />
+				<Text className="w-100 mt-2 d-block">INVOICE NUMBER</Text>
+				<ReceiptReportSummary
+					data={[
+						{
+							label: 'Beg Invoice #',
+							value: report.beginning_or?.or_number || EMPTY_CELL,
+						},
+						{
+							label: 'End Invoice #',
+							value: report.ending_or?.or_number || EMPTY_CELL,
+						},
+					]}
+				/>
 
-			<div
-				dangerouslySetInnerHTML={{ __html: htmlPdf }}
-				style={{ display: 'none' }}
-			/>
-		</Modal>
-	);
-};
+				<Text className="w-100 mt-2 d-block">SALES</Text>
+				<ReceiptReportSummary
+					data={[
+						{ label: 'Present', value: formatInPeso(report.current_sales) },
+						{ label: 'Previous', value: formatInPeso(report.beginning_sales) },
+						{ label: 'Current', value: formatInPeso(report.ending_sales) },
+					]}
+				/>
 
-type ContentProps = {
-	report: XReadReport;
-};
+				<Text className="w-100 mt-2 d-block">TRANSACTION COUNT</Text>
+				<ReceiptReportSummary
+					data={[
+						{ label: 'Present', value: report.total_transactions },
+						{ label: 'Previous', value: report.beginning_transactions_count },
+						{ label: 'Current', value: report.ending_transactions_count },
+					]}
+				/>
+			</Space>
 
-const XAccruedContent = ({ report }: ContentProps) => {
-	return (
-		<>
-			<Text className="font-bold">Current Day Accumulated Report</Text>
-			<Text className="font-bold">X-READ (end session report)</Text>
-
-			<Text className="block">INVOICE NUMBER</Text>
-			<ReceiptReportSummary
-				data={[
-					{
-						label: 'Beg Invoice #',
-						value: report.beginning_or?.or_number || EMPTY_CELL,
-					},
-					{
-						label: 'End Invoice #',
-						value: report.ending_or?.or_number || EMPTY_CELL,
-					},
-				]}
-			/>
-
-			<Text className="block">SALES</Text>
-			<ReceiptReportSummary
-				data={[
-					{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
-					{ label: 'Cur', value: formatInPeso(report.gross_sales) },
-					{ label: 'End', value: formatInPeso(report.ending_sales) },
-				]}
-			/>
-
-			<Text className="block">TRANSACTION COUNT</Text>
-			<ReceiptReportSummary
-				data={[
-					{ label: 'Beg', value: report.beginning_transactions_count },
-					{ label: 'Cur', value: report.total_transactions },
-					{ label: 'End', value: report.ending_transactions_count },
-				]}
-			/>
-
-			<Text className="w-100 mt-4 text-center block">
-				CURRENT SALES BREAKDOWN
+			<Text className="w-100 mt-6 text-center d-block">
+				ACCUMULATED SALES BREAKDOWN
 			</Text>
+
 			<Descriptions
-				className="w-100"
+				className="mt-6 w-100"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -193,20 +172,15 @@ const XAccruedContent = ({ report }: ContentProps) => {
 					{formatInPeso(report.cash_sales)}&nbsp;
 				</Descriptions.Item>
 				<Descriptions.Item label="CREDIT SALES">
-					<ReceiptUnderlinedValue
-						postfix="&nbsp;"
-						value={Number(report.credit_pay)}
-					/>
+					<ReceiptUnderlinedValue postfix="&nbsp;" value={report.credit_pay} />
 				</Descriptions.Item>
 				<Descriptions.Item label="GROSS SALES">
 					{formatInPeso(report.gross_sales)}&nbsp;
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Divider />
-			<Text className="w-100 text-center block">Breakdown of Sales</Text>
 			<Descriptions
-				className="w-100"
+				className="mt-6 w-100"
 				colon={false}
 				column={1}
 				contentStyle={{
@@ -218,23 +192,27 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				}}
 				size="small"
 			>
-				<Descriptions.Item label="VAT Exempt">
+				<Descriptions.Item label="VAT Exempt" labelStyle={{ paddingLeft: 30 }}>
 					{formatInPeso(report.vat_exempt)}&nbsp;
 				</Descriptions.Item>
-
-				<Descriptions.Item label="VATable Sales">
+				<Descriptions.Item label="VAT Sales" labelStyle={{ paddingLeft: 30 }}>
 					{formatInPeso(report.vat_sales)}&nbsp;
 				</Descriptions.Item>
-				<Descriptions.Item label="VAT Amount (12%)">
+				<Descriptions.Item
+					label="VAT Amount (12%)"
+					labelStyle={{ paddingLeft: 30 }}
+				>
 					{formatInPeso(report.vat_amount)}&nbsp;
 				</Descriptions.Item>
-
-				<Descriptions.Item label="ZERO Rated">
+				<Descriptions.Item label="ZERO Rated" labelStyle={{ paddingLeft: 30 }}>
 					{formatInPeso(0)}&nbsp;
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Divider />
+			<div className="w-100" style={{ textAlign: 'right' }}>
+				----------------
+			</div>
+
 			<Descriptions
 				className="w-100"
 				colon={false}
@@ -278,15 +256,17 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				</Descriptions.Item>
 				<Descriptions.Item
 					contentStyle={{ fontWeight: 'bold' }}
-					label="NET SALES"
+					label="ACCUM. GRAND TOTAL"
 					labelStyle={{ fontWeight: 'bold' }}
 				>
 					{formatInPeso(report.net_sales)}&nbsp;
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Divider />
-			<Text className="w-100 text-center block">Deductions</Text>
+			<div className="w-100" style={{ textAlign: 'right' }}>
+				----------------
+			</div>
+
 			<Descriptions
 				className="w-100"
 				colon={false}
@@ -300,41 +280,22 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				}}
 				size="small"
 			>
-				<Descriptions.Item label="Disc. SC">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. PWD">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. NAAC">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. Solo Parent">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. Others">{null}</Descriptions.Item>
-				<Descriptions.Item label="Return">{null}</Descriptions.Item>
-				<Descriptions.Item label="Void">{null}</Descriptions.Item>
-				<Descriptions.Item label="TOTAL">{null}</Descriptions.Item>
+				<Descriptions.Item label="ADJUSTMENT ON VAT">{null}</Descriptions.Item>
+				<Descriptions.Item label="Special" labelStyle={{ paddingLeft: 30 }}>
+					{formatInPeso(report.vat_special_discount)}&nbsp;
+				</Descriptions.Item>
+				<Descriptions.Item label="OTHERS" labelStyle={{ paddingLeft: 30 }}>
+					<ReceiptUnderlinedValue postfix="&nbsp;" value={report.others} />
+				</Descriptions.Item>
+				<Descriptions.Item label="TOTAL" labelStyle={{ paddingLeft: 30 }}>
+					{formatInPeso(report.total_vat_adjusted)}&nbsp;
+				</Descriptions.Item>
 			</Descriptions>
 
-			<Divider />
-			<Text className="w-100 text-center block">VAT Adjustment</Text>
-			<Descriptions
-				className="w-100"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="Disc. SC">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. PWD">{null}</Descriptions.Item>
-				<Descriptions.Item label="Disc. Others">{null}</Descriptions.Item>
-				<Descriptions.Item label="VAT on Returns">{null}</Descriptions.Item>
-				<Descriptions.Item label="Others">{null}</Descriptions.Item>
-				<Descriptions.Item label="TOTAL">{null}</Descriptions.Item>
-			</Descriptions>
+			<div className="w-100" style={{ textAlign: 'right' }}>
+				----------------
+			</div>
 
-			<Divider />
-			<Text className="w-100 text-center block">VAT Payable</Text>
 			<Descriptions
 				className="w-100"
 				colon={false}
@@ -364,54 +325,32 @@ const XAccruedContent = ({ report }: ContentProps) => {
 				</Descriptions.Item>
 			</Descriptions>
 
-			<Divider />
-			<Text className="block">
-				GDT:{' '}
-				{report.generation_datetime
-					? formatDateTime(report.generation_datetime)
-					: EMPTY_CELL}
-			</Text>
-			<Text className="block">
-				PDT:{' '}
-				{report.printing_datetime
-					? formatDateTime(report.printing_datetime)
-					: EMPTY_CELL}
-			</Text>
-			<div className="w-100 flex justify-between">
+			<Space className="mt-6 w-100" direction="vertical">
+				<Text>
+					GDT:{' '}
+					{report.generation_datetime
+						? formatDateTime(report.generation_datetime)
+						: EMPTY_CELL}
+				</Text>
+				<Text>
+					PDT:{' '}
+					{report.printing_datetime
+						? formatDateTime(report.printing_datetime)
+						: EMPTY_CELL}
+				</Text>
+			</Space>
+
+			<Space className="mt-2 w-100 justify-space-between">
 				<Text>C: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
 				<Text>PB: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
-			</div>
-		</>
+			</Space>
+
+			<ReceiptFooter siteSettings={siteSettings} />
+
+			<div
+				dangerouslySetInnerHTML={{ __html: htmlPdf }}
+				style={{ display: 'none' }}
+			/>
+		</Modal>
 	);
 };
-
-const XReadContent = ({ report }: ContentProps) => null;
-
-// type Items = {
-// 	label: string;
-// 	value: string | number | React.ReactElement;
-// 	isIndented: boolean;
-// 	isUnderlined: boolean;
-// 	isParenthesized: boolean;
-// };
-
-// type ItemBlockProps = {
-// 	items: Items[];
-// };
-
-// const ItemBlock = ({ items }: ItemBlockProps) => {
-// 	return (
-// 		<>
-// 			{items.map((item) => (
-// 				<div key={item.label} className="w-full grid grid-cols-2">
-// 					<span className={cn({ 'pl-8': item.isIndented })}>{item.label}</span>
-// 					<span className="text-right">
-// 						{item.isParenthesized ? '(' : ' '}
-// 						{item.value}
-// 						{item.isParenthesized ? ')' : ' '}
-// 					</span>
-// 				</div>
-// 			))}
-// 		</>
-// 	);
-// };
