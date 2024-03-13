@@ -34,9 +34,9 @@ export const XReadContent = ({ report }: Props) => {
 					<Text className="block text-center">
 						{formatDate(cashieringSession.date)} |{' '}
 						{[
-							formatDate(cashieringSession.datetime_started),
+							formatTime(cashieringSession.datetime_started),
 							cashieringSession.datetime_ended
-								? formatDate(cashieringSession.datetime_ended)
+								? formatTime(cashieringSession.datetime_ended)
 								: null,
 						]
 							.filter(Boolean)
@@ -59,15 +59,14 @@ export const XReadContent = ({ report }: Props) => {
 						{
 							label: 'End Invoice #',
 							value: report.ending_or?.or_number || EMPTY_CELL,
-							isUnderlined: true,
 						},
 						{
 							label: 'Trans. Count',
-							value: formatInPeso(report.beginning_sales),
+							value: report.total_transactions,
 						},
 						{
 							label: 'Opening Fund',
-							value: formatInPeso(report.total_transactions),
+							value: formatInPeso(report.beginning_sales),
 						},
 					]}
 				/>

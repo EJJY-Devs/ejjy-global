@@ -16,35 +16,33 @@ type ItemBlockProps = {
 	items: Items[];
 };
 
-export const ItemBlock = ({ items }: ItemBlockProps) => {
-	return (
-		<Descriptions
-			className="w-full"
-			colon={false}
-			column={1}
-			contentStyle={{ textAlign: 'right', display: 'block' }}
-			labelStyle={{ width: 200 }}
-			size="small"
-		>
-			{items.map((item) => (
-				<Descriptions.Item
-					key={item.label}
-					label={item.label}
-					labelStyle={{
-						paddingLeft: item.isIndented ? 30 : 0,
-						...item.labelStyle,
-					}}
-					contentStyle={item.contentStyle}
-				>
-					{item.isParenthesized ? '(' : ' '}
-					{item.isUnderlined ? (
-						<ReceiptUnderlinedValue value={item.value as number} />
-					) : (
-						item.value
-					)}
-					{item.isParenthesized ? ')' : ' '}
-				</Descriptions.Item>
-			))}
-		</Descriptions>
-	);
-};
+export const ItemBlock = ({ items }: ItemBlockProps) => (
+	<Descriptions
+		className="w-full"
+		colon={false}
+		column={1}
+		contentStyle={{ textAlign: 'right', display: 'block' }}
+		labelStyle={{ width: 200 }}
+		size="small"
+	>
+		{items.map((item) => (
+			<Descriptions.Item
+				key={item.label}
+				label={item.label}
+				labelStyle={{
+					paddingLeft: item.isIndented ? 30 : 0,
+					...item.labelStyle,
+				}}
+				contentStyle={item.contentStyle}
+			>
+				{item.isParenthesized ? '(' : ' '}
+				{item.isUnderlined ? (
+					<ReceiptUnderlinedValue value={item.value as number} />
+				) : (
+					item.value
+				)}
+				{item.isParenthesized ? ')' : ' '}
+			</Descriptions.Item>
+		))}
+	</Descriptions>
+);

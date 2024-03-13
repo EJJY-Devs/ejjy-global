@@ -1,19 +1,20 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Descriptions, Modal, Space, Typography } from 'antd';
+import { Button, Modal, Typography } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createZReadTxt, printZReadReport } from '../../../print';
 import { SiteSettings, ZReadReport } from '../../../types';
-import { formatDateTime, formatInPeso } from '../../../utils';
+import { formatDateTime } from '../../../utils';
 import {
+	Divider,
 	PdfButtons,
 	ReceiptFooter,
 	ReceiptHeader,
-	ReceiptReportSummary,
-	ReceiptUnderlinedValue,
 } from '../../Printing';
+import { ZAccruedContent } from './ZAccruedContent';
+import { ZReadContent } from './ZReadContent';
 
 const { Text } = Typography;
 
@@ -110,235 +111,32 @@ export const ViewZReadReportModal = ({
 				siteSettings={siteSettings}
 			/>
 
-			<Space className="mt-6 w-full" direction="vertical">
-				<Text className="w-full">Z-READ</Text>
+			<div className="mt-4">
+				{report.generated_by ? (
+					<ZAccruedContent report={report} />
+				) : (
+					<ZReadContent report={report} />
+				)}
+			</div>
 
-				<Text className="w-full mt-2 d-block">INVOICE NUMBER</Text>
-				<ReceiptReportSummary
-					items={[
-						{
-							label: 'Beg Invoice #',
-							value: report.beginning_or?.or_number || EMPTY_CELL,
-						},
-						{
-							label: 'End Invoice #',
-							value: report.ending_or?.or_number || EMPTY_CELL,
-						},
-					]}
-				/>
-
-				<Text className="w-full mt-2 d-block">SALES</Text>
-				<ReceiptReportSummary
-					items={[
-						{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
-						{ label: 'Cur', value: formatInPeso(report.current_sales) },
-						{ label: 'End', value: formatInPeso(report.ending_sales) },
-					]}
-				/>
-
-				<Text className="w-full mt-2 d-block">TRANSACTION COUNT</Text>
-				<ReceiptReportSummary
-					items={[
-						{ label: 'Beg', value: report.beginning_transactions_count },
-						{ label: 'Cur', value: report.total_transactions },
-						{ label: 'End', value: report.ending_transactions_count },
-					]}
-				/>
-			</Space>
-
-			<Text className="w-full mt-6 text-center d-block">
-				ACCUMULATED SALES BREAKDOWN
+			<Divider />
+			<Text>
+				GDT:{' '}
+				{report.generation_datetime
+					? formatDateTime(report.generation_datetime)
+					: EMPTY_CELL}
+			</Text>
+			<Text>
+				PDT:{' '}
+				{report.printing_datetime
+					? formatDateTime(report.printing_datetime)
+					: EMPTY_CELL}
 			</Text>
 
-			<Descriptions
-				className="mt-6 w-full"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="CASH SALES">
-					{formatInPeso(report.cash_sales)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item label="CREDIT SALES">
-					<ReceiptUnderlinedValue postfix="&nbsp;" value={report.credit_pay} />
-				</Descriptions.Item>
-				<Descriptions.Item label="GROSS SALES">
-					{formatInPeso(report.gross_sales)}&nbsp;
-				</Descriptions.Item>
-			</Descriptions>
-
-			<Descriptions
-				className="mt-6 w-full"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="VAT Exempt" labelStyle={{ paddingLeft: 30 }}>
-					{formatInPeso(report.vat_exempt)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item label="VAT Sales" labelStyle={{ paddingLeft: 30 }}>
-					{formatInPeso(report.vat_sales)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item
-					label="VAT Amount (12%)"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					{formatInPeso(report.vat_amount)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item label="ZERO Rated" labelStyle={{ paddingLeft: 30 }}>
-					{formatInPeso(0)}&nbsp;
-				</Descriptions.Item>
-			</Descriptions>
-
-			<div className="w-full" style={{ textAlign: 'right' }}>
-				----------------
-			</div>
-
-			<Descriptions
-				className="w-full"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="GROSS SALES">
-					{formatInPeso(report.gross_sales)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item
-					label="REG. DISCOUNT"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					({formatInPeso(report.regular_discount)})
-				</Descriptions.Item>
-				<Descriptions.Item label="Special" labelStyle={{ paddingLeft: 30 }}>
-					({formatInPeso(report.special_discount)})
-				</Descriptions.Item>
-				<Descriptions.Item
-					label="VOIDED SALES"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					({formatInPeso(report.void)})
-				</Descriptions.Item>
-				<Descriptions.Item
-					label="VAT Amount (12%)"
-					labelStyle={{ paddingLeft: 30 }}
-				>
-					<ReceiptUnderlinedValue
-						postfix=")"
-						prefix="("
-						value={report.total_vat_adjusted}
-					/>
-				</Descriptions.Item>
-				<Descriptions.Item
-					contentStyle={{ fontWeight: 'bold' }}
-					label="ACCUM. GRAND TOTAL"
-					labelStyle={{ fontWeight: 'bold' }}
-				>
-					{formatInPeso(report.net_sales)}&nbsp;
-				</Descriptions.Item>
-			</Descriptions>
-
-			<div className="w-full" style={{ textAlign: 'right' }}>
-				----------------
-			</div>
-
-			<Descriptions
-				className="w-full"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="ADJUSTMENT ON VAT">{null}</Descriptions.Item>
-				<Descriptions.Item label="Special" labelStyle={{ paddingLeft: 30 }}>
-					{formatInPeso(report.vat_special_discount)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item label="OTHERS" labelStyle={{ paddingLeft: 30 }}>
-					<ReceiptUnderlinedValue postfix="&nbsp;" value={report.others} />
-				</Descriptions.Item>
-				<Descriptions.Item label="TOTAL" labelStyle={{ paddingLeft: 30 }}>
-					{formatInPeso(report.total_vat_adjusted)}&nbsp;
-				</Descriptions.Item>
-			</Descriptions>
-
-			<div className="w-full" style={{ textAlign: 'right' }}>
-				----------------
-			</div>
-
-			<Descriptions
-				className="w-full"
-				colon={false}
-				column={1}
-				contentStyle={{
-					textAlign: 'right',
-					display: 'block',
-				}}
-				labelStyle={{
-					width: 200,
-				}}
-				size="small"
-			>
-				<Descriptions.Item label="VAT AMOUNT (12%)">
-					{formatInPeso(report.vat_amount)}&nbsp;
-				</Descriptions.Item>
-				<Descriptions.Item label="VAT ADJ.">
-					<ReceiptUnderlinedValue
-						postfix=")"
-						prefix="("
-						value={report.total_vat_adjusted}
-					/>
-				</Descriptions.Item>
-				<Descriptions.Item label="VAT PAYABLE">
-					{formatInPeso(report.vat_payable)}
-					&nbsp;
-				</Descriptions.Item>
-			</Descriptions>
-
-			<Space className="mt-6 w-full" direction="vertical">
-				<Text>
-					GDT:{' '}
-					{report.generation_datetime
-						? formatDateTime(report.generation_datetime)
-						: EMPTY_CELL}
-				</Text>
-				<Text>
-					PDT:{' '}
-					{report.printing_datetime
-						? formatDateTime(report.printing_datetime)
-						: EMPTY_CELL}
-				</Text>
-			</Space>
-
-			<Space className="mt-2 w-full justify-space-between">
+			<div className="w-full flex justify-between">
 				<Text>C: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
 				<Text>PB: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
-			</Space>
+			</div>
 
 			<ReceiptFooter siteSettings={siteSettings} />
 

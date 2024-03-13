@@ -1,31 +1,27 @@
-import { Descriptions, Typography } from 'antd';
+import { Typography } from 'antd';
 import React from 'react';
 import { EMPTY_CELL } from '../../../globals';
-import { XReadReport } from '../../../types';
+import { ZReadReport } from '../../../types';
 import { formatInPeso } from '../../../utils';
-import {
-	Divider,
-	ReceiptReportSummary,
-	ReceiptUnderlinedValue,
-} from '../../Printing';
+import { Divider, ReceiptReportSummary } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 
 const { Text } = Typography;
 
 type Props = {
-	report: XReadReport;
+	report: ZReadReport;
 };
 
-export const XAccruedContent = ({ report }: Props) => (
+export const ZAccruedContent = ({ report }: Props) => (
 	<>
 		<Text strong className="block">
 			Current Day Accumulated Report
 		</Text>
 		<Text strong className="block">
-			X-READ (end session report)
+			Z-READ (closing day report)
 		</Text>
 
-		<Text className="block mt-4">INVOICE NUMBER</Text>
+		<Text className="mt-4 block">INVOICE NUMBER</Text>
 		<ReceiptReportSummary
 			items={[
 				{
@@ -39,16 +35,16 @@ export const XAccruedContent = ({ report }: Props) => (
 			]}
 		/>
 
-		<Text className="block">SALES</Text>
+		<Text className="mt-2 block">SALES</Text>
 		<ReceiptReportSummary
 			items={[
 				{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
-				{ label: 'Cur', value: formatInPeso(report.gross_sales) },
+				{ label: 'Cur', value: formatInPeso(report.current_sales) },
 				{ label: 'End', value: formatInPeso(report.ending_sales) },
 			]}
 		/>
 
-		<Text className="block">TRANSACTION COUNT</Text>
+		<Text className="mt-2 block">TRANSACTION COUNT</Text>
 		<ReceiptReportSummary
 			items={[
 				{ label: 'Beg', value: report.beginning_transactions_count },
@@ -57,8 +53,21 @@ export const XAccruedContent = ({ report }: Props) => (
 			]}
 		/>
 
+		<ItemBlock
+			items={[
+				{
+					label: 'Reset Counter',
+					value: 0,
+				},
+				{
+					label: 'Z Counter No.',
+					value: 0,
+				},
+			]}
+		/>
+
 		<Text className="w-full mt-4 text-center block">
-			CURRENT SALES BREAKDOWN
+			ACCUMULATED SALES BREAKDOWN
 		</Text>
 		<ItemBlock
 			items={[
@@ -72,7 +81,7 @@ export const XAccruedContent = ({ report }: Props) => (
 					isUnderlined: true,
 				},
 				{
-					label: 'Gross Sales',
+					label: 'Sales for the Day',
 					value: formatInPeso(report.gross_sales),
 				},
 			]}

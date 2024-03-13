@@ -51,10 +51,11 @@ const XReadContent = ({ report }) => {
                     {
                         label: 'End Invoice #',
                         value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
+                        isUnderlined: true,
                     },
                     {
                         label: 'Trans. Count',
-                        value: report.total_transactions,
+                        value: (0, utils_1.formatInPeso)(report.total_transactions),
                     },
                     {
                         label: 'Opening Fund',

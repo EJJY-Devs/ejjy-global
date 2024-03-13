@@ -36,9 +36,11 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
+const ZAccruedContent_1 = require("./ZAccruedContent");
+const ZReadContent_1 = require("./ZReadContent");
 const { Text } = antd_1.Typography;
 const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
-    var _a, _b, _c, _d;
+    var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -71,142 +73,27 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
         ], title: "Z-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         report.total_transactions === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
-            react_1.default.createElement(Text, { className: "w-full" }, "Z-READ"),
-            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "INVOICE NUMBER"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
-                    {
-                        label: 'Beg Invoice #',
-                        value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
-                    },
-                    {
-                        label: 'End Invoice #',
-                        value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
-                    },
-                ] }),
-            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "SALES"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
-                    { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
-                    { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales) },
-                    { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
-                ] }),
-            react_1.default.createElement(Text, { className: "w-full mt-2 d-block" }, "TRANSACTION COUNT"),
-            react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
-                    { label: 'Beg', value: report.beginning_transactions_count },
-                    { label: 'Cur', value: report.total_transactions },
-                    { label: 'End', value: report.ending_transactions_count },
-                ] })),
-        react_1.default.createElement(Text, { className: "w-full mt-6 text-center d-block" }, "ACCUMULATED SALES BREAKDOWN"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "CASH SALES" },
-                (0, utils_1.formatInPeso)(report.cash_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "CREDIT SALES" },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: report.credit_pay })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "GROSS SALES" },
-                (0, utils_1.formatInPeso)(report.gross_sales),
-                "\u00A0")),
-        react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Exempt", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(report.vat_exempt),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Sales", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(report.vat_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(report.vat_amount),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "ZERO Rated", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(0),
-                "\u00A0")),
-        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "GROSS SALES" },
-                (0, utils_1.formatInPeso)(report.gross_sales),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "REG. DISCOUNT", labelStyle: { paddingLeft: 30 } },
-                "(",
-                (0, utils_1.formatInPeso)(report.regular_discount),
-                ")"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Special", labelStyle: { paddingLeft: 30 } },
-                "(",
-                (0, utils_1.formatInPeso)(report.special_discount),
-                ")"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VOIDED SALES", labelStyle: { paddingLeft: 30 } },
-                "(",
-                (0, utils_1.formatInPeso)(report.void),
-                ")"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT Amount (12%)", labelStyle: { paddingLeft: 30 } },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: report.total_vat_adjusted })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { contentStyle: { fontWeight: 'bold' }, label: "ACCUM. GRAND TOTAL", labelStyle: { fontWeight: 'bold' } },
-                (0, utils_1.formatInPeso)(report.net_sales),
-                "\u00A0")),
-        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "ADJUSTMENT ON VAT" }, null),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Special", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(report.vat_special_discount),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "OTHERS", labelStyle: { paddingLeft: 30 } },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: "\u00A0", value: report.others })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "TOTAL", labelStyle: { paddingLeft: 30 } },
-                (0, utils_1.formatInPeso)(report.total_vat_adjusted),
-                "\u00A0")),
-        react_1.default.createElement("div", { className: "w-full", style: { textAlign: 'right' } }, "----------------"),
-        react_1.default.createElement(antd_1.Descriptions, { className: "w-full", colon: false, column: 1, contentStyle: {
-                textAlign: 'right',
-                display: 'block',
-            }, labelStyle: {
-                width: 200,
-            }, size: "small" },
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT AMOUNT (12%)" },
-                (0, utils_1.formatInPeso)(report.vat_amount),
-                "\u00A0"),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT ADJ." },
-                react_1.default.createElement(Printing_1.ReceiptUnderlinedValue, { postfix: ")", prefix: "(", value: report.total_vat_adjusted })),
-            react_1.default.createElement(antd_1.Descriptions.Item, { label: "VAT PAYABLE" },
-                (0, utils_1.formatInPeso)(report.vat_payable),
-                "\u00A0")),
-        react_1.default.createElement(antd_1.Space, { className: "mt-6 w-full", direction: "vertical" },
-            react_1.default.createElement(Text, null,
-                "GDT:",
-                ' ',
-                report.generation_datetime
-                    ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                    : globals_1.EMPTY_CELL),
-            react_1.default.createElement(Text, null,
-                "PDT:",
-                ' ',
-                report.printing_datetime
-                    ? (0, utils_1.formatDateTime)(report.printing_datetime)
-                    : globals_1.EMPTY_CELL)),
-        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-full justify-space-between" },
+        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(ZAccruedContent_1.ZAccruedContent, { report: report })) : (react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report }))),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(Text, null,
+            "GDT:",
+            ' ',
+            report.generation_datetime
+                ? (0, utils_1.formatDateTime)(report.generation_datetime)
+                : globals_1.EMPTY_CELL),
+        react_1.default.createElement(Text, null,
+            "PDT:",
+            ' ',
+            report.printing_datetime
+                ? (0, utils_1.formatDateTime)(report.printing_datetime)
+                : globals_1.EMPTY_CELL),
+        react_1.default.createElement("div", { className: "w-full flex justify-between" },
             react_1.default.createElement(Text, null,
                 "C: ",
-                ((_c = report === null || report === void 0 ? void 0 : report.generated_by) === null || _c === void 0 ? void 0 : _c.employee_id) || globals_1.EMPTY_CELL),
+                ((_a = report === null || report === void 0 ? void 0 : report.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
             react_1.default.createElement(Text, null,
                 "PB: ",
-                ((_d = report === null || report === void 0 ? void 0 : report.generated_by) === null || _d === void 0 ? void 0 : _d.employee_id) || globals_1.EMPTY_CELL)),
+                ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) || globals_1.EMPTY_CELL)),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };

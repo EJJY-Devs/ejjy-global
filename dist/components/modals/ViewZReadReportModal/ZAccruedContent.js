@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.XAccruedContent = void 0;
+exports.ZAccruedContent = void 0;
 const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
@@ -11,12 +11,12 @@ const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const { Text } = antd_1.Typography;
-const XAccruedContent = ({ report }) => {
+const ZAccruedContent = ({ report }) => {
     var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Text, { strong: true, className: "block" }, "Current Day Accumulated Report"),
-        react_1.default.createElement(Text, { strong: true, className: "block" }, "X-READ (end session report)"),
-        react_1.default.createElement(Text, { className: "block mt-4" }, "INVOICE NUMBER"),
+        react_1.default.createElement(Text, { strong: true, className: "block" }, "Z-READ (closing day report)"),
+        react_1.default.createElement(Text, { className: "mt-4 block" }, "INVOICE NUMBER"),
         react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                 {
                     label: 'Beg Invoice #',
@@ -27,19 +27,29 @@ const XAccruedContent = ({ report }) => {
                     value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                 },
             ] }),
-        react_1.default.createElement(Text, { className: "block" }, "SALES"),
+        react_1.default.createElement(Text, { className: "mt-2 block" }, "SALES"),
         react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                 { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
-                { label: 'Cur', value: (0, utils_1.formatInPeso)(report.gross_sales) },
+                { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales) },
                 { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
             ] }),
-        react_1.default.createElement(Text, { className: "block" }, "TRANSACTION COUNT"),
+        react_1.default.createElement(Text, { className: "mt-2 block" }, "TRANSACTION COUNT"),
         react_1.default.createElement(Printing_1.ReceiptReportSummary, { items: [
                 { label: 'Beg', value: report.beginning_transactions_count },
                 { label: 'Cur', value: report.total_transactions },
                 { label: 'End', value: report.ending_transactions_count },
             ] }),
-        react_1.default.createElement(Text, { className: "w-full mt-4 text-center block" }, "CURRENT SALES BREAKDOWN"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: 'Reset Counter',
+                    value: 0,
+                },
+                {
+                    label: 'Z Counter No.',
+                    value: 0,
+                },
+            ] }),
+        react_1.default.createElement(Text, { className: "w-full mt-4 text-center block" }, "ACCUMULATED SALES BREAKDOWN"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
@@ -51,7 +61,7 @@ const XAccruedContent = ({ report }) => {
                     isUnderlined: true,
                 },
                 {
-                    label: 'Gross Sales',
+                    label: 'Sales for the Day',
                     value: (0, utils_1.formatInPeso)(report.gross_sales),
                 },
             ] }),
@@ -184,4 +194,4 @@ const XAccruedContent = ({ report }) => {
                 },
             ] })));
 };
-exports.XAccruedContent = XAccruedContent;
+exports.ZAccruedContent = ZAccruedContent;
