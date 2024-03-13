@@ -155,11 +155,13 @@ export const XReadContent = ({ report }: Props) => {
 						label: 'Withdrawal',
 						value: formatInPeso(0),
 						isIndented: true,
+						isParenthesized: true,
 					},
 					{
 						label: 'Payment Received',
 						value: formatInPeso(0),
 						isIndented: true,
+						isParenthesized: true,
 					},
 					{
 						label: 'Short / Over',

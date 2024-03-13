@@ -133,11 +133,13 @@ const XReadContent = ({ report }) => {
                     label: 'Withdrawal',
                     value: (0, utils_1.formatInPeso)(0),
                     isIndented: true,
+                    isParenthesized: true,
                 },
                 {
                     label: 'Payment Received',
                     value: (0, utils_1.formatInPeso)(0),
                     isIndented: true,
+                    isParenthesized: true,
                 },
                 {
                     label: 'Short / Over',

@@ -26,7 +26,8 @@ export const ItemBlock = ({ items }: ItemBlockProps) => {
 		>
 			{items.map((item) => (
 				<Descriptions.Item
-					label="Deduction"
+					key={item.label}
+					label={item.label}
 					labelStyle={{ paddingLeft: item.isIndented ? 30 : 0 }}
 				>
 					{item.isParenthesized ? '(' : ' '}
