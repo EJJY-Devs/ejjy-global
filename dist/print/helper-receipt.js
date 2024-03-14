@@ -84,8 +84,8 @@ const getHeader = (siteSettings, branchMachine, title) => {
         react_1.default.createElement("span", null,
             "SN: ",
             posTerminal),
-        title ? '</br>' : '',
-        title ? `<span>[{title}]</span>` : ''));
+        title ? react_1.default.createElement("br", null) : '',
+        title));
     return `
     <style>
       table {
@@ -103,18 +103,28 @@ const getHeader = (siteSettings, branchMachine, title) => {
 exports.getHeader = getHeader;
 const getFooter = (siteSettings) => {
     const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
-    return `
-		<div style="text-align: center; display: flex; flex-direction: column">
-			<span>${softwareDeveloper}</span>
-			<span style="white-space: pre-line">${softwareDeveloperAddress}</span>
-			<span>${softwareDeveloperTin}</span>
-			<span>Acc No: ${posAccreditationNumber}</span>
-			<span>Validity: ${posAccreditationDate}</span>
-      <br/>
-      <span>PTU No: ${ptuNumber}</span>
-      <span>Date Issued: ${ptuDate}</span>
-			<br />
-		</div>`;
+    return server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { style: {
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+        } },
+        react_1.default.createElement("span", null, softwareDeveloper),
+        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, softwareDeveloperAddress),
+        react_1.default.createElement("span", null, softwareDeveloperTin),
+        react_1.default.createElement("span", null,
+            "Acc No: ",
+            posAccreditationNumber),
+        react_1.default.createElement("span", null,
+            "Validity: ",
+            posAccreditationDate),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("span", null,
+            "PTU No: ",
+            ptuNumber),
+        react_1.default.createElement("span", null,
+            "Date Issued: ",
+            ptuDate),
+        react_1.default.createElement("br", null)));
 };
 exports.getFooter = getFooter;
 const getPageStyle = (extraStyle = '') => {

@@ -98,8 +98,8 @@ export const getHeader = (
 			</span>
 			<span>MIN: {machineID}</span>
 			<span>SN: {posTerminal}</span>
-			{title ? '</br>' : ''}
-			{title ? `<span>[{title}]</span>` : ''}
+			{title ? <br /> : ''}
+			{title}
 		</div>,
 	);
 
@@ -129,18 +129,25 @@ export const getFooter = (siteSettings: SiteSettings) => {
 		ptu_date: ptuDate,
 	} = siteSettings;
 
-	return `
-		<div style="text-align: center; display: flex; flex-direction: column">
-			<span>${softwareDeveloper}</span>
-			<span style="white-space: pre-line">${softwareDeveloperAddress}</span>
-			<span>${softwareDeveloperTin}</span>
-			<span>Acc No: ${posAccreditationNumber}</span>
-			<span>Validity: ${posAccreditationDate}</span>
-      <br/>
-      <span>PTU No: ${ptuNumber}</span>
-      <span>Date Issued: ${ptuDate}</span>
+	return ReactDOMServer.renderToStaticMarkup(
+		<div
+			style={{
+				textAlign: 'center',
+				display: 'flex',
+				flexDirection: 'column',
+			}}
+		>
+			<span>{softwareDeveloper}</span>
+			<span style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</span>
+			<span>{softwareDeveloperTin}</span>
+			<span>Acc No: {posAccreditationNumber}</span>
+			<span>Validity: {posAccreditationDate}</span>
 			<br />
-		</div>`;
+			<span>PTU No: {ptuNumber}</span>
+			<span>Date Issued: {ptuDate}</span>
+			<br />
+		</div>,
+	);
 };
 
 export const getPageStyle = (extraStyle = '') => {

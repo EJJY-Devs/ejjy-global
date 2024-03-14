@@ -77,7 +77,7 @@ export const ViewTransactionModal = ({
 				message.error(GENERIC_ERROR_MESSAGE);
 				return undefined;
 			}
-
+			console.log(printSalesInvoice(transactionData, siteSettings, true, true));
 			return printSalesInvoice(transactionData, siteSettings, true, true);
 		},
 	});
