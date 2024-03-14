@@ -45,8 +45,8 @@ export const ReceiptHeader = ({
 			<Text>
 				{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
 			</Text>
-			<Text>{machineID}</Text>
-			<Text>{posTerminal}</Text>
+			<Text>MIN: {machineID}</Text>
+			<Text>SN: {posTerminal}</Text>
 
 			{title && (
 				<>

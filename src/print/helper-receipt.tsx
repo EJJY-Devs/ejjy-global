@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server';
 import { message } from 'antd';
 import qz from 'qz-tray';
 import { printerStatuses } from '../globals';
@@ -7,6 +8,7 @@ import {
 	formatInPeso,
 	getTaxTypeDescription,
 } from '../utils';
+import React from 'react';
 
 export const PESO_SIGN = 'P';
 export const EMPTY_CELL = '';
@@ -75,6 +77,31 @@ export const getHeader = (
 		machine_identification_number: machineID,
 		pos_terminal: posTerminal,
 	} = branchMachine || {};
+	ReactDOMServer;
+
+	const elements = ReactDOMServer.renderToStaticMarkup(
+		<div
+			style={{
+				textAlign: 'center',
+				display: 'flex',
+				flexDirection: 'column',
+			}}
+		>
+			<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
+			<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
+			<span>
+				{contactNumber} {name ? '| ' + name : ''}
+			</span>
+			<span>{proprietor}</span>
+			<span>
+				{getTaxTypeDescription(taxType)} | {tin}
+			</span>
+			<span>MIN: {machineID}</span>
+			<span>SN: {posTerminal}</span>
+			{title ? '</br>' : ''}
+			{title ? `<span>[{title}]</span>` : ''}
+		</div>,
+	);
 
 	return `
     <style>
@@ -87,17 +114,8 @@ export const getHeader = (
       }
     </style>
 
-		<div style="text-align: center; display: flex; flex-direction: column">
-      <span style="white-space: pre-line">${storeName}</span>
-      <span style="white-space: pre-line">${location}</span>
-      <span>${contactNumber} ${name ? '| ' + name : ''}</span>
-			<span>${proprietor}</span>
-			<span>${getTaxTypeDescription(taxType)} | ${tin}</span>
-      <span>${machineID}</span>
-      <span>${posTerminal}</span>
-      ${title ? '</br>' : ''}
-			${title ? `<span>[${title}]</span>` : ''}
-		</div>`;
+		${elements}
+  `;
 };
 
 export const getFooter = (siteSettings: SiteSettings) => {

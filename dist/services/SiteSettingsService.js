@@ -26,5 +26,6 @@ const service = {
         });
         return response.data;
     }),
+    edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/site-settings/${id}/`, body, { baseURL }); }),
 };
 exports.default = service;

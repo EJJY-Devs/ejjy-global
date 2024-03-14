@@ -68,14 +68,14 @@ export const writeHeader = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: machineID,
+		text: `MIN: ${machineID}`,
 		alignment: ReportTextFile.ALIGNMENTS.CENTER,
 		rowNumber,
 	});
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: posTerminal,
+		text: `SN: ${posTerminal}`,
 		alignment: ReportTextFile.ALIGNMENTS.CENTER,
 		rowNumber,
 	});

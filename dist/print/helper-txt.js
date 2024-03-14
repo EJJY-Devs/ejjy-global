@@ -46,13 +46,13 @@ const writeHeader = (reportTextFile, siteSettings, branchMachine, rowNumber, tit
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: machineID,
+        text: `MIN: ${machineID}`,
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });
     rowNumber += 1;
     reportTextFile.write({
-        text: posTerminal,
+        text: `SN: ${posTerminal}`,
         alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
         rowNumber,
     });

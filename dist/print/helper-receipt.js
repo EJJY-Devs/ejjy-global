@@ -13,10 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.getPageStyle = exports.getFooter = exports.getHeader = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
+const server_1 = __importDefault(require("react-dom/server"));
 const antd_1 = require("antd");
 const qz_tray_1 = __importDefault(require("qz-tray"));
 const globals_1 = require("../globals");
 const utils_1 = require("../utils");
+const react_1 = __importDefault(require("react"));
 exports.PESO_SIGN = 'P';
 exports.EMPTY_CELL = '';
 exports.UNDERLINE_TEXT = '---------';
@@ -59,6 +61,31 @@ exports.configurePrinter = configurePrinter;
 const getHeader = (siteSettings, branchMachine, title) => {
     const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine || {};
+    server_1.default;
+    const elements = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { style: {
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+        } },
+        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, storeName),
+        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, location),
+        react_1.default.createElement("span", null,
+            contactNumber,
+            " ",
+            name ? '| ' + name : ''),
+        react_1.default.createElement("span", null, proprietor),
+        react_1.default.createElement("span", null,
+            (0, utils_1.getTaxTypeDescription)(taxType),
+            " | ",
+            tin),
+        react_1.default.createElement("span", null,
+            "MIN: ",
+            machineID),
+        react_1.default.createElement("span", null,
+            "SN: ",
+            posTerminal),
+        title ? '</br>' : '',
+        title ? `<span>[{title}]</span>` : ''));
     return `
     <style>
       table {
@@ -70,17 +97,8 @@ const getHeader = (siteSettings, branchMachine, title) => {
       }
     </style>
 
-		<div style="text-align: center; display: flex; flex-direction: column">
-      <span style="white-space: pre-line">${storeName}</span>
-      <span style="white-space: pre-line">${location}</span>
-      <span>${contactNumber} ${name ? '| ' + name : ''}</span>
-			<span>${proprietor}</span>
-			<span>${(0, utils_1.getTaxTypeDescription)(taxType)} | ${tin}</span>
-      <span>${machineID}</span>
-      <span>${posTerminal}</span>
-      ${title ? '</br>' : ''}
-			${title ? `<span>[${title}]</span>` : ''}
-		</div>`;
+		${elements}
+  `;
 };
 exports.getHeader = getHeader;
 const getFooter = (siteSettings) => {
