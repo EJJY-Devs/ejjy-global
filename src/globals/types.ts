@@ -369,3 +369,9 @@ export const authorizationStatuses = {
 	OPENED: 'opened',
 	CLOSED: 'ended',
 };
+
+type ReportCategory = 'e-journals' | 'DAR';
+export const reportCategories = {
+	EJournals: 'e-journals' as ReportCategory,
+	DailyAccumulatedReports: 'DAR' as ReportCategory,
+};

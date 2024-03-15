@@ -2,10 +2,10 @@ import { AxiosError } from 'axios';
 import { ServiceType } from '../globals/enums';
 
 export interface ListQueryParams {
-	ordering?: string;
-	page?: number;
-	page_size?: number;
 	fields?: string;
+	ordering?: string;
+	page_size?: number;
+	page?: number;
 	search?: string;
 	time_range?: string;
 }

@@ -300,3 +300,9 @@ export declare const authorizationStatuses: {
     OPENED: string;
     CLOSED: string;
 };
+type ReportCategory = 'e-journals' | 'DAR';
+export declare const reportCategories: {
+    EJournals: ReportCategory;
+    DailyAccumulatedReports: ReportCategory;
+};
+export {};
