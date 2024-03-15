@@ -17,7 +17,7 @@ const ReceiptFooter = ({ siteSettings }) => {
             "Acc No: ",
             posAccreditationNumber),
         react_1.default.createElement(Text, null,
-            "Validity: ",
+            "Date Issued: ",
             posAccreditationDate),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Text, null,

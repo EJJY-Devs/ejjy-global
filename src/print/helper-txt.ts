@@ -142,7 +142,7 @@ export const writeFooter = (
 	rowNumber += 1;
 
 	reportTextFile.write({
-		text: `Validity: ${posAccreditationDate}`,
+		text: `Date Issued: ${posAccreditationDate}`,
 		alignment: ReportTextFile.ALIGNMENTS.CENTER,
 		rowNumber,
 	});

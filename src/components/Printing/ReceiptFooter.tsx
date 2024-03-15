@@ -30,7 +30,7 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 			<Text style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</Text>
 			<Text>{softwareDeveloperTin}</Text>
 			<Text>Acc No: {posAccreditationNumber}</Text>
-			<Text>Validity: {posAccreditationDate}</Text>
+			<Text>Date Issued: {posAccreditationDate}</Text>
 			<br />
 			<Text>PTU No: {ptuNumber}</Text>
 			<Text>Date Issued: {ptuDate}</Text>

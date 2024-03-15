@@ -59,7 +59,6 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            console.log((0, print_1.printSalesInvoice)(transactionData, siteSettings, true, true));
             return (0, print_1.printSalesInvoice)(transactionData, siteSettings, true, true);
         },
     });

@@ -141,7 +141,7 @@ export const getFooter = (siteSettings: SiteSettings) => {
 			<span style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</span>
 			<span>{softwareDeveloperTin}</span>
 			<span>Acc No: {posAccreditationNumber}</span>
-			<span>Validity: {posAccreditationDate}</span>
+			<span>Date Issued: {posAccreditationDate}</span>
 			<br />
 			<span>PTU No: {ptuNumber}</span>
 			<span>Date Issued: {ptuDate}</span>
