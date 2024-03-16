@@ -6,7 +6,6 @@ import { formatDateTime } from '../../../utils';
 export const birReportStyles = React.createElement('style', {}, [
 	`
     body .bir-reports-pdf {
-      font-family: Tahoma, monospace;
       font-size: 12px;
     }
 
@@ -30,7 +29,7 @@ export const birReportStyles = React.createElement('style', {}, [
       background-color: #ADB9CA;
     }
 
-    table.bir-reports th[rowspan],
+    table.bir-reports th,
     table.bir-reports .nested-row td {
       background-color: #BDD6EE;
     }

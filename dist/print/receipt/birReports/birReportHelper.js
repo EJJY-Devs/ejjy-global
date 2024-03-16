@@ -10,7 +10,6 @@ const utils_1 = require("../../../utils");
 exports.birReportStyles = react_1.default.createElement('style', {}, [
     `
     body .bir-reports-pdf {
-      font-family: Tahoma, monospace;
       font-size: 12px;
     }
 
@@ -34,7 +33,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
       background-color: #ADB9CA;
     }
 
-    table.bir-reports th[rowspan],
+    table.bir-reports th,
     table.bir-reports .nested-row td {
       background-color: #BDD6EE;
     }
