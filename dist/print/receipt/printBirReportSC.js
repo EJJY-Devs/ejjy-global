@@ -25,7 +25,7 @@ const printBirReportSC = (transactions, siteSettings, user, branchMachine) => {
     const styles = react_1.default.createElement('style', {}, [
         `
       body .bir-reports-pdf {
-        font-family: 'Tahoma', monospace;
+        font-family: Tahoma, monospace;
         font-size: 12px;
       }
 

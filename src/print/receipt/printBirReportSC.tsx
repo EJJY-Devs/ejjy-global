@@ -32,7 +32,7 @@ export const printBirReportSC = (
 	const styles = React.createElement('style', {}, [
 		`
       body .bir-reports-pdf {
-        font-family: 'Tahoma', monospace;
+        font-family: Tahoma, monospace;
         font-size: 12px;
       }
 
