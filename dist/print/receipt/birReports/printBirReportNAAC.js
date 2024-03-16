@@ -25,13 +25,13 @@ const printBirReportNAAC = (transactions, siteSettings, user, branchMachine) => 
                 react_1.default.createElement(birReportHelper_1.BirHeader, { branchMachine: branchMachine, siteSettings: siteSettings, user: user, title: "National Athletes and Coaches Sales Book/Report" }),
                 react_1.default.createElement("table", { className: "bir-reports" },
                     react_1.default.createElement("tr", null,
-                        react_1.default.createElement("th", { rowSpan: 2 }, "Date"),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "Name of National Athlete/Coach"),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "PNSTM ID No.."),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "SI / OR Number"),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "Gross Sales/Receipts"),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "Sales Discount (VAT+Disc)"),
-                        react_1.default.createElement("th", { rowSpan: 2 }, "Net Sales")),
+                        react_1.default.createElement("th", null, "Date"),
+                        react_1.default.createElement("th", null, "Name of National Athlete/Coach"),
+                        react_1.default.createElement("th", null, "PNSTM ID No.."),
+                        react_1.default.createElement("th", null, "SI / OR Number"),
+                        react_1.default.createElement("th", null, "Gross Sales/Receipts"),
+                        react_1.default.createElement("th", null, "Sales Discount (VAT+Disc)"),
+                        react_1.default.createElement("th", null, "Net Sales")),
                     rows)))));
 };
 exports.printBirReportNAAC = printBirReportNAAC;

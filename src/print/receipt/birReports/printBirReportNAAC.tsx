@@ -40,13 +40,13 @@ export const printBirReportNAAC = (
 
 					<table className="bir-reports">
 						<tr>
-							<th rowSpan={2}>Date</th>
-							<th rowSpan={2}>Name of National Athlete/Coach</th>
-							<th rowSpan={2}>PNSTM ID No..</th>
-							<th rowSpan={2}>SI / OR Number</th>
-							<th rowSpan={2}>Gross Sales/Receipts</th>
-							<th rowSpan={2}>Sales Discount (VAT+Disc)</th>
-							<th rowSpan={2}>Net Sales</th>
+							<th>Date</th>
+							<th>Name of National Athlete/Coach</th>
+							<th>PNSTM ID No..</th>
+							<th>SI / OR Number</th>
+							<th>Gross Sales/Receipts</th>
+							<th>Sales Discount (VAT+Disc)</th>
+							<th>Net Sales</th>
 						</tr>
 
 						{rows}

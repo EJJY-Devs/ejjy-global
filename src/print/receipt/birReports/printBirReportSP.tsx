@@ -43,16 +43,16 @@ export const printBirReportSP = (
 
 					<table className="bir-reports">
 						<tr>
-							<th rowSpan={2}>Date</th>
-							<th rowSpan={2}>Name of Solo Parent</th>
-							<th rowSpan={2}>SPIC No.</th>
-							<th rowSpan={2}>Name of child</th>
-							<th rowSpan={2}>Birth Date of child</th>
-							<th rowSpan={2}>Age of child</th>
-							<th rowSpan={2}>SI / OR Number</th>
-							<th rowSpan={2}>Gross Sales</th>
-							<th rowSpan={2}>Discount (VAT+Disc)</th>
-							<th rowSpan={2}>Net Sales</th>
+							<th>Date</th>
+							<th>Name of Solo Parent</th>
+							<th>SPIC No.</th>
+							<th>Name of child</th>
+							<th>Birth Date of child</th>
+							<th>Age of child</th>
+							<th>SI / OR Number</th>
+							<th>Gross Sales</th>
+							<th>Discount (VAT+Disc)</th>
+							<th>Net Sales</th>
 						</tr>
 
 						{rows}
