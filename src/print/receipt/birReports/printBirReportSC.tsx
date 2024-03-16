@@ -1,10 +1,9 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
-import { formatDate, formatDateTime, formatInPeso } from '../../../utils';
+import { formatDate, formatInPeso } from '../../../utils';
 import { PESO_SIGN } from '../../helper-receipt';
-import { birReportStyles } from './birReportHelper';
+import { BirHeader, birReportStyles } from './birReportHelper';
 
 export const printBirReportSC = (
 	transactions: Transaction[],
@@ -36,21 +35,12 @@ export const printBirReportSC = (
 
 			<body>
 				<div className="bir-reports-pdf">
-					<div className="details">{siteSettings.proprietor}</div>
-					<div className="details">{siteSettings.address_of_tax_payer}</div>
-					<div className="details">{siteSettings.tin}</div>
-
-					<br />
-
-					<div className="details">V1.0 (Static)</div>
-					<div className="details">{branchMachine?.pos_terminal}</div>
-					<div className="details">{branchMachine?.name}</div>
-					<div className="details">{formatDateTime(dayjs(), false)}</div>
-					<div className="details">{user.employee_id}</div>
-
-					<br />
-
-					<h4 className="title">Senior Citizen Sales Book/Report</h4>
+					<BirHeader
+						branchMachine={branchMachine}
+						siteSettings={siteSettings}
+						user={user}
+						title="Senior Citizen Sales Book/Report"
+					/>
 
 					<table className="bir-reports">
 						<tr>

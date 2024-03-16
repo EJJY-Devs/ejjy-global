@@ -4,7 +4,8 @@ export declare const birReportStyles: React.DetailedReactHTMLElement<{}, HTMLEle
 type BirHeaderProps = {
     branchMachine?: BranchMachine;
     siteSettings: SiteSettings;
+    title: string;
     user: User;
 };
-export declare const BirHeader: ({ branchMachine, siteSettings, user, }: BirHeaderProps) => React.JSX.Element;
+export declare const BirHeader: ({ branchMachine, siteSettings, title, user, }: BirHeaderProps) => React.JSX.Element;
 export {};

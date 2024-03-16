@@ -1,13 +1,9 @@
-import { Descriptions, Typography } from 'antd';
+import { Typography } from 'antd';
 import React from 'react';
 import { EMPTY_CELL } from '../../../globals';
 import { XReadReport } from '../../../types';
 import { formatInPeso } from '../../../utils';
-import {
-	Divider,
-	ReceiptReportSummary,
-	ReceiptUnderlinedValue,
-} from '../../Printing';
+import { Divider, ReceiptReportSummary } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 
 const { Text } = Typography;

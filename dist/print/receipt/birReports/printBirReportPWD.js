@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printBirReportPWD = void 0;
-const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const utils_1 = require("../../../utils");
@@ -27,17 +26,7 @@ const printBirReportPWD = (transactions, siteSettings, user, branchMachine) => {
         react_1.default.createElement("head", null, birReportHelper_1.birReportStyles),
         react_1.default.createElement("body", null,
             react_1.default.createElement("div", { className: "bir-reports-pdf" },
-                react_1.default.createElement("div", { className: "details" }, siteSettings.proprietor),
-                react_1.default.createElement("div", { className: "details" }, siteSettings.address_of_tax_payer),
-                react_1.default.createElement("div", { className: "details" }, siteSettings.tin),
-                react_1.default.createElement("br", null),
-                react_1.default.createElement("div", { className: "details" }, "V1.0 (Static)"),
-                react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.pos_terminal),
-                react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name),
-                react_1.default.createElement("div", { className: "details" }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-                react_1.default.createElement("div", { className: "details" }, user.employee_id),
-                react_1.default.createElement("br", null),
-                react_1.default.createElement("h4", { className: "title" }, "Persons with Disability Sales Book/Report"),
+                react_1.default.createElement(birReportHelper_1.BirHeader, { branchMachine: branchMachine, siteSettings: siteSettings, user: user, title: "Persons with Disability Sales Book/Report" }),
                 react_1.default.createElement("table", { className: "bir-reports" },
                     react_1.default.createElement("tr", null,
                         react_1.default.createElement("th", { rowSpan: 2 }, "Date"),

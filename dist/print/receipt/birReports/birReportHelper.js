@@ -51,7 +51,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     }
   `,
 ]);
-const BirHeader = ({ branchMachine, siteSettings, user, }) => (react_1.default.createElement(react_1.default.Fragment, null,
+const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement(react_1.default.Fragment, null,
     react_1.default.createElement("div", { className: "details" }, siteSettings.proprietor),
     react_1.default.createElement("div", { className: "details" }, siteSettings.address_of_tax_payer),
     react_1.default.createElement("div", { className: "details" }, siteSettings.tin),
@@ -60,5 +60,7 @@ const BirHeader = ({ branchMachine, siteSettings, user, }) => (react_1.default.c
     react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.pos_terminal),
     react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name),
     react_1.default.createElement("div", { className: "details" }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-    react_1.default.createElement("div", { className: "details" }, user.employee_id)));
+    react_1.default.createElement("div", { className: "details" }, user.employee_id),
+    react_1.default.createElement("br", null),
+    react_1.default.createElement("h4", { className: "title" }, title)));
 exports.BirHeader = BirHeader;

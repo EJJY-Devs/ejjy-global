@@ -61,14 +61,11 @@ export const printBirReport = (
 			<body>
 				<div className="bir-reports-pdf">
 					<BirHeader
-						siteSettings={siteSettings}
 						branchMachine={branchMachine}
+						siteSettings={siteSettings}
 						user={user}
+						title="BIR SALES SUMMARY REPORT"
 					/>
-
-					<br />
-
-					<h4 className="title">BIR SALES SUMMARY REPORT</h4>
 
 					<table className="bir-reports">
 						<tr>

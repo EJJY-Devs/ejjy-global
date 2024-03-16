@@ -51,11 +51,13 @@ export const birReportStyles = React.createElement('style', {}, [
 type BirHeaderProps = {
 	branchMachine?: BranchMachine;
 	siteSettings: SiteSettings;
+	title: string;
 	user: User;
 };
 export const BirHeader = ({
 	branchMachine,
 	siteSettings,
+	title,
 	user,
 }: BirHeaderProps) => (
 	<>
@@ -70,5 +72,9 @@ export const BirHeader = ({
 		<div className="details">{branchMachine?.name}</div>
 		<div className="details">{formatDateTime(dayjs(), false)}</div>
 		<div className="details">{user.employee_id}</div>
+
+		<br />
+
+		<h4 className="title">{title}</h4>
 	</>
 );
