@@ -41,7 +41,7 @@ export const birReportStyles = React.createElement('style', {}, [
       text-align: center;
     }
 
-    .title {
+    bir-reports-pdf .title {
       text-align: center;
       font-weight: bold;
     }
