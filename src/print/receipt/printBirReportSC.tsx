@@ -29,8 +29,8 @@ export const printBirReportSC = (
 		</tr>
 	));
 
-	const styles = `
-    <style>
+	const styles = React.createElement('style', {}, [
+		`
       body .bir-reports-pdf {
         font-family: 'Tahoma', monospace;
         font-size: 12px;
@@ -71,7 +71,52 @@ export const printBirReportSC = (
         text-align: center;
         font-weight: bold;
       }
-    </style>`;
+    `,
+	]);
+
+	// const styles = `
+	//   <style>
+	//     body .bir-reports-pdf {
+	//       font-family: 'Tahoma', monospace;
+	//       font-size: 12px;
+	//     }
+
+	//     table.bir-reports,
+	//     div.details,
+	//     .title {
+	//       width: 1780px;
+	//     }
+
+	//     table.bir-reports {
+	//       border-collapse: collapse;
+	//     }
+
+	//     table.bir-reports th,
+	//     table.bir-reports .nested-row td {
+	//       min-width: 60px;
+	//       line-height: 100%;
+	//     }
+
+	//     table.bir-reports th[colspan] {
+	//       background-color: #ADB9CA;
+	//     }
+
+	//     table.bir-reports th[rowspan],
+	//     table.bir-reports .nested-row td {
+	//       background-color: #BDD6EE;
+	//     }
+
+	//     table.bir-reports th,
+	//     table.bir-reports td {
+	//       border: 1px solid black;
+	//       text-align: center;
+	//     }
+
+	//     .title {
+	//       text-align: center;
+	//       font-weight: bold;
+	//     }
+	//   </style>`;
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
@@ -112,7 +157,7 @@ export const printBirReportSC = (
 							<td>5%</td>
 							<td>20%</td>
 						</tr>
-						${birReportsRow}
+						{birReportsRow}
 					</table>
 				</div>
 			</body>

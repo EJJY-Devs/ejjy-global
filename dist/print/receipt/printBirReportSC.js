@@ -22,8 +22,8 @@ const printBirReportSC = (transactions, siteSettings, user, branchMachine) => {
         react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN)),
         react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.overall_discount, helper_receipt_1.PESO_SIGN)),
         react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN)))));
-    const styles = `
-    <style>
+    const styles = react_1.default.createElement('style', {}, [
+        `
       body .bir-reports-pdf {
         font-family: 'Tahoma', monospace;
         font-size: 12px;
@@ -64,7 +64,44 @@ const printBirReportSC = (transactions, siteSettings, user, branchMachine) => {
         text-align: center;
         font-weight: bold;
       }
-    </style>`;
+    `,
+    ]);
+    // const styles = `
+    //   <style>
+    //     body .bir-reports-pdf {
+    //       font-family: 'Tahoma', monospace;
+    //       font-size: 12px;
+    //     }
+    //     table.bir-reports,
+    //     div.details,
+    //     .title {
+    //       width: 1780px;
+    //     }
+    //     table.bir-reports {
+    //       border-collapse: collapse;
+    //     }
+    //     table.bir-reports th,
+    //     table.bir-reports .nested-row td {
+    //       min-width: 60px;
+    //       line-height: 100%;
+    //     }
+    //     table.bir-reports th[colspan] {
+    //       background-color: #ADB9CA;
+    //     }
+    //     table.bir-reports th[rowspan],
+    //     table.bir-reports .nested-row td {
+    //       background-color: #BDD6EE;
+    //     }
+    //     table.bir-reports th,
+    //     table.bir-reports td {
+    //       border: 1px solid black;
+    //       text-align: center;
+    //     }
+    //     .title {
+    //       text-align: center;
+    //       font-weight: bold;
+    //     }
+    //   </style>`;
     return server_1.default.renderToStaticMarkup(react_1.default.createElement("html", { lang: "en" },
         react_1.default.createElement("head", null, styles),
         react_1.default.createElement("body", null,
@@ -95,7 +132,6 @@ const printBirReportSC = (transactions, siteSettings, user, branchMachine) => {
                     react_1.default.createElement("tr", { className: "nested-row", style: { fontWeight: 'bold' } },
                         react_1.default.createElement("td", null, "5%"),
                         react_1.default.createElement("td", null, "20%")),
-                    "$",
                     birReportsRow)))));
 };
 exports.printBirReportSC = printBirReportSC;
