@@ -39,7 +39,7 @@ const Printing_1 = require("../../Printing");
 const ZAccruedContent_1 = require("./ZAccruedContent");
 const ZReadContent_1 = require("./ZReadContent");
 const { Text } = antd_1.Typography;
-const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
+const ViewZReadReportModal = ({ report, siteSettings, user, onClose, }) => {
     var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
@@ -55,15 +55,15 @@ const ViewZReadReportModal = ({ report, siteSettings, onClose, }) => {
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printZReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by, true),
+        print: () => (0, print_1.printZReadReport)(report, siteSettings, user, true),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printZReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by);
+        (0, print_1.printZReadReport)(report, siteSettings, user);
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);
-        (0, print_1.createZReadTxt)(report, siteSettings, report.generated_by);
+        (0, print_1.createZReadTxt)(report, siteSettings, user);
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { className: "ViewReportModal", footer: [

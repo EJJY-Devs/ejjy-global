@@ -1,6 +1,9 @@
-import ReactDOMServer from 'react-dom/server';
 import { message } from 'antd';
 import qz from 'qz-tray';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { ReceiptReportSummaryProps } from '../components';
+import { ItemBlockProps } from '../components/Printing/ItemBlock';
 import { printerStatuses } from '../globals';
 import { BranchMachine, SiteSettings } from '../types';
 import {
@@ -8,7 +11,6 @@ import {
 	formatInPeso,
 	getTaxTypeDescription,
 } from '../utils';
-import React from 'react';
 
 export const PESO_SIGN = 'P';
 export const EMPTY_CELL = '';
@@ -154,6 +156,17 @@ export const getPageStyle = (extraStyle = '') => {
 	return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
 };
 
+export const getPageStyleObject = (
+	extraStyle?: React.CSSProperties,
+): React.CSSProperties => ({
+	width: '100%',
+	fontSize: `${printerFontSize}pt`,
+	fontFamily: printerFontFamily,
+	lineHeight: '100%',
+	position: 'relative',
+	...extraStyle,
+});
+
 export const appendHtmlElement = (data: string) => `
   <html lang="en">
   <head>
@@ -289,3 +302,53 @@ export const addUnderline = (value: string | number) =>
 	Number(value) > 0
 		? '<div style="width: 100%; text-align: right">-----------</div>'
 		: '';
+
+export const ItemBlock = ({ items }: ItemBlockProps) => (
+	<table style={{ width: '100%' }}>
+		{items.map((item) => (
+			<tr>
+				<td style={{ paddingLeft: item.isIndented ? 15 : 0 }}>GROSS SALES</td>
+				<td style={{ textAlign: 'right' }}>
+					{item.isParenthesized ? '(' : ' '}
+					{item.isUnderlined ? (
+						<>
+							<div style={{ display: 'inline-block' }}>
+								{formatInPeso(item.value as number, PESO_SIGN)}
+							</div>
+							{Number(item.value) > 0 && (
+								<div style={{ width: '100%', textAlign: 'right' }}>
+									-----------
+								</div>
+							)}
+						</>
+					) : (
+						item.value
+					)}
+					{item.isParenthesized ? ')' : ' '}
+				</td>
+			</tr>
+		))}
+	</table>
+);
+
+export const Divider = () => (
+	<div
+		style={{
+			width: '100%',
+			marginLeft: 'auto',
+			marginRight: 'auto',
+			borderBottom: '1px solid black',
+		}}
+	></div>
+);
+
+export const ReceiptReportSummary = ({ items }: ReceiptReportSummaryProps) => (
+	<table style={{ marginLeft: 15 }}>
+		{items.map((d) => (
+			<tr key={d.value}>
+				<td style={{ width: 120 }}>{d.label}:</td>
+				<td style={{ textAlign: 'right' }}>{d.value}</td>
+			</tr>
+		))}
+	</table>
+);

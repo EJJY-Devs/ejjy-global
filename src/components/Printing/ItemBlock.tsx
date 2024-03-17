@@ -2,7 +2,7 @@ import { Descriptions } from 'antd';
 import React from 'react';
 import { ReceiptUnderlinedValue } from './ReceiptUnderlinedValue';
 
-type Items = {
+export type ItemBlockItems = {
 	label: string;
 	value: string | number | React.ReactElement;
 	labelStyle?: React.CSSProperties;
@@ -12,8 +12,8 @@ type Items = {
 	isParenthesized?: boolean;
 };
 
-type ItemBlockProps = {
-	items: Items[];
+export type ItemBlockProps = {
+	items: ItemBlockItems[];
 };
 
 export const ItemBlock = ({ items }: ItemBlockProps) => (

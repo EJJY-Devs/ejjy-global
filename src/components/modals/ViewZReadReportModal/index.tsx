@@ -5,7 +5,7 @@ import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createZReadTxt, printZReadReport } from '../../../print';
-import { SiteSettings, ZReadReport } from '../../../types';
+import { SiteSettings, User, ZReadReport } from '../../../types';
 import { formatDateTime } from '../../../utils';
 import {
 	Divider,
@@ -21,12 +21,14 @@ const { Text } = Typography;
 interface Props {
 	report: ZReadReport;
 	siteSettings: SiteSettings;
+	user: User;
 	onClose: () => void;
 }
 
 export const ViewZReadReportModal = ({
 	report,
 	siteSettings,
+	user,
 	onClose,
 }: Props) => {
 	// STATES
@@ -45,18 +47,17 @@ export const ViewZReadReportModal = ({
 						h: 600,
 				  }
 				: undefined,
-		print: () =>
-			printZReadReport(report, siteSettings, report?.generated_by, true),
+		print: () => printZReadReport(report, siteSettings, user, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printZReadReport(report, siteSettings, report?.generated_by);
+		printZReadReport(report, siteSettings, user);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createZReadTxt(report, siteSettings, report.generated_by);
+		createZReadTxt(report, siteSettings, user);
 		setIsCreatingTxt(false);
 	};
 

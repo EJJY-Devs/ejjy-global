@@ -39,7 +39,7 @@ const Printing_1 = require("../../Printing");
 const XAccruedContent_1 = require("./XAccruedContent");
 const XReadContent_1 = require("./XReadContent");
 const { Text } = antd_1.Typography;
-const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
+const ViewXReadReportModal = ({ report, siteSettings, user, onClose, }) => {
     var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
@@ -55,15 +55,15 @@ const ViewXReadReportModal = ({ report, siteSettings, onClose, }) => {
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printXReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by, true),
+        print: () => (0, print_1.printXReadReport)(report, siteSettings, user, true),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printXReadReport)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by);
+        (0, print_1.printXReadReport)(report, siteSettings, user);
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);
-        (0, print_1.createXReadTxt)(report, siteSettings, report === null || report === void 0 ? void 0 : report.generated_by);
+        (0, print_1.createXReadTxt)(report, siteSettings, user);
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { className: "ViewReportModal", footer: [

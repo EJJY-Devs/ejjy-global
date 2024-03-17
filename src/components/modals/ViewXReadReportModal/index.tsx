@@ -5,7 +5,7 @@ import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createXReadTxt, printXReadReport } from '../../../print';
-import { SiteSettings, XReadReport } from '../../../types';
+import { SiteSettings, User, XReadReport } from '../../../types';
 import { formatDateTime } from '../../../utils';
 import {
 	Divider,
@@ -19,6 +19,7 @@ import { XReadContent } from './XReadContent';
 interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
+	user: User;
 	onClose: () => void;
 }
 
@@ -27,6 +28,7 @@ const { Text } = Typography;
 export const ViewXReadReportModal = ({
 	report,
 	siteSettings,
+	user,
 	onClose,
 }: Props) => {
 	// STATES
@@ -45,18 +47,17 @@ export const ViewXReadReportModal = ({
 						h: 600,
 				  }
 				: undefined,
-		print: () =>
-			printXReadReport(report, siteSettings, report?.generated_by, true),
+		print: () => printXReadReport(report, siteSettings, user, true),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printXReadReport(report, siteSettings, report?.generated_by);
+		printXReadReport(report, siteSettings, user);
 	};
 
 	const handleCreateTxt = () => {
 		setIsCreatingTxt(true);
-		createXReadTxt(report, siteSettings, report?.generated_by);
+		createXReadTxt(report, siteSettings, user);
 		setIsCreatingTxt(false);
 	};
 

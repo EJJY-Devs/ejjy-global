@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface Props {
+type Props = {
 	items: Record<'label' | 'value', string | number>[];
-}
+};
 
 export const ReceiptReportSummary = ({ items }: Props) => (
 	<table className="ml-12">
@@ -14,3 +14,5 @@ export const ReceiptReportSummary = ({ items }: Props) => (
 		))}
 	</table>
 );
+
+export { Props as ReceiptReportSummaryProps };

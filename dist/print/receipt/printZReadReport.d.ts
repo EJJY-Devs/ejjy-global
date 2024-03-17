@@ -1,2 +1,2 @@
-import { GeneratedByUser, SiteSettings, ZReadReport } from '../../types';
-export declare const printZReadReport: (report: ZReadReport, siteSettings: SiteSettings, user: GeneratedByUser, isPdf?: boolean) => string | undefined;
+import { SiteSettings, User, ZReadReport } from '../../types';
+export declare const printZReadReport: (report: ZReadReport, siteSettings: SiteSettings, user: User, isPdf?: boolean) => string | undefined;
