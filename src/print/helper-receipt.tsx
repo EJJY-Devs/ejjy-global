@@ -61,11 +61,12 @@ export const configurePrinter = (
 	}
 };
 
-export const getHeader = (
-	siteSettings: SiteSettings,
-	branchMachine?: BranchMachine,
-	title?: string,
-) => {
+type HeaderProps = {
+	siteSettings: SiteSettings;
+	branchMachine?: BranchMachine;
+	title?: string;
+};
+export const Header = ({ siteSettings, branchMachine, title }: HeaderProps) => {
 	const {
 		contact_number: contactNumber,
 		address_of_tax_payer: location,
@@ -79,9 +80,20 @@ export const getHeader = (
 		machine_identification_number: machineID,
 		pos_terminal: posTerminal,
 	} = branchMachine || {};
-	ReactDOMServer;
 
-	const elements = ReactDOMServer.renderToStaticMarkup(
+	React.createElement('style', {}, [
+		`
+    table {
+      font-size: inherit;
+    }
+
+    td {
+      padding: 0;
+    }
+    `,
+	]);
+
+	return (
 		<div
 			style={{
 				textAlign: 'center',
@@ -102,25 +114,28 @@ export const getHeader = (
 			<span>SN: {posTerminal}</span>
 			{title ? <br /> : ''}
 			{title}
-		</div>,
+		</div>
 	);
-
-	return `
-    <style>
-      table {
-        font-size: inherit;
-      }
-
-      td {
-        padding: 0;
-      }
-    </style>
-
-		${elements}
-  `;
 };
 
-export const getFooter = (siteSettings: SiteSettings) => {
+export const getHeader = (
+	siteSettings: SiteSettings,
+	branchMachine?: BranchMachine,
+	title?: string,
+) =>
+	ReactDOMServer.renderToStaticMarkup(
+		<Header
+			siteSettings={siteSettings}
+			branchMachine={branchMachine}
+			title={title}
+		/>,
+	);
+
+type FooterProps = {
+	siteSettings: SiteSettings;
+};
+
+export const Footer = ({ siteSettings }: FooterProps) => {
 	const {
 		software_developer: softwareDeveloper,
 		software_developer_address: softwareDeveloperAddress,
@@ -131,7 +146,7 @@ export const getFooter = (siteSettings: SiteSettings) => {
 		ptu_date: ptuDate,
 	} = siteSettings;
 
-	return ReactDOMServer.renderToStaticMarkup(
+	return (
 		<div
 			style={{
 				textAlign: 'center',
@@ -148,9 +163,12 @@ export const getFooter = (siteSettings: SiteSettings) => {
 			<span>PTU No: {ptuNumber}</span>
 			<span>Date Issued: {ptuDate}</span>
 			<br />
-		</div>,
+		</div>
 	);
 };
+
+export const getFooter = (siteSettings: SiteSettings) =>
+	ReactDOMServer.renderToStaticMarkup(<Footer siteSettings={siteSettings} />);
 
 export const getPageStyle = (extraStyle = '') => {
 	return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
@@ -307,8 +325,12 @@ export const ItemBlock = ({ items }: ItemBlockProps) => (
 	<table style={{ width: '100%' }}>
 		{items.map((item) => (
 			<tr>
-				<td style={{ paddingLeft: item.isIndented ? 15 : 0 }}>GROSS SALES</td>
-				<td style={{ textAlign: 'right' }}>
+				<td
+					style={{ paddingLeft: item.isIndented ? 15 : 0, ...item.labelStyle }}
+				>
+					{item.label}
+				</td>
+				<td style={{ textAlign: 'right', ...item.contentStyle }}>
 					{item.isParenthesized ? '(' : ' '}
 					{item.isUnderlined ? (
 						<>
@@ -337,7 +359,7 @@ export const Divider = () => (
 			width: '100%',
 			marginLeft: 'auto',
 			marginRight: 'auto',
-			borderBottom: '1px solid black',
+			borderBottom: '1px dashed black',
 		}}
 	></div>
 );

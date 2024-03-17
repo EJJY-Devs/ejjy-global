@@ -12,7 +12,7 @@ const printZReadReport = (report, siteSettings, user, isPdf = false) => {
     var _a, _b;
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-            (0, helper_receipt_1.getHeader)(siteSettings, report.branch_machine),
+            react_1.default.createElement(helper_receipt_1.Header, { siteSettings: siteSettings, branchMachine: report.branch_machine }),
             (report === null || report === void 0 ? void 0 : report.gross_sales) === 0 && (react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement("br", null),
                 react_1.default.createElement("div", { style: { textAlign: 'center' } }, "NO TRANSACTION"))),
@@ -42,7 +42,7 @@ const printZReadReport = (report, siteSettings, user, isPdf = false) => {
                         ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) ||
                         helper_receipt_1.EMPTY_CELL)),
             react_1.default.createElement("br", null),
-            (0, helper_receipt_1.getFooter)(siteSettings))));
+            react_1.default.createElement(helper_receipt_1.Footer, { siteSettings: siteSettings }))));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
@@ -119,27 +119,27 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Present Accum. Sales',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Previous Accum. Sales',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Sales for the Day',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
-                    value: (0, utils_1.formatInPeso)(report.cash_sales),
+                    value: (0, utils_1.formatInPeso)(report.cash_sales, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                 },
                 {
                     label: 'Credit Sales',
-                    value: (0, utils_1.formatInPeso)(report.credit_pay),
+                    value: (0, utils_1.formatInPeso)(report.credit_pay, helper_receipt_1.PESO_SIGN),
                     isUnderlined: true,
                     isIndented: true,
                 },
@@ -149,43 +149,43 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VATable Sales',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Amount',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Exempt Sales',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Zero Rated Sales',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Gross Sales',
-                    value: (0, utils_1.formatInPeso)(report.gross_sales),
+                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Deduction',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'VAT Amount (12%)',
-                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted),
+                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isUnderlined: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'NET SALES',
-                    value: (0, utils_1.formatInPeso)(report.net_sales),
+                    value: (0, utils_1.formatInPeso)(report.net_sales, helper_receipt_1.PESO_SIGN),
                     contentStyle: { fontWeight: 'bold' },
                     labelStyle: { fontWeight: 'bold' },
                 },
@@ -195,35 +195,35 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. NAAC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Solo Parent',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Return',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Void',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -231,27 +231,27 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT on Returns',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -259,17 +259,17 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VAT Amount (12%)',
-                    value: (0, utils_1.formatInPeso)(report.vat_amount),
+                    value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Adj.',
-                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted),
+                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                     isUnderlined: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(report.vat_payable),
+                    value: (0, utils_1.formatInPeso)(report.vat_payable, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -277,35 +277,35 @@ const ZReadContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash in Drawer',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Check',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Credit Card',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Opening fund',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Withdrawal',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'Payment Received',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'Short / Over',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] })));
 };
@@ -328,9 +328,12 @@ const ZAccruedContent = ({ report }) => {
             ] }),
         react_1.default.createElement("div", null, "SALES"),
         react_1.default.createElement(helper_receipt_1.ReceiptReportSummary, { items: [
-                { label: 'Beg', value: (0, utils_1.formatInPeso)(report.beginning_sales) },
-                { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales) },
-                { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales) },
+                {
+                    label: 'Beg',
+                    value: (0, utils_1.formatInPeso)(report.beginning_sales, helper_receipt_1.PESO_SIGN),
+                },
+                { label: 'Cur', value: (0, utils_1.formatInPeso)(report.current_sales, helper_receipt_1.PESO_SIGN) },
+                { label: 'End', value: (0, utils_1.formatInPeso)(report.ending_sales, helper_receipt_1.PESO_SIGN) },
             ] }),
         react_1.default.createElement("div", null, "TRANSACTION COUNT"),
         react_1.default.createElement(helper_receipt_1.ReceiptReportSummary, { items: [
@@ -353,16 +356,16 @@ const ZAccruedContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
-                    value: (0, utils_1.formatInPeso)(report.cash_sales),
+                    value: (0, utils_1.formatInPeso)(report.cash_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Credit Sales',
-                    value: (0, utils_1.formatInPeso)(report.credit_pay),
+                    value: (0, utils_1.formatInPeso)(report.credit_pay, helper_receipt_1.PESO_SIGN),
                     isUnderlined: true,
                 },
                 {
                     label: 'Sales for the Day',
-                    value: (0, utils_1.formatInPeso)(report.gross_sales),
+                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -370,43 +373,43 @@ const ZAccruedContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt',
-                    value: (0, utils_1.formatInPeso)(report.vat_exempt),
+                    value: (0, utils_1.formatInPeso)(report.vat_exempt, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VATable Sales',
-                    value: (0, utils_1.formatInPeso)(report.vat_sales),
+                    value: (0, utils_1.formatInPeso)(report.vat_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Amount (12%)',
-                    value: (0, utils_1.formatInPeso)(report.vat_amount),
+                    value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'ZERO Rated',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Gross Sales',
-                    value: (0, utils_1.formatInPeso)(report.gross_sales),
+                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Deduction',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'VAT Amount (12%)',
-                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted),
+                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                     isIndented: true,
                     isUnderlined: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'NET SALES',
-                    value: (0, utils_1.formatInPeso)(report.net_sales),
+                    value: (0, utils_1.formatInPeso)(report.net_sales, helper_receipt_1.PESO_SIGN),
                     contentStyle: { fontWeight: 'bold' },
                     labelStyle: { fontWeight: 'bold' },
                 },
@@ -416,35 +419,35 @@ const ZAccruedContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. NAAC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Solo Parent',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Return',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Void',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -452,27 +455,27 @@ const ZAccruedContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT on Returns',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Others',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(0),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
@@ -480,17 +483,17 @@ const ZAccruedContent = ({ report }) => {
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VAT Amount (12%)',
-                    value: (0, utils_1.formatInPeso)(report.vat_amount),
+                    value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Adj.',
-                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted),
+                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                     isUnderlined: true,
                     isParenthesized: true,
                 },
                 {
                     label: 'TOTAL',
-                    value: (0, utils_1.formatInPeso)(report.vat_payable),
+                    value: (0, utils_1.formatInPeso)(report.vat_payable, helper_receipt_1.PESO_SIGN),
                 },
             ] })));
 };

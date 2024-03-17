@@ -11,11 +11,12 @@ import {
 import {
 	Divider,
 	EMPTY_CELL,
+	Footer,
+	Header,
 	ItemBlock,
+	PESO_SIGN,
 	ReceiptReportSummary,
 	appendHtmlElement,
-	getFooter,
-	getHeader,
 	getPageStyleObject,
 	print,
 } from '../helper-receipt';
@@ -29,7 +30,10 @@ export const printXReadReport = (
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<>
 			<div className="container" style={getPageStyleObject()}>
-				{getHeader(siteSettings, report.branch_machine)}
+				<Header
+					siteSettings={siteSettings}
+					branchMachine={report.branch_machine}
+				/>
 
 				{report?.gross_sales === 0 && (
 					<>
@@ -75,7 +79,7 @@ export const printXReadReport = (
 
 				<br />
 
-				{getFooter(siteSettings)}
+				<Footer siteSettings={siteSettings} />
 			</div>
 		</>,
 	);
@@ -147,7 +151,7 @@ const XReadContent = ({ report }: Props) => {
 						},
 						{
 							label: 'Opening Fund',
-							value: formatInPeso(report.beginning_sales),
+							value: formatInPeso(report.beginning_sales, PESO_SIGN),
 						},
 					]}
 				/>
@@ -159,11 +163,11 @@ const XReadContent = ({ report }: Props) => {
 				items={[
 					{
 						label: 'Cash Sales',
-						value: formatInPeso(report.cash_sales),
+						value: formatInPeso(report.cash_sales, PESO_SIGN),
 					},
 					{
 						label: 'Credit Sales',
-						value: formatInPeso(report.credit_pay),
+						value: formatInPeso(report.credit_pay, PESO_SIGN),
 						isUnderlined: true,
 					},
 				]}
@@ -175,19 +179,19 @@ const XReadContent = ({ report }: Props) => {
 				items={[
 					{
 						label: 'Cash',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Check',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Credit Card',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Total Payments',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 				]}
 			/>
@@ -198,15 +202,15 @@ const XReadContent = ({ report }: Props) => {
 				items={[
 					{
 						label: 'Void',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Refund',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Withdrawals',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 				]}
 			/>
@@ -217,35 +221,35 @@ const XReadContent = ({ report }: Props) => {
 				items={[
 					{
 						label: 'Cash in Drawer',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Check',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Credit Card',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Opening fund',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'Withdrawal',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 						isIndented: true,
 						isParenthesized: true,
 					},
 					{
 						label: 'Payment Received',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 						isIndented: true,
 						isParenthesized: true,
 					},
 					{
 						label: 'Short / Over',
-						value: formatInPeso(0),
+						value: formatInPeso(0, PESO_SIGN),
 					},
 				]}
 			/>
@@ -277,9 +281,12 @@ const XAccruedContent = ({ report }: Props) => (
 		<div>SALES</div>
 		<ReceiptReportSummary
 			items={[
-				{ label: 'Beg', value: formatInPeso(report.beginning_sales) },
-				{ label: 'Cur', value: formatInPeso(report.gross_sales) },
-				{ label: 'End', value: formatInPeso(report.ending_sales) },
+				{
+					label: 'Beg',
+					value: formatInPeso(report.beginning_sales, PESO_SIGN),
+				},
+				{ label: 'Cur', value: formatInPeso(report.gross_sales, PESO_SIGN) },
+				{ label: 'End', value: formatInPeso(report.ending_sales, PESO_SIGN) },
 			]}
 		/>
 
@@ -298,16 +305,16 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'Cash Sales',
-					value: formatInPeso(report.cash_sales),
+					value: formatInPeso(report.cash_sales, PESO_SIGN),
 				},
 				{
 					label: 'Credit Sales',
-					value: formatInPeso(report.credit_pay),
+					value: formatInPeso(report.credit_pay, PESO_SIGN),
 					isUnderlined: true,
 				},
 				{
 					label: 'Gross Sales',
-					value: formatInPeso(report.gross_sales),
+					value: formatInPeso(report.gross_sales, PESO_SIGN),
 				},
 			]}
 		/>
@@ -318,19 +325,19 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'VAT Exempt',
-					value: formatInPeso(report.vat_exempt),
+					value: formatInPeso(report.vat_exempt, PESO_SIGN),
 				},
 				{
 					label: 'VATable Sales',
-					value: formatInPeso(report.vat_sales),
+					value: formatInPeso(report.vat_sales, PESO_SIGN),
 				},
 				{
 					label: 'VAT Amount (12%)',
-					value: formatInPeso(report.vat_amount),
+					value: formatInPeso(report.vat_amount, PESO_SIGN),
 				},
 				{
 					label: 'ZERO Rated',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 			]}
 		/>
@@ -341,24 +348,24 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'Gross Sales',
-					value: formatInPeso(report.gross_sales),
+					value: formatInPeso(report.gross_sales, PESO_SIGN),
 				},
 				{
 					label: 'Deduction',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 					isIndented: true,
 					isParenthesized: true,
 				},
 				{
 					label: 'VAT Amount (12%)',
-					value: formatInPeso(report.total_vat_adjusted),
+					value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
 					isIndented: true,
 					isUnderlined: true,
 					isParenthesized: true,
 				},
 				{
 					label: 'NET SALES',
-					value: formatInPeso(report.net_sales),
+					value: formatInPeso(report.net_sales, PESO_SIGN),
 					contentStyle: { fontWeight: 'bold' },
 					labelStyle: { fontWeight: 'bold' },
 				},
@@ -371,35 +378,35 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'Disc. SC',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. PWD',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. NAAC',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. Solo Parent',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. Others',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Return',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Void',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'TOTAL',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 			]}
 		/>
@@ -410,27 +417,27 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'Disc. SC',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. PWD',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Disc. Others',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'VAT on Returns',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'Others',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 				{
 					label: 'TOTAL',
-					value: formatInPeso(0),
+					value: formatInPeso(0, PESO_SIGN),
 				},
 			]}
 		/>
@@ -441,17 +448,17 @@ const XAccruedContent = ({ report }: Props) => (
 			items={[
 				{
 					label: 'VAT Amount (12%)',
-					value: formatInPeso(report.vat_amount),
+					value: formatInPeso(report.vat_amount, PESO_SIGN),
 				},
 				{
 					label: 'VAT Adj.',
-					value: formatInPeso(report.total_vat_adjusted),
+					value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
 					isUnderlined: true,
 					isParenthesized: true,
 				},
 				{
 					label: 'TOTAL',
-					value: formatInPeso(report.vat_payable),
+					value: formatInPeso(report.vat_payable, PESO_SIGN),
 				},
 			]}
 		/>
