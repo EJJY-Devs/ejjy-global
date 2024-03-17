@@ -357,8 +357,8 @@ export const Divider = () => (
 	<div
 		style={{
 			width: '100%',
-			marginLeft: 'auto',
-			marginRight: 'auto',
+			padding: '4px 0',
+			margin: '0 auto',
 			borderBottom: '1px dashed black',
 		}}
 	></div>

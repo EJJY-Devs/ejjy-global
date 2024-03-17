@@ -219,7 +219,7 @@ const XAccruedContent = ({ report }) => {
                 { label: 'End', value: report.ending_transactions_count },
             ] }),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", null, "CURRENT SALES BREAKDOWN"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "CURRENT SALES BREAKDOWN"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
@@ -236,7 +236,7 @@ const XAccruedContent = ({ report }) => {
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
-        react_1.default.createElement("div", null, "Breakdown of Sales"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Breakdown of Sales"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt',
@@ -282,7 +282,7 @@ const XAccruedContent = ({ report }) => {
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
-        react_1.default.createElement("div", null, "Deductions"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Deductions"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
@@ -318,7 +318,7 @@ const XAccruedContent = ({ report }) => {
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
-        react_1.default.createElement("div", null, "VAT Adjustment"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Adjustment"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Disc. SC',
@@ -346,7 +346,7 @@ const XAccruedContent = ({ report }) => {
                 },
             ] }),
         react_1.default.createElement(helper_receipt_1.Divider, null),
-        react_1.default.createElement("div", null, "VAT Payable"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Payable"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'VAT Amount (12%)',

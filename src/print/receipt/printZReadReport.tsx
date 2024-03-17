@@ -210,7 +210,7 @@ const ZReadContent = ({ report }: Props) => (
 
 		<Divider />
 
-		<div>Breakdown of Sales</div>
+		<div style={{ textAlign: 'center' }}>Breakdown of Sales</div>
 		<ItemBlock
 			items={[
 				{
@@ -262,7 +262,7 @@ const ZReadContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Deductions</div>
+		<div style={{ textAlign: 'center' }}>Deductions</div>
 		<ItemBlock
 			items={[
 				{
@@ -301,7 +301,7 @@ const ZReadContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Adjustment</div>
+		<div style={{ textAlign: 'center' }}>VAT Adjustment</div>
 		<ItemBlock
 			items={[
 				{
@@ -332,7 +332,7 @@ const ZReadContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Payable</div>
+		<div style={{ textAlign: 'center' }}>VAT Payable</div>
 		<ItemBlock
 			items={[
 				{
@@ -353,7 +353,7 @@ const ZReadContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Transaction Summary</div>
+		<div style={{ textAlign: 'center' }}>Transaction Summary</div>
 		<ItemBlock
 			items={[
 				{
@@ -450,7 +450,7 @@ const ZAccruedContent = ({ report }: Props) => (
 
 		<br />
 
-		<div>ACCUMULATED SALES BREAKDOWN</div>
+		<div style={{ textAlign: 'center' }}>ACCUMULATED SALES BREAKDOWN</div>
 		<ItemBlock
 			items={[
 				{
@@ -470,7 +470,7 @@ const ZAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Breakdown of Sales</div>
+		<div style={{ textAlign: 'center' }}>Breakdown of Sales</div>
 		<ItemBlock
 			items={[
 				{
@@ -523,7 +523,7 @@ const ZAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Deductions</div>
+		<div style={{ textAlign: 'center' }}>Deductions</div>
 		<ItemBlock
 			items={[
 				{
@@ -562,7 +562,7 @@ const ZAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Adjustment</div>
+		<div style={{ textAlign: 'center' }}>VAT Adjustment</div>
 		<ItemBlock
 			items={[
 				{
@@ -593,7 +593,7 @@ const ZAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Payable</div>
+		<div style={{ textAlign: 'center' }}>VAT Payable</div>
 		<ItemBlock
 			items={[
 				{

@@ -300,7 +300,7 @@ const XAccruedContent = ({ report }: Props) => (
 		/>
 
 		<br />
-		<div>CURRENT SALES BREAKDOWN</div>
+		<div style={{ textAlign: 'center' }}>CURRENT SALES BREAKDOWN</div>
 		<ItemBlock
 			items={[
 				{
@@ -320,7 +320,7 @@ const XAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Breakdown of Sales</div>
+		<div style={{ textAlign: 'center' }}>Breakdown of Sales</div>
 		<ItemBlock
 			items={[
 				{
@@ -373,7 +373,7 @@ const XAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>Deductions</div>
+		<div style={{ textAlign: 'center' }}>Deductions</div>
 		<ItemBlock
 			items={[
 				{
@@ -412,7 +412,7 @@ const XAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Adjustment</div>
+		<div style={{ textAlign: 'center' }}>VAT Adjustment</div>
 		<ItemBlock
 			items={[
 				{
@@ -443,7 +443,7 @@ const XAccruedContent = ({ report }: Props) => (
 		/>
 		<Divider />
 
-		<div>VAT Payable</div>
+		<div style={{ textAlign: 'center' }}>VAT Payable</div>
 		<ItemBlock
 			items={[
 				{
