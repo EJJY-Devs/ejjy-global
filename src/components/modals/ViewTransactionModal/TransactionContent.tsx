@@ -139,14 +139,14 @@ export const TransactionContent = ({
 						<tr>
 							<td>GROSS AMOUNT</td>
 							<td style={{ textAlign: 'right' }}>
-								${formatInPeso(transaction.gross_amount, PESO_SIGN)}&nbsp;
+								{formatInPeso(transaction.gross_amount, PESO_SIGN)}&nbsp;
 							</td>
 						</tr>
 
 						<tr>
-							<td>DISCOUNT | ${transaction.discount_option.code}</td>
+							<td>DISCOUNT | {transaction.discount_option.code}</td>
 							<td style={{ textAlign: 'right' }}>
-								(${formatInPeso(getComputedDiscount(transaction), PESO_SIGN)})
+								({formatInPeso(getComputedDiscount(transaction), PESO_SIGN)})
 							</td>
 						</tr>
 
@@ -170,7 +170,7 @@ export const TransactionContent = ({
 				<tr>
 					<td>TOTAL AMOUNT</td>
 					<td style={{ textAlign: 'right', fontWeight: 'bold' }}>
-						${formatInPeso(transaction.total_amount, PESO_SIGN)}&nbsp;
+						{formatInPeso(transaction.total_amount, PESO_SIGN)}&nbsp;
 					</td>
 				</tr>
 			</table>
@@ -183,20 +183,20 @@ export const TransactionContent = ({
 						<tr>
 							<td style={{ paddingLeft: '4ch' }}>AMOUNT RECEIVED</td>
 							<td style={{ textAlign: 'right' }}>
-								${formatInPeso(transaction.payment.amount_tendered, PESO_SIGN)}
+								{formatInPeso(transaction.payment.amount_tendered, PESO_SIGN)}
 								&nbsp;
 							</td>
 						</tr>
 						<tr>
 							<td style={{ paddingLeft: '4ch' }}>AMOUNT DUE</td>
 							<td style={{ textAlign: 'right' }}>
-								${formatInPeso(transaction.total_amount, PESO_SIGN)}&nbsp;
+								{formatInPeso(transaction.total_amount, PESO_SIGN)}&nbsp;
 							</td>
 						</tr>
 						<tr>
 							<td style={{ paddingLeft: '4ch' }}>CHANGE</td>
 							<td style={{ textAlign: 'right', fontWeight: 'bold' }}>
-								${formatInPeso(change, PESO_SIGN)}&nbsp;
+								{formatInPeso(change, PESO_SIGN)}&nbsp;
 							</td>
 						</tr>
 					</table>
@@ -208,19 +208,19 @@ export const TransactionContent = ({
 				<tr>
 					<td>VAT Exempt</td>
 					<td style={{ textAlign: 'right' }}>
-						${formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}&nbsp;
+						{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}&nbsp;
 					</td>
 				</tr>
 				<tr>
 					<td>VATable Sales</td>
 					<td style={{ textAlign: 'right' }}>
-						${formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}&nbsp;
+						{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}&nbsp;
 					</td>
 				</tr>
 				<tr>
 					<td>VAT Amount (12%)</td>
 					<td style={{ textAlign: 'right' }}>
-						${formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}&nbsp;
+						{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}&nbsp;
 					</td>
 				</tr>
 				<tr>
@@ -250,10 +250,10 @@ export const TransactionContent = ({
 			<br />
 
 			{previousTransactionOrNumber && (
-				<div>Prev Invoice #: ${previousTransactionOrNumber}</div>
+				<div>Prev Invoice #: {previousTransactionOrNumber}</div>
 			)}
 			{newTransactionOrNumber && (
-				<div>New Invoice #: ${newTransactionOrNumber}</div>
+				<div>New Invoice #: {newTransactionOrNumber}</div>
 			)}
 
 			<table style={{ width: '100%', paddingLeft: '4ch' }}>
