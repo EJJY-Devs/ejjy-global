@@ -1,9 +1,6 @@
-import { Space, Typography } from 'antd';
 import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
-
-const { Text } = Typography;
 
 interface Props {
 	branchMachine: BranchMachine;
@@ -32,28 +29,25 @@ export const ReceiptHeader = ({
 	} = branchMachine;
 
 	return (
-		<Space
-			align="center"
-			className="w-full text-center"
-			direction="vertical"
-			size={0}
+		<div
+			style={{
+				textAlign: 'center',
+				display: 'flex',
+				flexDirection: 'column',
+			}}
 		>
-			<Text style={{ whiteSpace: 'pre-line' }}>{storeName}</Text>
-			<Text style={{ whiteSpace: 'pre-line' }}>{location}</Text>
-			<Text>{[contactNumber, name].filter(Boolean).join(' | ')}</Text>
-			<Text>{proprietor}</Text>
-			<Text>
+			<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
+			<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
+			<span>{[contactNumber, name].filter(Boolean).join(' | ')}</span>
+			<span>{proprietor}</span>
+			<span>
 				{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
-			</Text>
-			<Text>MIN: {machineID}</Text>
-			<Text>SN: {posTerminal}</Text>
+			</span>
+			<span>MIN: {machineID}</span>
+			<span>SN: {posTerminal}</span>
 
-			{title && (
-				<>
-					<br />
-					<Text>[{title}]</Text>
-				</>
-			)}
-		</Space>
+			{title ? <br /> : ''}
+			{title}
+		</div>
 	);
 };

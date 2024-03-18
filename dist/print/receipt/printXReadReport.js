@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printXReadReport = void 0;
+const components_1 = require("components");
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const utils_1 = require("../../utils");
@@ -12,7 +13,7 @@ const printXReadReport = (report, siteSettings, user, isPdf = false) => {
     var _a, _b;
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-            react_1.default.createElement(helper_receipt_1.Header, { siteSettings: siteSettings, branchMachine: report.branch_machine }),
+            react_1.default.createElement(components_1.ReceiptHeader, { siteSettings: siteSettings, branchMachine: report.branch_machine }),
             (report === null || report === void 0 ? void 0 : report.gross_sales) === 0 && (react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement("br", null),
                 react_1.default.createElement("div", { style: { textAlign: 'center' } }, "NO TRANSACTION"))),

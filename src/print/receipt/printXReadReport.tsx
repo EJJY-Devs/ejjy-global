@@ -1,3 +1,4 @@
+import { ReceiptHeader } from 'components';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { SiteSettings, User, XReadReport } from '../../types';
@@ -12,7 +13,6 @@ import {
 	Divider,
 	EMPTY_CELL,
 	Footer,
-	Header,
 	ItemBlock,
 	PESO_SIGN,
 	ReceiptReportSummary,
@@ -30,7 +30,7 @@ export const printXReadReport = (
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<>
 			<div className="container" style={getPageStyleObject()}>
-				<Header
+				<ReceiptHeader
 					siteSettings={siteSettings}
 					branchMachine={report.branch_machine}
 				/>
