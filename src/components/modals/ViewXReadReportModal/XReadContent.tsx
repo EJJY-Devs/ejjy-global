@@ -11,7 +11,7 @@ interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
 	user: User;
-	isForPrint: boolean;
+	isForPrint?: boolean;
 }
 
 export const XReadContent = ({

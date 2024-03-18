@@ -2,25 +2,17 @@ import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Modal, Typography } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
-import { EMPTY_CELL } from '../../../globals';
 import { usePdf } from '../../../hooks';
 import { createXReadTxt, printXReadReport } from '../../../print';
 import { SiteSettings, User, XReadReport } from '../../../types';
-import { formatDateTime } from '../../../utils';
-import {
-	Divider,
-	PdfButtons,
-	ReceiptFooter,
-	ReceiptHeader,
-} from '../../Printing';
-import { XAccruedContent } from './components/XAccruedContent';
-import { XEjournalContent } from './components/XEjournalContent';
+import { PdfButtons } from '../../Printing';
+import { XReadContent } from './XReadContent';
 
 interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
 	user: User;
-	isForPrint: boolean;
+	isForPrint?: boolean;
 	onClose: () => void;
 }
 
@@ -101,6 +93,13 @@ export const ViewXReadReportModal = ({
 			open
 			onCancel={onClose}
 		>
+			<XReadContent
+				report={report}
+				siteSettings={siteSettings}
+				user={user}
+				isForPrint={isForPrint}
+			/>
+
 			<div
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
