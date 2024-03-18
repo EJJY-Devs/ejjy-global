@@ -4,12 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XReadContent = void 0;
-const components_1 = require("components");
-const globals_1 = require("globals");
-const helper_receipt_1 = require("print/helper-receipt");
+const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
-const utils_1 = require("utils");
-const ItemBlock_1 = require("../../Printing/ItemBlock");
+const globals_1 = require("../../../globals");
+const helper_receipt_1 = require("../../../print/helper-receipt");
+const utils_1 = require("../../../utils");
 const XReadContent = ({ report }) => {
     var _a, _b;
     const cashieringSession = report.cashiering_session;
@@ -44,7 +43,7 @@ const XReadContent = ({ report }) => {
                 (0, utils_1.getFullName)(cashieringSession.user)))),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", null,
-            react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+            react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                     {
                         label: 'Beg Invoice #',
                         value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
@@ -62,8 +61,8 @@ const XReadContent = ({ report }) => {
                         value: (0, utils_1.formatInPeso)(report.beginning_sales, helper_receipt_1.PESO_SIGN),
                     },
                 ] })),
-        react_1.default.createElement(components_1.Divider, null),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+        react_1.default.createElement(antd_1.Divider, null),
+        react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
                     value: (0, utils_1.formatInPeso)(report.cash_sales, helper_receipt_1.PESO_SIGN),
@@ -74,9 +73,9 @@ const XReadContent = ({ report }) => {
                     isUnderlined: true,
                 },
             ] }),
-        react_1.default.createElement(components_1.Divider, null),
+        react_1.default.createElement(antd_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+        react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
@@ -94,9 +93,9 @@ const XReadContent = ({ report }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
-        react_1.default.createElement(components_1.Divider, null),
+        react_1.default.createElement(antd_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Adjustments"),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+        react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Void',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
@@ -110,9 +109,9 @@ const XReadContent = ({ report }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
-        react_1.default.createElement(components_1.Divider, null),
+        react_1.default.createElement(antd_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Summary"),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+        react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash in Drawer',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),

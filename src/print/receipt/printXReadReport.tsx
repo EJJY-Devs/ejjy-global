@@ -1,7 +1,7 @@
-import { ReceiptHeader } from 'components';
-import { XAccruedContent } from 'components/modals/ViewXReadReportModal/XAccruedContent';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { ReceiptHeader } from '../../components';
+import { XAccruedContent } from '../../components/modals/ViewXReadReportModal/XAccruedContent';
 import { SiteSettings, User, XReadReport } from '../../types';
 import {
 	formatDate,

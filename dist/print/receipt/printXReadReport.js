@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printXReadReport = void 0;
-const components_1 = require("components");
-const XAccruedContent_1 = require("components/modals/ViewXReadReportModal/XAccruedContent");
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
+const components_1 = require("../../components");
+const XAccruedContent_1 = require("../../components/modals/ViewXReadReportModal/XAccruedContent");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printXReadReport = (report, siteSettings, user, isPdf = false) => {

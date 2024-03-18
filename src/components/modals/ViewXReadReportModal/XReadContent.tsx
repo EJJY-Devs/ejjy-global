@@ -1,11 +1,14 @@
-import { Typography } from 'antd';
-import { Divider } from 'components';
-import { EMPTY_CELL } from 'globals';
-import { PESO_SIGN } from 'print/helper-receipt';
+import { Divider } from 'antd';
 import React from 'react';
-import { XReadReport } from 'types';
-import { formatDate, formatInPeso, formatTime, getFullName } from 'utils';
-import { ItemBlock } from '../../Printing/ItemBlock';
+import { EMPTY_CELL } from '../../../globals';
+import { ItemBlock, PESO_SIGN } from '../../../print/helper-receipt';
+import { XReadReport } from '../../../types';
+import {
+	formatDate,
+	formatInPeso,
+	formatTime,
+	getFullName,
+} from '../../../utils';
 
 type Props = {
 	report: XReadReport;
