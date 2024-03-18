@@ -62,6 +62,8 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
         (0, print_1.createXReadTxt)(report, siteSettings, user);
         setIsCreatingTxt(false);
     };
+    const cashieringSession = report.cashiering_session;
+    const isAccrued = !!report.generated_by;
     return (react_1.default.createElement(antd_1.Modal, { className: "ViewReportModal", footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),

@@ -55,6 +55,9 @@ export const ViewXReadReportModal = ({
 		setIsCreatingTxt(false);
 	};
 
+	const cashieringSession = report.cashiering_session;
+	const isAccrued = !!report.generated_by;
+
 	return (
 		<Modal
 			className="ViewReportModal"
