@@ -1,5 +1,5 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Modal, Typography } from 'antd';
+import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
@@ -15,8 +15,6 @@ interface Props {
 	isForPrint?: boolean;
 	onClose: () => void;
 }
-
-const { Text } = Typography;
 
 export const ViewXReadReportModal = ({
 	report,

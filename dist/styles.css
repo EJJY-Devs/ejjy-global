@@ -110,10 +110,6 @@
   border-collapse: collapse;
 }
 
-.justify-between {
-  justify-content: space-between;
-}
-
 .border {
   border-width: 1px;
 }
@@ -128,10 +124,6 @@
 
 .text-right {
   text-align: right;
-}
-
-.font-bold {
-  font-weight: 700;
 }
 
 .leading-none {

@@ -31,16 +31,11 @@ const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
 const react_1 = __importStar(require("react"));
 const no_transaction_png_1 = __importDefault(require("../../../../public/no-transaction.png"));
-const globals_1 = require("../../../globals");
 const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
-const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
-const ZAccruedContent_1 = require("./ZAccruedContent");
 const ZReadContent_1 = require("./ZReadContent");
-const { Text } = antd_1.Typography;
-const ViewZReadReportModal = ({ report, siteSettings, user, onClose, }) => {
-    var _a, _b;
+const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -71,30 +66,7 @@ const ViewZReadReportModal = ({ report, siteSettings, user, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Z-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.total_transactions === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
-        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(ZAccruedContent_1.ZAccruedContent, { report: report })) : (react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report }))),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, null,
-            "GDT:",
-            ' ',
-            report.generation_datetime
-                ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement(Text, null,
-            "PDT:",
-            ' ',
-            report.printing_datetime
-                ? (0, utils_1.formatDateTime)(report.printing_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", { className: "w-full flex justify-between" },
-            react_1.default.createElement(Text, null,
-                "C: ",
-                ((_a = report === null || report === void 0 ? void 0 : report.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
-            react_1.default.createElement(Text, null,
-                "PB: ",
-                ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) || globals_1.EMPTY_CELL)),
-        react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
+        react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report, siteSettings: siteSettings, user: user, isForPrint: isForPrint }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewZReadReportModal = ViewZReadReportModal;

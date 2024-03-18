@@ -35,7 +35,6 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const XReadContent_1 = require("./XReadContent");
-const { Text } = antd_1.Typography;
 const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);

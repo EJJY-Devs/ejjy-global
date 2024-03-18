@@ -1,306 +1,386 @@
-import { Typography } from 'antd';
 import React from 'react';
+import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
-import { ZReadReport } from '../../../types';
-import { formatDate, formatInPeso, formatTime } from '../../../utils';
-import { Divider } from '../../Printing';
+import { PESO_SIGN } from '../../../print/helper-receipt';
+import { SiteSettings, User, ZReadReport } from '../../../types';
+import {
+	formatDate,
+	formatDateTime,
+	formatInPeso,
+	formatTime,
+} from '../../../utils';
+import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 
-const { Text } = Typography;
-
-type Props = {
+interface Props {
 	report: ZReadReport;
-};
+	siteSettings: SiteSettings;
+	user: User;
+	isForPrint?: boolean;
+}
 
-export const ZReadContent = ({ report }: Props) => (
-	<>
-		<Text className="font-bold block text-center">Z-READING REPORT</Text>
-		<Text className="mt-4 block text-center">Report Generation Datetime</Text>
-		{report.generation_datetime && (
-			<Text className="block text-center">
-				{formatDate(report.generation_datetime)} -{' '}
-				{formatTime(report.generation_datetime)}
-			</Text>
-		)}
-		<Text className="block text-center">Day Datetime</Text>
-		<Text className="block text-center">
-			{formatDate(report.datetime_created)} |{' '}
-			{[
-				formatTime(report.datetime_created),
-				report.generation_datetime
-					? formatTime(report.generation_datetime)
-					: null,
-			]
-				.filter(Boolean)
-				.join(' - ')}
-		</Text>
+export const ZReadContent = ({
+	report,
+	siteSettings,
+	user,
+	isForPrint,
+}: Props) => {
+	const isAccrued = !!report.generated_by;
 
-		<div className="mt-4">
+	return (
+		<>
+			{report.gross_sales === 0 && !isForPrint && (
+				<img
+					alt="no transaction"
+					className="w-full absolute top-0 left-0 pointer-events-none"
+					src={imgNoTransaction}
+				/>
+			)}
+
+			<ReceiptHeader
+				branchMachine={report.branch_machine}
+				siteSettings={siteSettings}
+			/>
+
+			<div style={{ fontWeight: 'bold', textAlign: 'center' }}>
+				{isAccrued ? 'Z-ACCRUED REPORT' : 'Z-READING REPORT'}
+			</div>
+
+			<br />
+
+			<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
+			{report.generation_datetime && (
+				<div style={{ textAlign: 'center' }}>
+					{formatDate(report.generation_datetime)} -{' '}
+					{formatTime(report.generation_datetime)}
+				</div>
+			)}
+			<div style={{ textAlign: 'center' }}>Day Datetime</div>
+			<div style={{ textAlign: 'center' }}>
+				{formatDate(report.datetime_created)} |{' '}
+				{[
+					formatTime(report.datetime_created),
+					report.generation_datetime
+						? formatTime(report.generation_datetime)
+						: null,
+				]
+					.filter(Boolean)
+					.join(' - ')}
+			</div>
+
+			<br />
+
 			<ItemBlock
 				items={[
 					{
-						label: 'Beg Sales Invoice #',
+						label: 'Beg Sales Invoice #:',
 						value: report.beginning_or?.or_number || EMPTY_CELL,
 					},
 					{
-						label: 'End Sales Invoice #',
+						label: 'End Sales Invoice #:',
 						value: report.ending_or?.or_number || EMPTY_CELL,
 					},
 					{
-						label: 'Beg Void #',
+						label: 'Beg Void #:',
 						value: EMPTY_CELL,
 					},
 					{
-						label: 'End Void #',
+						label: 'End Void #:',
 						value: EMPTY_CELL,
 					},
 					{
-						label: 'Beg Return #',
+						label: 'Beg Return #:',
 						value: EMPTY_CELL,
 					},
 					{
-						label: 'End Return #',
+						label: 'End Return #:',
 						value: EMPTY_CELL,
 					},
 				]}
 			/>
-		</div>
 
-		<div className="mt-4">
+			<br />
+
 			<ItemBlock
 				items={[
 					{
-						label: 'Trans. Count',
+						label: 'Transaction Count:',
 						value: report.total_transactions,
 					},
 					{
-						label: 'Reset Counter',
+						label: 'Reset Counter No.:',
 						value: 0,
 					},
 					{
-						label: 'Z Counter No.',
+						label: 'Z Counter No.:',
+						value: 0,
+					},
+					{
+						label: 'Opening Fund/Cash In:',
 						value: 0,
 					},
 				]}
 			/>
-		</div>
-		<Divider />
+			<Divider />
 
-		<ItemBlock
-			items={[
-				{
-					label: 'Present Accum. Sales',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Previous Accum. Sales',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Sales for the Day',
-					value: formatInPeso(0),
-				},
-			]}
-		/>
-
-		<div className="mt-4">
 			<ItemBlock
 				items={[
 					{
-						label: 'Cash Sales',
-						value: formatInPeso(report.cash_sales),
-						isIndented: true,
+						label: 'Present Accum. Sales',
+						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
-						label: 'Credit Sales',
-						value: formatInPeso(report.credit_pay),
-						isUnderlined: true,
-						isIndented: true,
+						label: 'Previous Accum. Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: 'Sales for the Day',
+						value: formatInPeso(0, PESO_SIGN),
 					},
 				]}
 			/>
-		</div>
-		<Divider />
+			<Divider />
 
-		<Text className="w-full text-center block">Breakdown of Sales</Text>
-		<ItemBlock
-			items={[
-				{
-					label: 'VATable Sales',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'VAT Amount',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'VAT Exempt Sales',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Zero Rated Sales',
-					value: formatInPeso(0),
-				},
-			]}
-		/>
-		<Divider />
+			<div style={{ textAlign: 'center' }}>Sales Breakdown</div>
+			<ItemBlock
+				items={[
+					{
+						label: 'VATable Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: 'VAT Amount',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: 'VAT Exempt Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: 'Zero Rated Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
 
-		<ItemBlock
-			items={[
-				{
-					label: 'Gross Sales',
-					value: formatInPeso(report.gross_sales),
-				},
-				{
-					label: 'Deduction',
-					value: formatInPeso(0),
-					isIndented: true,
-					isParenthesized: true,
-				},
-				{
-					label: 'VAT Amount (12%)',
-					value: formatInPeso(report.total_vat_adjusted),
-					isIndented: true,
-					isUnderlined: true,
-					isParenthesized: true,
-				},
-				{
-					label: 'NET SALES',
-					value: formatInPeso(report.net_sales),
-					contentStyle: { fontWeight: 'bold' },
-					labelStyle: { fontWeight: 'bold' },
-				},
-			]}
-		/>
-		<Divider />
+			<ItemBlock
+				items={[
+					{
+						label: '+Gross Amount',
+						value: formatInPeso(report.gross_sales, PESO_SIGN),
+					},
+					{
+						label: '-Deductions',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '-VAT Adjustment (12%)',
+						value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
+					},
+					{
+						label: '=Net Amount',
+						value: formatInPeso(report.net_sales, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
 
-		<Text className="w-full text-center block">Deductions</Text>
-		<ItemBlock
-			items={[
-				{
-					label: 'Disc. SC',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. PWD',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. NAAC',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. Solo Parent',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. Others',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Return',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Void',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'TOTAL',
-					value: formatInPeso(0),
-				},
-			]}
-		/>
-		<Divider />
+			<div style={{ textAlign: 'center' }}>Deductions</div>
+			<ItemBlock
+				items={[
+					{
+						label: '+Disc. SC',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. PWD',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. NAAC',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. Solo Parent',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. Others',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Return',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Void',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '=Total',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
 
-		<Text className="w-full text-center block">VAT Adjustment</Text>
-		<ItemBlock
-			items={[
-				{
-					label: 'Disc. SC',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. PWD',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Disc. Others',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'VAT on Returns',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Others',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'TOTAL',
-					value: formatInPeso(0),
-				},
-			]}
-		/>
-		<Divider />
+			<div style={{ textAlign: 'center' }}>VAT Adjustment</div>
+			<ItemBlock
+				items={[
+					{
+						label: '+Disc. SC',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. PWD',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Disc. Others',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+VAT on Returns',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Others',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '=Total',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
 
-		<Text className="w-full text-center block">VAT Payable</Text>
-		<ItemBlock
-			items={[
-				{
-					label: 'VAT Amount (12%)',
-					value: formatInPeso(report.vat_amount),
-				},
-				{
-					label: 'VAT Adj.',
-					value: formatInPeso(report.total_vat_adjusted),
-					isUnderlined: true,
-					isParenthesized: true,
-				},
-				{
-					label: 'TOTAL',
-					value: formatInPeso(report.vat_payable),
-				},
-			]}
-		/>
-		<Divider />
+			<div style={{ textAlign: 'center' }}>VAT Payable</div>
+			<ItemBlock
+				items={[
+					{
+						label: '+VAT Amount (12%)',
+						value: formatInPeso(report.vat_amount, PESO_SIGN),
+					},
+					{
+						label: '-VAT Adjustment',
+						value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
+						isUnderlined: true,
+						isParenthesized: true,
+					},
+					{
+						label: '=Total',
+						value: formatInPeso(report.vat_payable, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
 
-		<Text className="w-full text-center block">Transaction Summary</Text>
-		<ItemBlock
-			items={[
-				{
-					label: 'Cash in Drawer',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Check',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Credit Card',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Opening fund',
-					value: formatInPeso(0),
-				},
-				{
-					label: 'Withdrawal',
-					value: formatInPeso(0),
-					isIndented: true,
-					isParenthesized: true,
-				},
-				{
-					label: 'Payment Received',
-					value: formatInPeso(0),
-					isIndented: true,
-					isParenthesized: true,
-				},
-				{
-					label: 'Short / Over',
-					value: formatInPeso(0),
-				},
-			]}
-		/>
-	</>
-);
+			{isAccrued && (
+				<>
+					<div style={{ textAlign: 'center' }}>Payment Received</div>
+					<ItemBlock
+						items={[
+							{
+								label: '+Cash',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+							{
+								label: '+Check',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+							{
+								label: '+Credit Card',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+							{
+								label: '=Total',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+						]}
+					/>
+					<Divider />
+
+					<div style={{ textAlign: 'center' }}>Transaction Adjustments</div>
+					<ItemBlock
+						items={[
+							{
+								label: 'Void',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+							{
+								label: 'Refund',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+							{
+								label: 'Withdrawals/Cash Out',
+								value: formatInPeso(0, PESO_SIGN),
+							},
+						]}
+					/>
+					<Divider />
+				</>
+			)}
+
+			<div style={{ textAlign: 'center' }}>Transaction Summary</div>
+			<ItemBlock
+				items={[
+					{
+						label: '+Cash in Drawer',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Check',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Credit Card',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '+Opening fund',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '-Withdrawal',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '-Payment Received',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
+						label: '=Short / Over',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+				]}
+			/>
+			<Divider />
+
+			<div>
+				GDT:{' '}
+				{report.generation_datetime
+					? formatDateTime(report.generation_datetime)
+					: EMPTY_CELL}
+			</div>
+			<div>
+				PDT:{' '}
+				{report.printing_datetime
+					? formatDateTime(report.printing_datetime)
+					: EMPTY_CELL}
+			</div>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div>C: {report?.generated_by?.employee_id || EMPTY_CELL}</div>
+				<div>
+					PB:{' '}
+					{user?.employee_id || report?.generated_by?.employee_id || EMPTY_CELL}
+				</div>
+			</div>
+
+			<br />
+
+			<ReceiptFooter siteSettings={siteSettings} />
+		</>
+	);
+};
