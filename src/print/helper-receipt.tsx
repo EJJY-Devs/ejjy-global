@@ -2,15 +2,10 @@ import { message } from 'antd';
 import qz from 'qz-tray';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { ReceiptReportSummaryProps } from '../components';
-import { ItemBlockProps } from '../components/Printing/ItemBlock';
+import { ReceiptFooter, ReceiptHeader } from '../components';
 import { printerStatuses } from '../globals';
 import { BranchMachine, SiteSettings } from '../types';
-import {
-	authenticateQZTray,
-	formatInPeso,
-	getTaxTypeDescription,
-} from '../utils';
+import { authenticateQZTray, formatInPeso } from '../utils';
 
 export const PESO_SIGN = 'P';
 export const EMPTY_CELL = '';
@@ -61,114 +56,23 @@ export const configurePrinter = (
 	}
 };
 
-type HeaderProps = {
-	siteSettings: SiteSettings;
-	branchMachine?: BranchMachine;
-	title?: string;
-};
-export const Header = ({ siteSettings, branchMachine, title }: HeaderProps) => {
-	const {
-		contact_number: contactNumber,
-		address_of_tax_payer: location,
-		proprietor,
-		store_name: storeName,
-		tax_type: taxType,
-		tin,
-	} = siteSettings;
-	const {
-		name,
-		machine_identification_number: machineID,
-		pos_terminal: posTerminal,
-	} = branchMachine || {};
-
-	React.createElement('style', {}, [
-		`
-    table {
-      font-size: inherit;
-    }
-
-    td {
-      padding: 0;
-    }
-    `,
-	]);
-
-	return (
-		<div
-			style={{
-				textAlign: 'center',
-				display: 'flex',
-				flexDirection: 'column',
-			}}
-		>
-			<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
-			<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
-			<span>
-				{contactNumber} {name ? '| ' + name : ''}
-			</span>
-			<span>{proprietor}</span>
-			<span>
-				{getTaxTypeDescription(taxType)} | {tin}
-			</span>
-			<span>MIN: {machineID}</span>
-			<span>SN: {posTerminal}</span>
-			{title ? <br /> : ''}
-			{title}
-		</div>
-	);
-};
-
 export const getHeader = (
 	siteSettings: SiteSettings,
 	branchMachine?: BranchMachine,
 	title?: string,
 ) =>
 	ReactDOMServer.renderToStaticMarkup(
-		<Header
+		<ReceiptHeader
 			siteSettings={siteSettings}
 			branchMachine={branchMachine}
 			title={title}
 		/>,
 	);
 
-type FooterProps = {
-	siteSettings: SiteSettings;
-};
-
-export const Footer = ({ siteSettings }: FooterProps) => {
-	const {
-		software_developer: softwareDeveloper,
-		software_developer_address: softwareDeveloperAddress,
-		software_developer_tin: softwareDeveloperTin,
-		pos_accreditation_number: posAccreditationNumber,
-		pos_accreditation_date: posAccreditationDate,
-		ptu_number: ptuNumber,
-		ptu_date: ptuDate,
-	} = siteSettings;
-
-	return (
-		<div
-			style={{
-				textAlign: 'center',
-				display: 'flex',
-				flexDirection: 'column',
-			}}
-		>
-			<span>{softwareDeveloper}</span>
-			<span style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</span>
-			<span>{softwareDeveloperTin}</span>
-			<span>Acc No: {posAccreditationNumber}</span>
-			<span>Date Issued: {posAccreditationDate}</span>
-			<br />
-			<span>PTU No: {ptuNumber}</span>
-			<span>Date Issued: {ptuDate}</span>
-			<br />
-		</div>
-	);
-};
-
 export const getFooter = (siteSettings: SiteSettings) =>
-	ReactDOMServer.renderToStaticMarkup(<Footer siteSettings={siteSettings} />);
+	ReactDOMServer.renderToStaticMarkup(
+		<ReceiptFooter siteSettings={siteSettings} />,
+	);
 
 export const getPageStyle = (extraStyle = '') => {
 	return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
@@ -320,57 +224,3 @@ export const addUnderline = (value: string | number) =>
 	Number(value) > 0
 		? '<div style="width: 100%; text-align: right">-----------</div>'
 		: '';
-
-export const ItemBlock = ({ items }: ItemBlockProps) => (
-	<table style={{ width: '100%' }}>
-		{items.map((item) => (
-			<tr>
-				<td
-					style={{ paddingLeft: item.isIndented ? 15 : 0, ...item.labelStyle }}
-				>
-					{item.label}
-				</td>
-				<td style={{ textAlign: 'right', ...item.contentStyle }}>
-					{item.isParenthesized ? '(' : ' '}
-					{item.isUnderlined ? (
-						<>
-							<div style={{ display: 'inline-block' }}>
-								{formatInPeso(item.value as number, PESO_SIGN)}
-							</div>
-							{Number(item.value) > 0 && (
-								<div style={{ width: '100%', textAlign: 'right' }}>
-									-----------
-								</div>
-							)}
-						</>
-					) : (
-						item.value
-					)}
-					{item.isParenthesized ? ')' : ' '}
-				</td>
-			</tr>
-		))}
-	</table>
-);
-
-export const Divider = () => (
-	<div
-		style={{
-			width: '100%',
-			padding: '4px 0',
-			margin: '0 auto',
-			borderBottom: '1px dashed black',
-		}}
-	></div>
-);
-
-export const ReceiptReportSummary = ({ items }: ReceiptReportSummaryProps) => (
-	<table style={{ marginLeft: 15 }}>
-		{items.map((d) => (
-			<tr key={d.value}>
-				<td style={{ width: 120 }}>{d.label}:</td>
-				<td style={{ textAlign: 'right' }}>{d.value}</td>
-			</tr>
-		))}
-	</table>
-);

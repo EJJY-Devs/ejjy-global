@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReceiptReportSummary = exports.Divider = exports.ItemBlock = exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.getPageStyleObject = exports.getPageStyle = exports.getFooter = exports.Footer = exports.getHeader = exports.Header = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
+exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.getPageStyleObject = exports.getPageStyle = exports.getFooter = exports.getHeader = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
 const antd_1 = require("antd");
 const qz_tray_1 = __importDefault(require("qz-tray"));
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
+const components_1 = require("../components");
 const globals_1 = require("../globals");
 const utils_1 = require("../utils");
 exports.PESO_SIGN = 'P';
@@ -58,75 +59,9 @@ const configurePrinter = (appPrinterName, appPrinterFontSize, appPrinterFontFami
     }
 };
 exports.configurePrinter = configurePrinter;
-const Header = ({ siteSettings, branchMachine, title }) => {
-    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
-    const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine || {};
-    react_1.default.createElement('style', {}, [
-        `
-    table {
-      font-size: inherit;
-    }
-
-    td {
-      padding: 0;
-    }
-    `,
-    ]);
-    return (react_1.default.createElement("div", { style: {
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-        } },
-        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, storeName),
-        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, location),
-        react_1.default.createElement("span", null,
-            contactNumber,
-            " ",
-            name ? '| ' + name : ''),
-        react_1.default.createElement("span", null, proprietor),
-        react_1.default.createElement("span", null,
-            (0, utils_1.getTaxTypeDescription)(taxType),
-            " | ",
-            tin),
-        react_1.default.createElement("span", null,
-            "MIN: ",
-            machineID),
-        react_1.default.createElement("span", null,
-            "SN: ",
-            posTerminal),
-        title ? react_1.default.createElement("br", null) : '',
-        title));
-};
-exports.Header = Header;
-const getHeader = (siteSettings, branchMachine, title) => server_1.default.renderToStaticMarkup(react_1.default.createElement(exports.Header, { siteSettings: siteSettings, branchMachine: branchMachine, title: title }));
+const getHeader = (siteSettings, branchMachine, title) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptHeader, { siteSettings: siteSettings, branchMachine: branchMachine, title: title }));
 exports.getHeader = getHeader;
-const Footer = ({ siteSettings }) => {
-    const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
-    return (react_1.default.createElement("div", { style: {
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-        } },
-        react_1.default.createElement("span", null, softwareDeveloper),
-        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, softwareDeveloperAddress),
-        react_1.default.createElement("span", null, softwareDeveloperTin),
-        react_1.default.createElement("span", null,
-            "Acc No: ",
-            posAccreditationNumber),
-        react_1.default.createElement("span", null,
-            "Date Issued: ",
-            posAccreditationDate),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("span", null,
-            "PTU No: ",
-            ptuNumber),
-        react_1.default.createElement("span", null,
-            "Date Issued: ",
-            ptuDate),
-        react_1.default.createElement("br", null)));
-};
-exports.Footer = Footer;
-const getFooter = (siteSettings) => server_1.default.renderToStaticMarkup(react_1.default.createElement(exports.Footer, { siteSettings: siteSettings }));
+const getFooter = (siteSettings) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptFooter, { siteSettings: siteSettings }));
 exports.getFooter = getFooter;
 const getPageStyle = (extraStyle = '') => {
     return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
@@ -245,25 +180,3 @@ const addUnderline = (value) => Number(value) > 0
     ? '<div style="width: 100%; text-align: right">-----------</div>'
     : '';
 exports.addUnderline = addUnderline;
-const ItemBlock = ({ items }) => (react_1.default.createElement("table", { style: { width: '100%' } }, items.map((item) => (react_1.default.createElement("tr", null,
-    react_1.default.createElement("td", { style: Object.assign({ paddingLeft: item.isIndented ? 15 : 0 }, item.labelStyle) }, item.label),
-    react_1.default.createElement("td", { style: Object.assign({ textAlign: 'right' }, item.contentStyle) },
-        item.isParenthesized ? '(' : ' ',
-        item.isUnderlined ? (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("div", { style: { display: 'inline-block' } }, (0, utils_1.formatInPeso)(item.value, exports.PESO_SIGN)),
-            Number(item.value) > 0 && (react_1.default.createElement("div", { style: { width: '100%', textAlign: 'right' } }, "-----------")))) : (item.value),
-        item.isParenthesized ? ')' : ' '))))));
-exports.ItemBlock = ItemBlock;
-const Divider = () => (react_1.default.createElement("div", { style: {
-        width: '100%',
-        padding: '4px 0',
-        margin: '0 auto',
-        borderBottom: '1px dashed black',
-    } }));
-exports.Divider = Divider;
-const ReceiptReportSummary = ({ items }) => (react_1.default.createElement("table", { style: { marginLeft: 15 } }, items.map((d) => (react_1.default.createElement("tr", { key: d.value },
-    react_1.default.createElement("td", { style: { width: 120 } },
-        d.label,
-        ":"),
-    react_1.default.createElement("td", { style: { textAlign: 'right' } }, d.value))))));
-exports.ReceiptReportSummary = ReceiptReportSummary;

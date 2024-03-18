@@ -1,6 +1,6 @@
-import { Descriptions } from 'antd';
 import React from 'react';
-import { ReceiptUnderlinedValue } from './ReceiptUnderlinedValue';
+import { PESO_SIGN } from '../../print/helper-receipt';
+import { formatInPeso } from '../../utils';
 
 export type ItemBlockItems = {
 	label: string;
@@ -17,32 +17,33 @@ export type ItemBlockProps = {
 };
 
 export const ItemBlock = ({ items }: ItemBlockProps) => (
-	<Descriptions
-		className="w-full"
-		colon={false}
-		column={1}
-		contentStyle={{ textAlign: 'right', display: 'block' }}
-		labelStyle={{ width: 200 }}
-		size="small"
-	>
+	<table style={{ width: '100%' }}>
 		{items.map((item) => (
-			<Descriptions.Item
-				key={item.label}
-				label={item.label}
-				labelStyle={{
-					paddingLeft: item.isIndented ? 30 : 0,
-					...item.labelStyle,
-				}}
-				contentStyle={item.contentStyle}
-			>
-				{item.isParenthesized ? '(' : ' '}
-				{item.isUnderlined ? (
-					<ReceiptUnderlinedValue value={item.value as number} />
-				) : (
-					item.value
-				)}
-				{item.isParenthesized ? ')' : ' '}
-			</Descriptions.Item>
+			<tr>
+				<td
+					style={{ paddingLeft: item.isIndented ? 15 : 0, ...item.labelStyle }}
+				>
+					{item.label}
+				</td>
+				<td style={{ textAlign: 'right', ...item.contentStyle }}>
+					{item.isParenthesized ? '(' : ' '}
+					{item.isUnderlined ? (
+						<>
+							<div style={{ display: 'inline-block' }}>
+								{formatInPeso(item.value as number, PESO_SIGN)}
+							</div>
+							{Number(item.value) > 0 && (
+								<div style={{ width: '100%', textAlign: 'right' }}>
+									-----------
+								</div>
+							)}
+						</>
+					) : (
+						item.value
+					)}
+					{item.isParenthesized ? ')' : ' '}
+				</td>
+			</tr>
 		))}
-	</Descriptions>
+	</table>
 );

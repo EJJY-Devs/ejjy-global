@@ -1,7 +1,7 @@
 import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
 interface Props {
-    branchMachine: BranchMachine;
+    branchMachine?: BranchMachine;
     siteSettings: SiteSettings;
     title?: string;
 }

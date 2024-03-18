@@ -9,22 +9,27 @@ const react_1 = __importDefault(require("react"));
 const { Text } = antd_1.Typography;
 const ReceiptFooter = ({ siteSettings }) => {
     const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
-    return (react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-8 w-full text-center", direction: "vertical", size: 0 },
-        react_1.default.createElement(Text, null, softwareDeveloper),
-        react_1.default.createElement(Text, { style: { whiteSpace: 'pre-line' } }, softwareDeveloperAddress),
-        react_1.default.createElement(Text, null, softwareDeveloperTin),
-        react_1.default.createElement(Text, null,
+    return (react_1.default.createElement("div", { style: {
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+        } },
+        react_1.default.createElement("span", null, softwareDeveloper),
+        react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, softwareDeveloperAddress),
+        react_1.default.createElement("span", null, softwareDeveloperTin),
+        react_1.default.createElement("span", null,
             "Acc No: ",
             posAccreditationNumber),
-        react_1.default.createElement(Text, null,
+        react_1.default.createElement("span", null,
             "Date Issued: ",
             posAccreditationDate),
         react_1.default.createElement("br", null),
-        react_1.default.createElement(Text, null,
+        react_1.default.createElement("span", null,
             "PTU No: ",
             ptuNumber),
-        react_1.default.createElement(Text, null,
+        react_1.default.createElement("span", null,
             "Date Issued: ",
-            ptuDate)));
+            ptuDate),
+        react_1.default.createElement("br", null)));
 };
 exports.ReceiptFooter = ReceiptFooter;

@@ -31,16 +31,11 @@ const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
 const react_1 = __importStar(require("react"));
 const no_transaction_png_1 = __importDefault(require("../../../../public/no-transaction.png"));
-const globals_1 = require("../../../globals");
 const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
-const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
-const XAccruedContent_1 = require("./XAccruedContent");
-const XReadContent_1 = require("./XReadContent");
 const { Text } = antd_1.Typography;
 const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose, }) => {
-    var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -71,30 +66,6 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
-        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(XAccruedContent_1.XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent_1.XReadContent, { report: report }))),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(Text, { className: "block" },
-            "GDT:",
-            ' ',
-            report.generation_datetime
-                ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement(Text, { className: "block" },
-            "PDT:",
-            ' ',
-            report.printing_datetime
-                ? (0, utils_1.formatDateTime)(report.printing_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", { className: "w-full flex justify-between" },
-            react_1.default.createElement(Text, null,
-                "C: ",
-                ((_a = report === null || report === void 0 ? void 0 : report.cashiering_session) === null || _a === void 0 ? void 0 : _a.user.employee_id) || globals_1.EMPTY_CELL),
-            react_1.default.createElement(Text, null,
-                "PB: ",
-                ((_b = report === null || report === void 0 ? void 0 : report.generated_by) === null || _b === void 0 ? void 0 : _b.employee_id) || globals_1.EMPTY_CELL)),
-        react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewXReadReportModal = ViewXReadReportModal;

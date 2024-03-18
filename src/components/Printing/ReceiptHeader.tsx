@@ -3,10 +3,22 @@ import { BranchMachine, SiteSettings } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
 interface Props {
-	branchMachine: BranchMachine;
+	branchMachine?: BranchMachine;
 	siteSettings: SiteSettings;
 	title?: string;
 }
+
+const globalStyles = React.createElement('style', {}, [
+	`
+  table {
+    font-size: inherit;
+  }
+
+  td {
+    padding: 0;
+  }
+  `,
+]);
 
 export const ReceiptHeader = ({
 	branchMachine,
@@ -26,28 +38,31 @@ export const ReceiptHeader = ({
 		name,
 		machine_identification_number: machineID,
 		pos_terminal: posTerminal,
-	} = branchMachine;
+	} = branchMachine || {};
 
 	return (
-		<div
-			style={{
-				textAlign: 'center',
-				display: 'flex',
-				flexDirection: 'column',
-			}}
-		>
-			<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
-			<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
-			<span>{[contactNumber, name].filter(Boolean).join(' | ')}</span>
-			<span>{proprietor}</span>
-			<span>
-				{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
-			</span>
-			<span>MIN: {machineID}</span>
-			<span>SN: {posTerminal}</span>
+		<>
+			{globalStyles}
+			<div
+				style={{
+					textAlign: 'center',
+					display: 'flex',
+					flexDirection: 'column',
+				}}
+			>
+				<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
+				<span>{[contactNumber, name].filter(Boolean).join(' | ')}</span>
+				<span>{proprietor}</span>
+				<span>
+					{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
+				</span>
+				<span>MIN: {machineID}</span>
+				<span>SN: {posTerminal}</span>
 
-			{title ? <br /> : ''}
-			{title}
-		</div>
+				{title ? <br /> : ''}
+				{title}
+			</div>
+		</>
 	);
 };

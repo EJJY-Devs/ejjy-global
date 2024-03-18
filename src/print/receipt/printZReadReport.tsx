@@ -1,24 +1,23 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { SiteSettings, User, XReadReport, ZReadReport } from '../../types';
+import {
+	Divider,
+	ReceiptFooter,
+	ReceiptHeader,
+	ReceiptReportSummary,
+} from '../../components';
+import { ItemBlock } from '../../components/Printing/ItemBlock';
+import { SiteSettings, User, ZReadReport } from '../../types';
 import {
 	formatDate,
 	formatDateTime,
 	formatInPeso,
 	formatTime,
-	getFullName,
 } from '../../utils';
 import {
-	Divider,
 	EMPTY_CELL,
-	Footer,
-	Header,
-	ItemBlock,
 	PESO_SIGN,
-	ReceiptReportSummary,
 	appendHtmlElement,
-	getFooter,
-	getHeader,
 	getPageStyleObject,
 	print,
 } from '../helper-receipt';
@@ -32,7 +31,7 @@ export const printZReadReport = (
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<>
 			<div className="container" style={getPageStyleObject()}>
-				<Header
+				<ReceiptHeader
 					siteSettings={siteSettings}
 					branchMachine={report.branch_machine}
 				/>
@@ -79,7 +78,7 @@ export const printZReadReport = (
 
 				<br />
 
-				<Footer siteSettings={siteSettings} />
+				<ReceiptFooter siteSettings={siteSettings} />
 			</div>
 		</>,
 	);

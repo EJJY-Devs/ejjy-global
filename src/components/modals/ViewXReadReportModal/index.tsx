@@ -13,8 +13,8 @@ import {
 	ReceiptFooter,
 	ReceiptHeader,
 } from '../../Printing';
-import { XAccruedContent } from './XAccruedContent';
-import { XReadContent } from './XReadContent';
+import { XAccruedContent } from './components/XAccruedContent';
+import { XEjournalContent } from './components/XEjournalContent';
 
 interface Props {
 	report: XReadReport;
@@ -101,49 +101,6 @@ export const ViewXReadReportModal = ({
 			open
 			onCancel={onClose}
 		>
-			{report.gross_sales === 0 && !isForPrint && (
-				<img
-					alt="no transaction"
-					className="w-full absolute top-0 left-0 pointer-events-none"
-					src={imgNoTransaction}
-				/>
-			)}
-
-			<ReceiptHeader
-				branchMachine={report.branch_machine}
-				siteSettings={siteSettings}
-			/>
-
-			<div className="mt-4">
-				{report.generated_by ? (
-					<XAccruedContent report={report} />
-				) : (
-					<XReadContent report={report} />
-				)}
-			</div>
-
-			<Divider />
-			<Text className="block">
-				GDT:{' '}
-				{report.generation_datetime
-					? formatDateTime(report.generation_datetime)
-					: EMPTY_CELL}
-			</Text>
-			<Text className="block">
-				PDT:{' '}
-				{report.printing_datetime
-					? formatDateTime(report.printing_datetime)
-					: EMPTY_CELL}
-			</Text>
-			<div className="w-full flex justify-between">
-				<Text>
-					C: {report?.cashiering_session?.user.employee_id || EMPTY_CELL}
-				</Text>
-				<Text>PB: {report?.generated_by?.employee_id || EMPTY_CELL}</Text>
-			</div>
-
-			<ReceiptFooter siteSettings={siteSettings} />
-
 			<div
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}

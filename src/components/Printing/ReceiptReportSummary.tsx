@@ -5,14 +5,12 @@ type Props = {
 };
 
 export const ReceiptReportSummary = ({ items }: Props) => (
-	<table className="ml-12">
-		{items.map((d) => (
-			<tr key={d.value}>
-				<td className="w-[100px]">{d.label}:</td>
-				<td className="text-right">{d.value}</td>
+	<table style={{ marginLeft: 15 }}>
+		{items.map((item) => (
+			<tr key={item.value}>
+				<td style={{ width: 120 }}>{item.label}:</td>
+				<td style={{ textAlign: 'right' }}>{item.value}</td>
 			</tr>
 		))}
 	</table>
 );
-
-export { Props as ReceiptReportSummaryProps };

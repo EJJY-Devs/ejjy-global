@@ -20,20 +20,22 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 	} = siteSettings;
 
 	return (
-		<Space
-			align="center"
-			className="mt-8 w-full text-center"
-			direction="vertical"
-			size={0}
+		<div
+			style={{
+				textAlign: 'center',
+				display: 'flex',
+				flexDirection: 'column',
+			}}
 		>
-			<Text>{softwareDeveloper}</Text>
-			<Text style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</Text>
-			<Text>{softwareDeveloperTin}</Text>
-			<Text>Acc No: {posAccreditationNumber}</Text>
-			<Text>Date Issued: {posAccreditationDate}</Text>
+			<span>{softwareDeveloper}</span>
+			<span style={{ whiteSpace: 'pre-line' }}>{softwareDeveloperAddress}</span>
+			<span>{softwareDeveloperTin}</span>
+			<span>Acc No: {posAccreditationNumber}</span>
+			<span>Date Issued: {posAccreditationDate}</span>
 			<br />
-			<Text>PTU No: {ptuNumber}</Text>
-			<Text>Date Issued: {ptuDate}</Text>
-		</Space>
+			<span>PTU No: {ptuNumber}</span>
+			<span>Date Issued: {ptuDate}</span>
+			<br />
+		</div>
 	);
 };

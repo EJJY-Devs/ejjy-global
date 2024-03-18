@@ -1,7 +1,10 @@
 import React from 'react';
-import { XReadReport } from '../../../types';
-type Props = {
+import { SiteSettings, User, XReadReport } from '../../../types';
+interface Props {
     report: XReadReport;
-};
-export declare const XReadContent: ({ report }: Props) => React.JSX.Element;
+    siteSettings: SiteSettings;
+    user: User;
+    isForPrint: boolean;
+}
+export declare const XReadContent: ({ report, siteSettings, user, isForPrint, }: Props) => React.JSX.Element;
 export {};

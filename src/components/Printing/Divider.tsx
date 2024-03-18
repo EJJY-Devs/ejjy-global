@@ -2,8 +2,10 @@ import React from 'react';
 
 export const Divider = () => (
 	<div
-		className={
-			'mx-auto my-2 border-dashed border-black border-0 border-b-[1px] w-full'
-		}
+		style={{
+			width: '100%',
+			margin: '4px auto',
+			borderBottom: '1px dashed black',
+		}}
 	></div>
 );
