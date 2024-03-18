@@ -17,6 +17,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
+        react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, isAccrued ? 'Z-ACCRUED REPORT' : 'Z-READING REPORT'),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Report Generation Datetime"),
@@ -87,11 +88,11 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Present Accum. Sales',
+                    label: 'Present Accumulated Sales',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'Previous Accum. Sales',
+                    label: 'Previous Accumulated Sales',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -103,15 +104,15 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Sales Breakdown"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
+                    label: 'VAT Exempt Sales',
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                },
+                {
                     label: 'VATable Sales',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VAT Amount',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: 'VAT Exempt Sales',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -212,8 +213,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 {
                     label: '-VAT Adjustment',
                     value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
-                    isUnderlined: true,
-                    isParenthesized: true,
                 },
                 {
                     label: '=Total',
@@ -273,11 +272,11 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '+Opening fund',
+                    label: '+Opening fund/Cash In',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '-Withdrawal',
+                    label: '-Withdrawal/Cash Out',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -285,7 +284,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Short / Over',
+                    label: '=Short/Over',
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),

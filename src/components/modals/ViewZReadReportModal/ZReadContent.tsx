@@ -42,6 +42,8 @@ export const ZReadContent = ({
 				siteSettings={siteSettings}
 			/>
 
+			<br />
+
 			<div style={{ fontWeight: 'bold', textAlign: 'center' }}>
 				{isAccrued ? 'Z-ACCRUED REPORT' : 'Z-READING REPORT'}
 			</div>
@@ -126,11 +128,11 @@ export const ZReadContent = ({
 			<ItemBlock
 				items={[
 					{
-						label: 'Present Accum. Sales',
+						label: 'Present Accumulated Sales',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
-						label: 'Previous Accum. Sales',
+						label: 'Previous Accumulated Sales',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
@@ -145,15 +147,15 @@ export const ZReadContent = ({
 			<ItemBlock
 				items={[
 					{
+						label: 'VAT Exempt Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+					{
 						label: 'VATable Sales',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
 						label: 'VAT Amount',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-					{
-						label: 'VAT Exempt Sales',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
@@ -266,8 +268,6 @@ export const ZReadContent = ({
 					{
 						label: '-VAT Adjustment',
 						value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
-						isUnderlined: true,
-						isParenthesized: true,
 					},
 					{
 						label: '=Total',
@@ -339,11 +339,11 @@ export const ZReadContent = ({
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
-						label: '+Opening fund',
+						label: '+Opening fund/Cash In',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
-						label: '-Withdrawal',
+						label: '-Withdrawal/Cash Out',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
@@ -351,7 +351,7 @@ export const ZReadContent = ({
 						value: formatInPeso(0, PESO_SIGN),
 					},
 					{
-						label: '=Short / Over',
+						label: '=Short/Over',
 						value: formatInPeso(0, PESO_SIGN),
 					},
 				]}
