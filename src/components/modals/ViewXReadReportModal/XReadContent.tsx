@@ -1,7 +1,6 @@
-import { Divider } from 'antd';
 import React from 'react';
 import { EMPTY_CELL } from '../../../globals';
-import { ItemBlock, PESO_SIGN } from '../../../print/helper-receipt';
+import { Divider, ItemBlock, PESO_SIGN } from '../../../print/helper-receipt';
 import { XReadReport } from '../../../types';
 import {
 	formatDate,

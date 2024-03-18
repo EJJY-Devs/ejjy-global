@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XReadContent = void 0;
-const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
@@ -61,7 +60,7 @@ const XReadContent = ({ report }) => {
                         value: (0, utils_1.formatInPeso)(report.beginning_sales, helper_receipt_1.PESO_SIGN),
                     },
                 ] })),
-        react_1.default.createElement(antd_1.Divider, null),
+        react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
                     label: 'Cash Sales',
@@ -73,7 +72,7 @@ const XReadContent = ({ report }) => {
                     isUnderlined: true,
                 },
             ] }),
-        react_1.default.createElement(antd_1.Divider, null),
+        react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
@@ -93,7 +92,7 @@ const XReadContent = ({ report }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
-        react_1.default.createElement(antd_1.Divider, null),
+        react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Adjustments"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
@@ -109,7 +108,7 @@ const XReadContent = ({ report }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
-        react_1.default.createElement(antd_1.Divider, null),
+        react_1.default.createElement(helper_receipt_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Summary"),
         react_1.default.createElement(helper_receipt_1.ItemBlock, { items: [
                 {
