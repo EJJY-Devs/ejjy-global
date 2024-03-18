@@ -39,7 +39,7 @@ const Printing_1 = require("../../Printing");
 const XAccruedContent_1 = require("./XAccruedContent");
 const XReadContent_1 = require("./XReadContent");
 const { Text } = antd_1.Typography;
-const ViewXReadReportModal = ({ report, siteSettings, user, onClose, }) => {
+const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose, }) => {
     var _a, _b;
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
@@ -71,7 +71,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        report.gross_sales === 0 && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
+        report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "w-full absolute top-0 left-0 pointer-events-none", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("div", { className: "mt-4" }, report.generated_by ? (react_1.default.createElement(XAccruedContent_1.XAccruedContent, { report: report })) : (react_1.default.createElement(XReadContent_1.XReadContent, { report: report }))),
         react_1.default.createElement(Printing_1.Divider, null),

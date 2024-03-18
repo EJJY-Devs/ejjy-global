@@ -20,6 +20,7 @@ interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
 	user: User;
+	isForPrint: boolean;
 	onClose: () => void;
 }
 
@@ -29,6 +30,7 @@ export const ViewXReadReportModal = ({
 	report,
 	siteSettings,
 	user,
+	isForPrint,
 	onClose,
 }: Props) => {
 	// STATES
@@ -99,13 +101,14 @@ export const ViewXReadReportModal = ({
 			open
 			onCancel={onClose}
 		>
-			{report.gross_sales === 0 && (
+			{report.gross_sales === 0 && !isForPrint && (
 				<img
 					alt="no transaction"
 					className="w-full absolute top-0 left-0 pointer-events-none"
 					src={imgNoTransaction}
 				/>
 			)}
+
 			<ReceiptHeader
 				branchMachine={report.branch_machine}
 				siteSettings={siteSettings}

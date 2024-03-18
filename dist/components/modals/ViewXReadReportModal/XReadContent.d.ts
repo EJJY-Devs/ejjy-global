@@ -1,5 +1,5 @@
 import React from 'react';
-import { XReadReport } from '../../../types';
+import { XReadReport } from 'types';
 type Props = {
     report: XReadReport;
 };
