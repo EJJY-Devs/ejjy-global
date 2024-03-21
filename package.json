@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.178",
+	"version": "0.0.179",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -31,7 +31,8 @@
 		"query-string": "^7.1.3",
 		"qz-tray": "^2.2.2",
 		"type-fest": "^4.3.1",
-		"use-debounce": "^7.0.1"
+		"use-debounce": "^7.0.1",
+		"formik": "2.2.6"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.197",

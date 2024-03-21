@@ -1,3 +1,4 @@
 export * from './DiscountDisplay';
-export * from './Printing';
 export * from './modals';
+export * from './Printing';
+export * from './RequestErrors';
