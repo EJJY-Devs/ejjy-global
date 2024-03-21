@@ -12,6 +12,6 @@ const RequestErrors = ({ className, errors, withSpaceTop, withSpaceBottom, }) =>
     return (react_1.default.createElement("div", { className: (0, classnames_1.default)('w-full flex flex-col', className, {
             'mt-4': withSpaceTop,
             'mb-4': withSpaceBottom,
-        }) }, (_a = errors === null || errors === void 0 ? void 0 : errors.filter(Boolean)) === null || _a === void 0 ? void 0 : _a.map((error, index) => (react_1.default.createElement(elements_1.FieldError, { key: index, error: error })))));
+        }) }, (_a = errors === null || errors === void 0 ? void 0 : errors.filter(Boolean)) === null || _a === void 0 ? void 0 : _a.map((error, index) => (react_1.default.createElement(elements_1.FieldError, { key: index, message: error })))));
 };
 exports.RequestErrors = RequestErrors;

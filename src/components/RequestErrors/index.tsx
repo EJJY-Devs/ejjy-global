@@ -22,7 +22,7 @@ export const RequestErrors = ({
 		})}
 	>
 		{errors?.filter(Boolean)?.map((error, index) => (
-			<FieldError key={index} error={error} />
+			<FieldError key={index} message={error} />
 		))}
 	</div>
 );

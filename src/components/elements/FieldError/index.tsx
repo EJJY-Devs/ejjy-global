@@ -4,14 +4,14 @@ import { FormikErrors } from 'formik';
 import * as React from 'react';
 
 interface Props {
-	error: string | FormikErrors<any> | string[] | FormikErrors<any>[];
+	message: string | FormikErrors<any> | string[] | FormikErrors<any>[];
 	classNames?: string;
 	withSpaceTop?: boolean;
 	withSpaceBottom?: boolean;
 }
 
 const FieldError = ({
-	error,
+	message,
 	classNames,
 	withSpaceTop,
 	withSpaceBottom,
@@ -27,7 +27,7 @@ const FieldError = ({
 		)}
 	>
 		<CloseCircleOutlined className="text-red-600 text-sm" />
-		<span className="ml-1 text-red-600 text-xs">{error}</span>
+		<span className="ml-1 text-red-600 text-xs">{message}</span>
 	</div>
 );
 
