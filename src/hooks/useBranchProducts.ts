@@ -2,14 +2,14 @@ import { useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { BranchProductsService } from '../services';
-import { ParamsOffline } from '../services/BranchProductsService';
+import { Params } from '../services/BranchProductsService';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { BranchProduct } from '../types';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery } from './inteface';
 
-export const useBranchProductsOffline = (
-	data: UseListQuery<BranchProduct, CamelCasedProperties<ParamsOffline>> = {},
+export const useBranchProducts = (
+	data: UseListQuery<BranchProduct, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options, serviceOptions } = data;
 
@@ -18,10 +18,10 @@ export const useBranchProductsOffline = (
 		Error,
 		QueryResponse<BranchProduct>
 	>(
-		['useBranchProductsOffline', params],
+		['useBranchProducts', params],
 		() =>
 			wrapServiceWithCatch(
-				BranchProductsService.listOffline(
+				BranchProductsService.list(
 					{
 						branch_id: params?.branchId,
 						identifier: params?.identifier,
@@ -34,6 +34,7 @@ export const useBranchProductsOffline = (
 						unit_of_measurement: params?.unitOfMeasurement,
 					},
 					serviceOptions?.baseURL,
+					serviceOptions?.type,
 				),
 			),
 		{

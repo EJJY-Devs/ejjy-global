@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.176",
+	"version": "0.0.177",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -14,7 +14,7 @@
 		"tsc": "tsc -w",
 		"tw": "npx tailwindcss -i src/index.css -o ./dist/styles.css",
 		"pre-commit": "npm version patch --no-git-tag-version && npm run tw && git add .",
-		"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\""
+		"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\" \"cd ../ejjy-app-pc-based-scale && npm update ejjy-global\""
 	},
 	"peerDependencies": {
 		"react": "^16.13.1",

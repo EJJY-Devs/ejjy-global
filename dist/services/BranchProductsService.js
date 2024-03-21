@@ -13,9 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const globals_1 = require("../globals");
 const service = {
-    listOffline: (params, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield axios_1.default.get('offline-branches-products/offline/', { baseURL, params });
+    list: (params, baseURL, serviceType = globals_1.ServiceType.ONLINE) => __awaiter(void 0, void 0, void 0, function* () {
+        const endpoints = {
+            [globals_1.ServiceType.ONLINE]: 'branches-products/',
+            [globals_1.ServiceType.OFFLINE]: 'offline-branches-products/offline/',
+        };
+        const response = yield axios_1.default.get(endpoints[serviceType], {
+            baseURL,
+            params,
+        });
         return response.data;
     }),
 };
