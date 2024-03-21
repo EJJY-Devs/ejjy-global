@@ -17,6 +17,8 @@ export const GENERIC_STATUS_500_MESSAGE =
 	'An error occurred in the server while processing your request.';
 export const GENERIC_BRANCH_ERROR_MESSAGE =
 	'An error occurred while requesting on a local branch';
+export const NO_VERIFICATION_NEEDED = 'NO_VERIFICATION_NEEDED';
+export const NO_VERIFICATION_CONFIG = { params: NO_VERIFICATION_NEEDED };
 
 // UI
 export const EMPTY_CELL = '-';

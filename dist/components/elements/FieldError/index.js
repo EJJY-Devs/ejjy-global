@@ -29,11 +29,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const icons_1 = require("@ant-design/icons");
 const classnames_1 = __importDefault(require("classnames"));
 const React = __importStar(require("react"));
-require("./style.scss");
-const FieldError = ({ error, classNames, withSpaceTop, withSpaceBottom, }) => (React.createElement("div", { className: (0, classnames_1.default)('FieldError', {
+const FieldError = ({ error, classNames, withSpaceTop, withSpaceBottom, }) => (React.createElement("div", { className: (0, classnames_1.default)('my-1 flex items-center', {
         'mt-2': withSpaceTop,
         'mb-4': withSpaceBottom,
     }, classNames) },
-    React.createElement(icons_1.CloseCircleOutlined, { className: "FieldError_icon" }),
-    React.createElement("span", { className: "FieldError_text" }, error)));
+    React.createElement(icons_1.CloseCircleOutlined, { className: "text-red-600 text-sm" }),
+    React.createElement("span", { className: "ml-1 text-red-600 text-xs" }, error)));
 exports.default = FieldError;

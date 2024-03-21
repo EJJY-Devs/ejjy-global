@@ -1,6 +1,5 @@
 import { FormikErrors } from 'formik';
 import * as React from 'react';
-import './style.scss';
 interface Props {
     error: string | FormikErrors<any> | string[] | FormikErrors<any>[];
     classNames?: string;

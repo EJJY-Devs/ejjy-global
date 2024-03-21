@@ -1,5 +1,6 @@
 export { default as AccountsService } from './AccountsService';
 export { default as AttendanceLogsService } from './AttendanceLogsService';
+export { default as AuthService } from './AuthService';
 export { default as BackOrdersService } from './BackOrdersService';
 export { default as BirReportsService } from './BirReportsService';
 export { default as BranchDayAuthorizationsService } from './BranchDayAuthorizationsService';

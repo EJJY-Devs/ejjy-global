@@ -12,6 +12,10 @@ export declare const NOTIFICATION_INTERVAL_MS = 10000;
 export declare const GENERIC_ERROR_MESSAGE = "An error occurred while processing your request.";
 export declare const GENERIC_STATUS_500_MESSAGE = "An error occurred in the server while processing your request.";
 export declare const GENERIC_BRANCH_ERROR_MESSAGE = "An error occurred while requesting on a local branch";
+export declare const NO_VERIFICATION_NEEDED = "NO_VERIFICATION_NEEDED";
+export declare const NO_VERIFICATION_CONFIG: {
+    params: string;
+};
 export declare const EMPTY_CELL = "-";
 export declare const ADMIN_PASSWORD = "generic123";
 export declare const QUANTITY_WEIGHING_PRECISION = 3;
