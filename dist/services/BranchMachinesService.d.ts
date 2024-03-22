@@ -6,6 +6,7 @@ export interface Params extends ListQueryParams {
 }
 export interface Ping {
     online_branch_machine_id: number;
+    online_api_url_override: string;
 }
 export type Modify = {
     branch_id: string;

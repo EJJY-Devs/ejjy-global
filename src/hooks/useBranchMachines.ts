@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { UseMutationOptions, useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { BranchMachinesService } from '../services';
-import { Modify, Params } from '../services/BranchMachinesService';
+import { Modify, Params, Ping } from '../services/BranchMachinesService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -70,11 +70,15 @@ export const useBranchMachineRetrieve = (
 };
 
 export const useBranchMachinePing = () =>
-	useMutation<AxiosResponse<boolean>, AxiosErrorResponse, number>(
-		(id: number) =>
-			BranchMachinesService.ping({
-				online_branch_machine_id: id,
-			}),
+	useMutation<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Ping>
+	>(({ onlineBranchMachineId, onlineApiUrlOverride }) =>
+		BranchMachinesService.ping({
+			online_branch_machine_id: onlineBranchMachineId,
+			online_api_url_override: onlineApiUrlOverride,
+		}),
 	);
 
 export const useBranchMachineCreate = (

@@ -21,8 +21,9 @@ const useBranchMachineRetrieve = (data) => {
     return (0, react_query_1.useQuery)(['useBranchMachineRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.BranchMachinesService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ enabled: typeof id === 'number' }, options));
 };
 exports.useBranchMachineRetrieve = useBranchMachineRetrieve;
-const useBranchMachinePing = () => (0, react_query_1.useMutation)((id) => services_1.BranchMachinesService.ping({
-    online_branch_machine_id: id,
+const useBranchMachinePing = () => (0, react_query_1.useMutation)(({ onlineBranchMachineId, onlineApiUrlOverride }) => services_1.BranchMachinesService.ping({
+    online_branch_machine_id: onlineBranchMachineId,
+    online_api_url_override: onlineApiUrlOverride,
 }));
 exports.useBranchMachinePing = useBranchMachinePing;
 const useBranchMachineCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ branchId, machineIdentificationNumber, name, permitToUse, serverUrl, storageSerialNumber, type, }) => services_1.BranchMachinesService.create({

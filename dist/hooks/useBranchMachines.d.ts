@@ -7,7 +7,10 @@ import { BranchMachine } from '../types';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
 declare const useBranchMachines: (data?: UseListQuery<BranchMachine, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<BranchMachine>, Error>;
 export declare const useBranchMachineRetrieve: (data: UseRetrieveQuery<BranchMachine>) => import("react-query").UseQueryResult<BranchMachine, unknown>;
-export declare const useBranchMachinePing: () => import("react-query").UseMutationResult<AxiosResponse<boolean>, AxiosErrorResponse<any>, number, unknown>;
+export declare const useBranchMachinePing: () => import("react-query").UseMutationResult<AxiosResponse<boolean>, AxiosErrorResponse<any>, {
+    onlineBranchMachineId: number;
+    onlineApiUrlOverride: string;
+}, unknown>;
 export declare const useBranchMachineCreate: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<BranchMachine>, AxiosErrorResponse<any>, {
     branchId: string;
     machineIdentificationNumber: string;
