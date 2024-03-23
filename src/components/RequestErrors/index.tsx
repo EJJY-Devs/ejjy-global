@@ -16,13 +16,13 @@ export const RequestErrors = ({
 	withSpaceBottom,
 }: Props) => (
 	<div
-		className={cn('w-full flex flex-col', className, {
+		className={cn('flex w-full flex-col', className, {
 			'mt-4': withSpaceTop,
 			'mb-4': withSpaceBottom,
 		})}
 	>
-		{errors?.filter(Boolean)?.map((error, index) => (
-			<FieldError key={index} message={error} />
-		))}
+		{errors
+			?.filter(Boolean)
+			?.map((error, index) => <FieldError key={index} message={error} />)}
 	</div>
 );

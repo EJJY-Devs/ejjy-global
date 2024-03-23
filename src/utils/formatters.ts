@@ -81,7 +81,7 @@ export const formatInPeso = (value: string | number, pesoSign = '₱') => {
 		? EMPTY_CELL
 		: `${x < 0 ? '-' : ''}${pesoSign}${formatNumberWithCommas(
 				standardRound(Math.abs(x)),
-		  )}`;
+			)}`;
 };
 
 export const formatTimeOnly = (time: string) =>

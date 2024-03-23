@@ -84,7 +84,7 @@ export const ViewDailySalesModal = ({
 				siteSettings={siteSettings}
 			/>
 
-			<Space align="center" className="mt-6 w-full justify-space-between">
+			<Space align="center" className="justify-space-between mt-6 w-full">
 				<Text>DAILY SALES</Text>
 				<Text>{`For ${formatDate(dailySales.daily_sales_data.date)}`}</Text>
 			</Space>
@@ -264,7 +264,7 @@ export const ViewDailySalesModal = ({
 				</Text>
 			</Space>
 
-			<Space className="mt-2 w-full justify-space-between">
+			<Space className="justify-space-between mt-2 w-full">
 				<Text>C: {dailySales?.generated_by?.employee_id || EMPTY_CELL}</Text>
 				<Text>PB: {dailySales?.generated_by?.employee_id || EMPTY_CELL}</Text>
 			</Space>

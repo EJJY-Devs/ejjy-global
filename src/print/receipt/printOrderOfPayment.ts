@@ -19,7 +19,7 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 	const invoiceDate = orderOfPayment?.charge_sales_transaction
 		? formatDateTime(
 				orderOfPayment.charge_sales_transaction.invoice.datetime_created,
-		  )
+			)
 		: '&nbsp;';
 
 	let purposeDescription = orderOfPayment.extra_description;

@@ -48,10 +48,11 @@ export const printAdjustmentReport = (
             <tr>
               <td>${discountOption.name}</td>
               <td>${_.upperFirst(discountOption.type)} ${
-					discountOption?.percentage && Number(discountOption.percentage) > 0
-						? `${discountOption.percentage}%`
-						: ''
-				}</td>
+								discountOption?.percentage &&
+								Number(discountOption.percentage) > 0
+									? `${discountOption.percentage}%`
+									: ''
+							}</td>
               <td>${formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
             </tr>
           </tbody>

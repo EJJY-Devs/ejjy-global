@@ -37,7 +37,7 @@ export const ViewZReadReportModal = ({
 						y: 50,
 						w: 300,
 						h: 600,
-				  }
+					}
 				: undefined,
 		print: () => printZReadReport(report, siteSettings, user, true),
 	});

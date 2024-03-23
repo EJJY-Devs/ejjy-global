@@ -33,6 +33,6 @@ const FieldError = ({ message, classNames, withSpaceTop, withSpaceBottom, }) => 
         'mt-2': withSpaceTop,
         'mb-4': withSpaceBottom,
     }, classNames) },
-    React.createElement(icons_1.CloseCircleOutlined, { className: "text-red-600 text-sm" }),
-    React.createElement("span", { className: "ml-1 text-red-600 text-xs" }, message)));
+    React.createElement(icons_1.CloseCircleOutlined, { className: "text-sm text-red-600" }),
+    React.createElement("span", { className: "ml-1 text-xs text-red-600" }, message)));
 exports.default = FieldError;

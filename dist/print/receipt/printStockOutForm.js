@@ -46,7 +46,9 @@ const printStockOutForm = (backOrder, siteSettings) => {
             Number(item.current_price_per_piece);
         totalAmount += subtotal;
         return `<tr>
-						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}</td>
+						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted
+            ? globals_1.vatTypes.VAT_EMPTY
+            : globals_1.vatTypes.VATABLE}</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${(0, utils_1.formatQuantity)(Number(item.quantity_returned), item.product)} @ ${(0, utils_1.formatInPeso)(item.current_price_per_piece, helper_receipt_1.PESO_SIGN)}</td>

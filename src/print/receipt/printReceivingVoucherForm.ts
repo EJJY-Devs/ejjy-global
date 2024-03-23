@@ -34,8 +34,10 @@ export const printReceivingVoucherForm = (
 				.map(
 					(item) => `<tr>
 						<td colspan="2">${item.product.name} - ${
-						item.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE
-					}</td>
+							item.product.is_vat_exempted
+								? vatTypes.VAT_EMPTY
+								: vatTypes.VATABLE
+						}</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${formatQuantity(

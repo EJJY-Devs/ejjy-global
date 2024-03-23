@@ -57,7 +57,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Daily Sales", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
-        react_1.default.createElement(antd_1.Space, { align: "center", className: "mt-6 w-full justify-space-between" },
+        react_1.default.createElement(antd_1.Space, { align: "center", className: "justify-space-between mt-6 w-full" },
             react_1.default.createElement(Text, null, "DAILY SALES"),
             react_1.default.createElement(Text, null, `For ${(0, utils_1.formatDate)(dailySales.daily_sales_data.date)}`)),
         react_1.default.createElement(antd_1.Descriptions, { className: "mt-6 w-full", colon: false, column: 1, contentStyle: {
@@ -169,7 +169,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, onClose, }) => {
                 dailySales.printing_datetime
                     ? (0, utils_1.formatDateTime)(dailySales.printing_datetime)
                     : globals_1.EMPTY_CELL)),
-        react_1.default.createElement(antd_1.Space, { className: "mt-2 w-full justify-space-between" },
+        react_1.default.createElement(antd_1.Space, { className: "justify-space-between mt-2 w-full" },
             react_1.default.createElement(Text, null,
                 "C: ",
                 ((_a = dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),

@@ -32,7 +32,7 @@ export const ZReadContent = ({
 			{report.gross_sales === 0 && !isForPrint && (
 				<img
 					alt="no transaction"
-					className="w-full absolute top-0 left-0 pointer-events-none"
+					className="pointer-events-none absolute left-0 top-0 w-full"
 					src={imgNoTransaction}
 				/>
 			)}

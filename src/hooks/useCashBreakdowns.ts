@@ -72,7 +72,7 @@ export const useCashBreakdownCreate = () =>
 						prepared_by_user_id: body.cashOutMetadata.preparedByUserId,
 						approved_by_user_id: body.cashOutMetadata.approvedByUserId,
 						received_by: body.cashOutMetadata.receivedBy,
-				  }
+					}
 				: undefined,
 			category: body.category,
 			coins_1: body.coins1,

@@ -43,7 +43,8 @@ const printAdjustmentReport = (transactions, user) => {
           <tbody>
             <tr>
               <td>${discountOption.name}</td>
-              <td>${lodash_1.default.upperFirst(discountOption.type)} ${(discountOption === null || discountOption === void 0 ? void 0 : discountOption.percentage) && Number(discountOption.percentage) > 0
+              <td>${lodash_1.default.upperFirst(discountOption.type)} ${(discountOption === null || discountOption === void 0 ? void 0 : discountOption.percentage) &&
+                Number(discountOption.percentage) > 0
                 ? `${discountOption.percentage}%`
                 : ''}</td>
               <td>${(0, utils_1.formatInPeso)(transaction.overall_discount, helper_receipt_1.PESO_SIGN)}</td>

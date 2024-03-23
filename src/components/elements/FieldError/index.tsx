@@ -26,8 +26,8 @@ const FieldError = ({
 			classNames,
 		)}
 	>
-		<CloseCircleOutlined className="text-red-600 text-sm" />
-		<span className="ml-1 text-red-600 text-xs">{message}</span>
+		<CloseCircleOutlined className="text-sm text-red-600" />
+		<span className="ml-1 text-xs text-red-600">{message}</span>
 	</div>
 );
 

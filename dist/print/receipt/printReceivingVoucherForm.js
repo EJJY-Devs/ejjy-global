@@ -23,7 +23,9 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
 		<table style="width: 100%;">
 			${products
         .map((item) => `<tr>
-						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}</td>
+						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted
+        ? globals_1.vatTypes.VAT_EMPTY
+        : globals_1.vatTypes.VATABLE}</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${(0, utils_1.formatQuantity)(item.quantity, item.product)} @ ${(0, utils_1.formatInPeso)(item.cost_per_piece, helper_receipt_1.PESO_SIGN)}</td>

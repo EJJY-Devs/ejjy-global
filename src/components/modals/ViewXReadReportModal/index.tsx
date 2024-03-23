@@ -37,7 +37,7 @@ export const ViewXReadReportModal = ({
 						y: 50,
 						w: 300,
 						h: 600,
-				  }
+					}
 				: undefined,
 		print: () => printXReadReport(report, siteSettings, user, true),
 	});
