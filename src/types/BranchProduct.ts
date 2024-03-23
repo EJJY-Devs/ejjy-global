@@ -20,7 +20,7 @@ export interface BranchProduct {
 	current_balance: number;
 	bo_balance: string;
 	balance_last_updated?: string;
-	allowable_spoilage: number;
+	allowable_spoilage: string;
 	product_status: 'available' | 'reorder' | 'out_of_stock';
 	is_daily_checked: boolean;
 	is_randomly_checked: boolean;
