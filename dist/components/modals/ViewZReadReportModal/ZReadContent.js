@@ -105,15 +105,15 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_exempt, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'VATable Sales',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'VAT Amount',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    label: 'VAT Amount (12%)',
+                    value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Zero Rated Sales',

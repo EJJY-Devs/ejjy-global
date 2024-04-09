@@ -148,15 +148,15 @@ export const ZReadContent = ({
 				items={[
 					{
 						label: 'VAT Exempt Sales',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.vat_exempt, PESO_SIGN),
 					},
 					{
 						label: 'VATable Sales',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.vat_sales, PESO_SIGN),
 					},
 					{
-						label: 'VAT Amount',
-						value: formatInPeso(0, PESO_SIGN),
+						label: 'VAT Amount (12%)',
+						value: formatInPeso(report.vat_amount, PESO_SIGN),
 					},
 					{
 						label: 'Zero Rated Sales',

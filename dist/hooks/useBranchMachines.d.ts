@@ -9,7 +9,7 @@ declare const useBranchMachines: (data?: UseListQuery<BranchMachine, CamelCasedP
 export declare const useBranchMachineRetrieve: (data: UseRetrieveQuery<BranchMachine>) => import("react-query").UseQueryResult<BranchMachine, unknown>;
 export declare const useBranchMachinePing: () => import("react-query").UseMutationResult<AxiosResponse<boolean>, AxiosErrorResponse<any>, {
     onlineBranchMachineId: number;
-    onlineApiUrlOverride: string;
+    onlineApiUrlOverride?: string | undefined;
 }, unknown>;
 export declare const useBranchMachineCreate: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<BranchMachine>, AxiosErrorResponse<any>, {
     branchId: string;
