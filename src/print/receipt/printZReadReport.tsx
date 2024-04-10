@@ -11,7 +11,7 @@ import {
 export const printZReadReport = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
-	user: User,
+	user?: User,
 	isPdf = false,
 ) => {
 	const data = ReactDOMServer.renderToStaticMarkup(

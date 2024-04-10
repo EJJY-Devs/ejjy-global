@@ -3,7 +3,7 @@ import { SiteSettings, User, XReadReport } from '../../../types';
 interface Props {
     report: XReadReport;
     siteSettings: SiteSettings;
-    user: User;
+    user?: User;
     isForPrint?: boolean;
 }
 export declare const XReadContent: ({ report, siteSettings, user, isForPrint, }: Props) => React.JSX.Element;

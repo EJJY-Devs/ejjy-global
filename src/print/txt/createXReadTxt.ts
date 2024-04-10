@@ -6,7 +6,7 @@ import { writeFooter, writeHeader } from '../helper-txt';
 export const createXReadTxt = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
-	user: GeneratedByUser,
+	user?: GeneratedByUser,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();

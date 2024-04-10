@@ -46,7 +46,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 cashieringSession.user.employee_id,
                 " |",
                 ' ',
-                (0, utils_1.getFullName)(cashieringSession.user)))),
+                cashieringSession.user.employee_id))),
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {

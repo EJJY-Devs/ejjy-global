@@ -1,8 +1,5 @@
-import { Space, Typography } from 'antd';
 import React from 'react';
 import { SiteSettings } from '../../types';
-
-const { Text } = Typography;
 
 interface Props {
 	siteSettings: SiteSettings;

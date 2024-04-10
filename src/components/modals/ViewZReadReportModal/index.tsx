@@ -11,7 +11,7 @@ import { ZReadContent } from './ZReadContent';
 interface Props {
 	report: ZReadReport;
 	siteSettings: SiteSettings;
-	user: User;
+	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
 }

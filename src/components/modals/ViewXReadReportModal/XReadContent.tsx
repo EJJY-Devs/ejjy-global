@@ -8,7 +8,6 @@ import {
 	formatDateTime,
 	formatInPeso,
 	formatTime,
-	getFullName,
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
@@ -16,7 +15,7 @@ import { ItemBlock } from '../../Printing/ItemBlock';
 interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
-	user: User;
+	user?: User;
 	isForPrint?: boolean;
 }
 
@@ -73,7 +72,7 @@ export const XReadContent = ({
 					</div>
 					<div style={{ textAlign: 'center' }}>
 						Cashier: {cashieringSession.user.employee_id} |{' '}
-						{getFullName(cashieringSession.user)}
+						{cashieringSession.user.employee_id}
 					</div>
 				</>
 			)}

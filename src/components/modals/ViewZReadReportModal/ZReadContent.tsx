@@ -15,7 +15,7 @@ import { ItemBlock } from '../../Printing/ItemBlock';
 interface Props {
 	report: ZReadReport;
 	siteSettings: SiteSettings;
-	user: User;
+	user?: User;
 	isForPrint?: boolean;
 }
 

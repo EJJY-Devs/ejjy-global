@@ -11,7 +11,7 @@ import { XReadContent } from './XReadContent';
 interface Props {
 	report: XReadReport;
 	siteSettings: SiteSettings;
-	user: User;
+	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
 }
@@ -52,9 +52,6 @@ export const ViewXReadReportModal = ({
 		createXReadTxt(report, siteSettings, user);
 		setIsCreatingTxt(false);
 	};
-
-	const cashieringSession = report.cashiering_session;
-	const isAccrued = !!report.generated_by;
 
 	return (
 		<Modal

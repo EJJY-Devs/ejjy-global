@@ -11,7 +11,7 @@ import {
 export const printXReadReport = (
 	report: XReadReport,
 	siteSettings: SiteSettings,
-	user: User,
+	user?: User,
 	isPdf = false,
 ) => {
 	const data = ReactDOMServer.renderToStaticMarkup(

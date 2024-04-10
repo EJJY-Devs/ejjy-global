@@ -6,7 +6,7 @@ import { writeFooter, writeHeader } from '../helper-txt';
 export const createZReadTxt = (
 	report: ZReadReport,
 	siteSettings: SiteSettings,
-	user: GeneratedByUser,
+	user?: GeneratedByUser,
 	returnContent = false,
 ) => {
 	const reportTextFile = new ReportTextFile();
