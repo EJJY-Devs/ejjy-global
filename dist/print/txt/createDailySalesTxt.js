@@ -204,11 +204,11 @@ const createDailySalesTxt = (dailySales, siteSettings, user) => {
         alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
         rowNumber,
     });
-    reportTextFile.write({
-        text: `${(0, utils_1.formatInPeso)(dailySales.others, helper_receipt_1.PESO_SIGN)} `,
-        alignment: utils_1.ReportTextFile.ALIGNMENTS.RIGHT,
-        rowNumber,
-    });
+    // reportTextFile.write({
+    // 	text: `${formatInPeso(dailySales.others, PESO_SIGN)} `,
+    // 	alignment: ReportTextFile.ALIGNMENTS.RIGHT,
+    // 	rowNumber,
+    // });
     rowNumber += 1;
     reportTextFile.write({
         text: '   TOTAL',

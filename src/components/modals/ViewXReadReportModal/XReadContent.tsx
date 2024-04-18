@@ -200,6 +200,9 @@ export const XReadContent = ({
 			<br />
 
 			<ReceiptFooter siteSettings={siteSettings} />
+
+			<div>This Document Is Not Valid For Claim Of Input Tax</div>
+			<div>Thank You!</div>
 		</>
 	);
 };

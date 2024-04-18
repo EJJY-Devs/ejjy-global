@@ -27,7 +27,6 @@ const ReceiptFooter = ({ siteSettings }) => {
             ptuNumber),
         react_1.default.createElement("span", null,
             "Date Issued: ",
-            ptuDate),
-        react_1.default.createElement("br", null)));
+            ptuDate)));
 };
 exports.ReceiptFooter = ReceiptFooter;

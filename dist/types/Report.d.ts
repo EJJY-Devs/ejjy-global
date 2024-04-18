@@ -25,7 +25,6 @@ export interface XReadReport {
     gross_sales: number;
     location?: string;
     net_sales: number;
-    others: number;
     permit_number?: string;
     pos_accreditation_date?: string;
     pos_accreditation_number?: string;
@@ -59,6 +58,17 @@ export interface XReadReport {
     total_cash_on_hand: number;
     cash_in_drawer: number;
     short_over: number;
+    pwd_discount: number;
+    sc_discount: number;
+    naac_discount: number;
+    sp_discount: number;
+    others_discount: number;
+    total_deductions: number;
+    vat_pwd_discount: number;
+    vat_sc_discount: number;
+    vat_others_discount: number;
+    vat_returns: number;
+    vat_others: number;
 }
 type DailySalesData = {
     date: string;
@@ -87,7 +97,6 @@ export interface ZReadReport {
     gross_sales: number;
     location?: string;
     net_sales: number;
-    others: number;
     permit_number?: string;
     pos_accreditation_date?: string;
     pos_accreditation_number?: string;

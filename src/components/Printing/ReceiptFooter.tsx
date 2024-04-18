@@ -32,7 +32,6 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 			<br />
 			<span>PTU No: {ptuNumber}</span>
 			<span>Date Issued: {ptuDate}</span>
-			<br />
 		</div>
 	);
 };

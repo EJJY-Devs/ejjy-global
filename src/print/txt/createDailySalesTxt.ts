@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DailySales, GeneratedByUser, SiteSettings } from '../../types';
+import { DailySales, GeneratedByUser, SiteSettings, User } from '../../types';
 import {
 	ReportTextFile,
 	formatDate,
@@ -12,7 +12,7 @@ import { writeFooter, writeHeader } from '../helper-txt';
 export const createDailySalesTxt = (
 	dailySales: DailySales,
 	siteSettings: SiteSettings,
-	user: GeneratedByUser,
+	user?: User,
 ) => {
 	const reportTextFile = new ReportTextFile();
 	let rowNumber = 0;
@@ -235,11 +235,11 @@ export const createDailySalesTxt = (
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
-	reportTextFile.write({
-		text: `${formatInPeso(dailySales.others, PESO_SIGN)} `,
-		alignment: ReportTextFile.ALIGNMENTS.RIGHT,
-		rowNumber,
-	});
+	// reportTextFile.write({
+	// 	text: `${formatInPeso(dailySales.others, PESO_SIGN)} `,
+	// 	alignment: ReportTextFile.ALIGNMENTS.RIGHT,
+	// 	rowNumber,
+	// });
 	rowNumber += 1;
 
 	reportTextFile.write({

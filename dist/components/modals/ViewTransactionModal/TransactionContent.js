@@ -204,6 +204,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
             react_1.default.createElement("td", null, value))))),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
+        react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: {
                 textAlign: 'center',
                 display: 'flex',

@@ -268,6 +268,7 @@ export const TransactionContent = ({
 			<br />
 
 			<ReceiptFooter siteSettings={siteSettings} />
+			<br />
 
 			<div
 				style={{

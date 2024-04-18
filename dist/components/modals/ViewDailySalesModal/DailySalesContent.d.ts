@@ -4,7 +4,6 @@ interface Props {
     dailySales: DailySales;
     siteSettings: SiteSettings;
     user?: User;
-    onClose: () => void;
 }
-export declare const ViewDailySalesModal: ({ dailySales, siteSettings, user, onClose, }: Props) => React.JSX.Element;
+export declare const DailySalesContent: ({ dailySales, siteSettings, user, }: Props) => React.JSX.Element;
 export {};

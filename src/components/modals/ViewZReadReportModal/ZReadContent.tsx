@@ -351,16 +351,16 @@ export const ZReadContent = ({
 				? formatDateTime(report.printing_datetime)
 				: EMPTY_CELL}
 		</div>
-		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<div>C: {report?.generated_by?.employee_id || EMPTY_CELL}</div>
-			<div>
-				PB:{' '}
-				{user?.employee_id || report?.generated_by?.employee_id || EMPTY_CELL}
-			</div>
+		<div>
+			Printer By:{' '}
+			{user?.employee_id || report?.generated_by?.employee_id || EMPTY_CELL}
 		</div>
 
 		<br />
 
 		<ReceiptFooter siteSettings={siteSettings} />
+
+		<div>This Document Is Not Valid For Claim Of Input Tax</div>
+		<div>Thank You!</div>
 	</>
 );

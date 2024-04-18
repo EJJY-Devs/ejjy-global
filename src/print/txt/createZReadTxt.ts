@@ -334,21 +334,21 @@ export const createZReadTxt = (
 		alignment: ReportTextFile.ALIGNMENTS.LEFT,
 		rowNumber,
 	});
-	reportTextFile.write({
-		text: `${formatInPeso(report.others, PESO_SIGN)} `,
-		alignment: ReportTextFile.ALIGNMENTS.RIGHT,
-		rowNumber,
-	});
-	rowNumber += 1;
+	// reportTextFile.write({
+	// 	text: `${formatInPeso(report.others, PESO_SIGN)} `,
+	// 	alignment: ReportTextFile.ALIGNMENTS.RIGHT,
+	// 	rowNumber,
+	// });
+	// rowNumber += 1;
 
-	if (Number(report.others) > 0) {
-		reportTextFile.write({
-			text: UNDERLINE_TEXT,
-			alignment: ReportTextFile.ALIGNMENTS.RIGHT,
-			rowNumber,
-		});
-		rowNumber += 1;
-	}
+	// if (Number(report.others) > 0) {
+	// 	reportTextFile.write({
+	// 		text: UNDERLINE_TEXT,
+	// 		alignment: ReportTextFile.ALIGNMENTS.RIGHT,
+	// 		rowNumber,
+	// 	});
+	// 	rowNumber += 1;
+	// }
 
 	reportTextFile.write({
 		text: '   TOTAL',
