@@ -12,13 +12,12 @@ const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
-    var _a, _b, _c, _d;
-    const isAccrued = !!report.generated_by;
+    var _a, _b, _c, _d, _e, _f;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, isAccrued ? 'Z-ACCRUED REPORT' : 'Z-READING REPORT'),
+        react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "Z-READING REPORT"),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Report Generation Datetime"),
         report.generation_datetime && (react_1.default.createElement("div", { style: { textAlign: 'center' } },
@@ -51,11 +50,11 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: 'Beg Void #:',
-                    value: globals_1.EMPTY_CELL,
+                    value: ((_c = report.ending_void_or) === null || _c === void 0 ? void 0 : _c.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
                     label: 'End Void #:',
-                    value: globals_1.EMPTY_CELL,
+                    value: ((_d = report.ending_void_or) === null || _d === void 0 ? void 0 : _d.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
                     label: 'Beg Return #:',
@@ -69,39 +68,114 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Transaction Count:',
-                    value: report.total_transactions,
-                },
-                {
                     label: 'Reset Counter No.:',
-                    value: 0,
+                    value: report.reset_counter,
                 },
                 {
                     label: 'Z Counter No.:',
-                    value: 0,
-                },
-                {
-                    label: 'Opening Fund/Cash In:',
-                    value: 0,
+                    value: report.id,
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Present Accumulated Sales',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    label: '+Current Accum. Sales (end)',
+                    value: (0, utils_1.formatInPeso)(report.ending_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'Previous Accumulated Sales',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    label: '-Previous Accum. Sales (beg)',
+                    value: (0, utils_1.formatInPeso)(report.beginning_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'Sales for the Day',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    label: '=Gross Sales of the Day',
+                    value: (0, utils_1.formatInPeso)(report.current_day_gross_sales, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Sales Breakdown"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: '+Gross Sales of the Day',
+                    value: (0, utils_1.formatInPeso)(report.current_day_gross_sales, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Deductions',
+                    value: (0, utils_1.formatInPeso)(report.current_day_deductions, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-VAT Amount',
+                    value: (0, utils_1.formatInPeso)(report.current_day_vat_deductions, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=Net Amount',
+                    value: (0, utils_1.formatInPeso)(report.current_day_net_sales, helper_receipt_1.PESO_SIGN),
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Payment Received "),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: '+Cash',
+                    value: (0, utils_1.formatInPeso)(report.cash_payment, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '+Check',
+                    value: (0, utils_1.formatInPeso)(report.check_payment, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '+Credit Card',
+                    value: (0, utils_1.formatInPeso)(report.credit_card_payment, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=Total',
+                    value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Cash on Hand"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: '+Payment Received',
+                    value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '+Opening fund',
+                    value: (0, utils_1.formatInPeso)(report.opening_fund, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '+Cash In',
+                    value: (0, utils_1.formatInPeso)(report.cash_in, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Cash Out',
+                    value: (0, utils_1.formatInPeso)(report.cash_out, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Cash Collection',
+                    value: (0, utils_1.formatInPeso)(report.cash_collection, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=Total',
+                    value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Transaction Summary"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: '+Cash on Hand',
+                    value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Cash in Drawer',
+                    value: (0, utils_1.formatInPeso)(report.cash_in_drawer, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=(Short)/Over',
+                    value: (0, utils_1.formatInPeso)(report.short_over, helper_receipt_1.PESO_SIGN),
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Sales Breakdown "),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',
@@ -121,46 +195,27 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                {
-                    label: '+Gross Amount',
-                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-Deductions',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-VAT Adjustment (12%)',
-                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '=Net Amount',
-                    value: (0, utils_1.formatInPeso)(report.net_sales, helper_receipt_1.PESO_SIGN),
-                },
-            ] }),
-        react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Deductions"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Deductions"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.sc_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.pwd_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. NAAC',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.naac_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. Solo Parent',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.sp_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.others_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Return',
@@ -168,27 +223,27 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '+Void',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.void, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=Total',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.total_deductions, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Adjustment"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated VAT Adjustment"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_sc_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. PWD',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_pwd_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+Disc. Others',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_others_discount, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '+VAT on Returns',
@@ -196,15 +251,15 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '+Others',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_others, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=Total',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Payable"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated VAT Payable"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+VAT Amount (12%)',
@@ -217,75 +272,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 {
                     label: '=Total',
                     value: (0, utils_1.formatInPeso)(report.vat_payable, helper_receipt_1.PESO_SIGN),
-                },
-            ] }),
-        react_1.default.createElement(Printing_1.Divider, null),
-        isAccrued && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
-            react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                    {
-                        label: '+Cash',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                    {
-                        label: '+Check',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                    {
-                        label: '+Credit Card',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                    {
-                        label: '=Total',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                ] }),
-            react_1.default.createElement(Printing_1.Divider, null),
-            react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Adjustments"),
-            react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                    {
-                        label: 'Void',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                    {
-                        label: 'Refund',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                    {
-                        label: 'Withdrawals/Cash Out',
-                        value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    },
-                ] }),
-            react_1.default.createElement(Printing_1.Divider, null))),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Summary"),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                {
-                    label: '+Cash in Drawer',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '+Check',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '+Credit Card',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '+Opening fund/Cash In',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-Withdrawal/Cash Out',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-Payment Received',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '=Short/Over',
-                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
@@ -304,11 +290,11 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'space-between' } },
             react_1.default.createElement("div", null,
                 "C: ",
-                ((_c = report === null || report === void 0 ? void 0 : report.generated_by) === null || _c === void 0 ? void 0 : _c.employee_id) || globals_1.EMPTY_CELL),
+                ((_e = report === null || report === void 0 ? void 0 : report.generated_by) === null || _e === void 0 ? void 0 : _e.employee_id) || globals_1.EMPTY_CELL),
             react_1.default.createElement("div", null,
                 "PB:",
                 ' ',
-                (user === null || user === void 0 ? void 0 : user.employee_id) || ((_d = report === null || report === void 0 ? void 0 : report.generated_by) === null || _d === void 0 ? void 0 : _d.employee_id) || globals_1.EMPTY_CELL)),
+                (user === null || user === void 0 ? void 0 : user.employee_id) || ((_f = report === null || report === void 0 ? void 0 : report.generated_by) === null || _f === void 0 ? void 0 : _f.employee_id) || globals_1.EMPTY_CELL)),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

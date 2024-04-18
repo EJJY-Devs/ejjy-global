@@ -48,6 +48,17 @@ export interface XReadReport {
     vat_special_discount: string;
     vat_void: string;
     void: string;
+    total_payment_received: number;
+    cash_payment: number;
+    check_payment: number;
+    credit_card_payment: number;
+    opening_fund: number;
+    cash_in: number;
+    cash_out: number;
+    cash_collection: number;
+    total_cash_on_hand: number;
+    cash_in_drawer: number;
+    short_over: number;
 }
 type DailySalesData = {
     date: string;
@@ -99,5 +110,34 @@ export interface ZReadReport {
     vat_special_discount: number;
     vat_void: number;
     void: number;
+    pwd_discount: number;
+    sc_discount: number;
+    naac_discount: number;
+    sp_discount: number;
+    others_discount: number;
+    vat_pwd_discount: number;
+    vat_sc_discount: number;
+    vat_others_discount: number;
+    vat_returns: number;
+    vat_others: number;
+    total_deductions: number;
+    total_payment_received: number;
+    cash_payment: number;
+    check_payment: number;
+    credit_card_payment: number;
+    opening_fund: number;
+    cash_in: number;
+    cash_out: number;
+    cash_collection: number;
+    total_cash_on_hand: number;
+    cash_in_drawer: number;
+    short_over: number;
+    beginning_void_or: InvoiceOr;
+    ending_void_or: InvoiceOr;
+    reset_counter: string;
+    current_day_gross_sales: number;
+    current_day_deductions: number;
+    current_day_vat_deductions: number;
+    current_day_net_sales: number;
 }
 export {};

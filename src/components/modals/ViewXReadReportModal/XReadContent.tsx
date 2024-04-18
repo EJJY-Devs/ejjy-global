@@ -8,6 +8,7 @@ import {
 	formatDateTime,
 	formatInPeso,
 	formatTime,
+	getFullName,
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
@@ -26,7 +27,6 @@ export const XReadContent = ({
 	isForPrint,
 }: Props) => {
 	const cashieringSession = report.cashiering_session;
-	const isAccrued = !!report.generated_by;
 
 	return (
 		<>
@@ -46,7 +46,7 @@ export const XReadContent = ({
 			<br />
 
 			<div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-				{isAccrued ? 'X-ACCRUED REPORT' : 'X-READING REPORT'}
+				X-READING REPORT
 			</div>
 
 			<br />
@@ -72,7 +72,7 @@ export const XReadContent = ({
 					</div>
 					<div style={{ textAlign: 'center' }}>
 						Cashier: {cashieringSession.user.employee_id} |{' '}
-						{cashieringSession.user.employee_id}
+						{getFullName(cashieringSession.user)}
 					</div>
 				</>
 			)}
@@ -94,187 +94,62 @@ export const XReadContent = ({
 						value: report.total_transactions,
 					},
 					{
-						label: 'Opening Fund/Cash In:',
-						value: formatInPeso(report.beginning_sales, PESO_SIGN),
+						label: 'Opening Fund:',
+						value: formatInPeso(report.opening_fund, PESO_SIGN),
 					},
 				]}
 			/>
 			<Divider />
-
-			<div style={{ textAlign: 'center' }}>Current Sales</div>
-			<ItemBlock
-				items={[
-					{
-						label: '+Cash Sales',
-						value: formatInPeso(report.cash_sales, PESO_SIGN),
-					},
-					{
-						label: '+Credit Sales',
-						value: formatInPeso(report.credit_pay, PESO_SIGN),
-					},
-					{
-						label: '=Total',
-						value: 'WIP',
-					},
-				]}
-			/>
-			<Divider />
-
-			<div style={{ textAlign: 'center' }}>Sales Breakdown</div>
-			<ItemBlock
-				items={[
-					{
-						label: 'VAT Exempt',
-						value: formatInPeso(report.vat_exempt, PESO_SIGN),
-					},
-					{
-						label: 'VATable Sales',
-						value: formatInPeso(report.vat_sales, PESO_SIGN),
-					},
-					{
-						label: 'VAT Amount (12%)',
-						value: formatInPeso(report.vat_amount, PESO_SIGN),
-					},
-					{
-						label: 'ZERO Rated',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-				]}
-			/>
-			<Divider />
-
-			{!isAccrued && (
-				<>
-					<div style={{ textAlign: 'center' }}>Deductions</div>
-					<ItemBlock
-						items={[
-							{
-								label: '+Disc. SC',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. PWD',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. NAAC',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. Solo Parent',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. Others',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Return',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Void',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '=Total',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-						]}
-					/>
-					<Divider />
-
-					<div style={{ textAlign: 'center' }}>VAT Adjustment</div>
-					<ItemBlock
-						items={[
-							{
-								label: '+Disc. SC',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. PWD',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Disc. Others',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+VAT on Returns',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '+Others',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-							{
-								label: '=Total',
-								value: formatInPeso(0, PESO_SIGN),
-							},
-						]}
-					/>
-					<Divider />
-
-					<div style={{ textAlign: 'center' }}>VAT Payable</div>
-					<ItemBlock
-						items={[
-							{
-								label: '+VAT Amount (12%)',
-								value: formatInPeso(report.vat_amount, PESO_SIGN),
-							},
-							{
-								label: '-VAT Adjustment',
-								value: formatInPeso(report.total_vat_adjusted, PESO_SIGN),
-								isUnderlined: true,
-								isParenthesized: true,
-							},
-							{
-								label: '=Total',
-								value: formatInPeso(report.vat_payable, PESO_SIGN),
-							},
-						]}
-					/>
-					<Divider />
-				</>
-			)}
 
 			<div style={{ textAlign: 'center' }}>Payment Received</div>
 			<ItemBlock
 				items={[
 					{
 						label: '+Cash',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.cash_payment, PESO_SIGN),
 					},
 					{
 						label: '+Check',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.check_payment, PESO_SIGN),
 					},
 					{
 						label: '+Credit Card',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.credit_card_payment, PESO_SIGN),
 					},
 					{
 						label: '=Total',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.total_payment_received, PESO_SIGN),
 					},
 				]}
 			/>
 			<Divider />
 
-			<div style={{ textAlign: 'center' }}>Transaction Adjustments</div>
+			<div style={{ textAlign: 'center' }}>Cash on Hand</div>
 			<ItemBlock
 				items={[
 					{
-						label: 'Void',
-						value: formatInPeso(0, PESO_SIGN),
+						label: '+Payment Received',
+						value: formatInPeso(report.total_payment_received, PESO_SIGN),
 					},
 					{
-						label: 'Refund',
-						value: formatInPeso(0, PESO_SIGN),
+						label: '+Opening Fund',
+						value: formatInPeso(report.opening_fund, PESO_SIGN),
 					},
 					{
-						label: 'Withdrawals/Cash Out',
-						value: formatInPeso(0, PESO_SIGN),
+						label: '+Cash In',
+						value: formatInPeso(report.cash_in, PESO_SIGN),
+					},
+					{
+						label: '-Cash Out',
+						value: formatInPeso(report.cash_out, PESO_SIGN),
+					},
+					{
+						label: '-Cash Collection',
+						value: formatInPeso(report.cash_collection, PESO_SIGN),
+					},
+					{
+						label: '=Total',
+						value: formatInPeso(report.total_cash_on_hand, PESO_SIGN),
 					},
 				]}
 			/>
@@ -284,32 +159,16 @@ export const XReadContent = ({
 			<ItemBlock
 				items={[
 					{
-						label: '+Cash in Drawer',
-						value: formatInPeso(0, PESO_SIGN),
+						label: '+Cash on Hand',
+						value: formatInPeso(report.total_cash_on_hand, PESO_SIGN),
 					},
 					{
-						label: '+Check',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-					{
-						label: '+Credit Card',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-					{
-						label: '+Opening fund',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-					{
-						label: '-Withdrawal',
-						value: formatInPeso(0, PESO_SIGN),
-					},
-					{
-						label: '-Payment Received',
-						value: formatInPeso(0, PESO_SIGN),
+						label: '-Cash in Drawer',
+						value: formatInPeso(report.cash_in_drawer, PESO_SIGN),
 					},
 					{
 						label: '=Short/Over',
-						value: formatInPeso(0, PESO_SIGN),
+						value: formatInPeso(report.short_over, PESO_SIGN),
 					},
 				]}
 			/>
