@@ -51,6 +51,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
         }
     });
     const processPdfData = (pdf, dataHtml, callback) => {
+        console.log('dataHtml', dataHtml);
         setHtmlPdf(dataHtml);
         if (image) {
             const img = new Image();
