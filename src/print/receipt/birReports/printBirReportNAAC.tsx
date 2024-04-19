@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
-import { formatDate, formatInPeso } from '../../../utils';
+import {
+	formatDate,
+	formatInPeso,
+	getDiscountFields,
+	NaacFields,
+} from '../../../utils';
 import { PESO_SIGN } from '../../helper-receipt';
 import { BirHeader, birReportStyles } from './birReportHelper';
+import { specialDiscountCodes } from '../../../globals';
 
 export const printBirReportNAAC = (
 	transactions: Transaction[],
@@ -11,19 +17,26 @@ export const printBirReportNAAC = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = transactions.map((transaction) => (
-		<tr>
-			<td>{formatDate(transaction.datetime_created)}</td>
+	const rows = transactions.map((transaction) => {
+		const fields = getDiscountFields(
+			specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES,
+			transaction.discount_option_additional_fields_values || '',
+		) as NaacFields;
 
-			<td>Chot Reyes</td>
-			<td>14524-15</td>
+		return (
+			<tr>
+				<td>{formatDate(transaction.datetime_created)}</td>
 
-			<td>{transaction.invoice.or_number}</td>
-			<td>{formatInPeso(transaction.gross_amount, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
-		</tr>
-	));
+				<td>{fields.coach}</td>
+				<td>{fields.id}</td>
+
+				<td>{transaction.invoice.or_number}</td>
+				<td>{formatInPeso(transaction.gross_amount, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
+			</tr>
+		);
+	});
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">

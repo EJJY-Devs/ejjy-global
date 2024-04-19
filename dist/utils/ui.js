@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.getDiscountFields = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importStar(require("react"));
@@ -249,6 +249,39 @@ const showErrorMessages = (errors) => {
     }
 };
 exports.showErrorMessages = showErrorMessages;
+const getDiscountFields = (discountCode, fieldsJSON) => {
+    const fields = JSON.parse(fieldsJSON);
+    if (discountCode === globals_1.specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES) {
+        return {
+            coach: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['PNSTM ID']) || globals_1.EMPTY_CELL,
+        };
+    }
+    else if (discountCode === globals_1.specialDiscountCodes.SOLO_PARENTS) {
+        return {
+            name: (fields === null || fields === void 0 ? void 0 : fields['Name of Parent']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['SPIC No.']) || globals_1.EMPTY_CELL,
+            childName: (fields === null || fields === void 0 ? void 0 : fields['Name of Child']) || globals_1.EMPTY_CELL,
+            childBirthdate: (fields === null || fields === void 0 ? void 0 : fields['Birth Date of Child']) || globals_1.EMPTY_CELL,
+            childAge: (fields === null || fields === void 0 ? void 0 : fields['Age of Child']) || globals_1.EMPTY_CELL,
+        };
+    }
+    else if (discountCode === globals_1.specialDiscountCodes.SENIOR_CITIZEN) {
+        return {
+            name: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
+            tin: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+        };
+    }
+    else if (discountCode === globals_1.specialDiscountCodes.PERSONS_WITH_DISABILITY) {
+        return {
+            name: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
+            tin: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+        };
+    }
+};
+exports.getDiscountFields = getDiscountFields;
 // Others
 const isUserFromBranch = (userType) => [globals_1.userTypes.BRANCH_MANAGER, globals_1.userTypes.BRANCH_PERSONNEL].includes(userType);
 exports.isUserFromBranch = isUserFromBranch;

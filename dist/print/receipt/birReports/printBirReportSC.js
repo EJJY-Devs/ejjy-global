@@ -9,19 +9,23 @@ const server_1 = __importDefault(require("react-dom/server"));
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../helper-receipt");
 const birReportHelper_1 = require("./birReportHelper");
+const globals_1 = require("../../../globals");
 const printBirReportSC = (transactions, siteSettings, user, branchMachine) => {
-    const rows = transactions.map((transaction) => (react_1.default.createElement("tr", null,
-        react_1.default.createElement("td", null, (0, utils_1.formatDate)(transaction.datetime_created)),
-        react_1.default.createElement("td", null, "Manuel Ramirez"),
-        react_1.default.createElement("td", null, "14524-15"),
-        react_1.default.createElement("td", null, "123-123-123"),
-        react_1.default.createElement("td", null, transaction.invoice.or_number),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.total_amount, helper_receipt_1.PESO_SIGN)),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN)),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN)),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN)),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.overall_discount, helper_receipt_1.PESO_SIGN)),
-        react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN)))));
+    const rows = transactions.map((transaction) => {
+        const fields = (0, utils_1.getDiscountFields)(globals_1.specialDiscountCodes.SENIOR_CITIZEN, transaction.discount_option_additional_fields_values || '');
+        return (react_1.default.createElement("tr", null,
+            react_1.default.createElement("td", null, (0, utils_1.formatDate)(transaction.datetime_created)),
+            react_1.default.createElement("td", null, fields.name),
+            react_1.default.createElement("td", null, fields.id),
+            react_1.default.createElement("td", null, fields.tin),
+            react_1.default.createElement("td", null, transaction.invoice.or_number),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.total_amount, helper_receipt_1.PESO_SIGN)),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN)),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN)),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN)),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.overall_discount, helper_receipt_1.PESO_SIGN)),
+            react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN))));
+    });
     return server_1.default.renderToStaticMarkup(react_1.default.createElement("html", { lang: "en" },
         react_1.default.createElement("head", null, birReportHelper_1.birReportStyles),
         react_1.default.createElement("body", null,

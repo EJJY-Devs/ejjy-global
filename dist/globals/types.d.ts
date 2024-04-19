@@ -305,9 +305,10 @@ export declare const reportCategories: {
     EJournals: ReportCategory;
     DailyAccumulatedReports: ReportCategory;
 };
+export type SpecialDiscountCode = 'SC' | 'PWD' | 'NAAC' | 'SP';
 export declare const specialDiscountCodes: {
-    SENIOR_CITIZEN_SALES_REPORT: string;
-    PERSONS_WITH_DISABILITY_SALES_REPORT: string;
-    NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT: string;
-    SOLO_PARENTS_SALES_REPORT: string;
+    SENIOR_CITIZEN: SpecialDiscountCode;
+    PERSONS_WITH_DISABILITY: SpecialDiscountCode;
+    NATIONAL_ATHLETES_AND_COACHES: SpecialDiscountCode;
+    SOLO_PARENTS: SpecialDiscountCode;
 };

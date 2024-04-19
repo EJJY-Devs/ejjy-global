@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
-import { formatDate, formatInPeso } from '../../../utils';
+import {
+	formatDate,
+	formatInPeso,
+	getDiscountFields,
+	PWDFields,
+} from '../../../utils';
 import { PESO_SIGN } from '../../helper-receipt';
 import { BirHeader, birReportStyles } from './birReportHelper';
+import { specialDiscountCodes } from '../../../globals';
 
 export const printBirReportPWD = (
 	transactions: Transaction[],
@@ -11,23 +17,30 @@ export const printBirReportPWD = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = transactions.map((transaction) => (
-		<tr>
-			<td>{formatDate(transaction.datetime_created)}</td>
+	const rows = transactions.map((transaction) => {
+		const fields = getDiscountFields(
+			specialDiscountCodes.PERSONS_WITH_DISABILITY,
+			transaction.discount_option_additional_fields_values || '',
+		) as PWDFields;
 
-			<td>Mark Angeles</td>
-			<td>14524-15</td>
-			<td>123-123-123</td>
+		return (
+			<tr>
+				<td>{formatDate(transaction.datetime_created)}</td>
 
-			<td>{transaction.invoice.or_number}</td>
-			<td>{formatInPeso(transaction.total_amount, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}</td>
-			<td>{formatInPeso(0, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
-		</tr>
-	));
+				<td>{fields.name}</td>
+				<td>{fields.id}</td>
+				<td>{fields.tin}</td>
+
+				<td>{transaction.invoice.or_number}</td>
+				<td>{formatInPeso(transaction.total_amount, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}</td>
+				<td>{formatInPeso(0, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
+				<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
+			</tr>
+		);
+	});
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">

@@ -376,9 +376,10 @@ export const reportCategories = {
 	DailyAccumulatedReports: 'DAR' as ReportCategory,
 };
 
+export type SpecialDiscountCode = 'SC' | 'PWD' | 'NAAC' | 'SP';
 export const specialDiscountCodes = {
-	SENIOR_CITIZEN_SALES_REPORT: 'SC',
-	PERSONS_WITH_DISABILITY_SALES_REPORT: 'PWD',
-	NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT: 'NAAC',
-	SOLO_PARENTS_SALES_REPORT: 'SP',
+	SENIOR_CITIZEN: 'SC' as SpecialDiscountCode,
+	PERSONS_WITH_DISABILITY: 'PWD' as SpecialDiscountCode,
+	NATIONAL_ATHLETES_AND_COACHES: 'NAAC' as SpecialDiscountCode,
+	SOLO_PARENTS: 'SP' as SpecialDiscountCode,
 };
