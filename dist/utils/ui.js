@@ -253,14 +253,14 @@ const getDiscountFields = (discountCode, fieldsJSON) => {
     const fields = JSON.parse(fieldsJSON);
     if (discountCode === globals_1.specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES) {
         return {
-            coach: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
             id: (fields === null || fields === void 0 ? void 0 : fields['PNSTM ID']) || globals_1.EMPTY_CELL,
+            coach: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
         };
     }
     else if (discountCode === globals_1.specialDiscountCodes.SOLO_PARENTS) {
         return {
-            name: (fields === null || fields === void 0 ? void 0 : fields['Name of Parent']) || globals_1.EMPTY_CELL,
             id: (fields === null || fields === void 0 ? void 0 : fields['SPIC No.']) || globals_1.EMPTY_CELL,
+            name: (fields === null || fields === void 0 ? void 0 : fields['Name of Parent']) || globals_1.EMPTY_CELL,
             childName: (fields === null || fields === void 0 ? void 0 : fields['Name of Child']) || globals_1.EMPTY_CELL,
             childBirthdate: (fields === null || fields === void 0 ? void 0 : fields['Birth Date of Child']) || globals_1.EMPTY_CELL,
             childAge: (fields === null || fields === void 0 ? void 0 : fields['Age of Child']) || globals_1.EMPTY_CELL,
@@ -268,16 +268,16 @@ const getDiscountFields = (discountCode, fieldsJSON) => {
     }
     else if (discountCode === globals_1.specialDiscountCodes.SENIOR_CITIZEN) {
         return {
-            name: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
-            id: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
-            tin: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+            name: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
+            tin: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
         };
     }
     else if (discountCode === globals_1.specialDiscountCodes.PERSONS_WITH_DISABILITY) {
         return {
-            name: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
-            id: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
-            tin: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+            name: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
+            id: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
+            tin: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
         };
     }
 };

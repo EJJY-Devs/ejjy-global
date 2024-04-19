@@ -335,28 +335,28 @@ export const getDiscountFields = (
 
 	if (discountCode === specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES) {
 		return {
-			coach: fields?.['Name'] || EMPTY_CELL,
 			id: fields?.['PNSTM ID'] || EMPTY_CELL,
+			coach: fields?.['Name'] || EMPTY_CELL,
 		} as NaacFields;
 	} else if (discountCode === specialDiscountCodes.SOLO_PARENTS) {
 		return {
-			name: fields?.['Name of Parent'] || EMPTY_CELL,
 			id: fields?.['SPIC No.'] || EMPTY_CELL,
+			name: fields?.['Name of Parent'] || EMPTY_CELL,
 			childName: fields?.['Name of Child'] || EMPTY_CELL,
 			childBirthdate: fields?.['Birth Date of Child'] || EMPTY_CELL,
 			childAge: fields?.['Age of Child'] || EMPTY_CELL,
 		} as SPFields;
 	} else if (discountCode === specialDiscountCodes.SENIOR_CITIZEN) {
 		return {
-			name: fields?.['ID no.'] || EMPTY_CELL,
-			id: fields?.['TIN'] || EMPTY_CELL,
-			tin: fields?.['Name'] || EMPTY_CELL,
+			name: fields?.['Name'] || EMPTY_CELL,
+			id: fields?.['ID no.'] || EMPTY_CELL,
+			tin: fields?.['TIN'] || EMPTY_CELL,
 		} as SCFields;
 	} else if (discountCode === specialDiscountCodes.PERSONS_WITH_DISABILITY) {
 		return {
-			name: fields?.['ID no.'] || EMPTY_CELL,
-			id: fields?.['TIN'] || EMPTY_CELL,
-			tin: fields?.['Name'] || EMPTY_CELL,
+			name: fields?.['Name'] || EMPTY_CELL,
+			id: fields?.['ID no.'] || EMPTY_CELL,
+			tin: fields?.['TIN'] || EMPTY_CELL,
 		} as PWDFields;
 	}
 };
