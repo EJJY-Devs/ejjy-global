@@ -38,6 +38,7 @@ const useTransactions = (
 			params?.page,
 			params?.branchId,
 			params?.branchMachineId,
+			params?.discountCode,
 			params?.discountName,
 			params?.isAdjusted,
 			params?.modeOfPayment,
@@ -52,6 +53,7 @@ const useTransactions = (
 					{
 						branch_id: params?.branchId,
 						branch_machine_id: params?.branchMachineId,
+						discount_code: params?.discountCode,
 						discount_name: params?.discountName,
 						is_adjusted: params?.isAdjusted,
 						mode_of_payment: params?.modeOfPayment,

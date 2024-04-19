@@ -14,6 +14,7 @@ const useTransactions = (data = {}) => {
         params === null || params === void 0 ? void 0 : params.page,
         params === null || params === void 0 ? void 0 : params.branchId,
         params === null || params === void 0 ? void 0 : params.branchMachineId,
+        params === null || params === void 0 ? void 0 : params.discountCode,
         params === null || params === void 0 ? void 0 : params.discountName,
         params === null || params === void 0 ? void 0 : params.isAdjusted,
         params === null || params === void 0 ? void 0 : params.modeOfPayment,
@@ -24,6 +25,7 @@ const useTransactions = (data = {}) => {
     ], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionsService.list({
         branch_id: params === null || params === void 0 ? void 0 : params.branchId,
         branch_machine_id: params === null || params === void 0 ? void 0 : params.branchMachineId,
+        discount_code: params === null || params === void 0 ? void 0 : params.discountCode,
         discount_name: params === null || params === void 0 ? void 0 : params.discountName,
         is_adjusted: params === null || params === void 0 ? void 0 : params.isAdjusted,
         mode_of_payment: params === null || params === void 0 ? void 0 : params.modeOfPayment,

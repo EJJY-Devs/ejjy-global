@@ -5,6 +5,7 @@ import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Params extends ListQueryParams {
 	branch_id?: number;
 	branch_machine_id?: number;
+	discount_code?: string;
 	discount_name?: string;
 	is_adjusted?: boolean;
 	mode_of_payment?: PaymentType;
