@@ -225,7 +225,7 @@ export const DailySalesContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Current Day Payment Received </div>
+		<div style={{ textAlign: 'center' }}>Payment Received </div>
 		<ItemBlock
 			items={[
 				{
@@ -248,7 +248,7 @@ export const DailySalesContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Current Day Cash on Hand</div>
+		<div style={{ textAlign: 'center' }}>Cash on Hand</div>
 		<ItemBlock
 			items={[
 				{
@@ -279,7 +279,7 @@ export const DailySalesContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Current Day Transaction Summary</div>
+		<div style={{ textAlign: 'center' }}>Transaction Summary</div>
 		<ItemBlock
 			items={[
 				{

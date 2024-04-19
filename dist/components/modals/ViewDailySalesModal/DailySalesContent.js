@@ -182,7 +182,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Payment Received "),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received "),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -202,7 +202,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Cash on Hand"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -230,7 +230,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Transaction Summary"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Summary"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash on Hand',

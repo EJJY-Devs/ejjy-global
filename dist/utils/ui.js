@@ -82,13 +82,13 @@ const getCashBreakdownTypeDescription = (category, type) => {
     if (category === globals_1.cashBreakdownCategories.CASH_BREAKDOWN) {
         switch (type) {
             case globals_1.cashBreakdownTypes.START_SESSION:
-                description = 'Start Session';
+                description = 'Opening Fund';
                 break;
             case globals_1.cashBreakdownTypes.MID_SESSION:
                 description = 'Cash Collection';
                 break;
             case globals_1.cashBreakdownTypes.END_SESSION:
-                description = 'End Session';
+                description = 'Cash in Drawer';
                 break;
             default:
                 description = '';
