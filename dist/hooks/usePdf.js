@@ -28,17 +28,33 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
         setLoadingPdf(true);
         const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
         pdf.setProperties({ title });
-        const dataHtml = print === null || print === void 0 ? void 0 : print();
-        if (dataHtml === undefined) {
-            console.error('Print function returned undefined');
-            setLoadingPdf(false);
-            return;
+        try {
+            // Correctly resolving the type of dataHtml here.
+            const dataHtml = typeof print === 'function' ? print() : undefined;
+            if (dataHtml instanceof Promise) {
+                // If dataHtml is a Promise, await it.
+                const resolvedDataHtml = yield dataHtml;
+                if (resolvedDataHtml) {
+                    processPdfData(pdf, resolvedDataHtml, actionCallback);
+                }
+            }
+            else if (typeof dataHtml === 'string') {
+                // If dataHtml is a string, process it directly.
+                processPdfData(pdf, dataHtml, actionCallback);
+            }
         }
-        const resolveDataHtml = typeof dataHtml === 'function' ? yield dataHtml() : dataHtml;
-        setHtmlPdf(resolveDataHtml);
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            setLoadingPdf(false);
+        }
+    });
+    const processPdfData = (pdf, dataHtml, callback) => {
+        setHtmlPdf(dataHtml);
         if (image) {
             const img = new Image();
-            img.onload = () => addImageToPdf(img, pdf, resolveDataHtml, actionCallback);
+            img.onload = () => addImageToPdf(img, pdf, dataHtml, callback);
             img.onerror = () => {
                 console.error('Failed to load image');
                 setLoadingPdf(false);
@@ -46,9 +62,9 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
             img.src = image.src;
         }
         else {
-            performPdfOperation(pdf, resolveDataHtml, actionCallback);
+            performPdfOperation(pdf, dataHtml, callback);
         }
-    });
+    };
     const addImageToPdf = (img, pdf, dataHtml, callback) => {
         pdf.addImage(img, 'png', image.x, image.y, image.w, image.h);
         performPdfOperation(pdf, dataHtml, callback);

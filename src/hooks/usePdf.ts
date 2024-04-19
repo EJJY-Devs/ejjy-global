@@ -12,7 +12,7 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 
 interface UsePDFProps {
 	title?: string;
-	print: () => string | (() => Promise<string>) | undefined;
+	print: (() => string | undefined) | (() => Promise<string | undefined>);
 	jsPdfSettings?: jsPDFOptions;
 	image?: {
 		src: string;
@@ -33,29 +33,43 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 		const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
 		pdf.setProperties({ title });
 
-		const dataHtml = print?.();
+		try {
+			// Correctly resolving the type of dataHtml here.
+			const dataHtml = typeof print === 'function' ? print() : undefined;
 
-		if (dataHtml === undefined) {
-			console.error('Print function returned undefined');
+			if (dataHtml instanceof Promise) {
+				// If dataHtml is a Promise, await it.
+				const resolvedDataHtml = await dataHtml;
+				if (resolvedDataHtml) {
+					processPdfData(pdf, resolvedDataHtml, actionCallback);
+				}
+			} else if (typeof dataHtml === 'string') {
+				// If dataHtml is a string, process it directly.
+				processPdfData(pdf, dataHtml, actionCallback);
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
 			setLoadingPdf(false);
-			return;
 		}
+	};
 
-		const resolveDataHtml =
-			typeof dataHtml === 'function' ? await dataHtml() : dataHtml;
-
-		setHtmlPdf(resolveDataHtml);
+	const processPdfData = (
+		pdf: jsPDF,
+		dataHtml: string,
+		callback: (instance: jsPDF) => void,
+	) => {
+		setHtmlPdf(dataHtml);
 		if (image) {
 			const img = new Image();
-			img.onload = () =>
-				addImageToPdf(img, pdf, resolveDataHtml, actionCallback);
+			img.onload = () => addImageToPdf(img, pdf, dataHtml, callback);
 			img.onerror = () => {
 				console.error('Failed to load image');
 				setLoadingPdf(false);
 			};
 			img.src = image.src;
 		} else {
-			performPdfOperation(pdf, resolveDataHtml, actionCallback);
+			performPdfOperation(pdf, dataHtml, callback);
 		}
 	};
 
