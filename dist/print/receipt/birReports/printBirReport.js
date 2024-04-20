@@ -66,7 +66,6 @@ const printBirReport = (birReports, siteSettings, user, branchMachine) => {
                         react_1.default.createElement("th", { rowSpan: 3 }, "Zero Rated Sales"),
                         react_1.default.createElement("th", { colSpan: 8 }, "Deductions"),
                         react_1.default.createElement("th", { colSpan: 6 }, "Adjustments on VAT"),
-                        react_1.default.createElement("th", { colSpan: 3 }, "Discount"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "VAT Payable"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "Net Sales"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "Other Income"),

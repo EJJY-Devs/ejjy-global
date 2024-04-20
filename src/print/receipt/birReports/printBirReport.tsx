@@ -90,9 +90,7 @@ export const printBirReport = (
 							<th rowSpan={3}>Zero Rated Sales</th>
 
 							<th colSpan={8}>Deductions</th>
-
 							<th colSpan={6}>Adjustments on VAT</th>
-							<th colSpan={3}>Discount</th>
 
 							<th rowSpan={3}>VAT Payable</th>
 							<th rowSpan={3}>Net Sales</th>
