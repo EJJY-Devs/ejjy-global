@@ -15,8 +15,8 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     }
 
     table.bir-reports,
-    div.details,
-    .title {
+    .bir-report-header div.details,
+    .bir-report-header .title {
       width: 2000px;
     }
 
@@ -51,7 +51,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     }
   `,
 ]);
-const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement(react_1.default.Fragment, null,
+const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement("div", { className: "bir-report-header" },
     react_1.default.createElement("div", { className: "details" }, siteSettings.proprietor),
     react_1.default.createElement("div", { className: "details" }, siteSettings.address_of_tax_payer),
     react_1.default.createElement("div", { className: "details" }, siteSettings.tin),

@@ -11,8 +11,8 @@ export const birReportStyles = React.createElement('style', {}, [
     }
 
     table.bir-reports,
-    div.details,
-    .title {
+    .bir-report-header div.details,
+    .bir-report-header .title {
       width: 2000px;
     }
 
@@ -60,7 +60,7 @@ export const BirHeader = ({
 	title,
 	user,
 }: BirHeaderProps) => (
-	<>
+	<div className="bir-report-header">
 		<div className="details">{siteSettings.proprietor}</div>
 		<div className="details">{siteSettings.address_of_tax_payer}</div>
 		<div className="details">{siteSettings.tin}</div>
@@ -76,5 +76,5 @@ export const BirHeader = ({
 		<br />
 
 		<h4 className="title">{title}</h4>
-	</>
+	</div>
 );
