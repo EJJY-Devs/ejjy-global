@@ -13,7 +13,7 @@ export const birReportStyles = React.createElement('style', {}, [
     table.bir-reports,
     div.details,
     .title {
-      width: 1990px;
+      width: 2000px;
     }
 
     table.bir-reports {

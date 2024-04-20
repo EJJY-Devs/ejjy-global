@@ -17,7 +17,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     table.bir-reports,
     div.details,
     .title {
-      width: 1990px;
+      width: 2000px;
     }
 
     table.bir-reports {
