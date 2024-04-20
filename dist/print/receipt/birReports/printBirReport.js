@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.printBirReport = void 0;
+exports.printBirReport = exports.NO_TRANSACTION_REMARK = void 0;
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../helper-receipt");
 const birReportHelper_1 = require("./birReportHelper");
+exports.NO_TRANSACTION_REMARK = 'No transaction';
 const printBirReport = (birReports, siteSettings, user, branchMachine) => {
     const rows = birReports.map((report) => {
         var _a, _b;
@@ -44,7 +45,9 @@ const printBirReport = (birReports, siteSettings, user, branchMachine) => {
             react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(report.total_income, helper_receipt_1.PESO_SIGN)),
             react_1.default.createElement("td", null, report.reset_counter),
             react_1.default.createElement("td", null, report.z_counter),
-            react_1.default.createElement("td", null, report.remarks)));
+            react_1.default.createElement("td", null, Number(report.gross_sales_for_the_day) === 0
+                ? exports.NO_TRANSACTION_REMARK
+                : report.remarks)));
     });
     return server_1.default.renderToStaticMarkup(react_1.default.createElement("html", { lang: "en" },
         react_1.default.createElement("head", null, birReportHelper_1.birReportStyles),

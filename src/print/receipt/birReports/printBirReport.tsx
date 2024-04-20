@@ -5,6 +5,8 @@ import { formatDate, formatInPeso } from '../../../utils';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
 import { BirHeader, birReportStyles } from './birReportHelper';
 
+export const NO_TRANSACTION_REMARK = 'No transaction';
+
 export const printBirReport = (
 	birReports: BirReport[],
 	siteSettings: SiteSettings,
@@ -56,7 +58,11 @@ export const printBirReport = (
 			<td>{formatInPeso(report.total_income, PESO_SIGN)}</td>
 			<td>{report.reset_counter}</td>
 			<td>{report.z_counter}</td>
-			<td>{report.remarks}</td>
+			<td>
+				{Number(report.gross_sales_for_the_day) === 0
+					? NO_TRANSACTION_REMARK
+					: report.remarks}
+			</td>
 		</tr>
 	));
 
