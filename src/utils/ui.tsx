@@ -243,15 +243,15 @@ export const filterOption = (
 };
 
 // Messages
-interface Authorization {
+type AuthorizationProps = {
 	title?: string;
 	onSuccess: () => void;
-}
+};
 
 export const authorization = ({
 	title = 'Input Password',
 	onSuccess,
-}: Authorization) => {
+}: AuthorizationProps) => {
 	let username = '';
 	let password = '';
 
@@ -265,7 +265,6 @@ export const authorization = ({
 				<>
 					<Typography.Text>Username</Typography.Text>
 					<Input
-						value={username}
 						onChange={(event) => {
 							username = event.target.value;
 						}}
@@ -275,7 +274,6 @@ export const authorization = ({
 				<>
 					<Typography.Text>Password</Typography.Text>
 					<Input.Password
-						value={password}
 						onChange={(event) => {
 							password = event.target.value;
 						}}

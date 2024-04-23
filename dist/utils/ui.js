@@ -197,12 +197,12 @@ const authorization = ({ title = 'Input Password', onSuccess, }) => {
         content: (react_1.default.createElement(antd_1.Space, { className: "w-full", direction: "vertical" },
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
-                react_1.default.createElement(antd_1.Input, { value: username, onChange: (event) => {
+                react_1.default.createElement(antd_1.Input, { onChange: (event) => {
                         username = event.target.value;
                     } })),
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
-                react_1.default.createElement(antd_1.Input.Password, { value: password, onChange: (event) => {
+                react_1.default.createElement(antd_1.Input.Password, { onChange: (event) => {
                         password = event.target.value;
                     } })))),
         onOk: (close) => {

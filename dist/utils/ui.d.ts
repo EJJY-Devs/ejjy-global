@@ -9,16 +9,16 @@ export declare const getCashBreakdownTypeDescription: (category: CashBreakdownCa
 export declare const getAttendanceLogDescription: (category: AttendanceLogCategory, type: AttendanceLogType) => string;
 export declare const getModeOfPaymentDescription: (modeOfPayment: PaymentType) => string | undefined;
 export declare const getTaxTypeDescription: (taxType?: TaxType) => string;
-export declare const getTransactionStatusDescription: (status: string) => "-" | "New" | "Fully Paid" | "Hold" | "Cancelled" | "Edited";
+export declare const getTransactionStatusDescription: (status: string) => "New" | "Fully Paid" | "Hold" | "Cancelled" | "Edited" | "-";
 export declare const getRequestor: (requisitionSlip: RequisitionSlip) => string;
 export declare const getProductCode: (product: Product) => string;
 export declare const getOrderSlipStatusBranchManagerText: (status: string, percentage?: number, osdrStatus?: string) => string;
 export declare const filterOption: (input: string, option?: DefaultOptionType | undefined) => boolean;
-interface Authorization {
+type AuthorizationProps = {
     title?: string;
     onSuccess: () => void;
-}
-export declare const authorization: ({ title, onSuccess, }: Authorization) => void;
+};
+export declare const authorization: ({ title, onSuccess, }: AuthorizationProps) => void;
 export declare const showErrorMessages: (errors: string | string[]) => void;
 export type NaacFields = {
     coach: string;
