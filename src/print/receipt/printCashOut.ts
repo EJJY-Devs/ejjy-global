@@ -30,7 +30,7 @@ export const printCashOut = (
 	const branchMachine = cashOut.branch_machine;
 
 	const data = `
-	<div style="${getPageStyle()}">
+	<div class="container" style="${getPageStyle()}">
     ${getHeader(siteSettings, branchMachine, 'DISBURSEMENT VOUCHER')}
 
 		<br />

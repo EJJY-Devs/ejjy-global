@@ -5,9 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printCashBreakdown = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
+const server_1 = __importDefault(require("react-dom/server"));
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
+const react_1 = __importDefault(require("react"));
+const components_1 = require("../../components");
 const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
     const breakdownCoins = [
         {
@@ -36,27 +39,21 @@ const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
             amount: (0, utils_1.formatInPeso)(20 * cashBreakdown.coins_20, ''),
         },
     ];
-    const denomCoins = breakdownCoins.map(({ label }) => `
-				<div style="
-						display: flex;
-						align-items: center;
-						justify-content: space-between
-					">
-					<span>P </span>
-					<span>${label}</span>
-				</div>
-				`);
-    const quantityCoins = breakdownCoins.map(({ quantity }) => `<div>${quantity}</div>`);
-    const amountCoins = breakdownCoins.map(({ amount }) => `
-				<div style="
-						display: flex;
-						align-items: center;
-						justify-content: space-between
-					">
-					<span>P </span>
-					<span>${amount}</span>
-				</div>
-				`);
+    const denomCoins = breakdownCoins.map(({ label }) => (react_1.default.createElement("div", { style: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        } },
+        react_1.default.createElement("span", null, "P "),
+        react_1.default.createElement("span", null, label))));
+    const quantityCoins = breakdownCoins.map(({ quantity }) => (react_1.default.createElement("div", null, quantity)));
+    const amountCoins = breakdownCoins.map(({ amount }) => (react_1.default.createElement("div", { style: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        } },
+        react_1.default.createElement("span", null, "P "),
+        react_1.default.createElement("span", null, amount))));
     const breakdownBills = [
         {
             label: '20.00',
@@ -89,91 +86,85 @@ const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
             amount: (0, utils_1.formatInPeso)(1000 * cashBreakdown.bills_1000, ''),
         },
     ];
-    const denomBills = breakdownBills.map(({ label }) => `
-				<div style="
-						display: flex;
-						align-items: center;
-						justify-content: space-between
-					">
-					<span>P </span>
-					<span>${label}</span>
-				</div>
-				`);
-    const quantityBills = breakdownBills.map(({ quantity }) => `<div>${quantity}</div>`);
-    const amountBills = breakdownBills.map(({ amount }) => `
-				<div style="
-						display: flex;
-						align-items: center;
-						justify-content: space-between
-					">
-					<span>P </span>
-					<span>${amount}</span>
-				</div>
-				`);
-    const data = `
-	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-		<div style="text-align: center; display: flex; flex-direction: column">
-      <span style="white-space: pre-line">${siteSettings.store_name}</span>
-      <span style="white-space: pre-line">${siteSettings.address_of_tax_payer}</span>
-      <span>${cashBreakdown.branch_machine.name}</span>
-
-			<br />
-
-			<span>[CASH BREAKDOWN]</span>
-			<span>${(0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type)}</span>
-		</div>
-
-		<br />
-
-		<div style="display: flex">
-			<div>
-				<div style="text-align: center">DENOM</div>
-				<br/>
-				<div>COINS</div>
-				${denomCoins.join('')}
-				<br/>
-				<div>BILLS</div>
-				${denomBills.join('')}
-			</div>
-			<div style="flex: 1; padding-left: 10px; display: flex; flex-direction: column; align-items: center">
-				<div>QTY</div>
-				<br/>
-				<br/>
-				${quantityCoins.join('')}
-				<br/>
-				<br/>
-				${quantityBills.join('')}
-			</div>
-			<div>
-				<div style="text-align: center">AMOUNT</div>
-				<br/>
-				<br/>
-				${amountCoins.join('')}
-				<br/>
-				<br/>
-				${amountBills.join('')}
-			</div>
-		</div>
-
-		<div style="display: flex; align-items: center; justify-content: space-evenly">
-			<span>TOTAL</span>
-			<span>${(0, utils_1.formatInPeso)((0, utils_1.calculateCashBreakdownTotal)(cashBreakdown), helper_receipt_1.PESO_SIGN)}</span>
-		</div>
-
-		<br />
-
-    <div>GDT: ${(0, utils_1.formatDateTime)(cashBreakdown.datetime_created)}</div>
-    <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>
-    <div>${cashBreakdown.cashiering_session.user.employee_id}</div>
-    ${cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN
-        ? `<div>Remarks: ${cashBreakdown.remarks}</div>`
-        : ''}
-
-		<br />
-
-    ${(0, helper_receipt_1.getFooter)(siteSettings)}
-	</div>
-	`;
+    const denomBills = breakdownBills.map(({ label }) => (react_1.default.createElement("div", { style: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        } },
+        react_1.default.createElement("span", null, "P "),
+        react_1.default.createElement("span", null, label))));
+    const quantityBills = breakdownBills.map(({ quantity }) => (react_1.default.createElement("div", null, quantity)));
+    const amountBills = breakdownBills.map(({ amount }) => (react_1.default.createElement("div", { style: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        } },
+        react_1.default.createElement("span", null, "P "),
+        react_1.default.createElement("span", null, amount))));
+    const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
+        react_1.default.createElement("div", { style: {
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+            } },
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, siteSettings.store_name),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, siteSettings.address_of_tax_payer),
+            react_1.default.createElement("span", null, cashBreakdown.branch_machine.name),
+            react_1.default.createElement("br", null),
+            react_1.default.createElement("span", null, "[CASH BREAKDOWN]"),
+            react_1.default.createElement("span", null, (0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type))),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", { style: { display: 'flex' } },
+            react_1.default.createElement("div", null,
+                react_1.default.createElement("div", { style: { textAlign: 'center' } }, "DENOM"),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("div", null, "COINS"),
+                denomCoins.join(''),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("div", null, "BILLS"),
+                denomBills),
+            react_1.default.createElement("div", { style: {
+                    flex: 1,
+                    paddingLeft: 10,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                } },
+                react_1.default.createElement("div", null, "QTY"),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("br", null),
+                quantityCoins.join(''),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("br", null),
+                quantityBills.join('')),
+            react_1.default.createElement("div", null,
+                react_1.default.createElement("div", { style: { textAlign: 'center' } }, "AMOUNT"),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("br", null),
+                amountCoins.join(''),
+                react_1.default.createElement("br", null),
+                react_1.default.createElement("br", null),
+                amountBills.join(''))),
+        react_1.default.createElement("div", { style: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+            } },
+            react_1.default.createElement("span", null, "TOTAL"),
+            react_1.default.createElement("span", null, (0, utils_1.formatInPeso)((0, utils_1.calculateCashBreakdownTotal)(cashBreakdown), helper_receipt_1.PESO_SIGN))),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", null,
+            "GDT: ",
+            (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
+        react_1.default.createElement("div", null,
+            "PDT: ",
+            (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
+        react_1.default.createElement("div", null, cashBreakdown.cashiering_session.user.employee_id),
+        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN && (react_1.default.createElement("div", null,
+            "Remarks: ",
+            cashBreakdown.remarks)),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement(components_1.ReceiptFooter, { siteSettings: siteSettings })));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }

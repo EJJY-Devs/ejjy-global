@@ -16,7 +16,7 @@ const printCashOut = (cashOut, siteSettings, isPdf = false) => {
     const approvedBy = (0, utils_1.getFullName)(metadata.approved_by_user);
     const branchMachine = cashOut.branch_machine;
     const data = `
-	<div style="${(0, helper_receipt_1.getPageStyle)()}">
+	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
     ${(0, helper_receipt_1.getHeader)(siteSettings, branchMachine, 'DISBURSEMENT VOUCHER')}
 
 		<br />

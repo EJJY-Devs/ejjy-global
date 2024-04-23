@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.205",
+	"version": "0.0.206",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -13,7 +13,11 @@
 		"prettify": "prettier --write ./src",
 		"tsc": "tsc -w",
 		"tw": "npx tailwindcss -i src/index.css -o ./dist/styles.css",
-		"pre-commit": "npm version patch --no-git-tag-version && npm run tw && git add ."
+		"update:app": "cd ../ejjy-app && npm update ejjy-global",
+		"update:cashier": "cd ../ejjy-app-cashiering && npm update ejjy-global",
+		"update:scale": "cd ../ejjy-app && npm update ejjy-global",
+		"pre-commit": "npm version patch --no-git-tag-version && npm run tw && git add .",
+		"post-commit": "git push && concurrently \"npm run update:cashier\" \"npm run update:app\""
 	},
 	"peerDependencies": {
 		"react": "^16.13.1",
