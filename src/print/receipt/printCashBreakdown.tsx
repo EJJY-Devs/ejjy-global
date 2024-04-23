@@ -171,7 +171,7 @@ export const printCashBreakdown = (
 					<div style={{ textAlign: 'center' }}>DENOM</div>
 					<br />
 					<div>COINS</div>
-					{denomCoins.join('')}
+					{denomCoins}
 					<br />
 					<div>BILLS</div>
 					{denomBills}
@@ -189,19 +189,19 @@ export const printCashBreakdown = (
 					<div>QTY</div>
 					<br />
 					<br />
-					{quantityCoins.join('')}
+					{quantityCoins}
 					<br />
 					<br />
-					{quantityBills.join('')}
+					{quantityBills}
 				</div>
 				<div>
 					<div style={{ textAlign: 'center' }}>AMOUNT</div>
 					<br />
 					<br />
-					{amountCoins.join('')}
+					{amountCoins}
 					<br />
 					<br />
-					{amountBills.join('')}
+					{amountBills}
 				</div>
 			</div>
 
