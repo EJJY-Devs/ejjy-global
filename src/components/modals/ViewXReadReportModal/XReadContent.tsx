@@ -201,8 +201,10 @@ export const XReadContent = ({
 
 			<ReceiptFooter siteSettings={siteSettings} />
 
-			<div>This Document Is Not Valid For Claim Of Input Tax</div>
-			<div>Thank You!</div>
+			<div style={{ textAlign: 'center' }}>
+				This Document Is Not Valid For Claim Of Input Tax
+			</div>
+			<div style={{ textAlign: 'center' }}>Thank You!</div>
 		</>
 	);
 };

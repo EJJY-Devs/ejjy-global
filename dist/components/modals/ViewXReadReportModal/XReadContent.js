@@ -152,7 +152,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 (user === null || user === void 0 ? void 0 : user.employee_id) || ((_d = report === null || report === void 0 ? void 0 : report.generated_by) === null || _d === void 0 ? void 0 : _d.employee_id) || globals_1.EMPTY_CELL)),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
-        react_1.default.createElement("div", null, "This Document Is Not Valid For Claim Of Input Tax"),
-        react_1.default.createElement("div", null, "Thank You!")));
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Thank You!")));
 };
 exports.XReadContent = XReadContent;
