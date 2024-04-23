@@ -252,8 +252,8 @@ export const authorization = ({
 	title = 'Input Password',
 	onSuccess,
 }: Authorization) => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	let username = '';
+	let password = '';
 
 	Modal.confirm({
 		title,
@@ -267,7 +267,7 @@ export const authorization = ({
 					<Input
 						value={username}
 						onChange={(event) => {
-							setUsername(event.target.value);
+							username = event.target.value;
 						}}
 					/>
 				</>
@@ -277,7 +277,7 @@ export const authorization = ({
 					<Input.Password
 						value={password}
 						onChange={(event) => {
-							setPassword(event.target.value);
+							password = event.target.value;
 						}}
 					/>
 				</>
