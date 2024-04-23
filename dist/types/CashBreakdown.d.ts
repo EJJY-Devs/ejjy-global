@@ -35,5 +35,6 @@ export interface CashBreakdown {
     bills_200: number;
     bills_500: number;
     bills_1000: number;
+    total_amount: number;
 }
 export {};

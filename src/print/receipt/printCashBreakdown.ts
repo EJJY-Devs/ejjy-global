@@ -47,6 +47,7 @@ export const printCashBreakdown = (
 			amount: formatInPeso(20 * cashBreakdown.coins_20, ''),
 		},
 	];
+
 	const denomCoins = breakdownCoins.map(
 		({ label }) => `
 				<div style="
@@ -135,7 +136,7 @@ export const printCashBreakdown = (
 	);
 
 	const data = `
-	<div style="${getPageStyle()}">
+	<div className="container" style="${getPageStyle()}">
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${siteSettings.store_name}</span>
       <span style="white-space: pre-line">${
