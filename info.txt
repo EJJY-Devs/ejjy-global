@@ -1,0 +1,1 @@
+"post-commit": "git push && concurrently \"cd ../ejjy-app-cashiering && npm update ejjy-global\" \"cd ../ejjy-app && npm update ejjy-global\" \"cd ../ejjy-app-pc-based-scale && npm update ejjy-global\""

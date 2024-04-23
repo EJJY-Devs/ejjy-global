@@ -111,7 +111,7 @@ const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
 				</div>
 				`);
     const data = `
-	<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
+	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${siteSettings.store_name}</span>
       <span style="white-space: pre-line">${siteSettings.address_of_tax_payer}</span>

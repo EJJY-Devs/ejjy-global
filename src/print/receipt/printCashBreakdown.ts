@@ -136,7 +136,7 @@ export const printCashBreakdown = (
 	);
 
 	const data = `
-	<div className="container" style="${getPageStyle()}">
+	<div class="container" style="${getPageStyle()}">
 		<div style="text-align: center; display: flex; flex-direction: column">
       <span style="white-space: pre-line">${siteSettings.store_name}</span>
       <span style="white-space: pre-line">${
