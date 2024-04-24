@@ -1,5 +1,10 @@
 import dayjs from 'dayjs';
-import { saleTypes, transactionStatuses, vatTypes } from '../../globals';
+import {
+	INVOICE_LAST_MESSAGE,
+	saleTypes,
+	transactionStatuses,
+	vatTypes,
+} from '../../globals';
 import { SiteSettings, Transaction } from '../../types';
 import {
 	ReportTextFile,
@@ -353,7 +358,7 @@ export const createSalesInvoiceTxt = (
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
 		rowNumber += 1;
 		reportTextFile.write({
-			text: isReprint ? 'REPRINT ONLY' : siteSettings?.invoice_last_message,
+			text: isReprint ? 'REPRINT ONLY' : INVOICE_LAST_MESSAGE,
 			alignment: ReportTextFile.ALIGNMENTS.CENTER,
 			rowNumber,
 		});

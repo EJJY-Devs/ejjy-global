@@ -30,7 +30,6 @@ export declare const useSiteSettingsEdit: (options?: UseMutationOptions<AxiosRes
     reportingPeriodDayOfMonth: string;
     resetCounterNotificationThresholdAmount: number;
     resetCounterNotificationThresholdInvoiceNumber: number;
-    invoiceLastMessage: string;
     softwareDeveloperAddress: string;
     softwareDeveloperTin: string;
     softwareDeveloper: string;

@@ -27,12 +27,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionContent = void 0;
+const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importStar(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
-const dayjs_1 = __importDefault(require("dayjs"));
 const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
     var _a, _b, _c, _d, _e, _f, _g;
     const [fields, setFields] = (0, react_1.useState)([]);
@@ -215,7 +215,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                 'REPRINT ONLY'),
             react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, !isReprint &&
                 transaction.status === globals_1.transactionStatuses.FULLY_PAID &&
-                (siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.invoice_last_message)),
+                globals_1.INVOICE_LAST_MESSAGE),
             react_1.default.createElement("span", null, [
                 globals_1.transactionStatuses.VOID_EDITED,
                 globals_1.transactionStatuses.VOID_CANCELLED,

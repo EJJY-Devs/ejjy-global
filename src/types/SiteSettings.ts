@@ -36,5 +36,4 @@ export interface SiteSettings {
 	is_time_checker_feature_enabled?: boolean;
 	is_manual_input_allowed?: boolean;
 	app_description?: string;
-	invoice_last_message?: string;
 }

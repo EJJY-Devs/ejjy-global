@@ -1,6 +1,8 @@
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import {
 	EMPTY_CELL,
+	INVOICE_LAST_MESSAGE,
 	saleTypes,
 	transactionStatuses,
 	vatTypes,
@@ -14,7 +16,6 @@ import {
 	getFullName,
 } from '../../../utils';
 import { ReceiptFooter, ReceiptHeader } from '../../Printing';
-import dayjs from 'dayjs';
 
 interface Props {
 	transaction: Transaction;
@@ -285,7 +286,7 @@ export const TransactionContent = ({
 				<span style={{ whiteSpace: 'pre-line' }}>
 					{!isReprint &&
 						transaction.status === transactionStatuses.FULLY_PAID &&
-						siteSettings?.invoice_last_message}
+						INVOICE_LAST_MESSAGE}
 				</span>
 				<span>
 					{[

@@ -285,7 +285,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
         rowNumber += 1;
         reportTextFile.write({
-            text: isReprint ? 'REPRINT ONLY' : siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.invoice_last_message,
+            text: isReprint ? 'REPRINT ONLY' : globals_1.INVOICE_LAST_MESSAGE,
             alignment: utils_1.ReportTextFile.ALIGNMENTS.CENTER,
             rowNumber,
         });

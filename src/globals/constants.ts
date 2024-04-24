@@ -45,3 +45,4 @@ export const JSPDF_SETTINGS = {
 export const EJOURNAL_FOLDER = 'media';
 export const DESKTOP_FOLDER_OPEN_FUNCTION = 'openFolder';
 export const AUTOMATIC_GENERATED_REPORT_USER_NAME = 'Auto';
+export const INVOICE_LAST_MESSAGE = 'This Serve As Your Official Receipt';
