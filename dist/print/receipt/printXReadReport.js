@@ -10,7 +10,7 @@ const XReadContent_1 = require("../../components/modals/ViewXReadReportModal/XRe
 const helper_receipt_1 = require("../helper-receipt");
 const printXReadReport = (report, siteSettings, user, isPdf = false) => {
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-        react_1.default.createElement(XReadContent_1.XReadContent, { report: report, siteSettings: siteSettings, user: isPdf ? undefined : user, isForPrint: true })));
+        react_1.default.createElement(XReadContent_1.XReadContent, { report: report, siteSettings: siteSettings, user: user, isForPrint: true })));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
