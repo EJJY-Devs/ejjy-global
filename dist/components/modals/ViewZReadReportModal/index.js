@@ -66,7 +66,7 @@ const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Z-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report, siteSettings: siteSettings, user: user, isForPrint: isForPrint }),
+        react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report, siteSettings: siteSettings, isForPrint: isForPrint }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewZReadReportModal = ViewZReadReportModal;

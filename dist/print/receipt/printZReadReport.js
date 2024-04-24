@@ -10,7 +10,7 @@ const ZReadContent_1 = require("../../components/modals/ViewZReadReportModal/ZRe
 const helper_receipt_1 = require("../helper-receipt");
 const printZReadReport = (report, siteSettings, user, isPdf = false) => {
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-        react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report, siteSettings: siteSettings, user: user, isForPrint: true })));
+        react_1.default.createElement(ZReadContent_1.ZReadContent, { report: report, siteSettings: siteSettings, user: isPdf ? undefined : user, isForPrint: true })));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }

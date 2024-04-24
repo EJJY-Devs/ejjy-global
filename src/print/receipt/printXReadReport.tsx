@@ -19,7 +19,7 @@ export const printXReadReport = (
 			<XReadContent
 				report={report}
 				siteSettings={siteSettings}
-				user={user}
+				user={isPdf ? undefined : user}
 				isForPrint
 			/>
 		</div>,

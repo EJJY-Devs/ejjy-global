@@ -10,8 +10,9 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
+const dayjs_1 = __importDefault(require("dayjs"));
 const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
-    var _a, _b, _c;
+    var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
@@ -253,15 +254,9 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
                 ? (0, utils_1.formatDateTime)(dailySales.generation_datetime)
                 : globals_1.EMPTY_CELL),
         react_1.default.createElement("div", null,
-            "PDT:",
+            "Print Details:",
             ' ',
-            dailySales.printing_datetime
-                ? (0, utils_1.formatDateTime)(dailySales.printing_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", null,
-            "Printer By:",
-            ' ',
-            (user === null || user === void 0 ? void 0 : user.employee_id) || ((_c = dailySales === null || dailySales === void 0 ? void 0 : dailySales.generated_by) === null || _c === void 0 ? void 0 : _c.employee_id) || globals_1.EMPTY_CELL),
+            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

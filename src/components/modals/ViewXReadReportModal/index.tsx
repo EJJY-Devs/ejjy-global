@@ -94,7 +94,6 @@ export const ViewXReadReportModal = ({
 			<XReadContent
 				report={report}
 				siteSettings={siteSettings}
-				user={user}
 				isForPrint={isForPrint}
 			/>
 

@@ -11,8 +11,9 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
+const dayjs_1 = __importDefault(require("dayjs"));
 const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
@@ -282,15 +283,9 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 ? (0, utils_1.formatDateTime)(report.generation_datetime)
                 : globals_1.EMPTY_CELL),
         react_1.default.createElement("div", null,
-            "PDT:",
+            "Print Details:",
             ' ',
-            report.printing_datetime
-                ? (0, utils_1.formatDateTime)(report.printing_datetime)
-                : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", null,
-            "Printer By:",
-            ' ',
-            (user === null || user === void 0 ? void 0 : user.employee_id) || ((_e = report === null || report === void 0 ? void 0 : report.generated_by) === null || _e === void 0 ? void 0 : _e.employee_id) || globals_1.EMPTY_CELL),
+            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

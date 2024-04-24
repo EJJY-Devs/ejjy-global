@@ -77,11 +77,7 @@ export const ViewDailySalesModal = ({
 			open
 			onCancel={onClose}
 		>
-			<DailySalesContent
-				dailySales={dailySales}
-				siteSettings={siteSettings}
-				user={user}
-			/>
+			<DailySalesContent dailySales={dailySales} siteSettings={siteSettings} />
 
 			<div
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}

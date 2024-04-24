@@ -12,6 +12,7 @@ import {
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
+import dayjs from 'dayjs';
 
 interface Props {
 	report: XReadReport;
@@ -175,26 +176,20 @@ export const XReadContent = ({
 
 			<Divider />
 
-			<div>
-				GDT:{' '}
-				{report.generation_datetime
-					? formatDateTime(report.generation_datetime)
-					: EMPTY_CELL}
-			</div>
-			<div>
-				PDT:{' '}
-				{report.printing_datetime
-					? formatDateTime(report.printing_datetime)
-					: EMPTY_CELL}
-			</div>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div>
+					GDT:{' '}
+					{report.generation_datetime
+						? formatDateTime(report.generation_datetime)
+						: EMPTY_CELL}
+				</div>
 				<div>
 					C: {report?.cashiering_session?.user.employee_id || EMPTY_CELL}
 				</div>
-				<div>
-					PB:{' '}
-					{user?.employee_id || report?.generated_by?.employee_id || EMPTY_CELL}
-				</div>
+			</div>
+			<div>
+				Print Details:{' '}
+				{user && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
 			</div>
 
 			<br />

@@ -28,7 +28,7 @@ const formatTime = (datetime) => dayjs_1.default.tz(datetime).format(globals_1.T
 exports.formatTime = formatTime;
 const formatDateTime = (datetime, withTimezone = true) => {
     const dt = withTimezone ? dayjs_1.default.tz(datetime, 'GMT') : (0, dayjs_1.default)(datetime);
-    return dt.format(`${globals_1.DATE_FORMAT_UI} ${globals_1.TIME_FORMAT_UI}`);
+    return dt.format(`${globals_1.DATE_FORMAT_UI} - ${globals_1.TIME_FORMAT_UI}`);
 };
 exports.formatDateTime = formatDateTime;
 const formatDateTime24Hour = (datetime) => dayjs_1.default.tz(datetime).format(`${globals_1.DATE_FORMAT_UI} HH:mm`);

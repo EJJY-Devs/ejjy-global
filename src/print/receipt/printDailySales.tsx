@@ -19,7 +19,7 @@ export const printDailySales = (
 			<DailySalesContent
 				dailySales={dailySales}
 				siteSettings={siteSettings}
-				user={user}
+				user={isPdf ? undefined : user}
 			/>
 		</div>,
 	);

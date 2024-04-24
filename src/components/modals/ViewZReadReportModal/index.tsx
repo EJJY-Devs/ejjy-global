@@ -94,7 +94,6 @@ export const ViewZReadReportModal = ({
 			<ZReadContent
 				report={report}
 				siteSettings={siteSettings}
-				user={user}
 				isForPrint={isForPrint}
 			/>
 

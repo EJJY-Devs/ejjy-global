@@ -1,2 +1,2 @@
-import { CashBreakdown, SiteSettings } from '../../types';
-export declare const printCashBreakdown: (cashBreakdown: CashBreakdown, siteSettings: SiteSettings, isPdf?: boolean) => string | undefined;
+import { CashBreakdown, SiteSettings, User } from '../../types';
+export declare const printCashBreakdown: (cashBreakdown: CashBreakdown, siteSettings: SiteSettings, user?: User, isPdf?: boolean) => string | undefined;

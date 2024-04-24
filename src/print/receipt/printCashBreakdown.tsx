@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
+import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { ReceiptFooter } from '../../components';
 import { cashBreakdownCategories } from '../../globals';
-import { CashBreakdown, SiteSettings } from '../../types';
+import { CashBreakdown, SiteSettings, User } from '../../types';
 import {
 	calculateCashBreakdownTotal,
 	formatDateTime,
@@ -11,16 +13,14 @@ import {
 import {
 	PESO_SIGN,
 	appendHtmlElement,
-	getFooter,
 	getPageStyleObject,
 	print,
 } from '../helper-receipt';
-import React from 'react';
-import { ReceiptFooter } from '../../components';
 
 export const printCashBreakdown = (
 	cashBreakdown: CashBreakdown,
 	siteSettings: SiteSettings,
+	user?: User,
 	isPdf = false,
 ) => {
 	const breakdownCoins = [
@@ -221,7 +221,10 @@ export const printCashBreakdown = (
 			<br />
 
 			<div>GDT: {formatDateTime(cashBreakdown.datetime_created)}</div>
-			<div>PDT: {formatDateTime(dayjs(), false)}</div>
+			<div>
+				Print Details:{' '}
+				{!isPdf && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
+			</div>
 			<div>{cashBreakdown.cashiering_session.user.employee_id}</div>
 			{cashBreakdown.category === cashBreakdownCategories.CASH_IN && (
 				<div>Remarks: {cashBreakdown.remarks}</div>

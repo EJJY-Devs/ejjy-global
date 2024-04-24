@@ -42,7 +42,7 @@ export const formatDateTime = (
 	withTimezone = true,
 ) => {
 	const dt = withTimezone ? dayjs.tz(datetime, 'GMT') : dayjs(datetime);
-	return dt.format(`${DATE_FORMAT_UI} ${TIME_FORMAT_UI}`);
+	return dt.format(`${DATE_FORMAT_UI} - ${TIME_FORMAT_UI}`);
 };
 
 export const formatDateTime24Hour = (datetime: string | Dayjs) =>

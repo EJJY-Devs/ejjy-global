@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printCashBreakdown = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
+const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
+const components_1 = require("../../components");
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const react_1 = __importDefault(require("react"));
-const components_1 = require("../../components");
-const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
+const printCashBreakdown = (cashBreakdown, siteSettings, user, isPdf = false) => {
     const breakdownCoins = [
         {
             label: '0.25',
@@ -157,8 +157,9 @@ const printCashBreakdown = (cashBreakdown, siteSettings, isPdf = false) => {
             "GDT: ",
             (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
         react_1.default.createElement("div", null,
-            "PDT: ",
-            (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
+            "Print Details:",
+            ' ',
+            !isPdf && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
         react_1.default.createElement("div", null, cashBreakdown.cashiering_session.user.employee_id),
         cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN && (react_1.default.createElement("div", null,
             "Remarks: ",

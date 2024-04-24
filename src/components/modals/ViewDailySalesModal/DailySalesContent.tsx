@@ -10,6 +10,7 @@ import {
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
+import dayjs from 'dayjs';
 
 interface Props {
 	dailySales: DailySales;
@@ -305,14 +306,8 @@ export const DailySalesContent = ({
 				: EMPTY_CELL}
 		</div>
 		<div>
-			PDT:{' '}
-			{dailySales.printing_datetime
-				? formatDateTime(dailySales.printing_datetime)
-				: EMPTY_CELL}
-		</div>
-		<div>
-			Printer By:{' '}
-			{user?.employee_id || dailySales?.generated_by?.employee_id || EMPTY_CELL}
+			Print Details:{' '}
+			{user && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
 		</div>
 
 		<br />
