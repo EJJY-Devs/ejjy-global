@@ -10,7 +10,7 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
-const dayjs_1 = __importDefault(require("dayjs"));
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
     var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
@@ -253,10 +253,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
             dailySales.generation_datetime
                 ? (0, utils_1.formatDateTime)(dailySales.generation_datetime)
                 : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", null,
-            "Print Details:",
-            ' ',
-            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

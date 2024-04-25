@@ -12,7 +12,7 @@ import {
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
-import dayjs from 'dayjs';
+import { PrintDetails } from '../../Printing/PrintDetails';
 
 interface Props {
 	report: XReadReport;
@@ -187,10 +187,7 @@ export const XReadContent = ({
 					C: {report?.cashiering_session?.user.employee_id || EMPTY_CELL}
 				</div>
 			</div>
-			<div>
-				Print Details:{' '}
-				{user && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
-			</div>
+			<PrintDetails user={user} />
 
 			<br />
 

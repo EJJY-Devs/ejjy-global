@@ -11,7 +11,7 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
-const dayjs_1 = __importDefault(require("dayjs"));
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     var _a, _b, _c;
     const cashieringSession = report.cashiering_session;
@@ -141,10 +141,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             react_1.default.createElement("div", null,
                 "C: ",
                 ((_c = report === null || report === void 0 ? void 0 : report.cashiering_session) === null || _c === void 0 ? void 0 : _c.user.employee_id) || globals_1.EMPTY_CELL)),
-        react_1.default.createElement("div", null,
-            "Print Details:",
-            ' ',
-            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

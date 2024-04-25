@@ -11,7 +11,7 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
-const dayjs_1 = __importDefault(require("dayjs"));
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     var _a, _b, _c, _d;
     return (react_1.default.createElement(react_1.default.Fragment, null,
@@ -282,10 +282,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             report.generation_datetime
                 ? (0, utils_1.formatDateTime)(report.generation_datetime)
                 : globals_1.EMPTY_CELL),
-        react_1.default.createElement("div", null,
-            "Print Details:",
-            ' ',
-            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

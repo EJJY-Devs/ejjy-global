@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashBreakdownContent = void 0;
-const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
     const breakdownCoins = [
         {
@@ -155,10 +155,7 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
         react_1.default.createElement("div", null,
             "GDT: ",
             (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
-        react_1.default.createElement("div", null,
-            "Print Details:",
-            ' ',
-            user && `${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} - ${user === null || user === void 0 ? void 0 : user.employee_id}`),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN && (react_1.default.createElement("div", null,
             "Remarks: ",
             cashBreakdown.remarks)),

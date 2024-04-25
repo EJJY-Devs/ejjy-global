@@ -11,7 +11,7 @@ import {
 } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
-import dayjs from 'dayjs';
+import { PrintDetails } from '../../Printing/PrintDetails';
 
 interface Props {
 	report: ZReadReport;
@@ -346,10 +346,7 @@ export const ZReadContent = ({
 				? formatDateTime(report.generation_datetime)
 				: EMPTY_CELL}
 		</div>
-		<div>
-			Print Details:{' '}
-			{user && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
-		</div>
+		<PrintDetails user={user} />
 
 		<br />
 

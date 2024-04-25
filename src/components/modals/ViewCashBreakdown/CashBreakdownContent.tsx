@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import { cashBreakdownCategories } from '../../../globals';
 import { PESO_SIGN } from '../../../print/helper-receipt';
@@ -9,6 +8,7 @@ import {
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
 import { ReceiptFooter } from '../../Printing';
+import { PrintDetails } from '../../Printing/PrintDetails';
 
 type Props = {
 	cashBreakdown: CashBreakdown;
@@ -217,10 +217,7 @@ export const CashBreakdownContent = ({
 			<br />
 
 			<div>GDT: {formatDateTime(cashBreakdown.datetime_created)}</div>
-			<div>
-				Print Details:{' '}
-				{user && `${formatDateTime(dayjs(), false)} - ${user?.employee_id}`}
-			</div>
+			<PrintDetails user={user} />
 			{cashBreakdown.category === cashBreakdownCategories.CASH_IN && (
 				<div>Remarks: {cashBreakdown.remarks}</div>
 			)}
