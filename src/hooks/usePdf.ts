@@ -6,7 +6,7 @@ const TIMEOUT_MS = 2000;
 const JSPDF_SETTINGS: jsPDFOptions = {
 	orientation: 'p',
 	unit: 'px',
-	format: [400, 700],
+	format: [400, 2000],
 	hotfixes: ['px_scaling'],
 };
 

@@ -18,7 +18,7 @@ const TIMEOUT_MS = 2000;
 const JSPDF_SETTINGS = {
     orientation: 'p',
     unit: 'px',
-    format: [400, 700],
+    format: [400, 2000],
     hotfixes: ['px_scaling'],
 };
 const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
