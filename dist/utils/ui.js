@@ -17,7 +17,6 @@ const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../globals");
-const components_1 = require("../components");
 const services_1 = require("../services");
 // Getters
 const getSubtotal = (products) => {
@@ -200,7 +199,6 @@ exports.filterOption = filterOption;
 const authorization = ({ title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, }) => {
     let username = '';
     let password = '';
-    let errorMessage = '';
     antd_1.Modal.confirm({
         title,
         centered: true,
@@ -216,9 +214,9 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
                 react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
                 react_1.default.createElement(antd_1.Input.Password, { onChange: (event) => {
                         password = event.target.value.trim();
-                    } }),
-                errorMessage && (react_1.default.createElement(components_1.FieldError, { classNames: "mt-4", message: errorMessage }))))),
+                    } })))),
         onOk: (close) => __awaiter(void 0, void 0, void 0, function* () {
+            var _a;
             try {
                 if (!username || !password) {
                     throw new Error('Please input username and password.');
@@ -239,12 +237,16 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
                 close();
             }
             catch (err) {
+                let errorMessage = '';
                 if (err instanceof Error) {
                     errorMessage = err.message;
-                    antd_1.message.error(err.message);
                 }
                 else {
-                    console.log(err);
+                    errorMessage = (_a = err.response) === null || _a === void 0 ? void 0 : _a.data;
+                }
+                console.log(err);
+                if (errorMessage) {
+                    antd_1.message.error(errorMessage);
                 }
                 return Promise.reject(true);
             }

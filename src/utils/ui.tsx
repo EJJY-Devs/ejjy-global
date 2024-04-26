@@ -1,7 +1,9 @@
 import { Input, Modal, Space, Typography, message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
+import axios, { AxiosError } from 'axios';
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
+import { FieldError } from '../components';
 import {
 	EMPTY_CELL,
 	OSDRStatus,
@@ -15,6 +17,7 @@ import {
 	transactionStatuses,
 	userTypes,
 } from '../globals';
+import { UsersService } from '../services';
 import {
 	AttendanceLogCategory,
 	AttendanceLogType,
@@ -27,8 +30,6 @@ import {
 	TaxType,
 	UserType,
 } from '../types';
-import { FieldError } from '../components';
-import { UsersService } from '../services';
 
 // Getters
 export const getSubtotal = (products: CashieringTransactionProduct[]) => {
@@ -260,7 +261,6 @@ export const authorization = ({
 }: AuthorizationProps) => {
 	let username = '';
 	let password = '';
-	let errorMessage = '';
 
 	Modal.confirm({
 		title,
@@ -285,10 +285,6 @@ export const authorization = ({
 							password = event.target.value.trim();
 						}}
 					/>
-
-					{errorMessage && (
-						<FieldError classNames="mt-4" message={errorMessage} />
-					)}
 				</>
 			</Space>
 		),
@@ -317,12 +313,19 @@ export const authorization = ({
 
 				onSuccess();
 				close();
-			} catch (err) {
+			} catch (err: any) {
+				let errorMessage = '';
+
 				if (err instanceof Error) {
 					errorMessage = err.message;
-					message.error(err.message);
 				} else {
-					console.log(err);
+					errorMessage = (err as AxiosError).response?.data;
+				}
+
+				console.log(err);
+
+				if (errorMessage) {
+					message.error(errorMessage);
 				}
 
 				return Promise.reject(true);
