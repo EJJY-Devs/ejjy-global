@@ -260,8 +260,6 @@ export const authorization = ({
 }: AuthorizationProps) => {
 	let username = '';
 	let password = '';
-
-	let isLoading = false;
 	let errorMessage = '';
 
 	Modal.confirm({
@@ -269,12 +267,6 @@ export const authorization = ({
 		centered: true,
 		className: 'Modal__hasFooter',
 		okText: 'Submit',
-		okButtonProps: {
-			loading: isLoading,
-		},
-		cancelButtonProps: {
-			disabled: isLoading,
-		},
 		content: (
 			<Space className="w-full" direction="vertical">
 				<>
@@ -301,8 +293,6 @@ export const authorization = ({
 			</Space>
 		),
 		onOk: async (close) => {
-			isLoading = true;
-
 			try {
 				if (!username || !password) {
 					throw new Error('Please input username and password.');
@@ -329,14 +319,13 @@ export const authorization = ({
 				close();
 			} catch (err) {
 				if (err instanceof Error) {
+					errorMessage = err.message;
 					message.error(err.message);
 				} else {
 					console.log(err);
 				}
 
-				return Promise.reject();
-			} finally {
-				isLoading = false;
+				return Promise.reject(true);
 			}
 		},
 	});

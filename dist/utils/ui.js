@@ -200,19 +200,12 @@ exports.filterOption = filterOption;
 const authorization = ({ title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, }) => {
     let username = '';
     let password = '';
-    let isLoading = false;
     let errorMessage = '';
     antd_1.Modal.confirm({
         title,
         centered: true,
         className: 'Modal__hasFooter',
         okText: 'Submit',
-        okButtonProps: {
-            loading: isLoading,
-        },
-        cancelButtonProps: {
-            disabled: isLoading,
-        },
         content: (react_1.default.createElement(antd_1.Space, { className: "w-full", direction: "vertical" },
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
@@ -226,7 +219,6 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
                     } }),
                 errorMessage && (react_1.default.createElement(components_1.FieldError, { classNames: "mt-4", message: errorMessage }))))),
         onOk: (close) => __awaiter(void 0, void 0, void 0, function* () {
-            isLoading = true;
             try {
                 if (!username || !password) {
                     throw new Error('Please input username and password.');
@@ -248,15 +240,13 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
             }
             catch (err) {
                 if (err instanceof Error) {
+                    errorMessage = err.message;
                     antd_1.message.error(err.message);
                 }
                 else {
                     console.log(err);
                 }
-                return Promise.reject();
-            }
-            finally {
-                isLoading = false;
+                return Promise.reject(true);
             }
         }),
     });
