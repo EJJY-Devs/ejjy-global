@@ -20,8 +20,8 @@ export type Props = {
 	title?: string;
 	description?: string;
 	userTypes?: string[];
-	onSuccess: () => void;
-	onCancel: () => void;
+	onSuccess?: () => void;
+	onCancel?: () => void;
 };
 
 export const AuthorizationModal = ({
@@ -56,7 +56,7 @@ export const AuthorizationModal = ({
 			centered
 			closable
 			open
-			width={300}
+			width={350}
 			onCancel={onCancel}
 		>
 			<Formik
@@ -84,7 +84,7 @@ export const AuthorizationModal = ({
 						setFieldError('password', 'User is not allowed.');
 					}
 
-					onSuccess();
+					onSuccess?.();
 				}}
 			>
 				{({ values, setFieldValue }) => (
@@ -93,7 +93,7 @@ export const AuthorizationModal = ({
 							<Col span={24}>
 								<Typography.Text>Username</Typography.Text>
 								<Input
-									size="small"
+									size="middle"
 									ref={usernameRef}
 									value={values['login']}
 									onChange={(e) => setFieldValue('login', e.target.value)}
@@ -108,7 +108,7 @@ export const AuthorizationModal = ({
 								<Typography.Text>Password</Typography.Text>
 								<Input.Password
 									type="password"
-									size="small"
+									size="middle"
 									value={values['password']}
 									onChange={(e) => setFieldValue('password', e.target.value)}
 								/>
@@ -119,13 +119,13 @@ export const AuthorizationModal = ({
 
 								<RequestErrors
 									errors={convertIntoArray(authenticateUserError?.errors)}
-									withSpaceBottom
+									withSpaceTop
 								/>
 							</Col>
 
 							<Col span={24}>
 								<Space className="w-full justify-center">
-									<Button disabled={isAuthenticating} block size="small">
+									<Button disabled={isAuthenticating} block size="middle">
 										Cancel
 									</Button>
 									<Button
@@ -133,7 +133,7 @@ export const AuthorizationModal = ({
 										loading={isAuthenticating}
 										type="primary"
 										block
-										size="small"
+										size="middle"
 									>
 										Submit
 									</Button>

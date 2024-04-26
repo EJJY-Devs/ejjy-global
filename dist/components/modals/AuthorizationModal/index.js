@@ -54,7 +54,7 @@ const AuthorizationModal = ({ title = 'Authorization', description = 'Authorize'
             }, 500);
         }
     }, [usernameRef]);
-    return (react_1.default.createElement(antd_1.Modal, { footer: null, title: title, centered: true, closable: true, open: true, width: 300, onCancel: onCancel },
+    return (react_1.default.createElement(antd_1.Modal, { footer: null, title: title, centered: true, closable: true, open: true, width: 350, onCancel: onCancel },
         react_1.default.createElement(formik_1.Formik, { initialValues: {
                 login: '',
                 password: '',
@@ -72,21 +72,21 @@ const AuthorizationModal = ({ title = 'Authorization', description = 'Authorize'
                     !userTypes.includes(String(response.data.user_type))) {
                     setFieldError('password', 'User is not allowed.');
                 }
-                onSuccess();
+                onSuccess === null || onSuccess === void 0 ? void 0 : onSuccess();
             }) }, ({ values, setFieldValue }) => (react_1.default.createElement(formik_1.Form, null,
             react_1.default.createElement(antd_1.Row, { gutter: [16, 16] },
                 react_1.default.createElement(antd_1.Col, { span: 24 },
                     react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
-                    react_1.default.createElement(antd_1.Input, { size: "small", ref: usernameRef, value: values['login'], onChange: (e) => setFieldValue('login', e.target.value) }),
+                    react_1.default.createElement(antd_1.Input, { size: "middle", ref: usernameRef, value: values['login'], onChange: (e) => setFieldValue('login', e.target.value) }),
                     react_1.default.createElement(formik_1.ErrorMessage, { name: "login", render: (error) => react_1.default.createElement(elements_1.FieldError, { message: error }) })),
                 react_1.default.createElement(antd_1.Col, { span: 24 },
                     react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
-                    react_1.default.createElement(antd_1.Input.Password, { type: "password", size: "small", value: values['password'], onChange: (e) => setFieldValue('password', e.target.value) }),
+                    react_1.default.createElement(antd_1.Input.Password, { type: "password", size: "middle", value: values['password'], onChange: (e) => setFieldValue('password', e.target.value) }),
                     react_1.default.createElement(formik_1.ErrorMessage, { name: "password", render: (error) => react_1.default.createElement(elements_1.FieldError, { message: error }) }),
-                    react_1.default.createElement(RequestErrors_1.RequestErrors, { errors: (0, utils_1.convertIntoArray)(authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors), withSpaceBottom: true })),
+                    react_1.default.createElement(RequestErrors_1.RequestErrors, { errors: (0, utils_1.convertIntoArray)(authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors), withSpaceTop: true })),
                 react_1.default.createElement(antd_1.Col, { span: 24 },
                     react_1.default.createElement(antd_1.Space, { className: "w-full justify-center" },
-                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, block: true, size: "small" }, "Cancel"),
-                        react_1.default.createElement(antd_1.Button, { htmlType: "submit", loading: isAuthenticating, type: "primary", block: true, size: "small" }, "Submit")))))))));
+                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, block: true, size: "middle" }, "Cancel"),
+                        react_1.default.createElement(antd_1.Button, { htmlType: "submit", loading: isAuthenticating, type: "primary", block: true, size: "middle" }, "Submit")))))))));
 };
 exports.AuthorizationModal = AuthorizationModal;
