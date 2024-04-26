@@ -253,8 +253,8 @@ type AuthorizationProps = {
 };
 
 export const authorization = ({
-	title = 'Input Password',
-	description = 'Authenticate',
+	title = 'Authorization',
+	description = 'Authorize',
 	userTypes = [],
 	onSuccess,
 }: AuthorizationProps) => {
@@ -313,21 +313,29 @@ export const authorization = ({
 					description,
 				});
 
+				if (response.status !== 200) {
+					throw new Error('Incorrect username or password.');
+				}
+
 				if (
 					userTypes.length &&
 					!userTypes.includes(String(response.data.user_type))
 				) {
-					throw new Error('User type not allowed.');
+					throw new Error('User is not allowed.');
 				}
 
 				onSuccess();
 				close();
 			} catch (err) {
+				console.log(err);
+
 				if (err instanceof Error) {
 					errorMessage = err.message;
 				} else {
 					console.log(err);
 				}
+
+				return false;
 			} finally {
 				isLoading = false;
 			}

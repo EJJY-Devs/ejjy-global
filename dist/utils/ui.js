@@ -197,7 +197,7 @@ const filterOption = (input, option) => {
     return false;
 };
 exports.filterOption = filterOption;
-const authorization = ({ title = 'Input Password', description = 'Authenticate', userTypes = [], onSuccess, }) => {
+const authorization = ({ title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, }) => {
     let isLoading = false;
     let errorMessage = '';
     let username = '';
@@ -236,20 +236,25 @@ const authorization = ({ title = 'Input Password', description = 'Authenticate',
                     password,
                     description,
                 });
+                if (response.status !== 200) {
+                    throw new Error('Incorrect username or password.');
+                }
                 if (userTypes.length &&
                     !userTypes.includes(String(response.data.user_type))) {
-                    throw new Error('User type not allowed.');
+                    throw new Error('User is not allowed.');
                 }
                 onSuccess();
                 close();
             }
             catch (err) {
+                console.log(err);
                 if (err instanceof Error) {
                     errorMessage = err.message;
                 }
                 else {
                     console.log(err);
                 }
+                return false;
             }
             finally {
                 isLoading = false;
