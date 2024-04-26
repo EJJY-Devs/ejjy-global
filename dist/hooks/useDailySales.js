@@ -10,10 +10,20 @@ const DailySalesService_1 = __importDefault(require("../services/DailySalesServi
 const helper_1 = require("./helper");
 const useDailySales = (data = {}) => {
     const { params, options, serviceOptions } = data;
-    return (0, react_query_1.useQuery)(['useDailySales', params], () => (0, helper_1.wrapServiceWithCatch)(DailySalesService_1.default.list({
+    return (0, react_query_1.useQuery)([
+        'useDailySales',
+        params === null || params === void 0 ? void 0 : params.branchMachineId,
+        params === null || params === void 0 ? void 0 : params.branchMachineName,
+        params === null || params === void 0 ? void 0 : params.isWithDailySalesData,
+        params === null || params === void 0 ? void 0 : params.pageSize,
+        params === null || params === void 0 ? void 0 : params.page,
+        params === null || params === void 0 ? void 0 : params.timeRange,
+    ], () => (0, helper_1.wrapServiceWithCatch)(DailySalesService_1.default.list({
+        branch_machine_id: params === null || params === void 0 ? void 0 : params.branchMachineId,
+        branch_machine_name: params === null || params === void 0 ? void 0 : params.branchMachineName,
         is_with_daily_sales_data: params === null || params === void 0 ? void 0 : params.isWithDailySalesData,
-        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
+        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
         time_range: params === null || params === void 0 ? void 0 : params.timeRange,
     }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), Object.assign({ placeholderData: {
             results: [],
