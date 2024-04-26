@@ -13,7 +13,7 @@ const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const PrintDetails_1 = require("../../Printing/PrintDetails");
 const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
-    var _a, _b, _c;
+    var _a, _b;
     const cashieringSession = report.cashiering_session;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
@@ -131,16 +131,12 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'space-between' } },
-            react_1.default.createElement("div", null,
-                "GDT:",
-                ' ',
-                report.generation_datetime
-                    ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                    : globals_1.EMPTY_CELL),
-            react_1.default.createElement("div", null,
-                "C: ",
-                ((_c = report === null || report === void 0 ? void 0 : report.cashiering_session) === null || _c === void 0 ? void 0 : _c.user.employee_id) || globals_1.EMPTY_CELL)),
+        react_1.default.createElement("div", null,
+            "GDT:",
+            ' ',
+            report.generation_datetime
+                ? (0, utils_1.formatDateTime)(report.generation_datetime)
+                : globals_1.EMPTY_CELL),
         react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),

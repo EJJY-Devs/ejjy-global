@@ -176,16 +176,11 @@ export const XReadContent = ({
 
 			<Divider />
 
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<div>
-					GDT:{' '}
-					{report.generation_datetime
-						? formatDateTime(report.generation_datetime)
-						: EMPTY_CELL}
-				</div>
-				<div>
-					C: {report?.cashiering_session?.user.employee_id || EMPTY_CELL}
-				</div>
+			<div>
+				GDT:{' '}
+				{report.generation_datetime
+					? formatDateTime(report.generation_datetime)
+					: EMPTY_CELL}
 			</div>
 			<PrintDetails user={user} />
 
