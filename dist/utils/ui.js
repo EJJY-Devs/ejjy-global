@@ -247,9 +247,8 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
                 close();
             }
             catch (err) {
-                console.log(err);
                 if (err instanceof Error) {
-                    errorMessage = err.message;
+                    antd_1.message.error(err.message);
                 }
                 else {
                     console.log(err);

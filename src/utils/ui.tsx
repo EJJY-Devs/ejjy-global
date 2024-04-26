@@ -328,10 +328,8 @@ export const authorization = ({
 				onSuccess();
 				close();
 			} catch (err) {
-				console.log(err);
-
 				if (err instanceof Error) {
-					errorMessage = err.message;
+					message.error(err.message);
 				} else {
 					console.log(err);
 				}
