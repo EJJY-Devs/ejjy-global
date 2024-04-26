@@ -27,6 +27,8 @@ import {
 	TaxType,
 	UserType,
 } from '../types';
+import { FieldError } from '../components';
+import { UsersService } from '../services';
 
 // Getters
 export const getSubtotal = (products: CashieringTransactionProduct[]) => {
@@ -245,13 +247,19 @@ export const filterOption = (
 // Messages
 type AuthorizationProps = {
 	title?: string;
+	description?: string;
+	userTypes?: string[];
 	onSuccess: () => void;
 };
 
 export const authorization = ({
 	title = 'Input Password',
+	description = 'Authenticate',
+	userTypes = [],
 	onSuccess,
 }: AuthorizationProps) => {
+	let isLoading = false;
+	let errorMessage = '';
 	let username = '';
 	let password = '';
 
@@ -260,13 +268,19 @@ export const authorization = ({
 		centered: true,
 		className: 'Modal__hasFooter',
 		okText: 'Submit',
+		okButtonProps: {
+			loading: isLoading,
+		},
+		cancelButtonProps: {
+			disabled: isLoading,
+		},
 		content: (
 			<Space className="w-full" direction="vertical">
 				<>
 					<Typography.Text>Username</Typography.Text>
 					<Input
 						onChange={(event) => {
-							username = event.target.value;
+							username = event.target.value.trim();
 						}}
 					/>
 				</>
@@ -275,18 +289,47 @@ export const authorization = ({
 					<Typography.Text>Password</Typography.Text>
 					<Input.Password
 						onChange={(event) => {
-							password = event.target.value;
+							password = event.target.value.trim();
 						}}
 					/>
+
+					{errorMessage && (
+						<FieldError classNames="mt-4" message={errorMessage} />
+					)}
 				</>
 			</Space>
 		),
-		onOk: (close) => {
-			if (username === 'admin' && password === 'generic123') {
+		onOk: async (close) => {
+			isLoading = true;
+
+			try {
+				if (!username || !password) {
+					throw new Error('Please input username and password.');
+				}
+
+				const response = await UsersService.authenticateAnAction({
+					login: username,
+					password,
+					description,
+				});
+
+				if (
+					userTypes.length &&
+					!userTypes.includes(String(response.data.user_type))
+				) {
+					throw new Error('User type not allowed.');
+				}
+
 				onSuccess();
 				close();
-			} else {
-				message.error('Incorrect username/password');
+			} catch (err) {
+				if (err instanceof Error) {
+					errorMessage = err.message;
+				} else {
+					console.log(err);
+				}
+			} finally {
+				isLoading = false;
 			}
 		},
 	});

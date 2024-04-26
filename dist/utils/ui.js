@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8,6 +17,8 @@ const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../globals");
+const components_1 = require("../components");
+const services_1 = require("../services");
 // Getters
 const getSubtotal = (products) => {
     let amount = 0;
@@ -186,7 +197,9 @@ const filterOption = (input, option) => {
     return false;
 };
 exports.filterOption = filterOption;
-const authorization = ({ title = 'Input Password', onSuccess, }) => {
+const authorization = ({ title = 'Input Password', description = 'Authenticate', userTypes = [], onSuccess, }) => {
+    let isLoading = false;
+    let errorMessage = '';
     let username = '';
     let password = '';
     antd_1.Modal.confirm({
@@ -194,26 +207,54 @@ const authorization = ({ title = 'Input Password', onSuccess, }) => {
         centered: true,
         className: 'Modal__hasFooter',
         okText: 'Submit',
+        okButtonProps: {
+            loading: isLoading,
+        },
+        cancelButtonProps: {
+            disabled: isLoading,
+        },
         content: (react_1.default.createElement(antd_1.Space, { className: "w-full", direction: "vertical" },
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Username"),
                 react_1.default.createElement(antd_1.Input, { onChange: (event) => {
-                        username = event.target.value;
+                        username = event.target.value.trim();
                     } })),
             react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
                 react_1.default.createElement(antd_1.Input.Password, { onChange: (event) => {
-                        password = event.target.value;
-                    } })))),
-        onOk: (close) => {
-            if (username === 'admin' && password === 'generic123') {
+                        password = event.target.value.trim();
+                    } }),
+                errorMessage && (react_1.default.createElement(components_1.FieldError, { classNames: "mt-4", message: errorMessage }))))),
+        onOk: (close) => __awaiter(void 0, void 0, void 0, function* () {
+            isLoading = true;
+            try {
+                if (!username || !password) {
+                    throw new Error('Please input username and password.');
+                }
+                const response = yield services_1.UsersService.authenticateAnAction({
+                    login: username,
+                    password,
+                    description,
+                });
+                if (userTypes.length &&
+                    !userTypes.includes(String(response.data.user_type))) {
+                    throw new Error('User type not allowed.');
+                }
                 onSuccess();
                 close();
             }
-            else {
-                antd_1.message.error('Incorrect username/password');
+            catch (err) {
+                if (err instanceof Error) {
+                    errorMessage = err.message;
+                }
+                else {
+                    console.log(err);
+                }
             }
-        },
+            finally {
+                isLoading = false;
+            }
+        }),
     });
 };
 exports.authorization = authorization;
