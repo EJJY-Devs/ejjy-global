@@ -18,6 +18,7 @@ import { RequestErrors } from '../../RequestErrors';
 import { User } from '../../../types';
 
 export type Props = {
+	baseURL?: string;
 	title?: string;
 	description?: string;
 	userTypes?: string[];
@@ -26,6 +27,7 @@ export type Props = {
 };
 
 export const AuthorizationModal = ({
+	baseURL,
 	title = 'Authorization',
 	description = 'Authorize',
 	userTypes = [],
@@ -36,7 +38,7 @@ export const AuthorizationModal = ({
 		mutateAsync: authenticateUser,
 		isLoading: isAuthenticating,
 		error: authenticateUserError,
-	} = useUsersAuthenticate();
+	} = useUsersAuthenticate(undefined, baseURL);
 
 	// REFS
 	const usernameRef = useRef<InputRef | null>(null);

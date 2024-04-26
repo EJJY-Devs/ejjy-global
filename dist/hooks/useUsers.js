@@ -29,10 +29,10 @@ const useUsers = (data = {}) => {
             total: query.count,
         }) }, options));
 };
-const useUsersAuthenticate = () => (0, react_query_1.useMutation)(({ login, password, description }) => services_1.UsersService.authenticateAnAction({
+const useUsersAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)(({ login, password, description }) => services_1.UsersService.authenticateAnAction({
     login,
     password,
     description,
-}));
+}, baseURL));
 exports.useUsersAuthenticate = useUsersAuthenticate;
 exports.default = useUsers;

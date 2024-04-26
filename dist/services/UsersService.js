@@ -26,6 +26,6 @@ const service = {
         });
         return response.data;
     }),
-    authenticateAnAction: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('users/authenticate/', body); }),
+    authenticateAnAction: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('users/authenticate/', body, { baseURL }); }),
 };
 exports.default = service;

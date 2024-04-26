@@ -41,8 +41,8 @@ const hooks_1 = require("../../../hooks");
 const utils_1 = require("../../../utils");
 const elements_1 = require("../../elements");
 const RequestErrors_1 = require("../../RequestErrors");
-const AuthorizationModal = ({ title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, onCancel, }) => {
-    const { mutateAsync: authenticateUser, isLoading: isAuthenticating, error: authenticateUserError, } = (0, hooks_1.useUsersAuthenticate)();
+const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, onCancel, }) => {
+    const { mutateAsync: authenticateUser, isLoading: isAuthenticating, error: authenticateUserError, } = (0, hooks_1.useUsersAuthenticate)(undefined, baseURL);
     // REFS
     const usernameRef = (0, react_1.useRef)(null);
     // METHODS

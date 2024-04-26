@@ -31,8 +31,8 @@ const service = {
 		return response.data;
 	},
 
-	authenticateAnAction: async (body: AuthenticateAnAction) =>
-		axios.post<User>('users/authenticate/', body),
+	authenticateAnAction: async (body: AuthenticateAnAction, baseURL?: string) =>
+		axios.post<User>('users/authenticate/', body, { baseURL }),
 };
 
 export default service;

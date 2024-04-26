@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { UsersService } from '../services';
@@ -43,17 +43,27 @@ const useUsers = (data: UseListQuery<User> = {}) => {
 	);
 };
 
-export const useUsersAuthenticate = () =>
+export const useUsersAuthenticate = (
+	options?: UseMutationOptions<
+		AxiosResponse<User>,
+		AxiosErrorResponse,
+		CamelCasedProperties<AuthenticateAnAction>
+	>,
+	baseURL?: string,
+) =>
 	useMutation<
 		AxiosResponse<User>,
 		AxiosErrorResponse,
 		CamelCasedProperties<AuthenticateAnAction>
 	>(({ login, password, description }) =>
-		UsersService.authenticateAnAction({
-			login,
-			password,
-			description,
-		}),
+		UsersService.authenticateAnAction(
+			{
+				login,
+				password,
+				description,
+			},
+			baseURL,
+		),
 	);
 
 export default useUsers;
