@@ -12,9 +12,11 @@ import { ErrorMessage, Form, Formik } from 'formik';
 import React, { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { useUsersAuthenticate } from '../../../hooks';
+import { convertIntoArray } from '../../../utils';
 import { FieldError } from '../../elements';
+import { RequestErrors } from '../../RequestErrors';
 
-type Props = {
+export type Props = {
 	title?: string;
 	description?: string;
 	userTypes?: string[];
@@ -50,7 +52,7 @@ export const AuthorizationModal = ({
 	return (
 		<Modal
 			footer={null}
-			title="Cashiering Details"
+			title={title}
 			centered
 			closable
 			open
@@ -81,6 +83,8 @@ export const AuthorizationModal = ({
 					) {
 						setFieldError('password', 'User is not allowed.');
 					}
+
+					onSuccess();
 				}}
 			>
 				{({ values, setFieldValue }) => (
@@ -111,6 +115,11 @@ export const AuthorizationModal = ({
 								<ErrorMessage
 									name="password"
 									render={(error) => <FieldError message={error} />}
+								/>
+
+								<RequestErrors
+									errors={convertIntoArray(authenticateUserError?.errors)}
+									withSpaceBottom
 								/>
 							</Col>
 

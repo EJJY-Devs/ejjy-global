@@ -1,5 +1,5 @@
 import React from 'react';
-type Props = {
+export type Props = {
     title?: string;
     description?: string;
     userTypes?: string[];
@@ -7,4 +7,3 @@ type Props = {
     onCancel: () => void;
 };
 export declare const AuthorizationModal: ({ title, description, userTypes, onSuccess, onCancel, }: Props) => React.JSX.Element;
-export {};
