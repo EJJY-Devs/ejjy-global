@@ -198,10 +198,10 @@ const filterOption = (input, option) => {
 };
 exports.filterOption = filterOption;
 const authorization = ({ title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, }) => {
-    let isLoading = false;
-    let errorMessage = '';
     let username = '';
     let password = '';
+    let isLoading = false;
+    let errorMessage = '';
     antd_1.Modal.confirm({
         title,
         centered: true,
@@ -254,7 +254,7 @@ const authorization = ({ title = 'Authorization', description = 'Authorize', use
                 else {
                     console.log(err);
                 }
-                return false;
+                return Promise.reject();
             }
             finally {
                 isLoading = false;

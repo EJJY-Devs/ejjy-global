@@ -258,10 +258,11 @@ export const authorization = ({
 	userTypes = [],
 	onSuccess,
 }: AuthorizationProps) => {
-	let isLoading = false;
-	let errorMessage = '';
 	let username = '';
 	let password = '';
+
+	let isLoading = false;
+	let errorMessage = '';
 
 	Modal.confirm({
 		title,
@@ -335,7 +336,7 @@ export const authorization = ({
 					console.log(err);
 				}
 
-				return false;
+				return Promise.reject();
 			} finally {
 				isLoading = false;
 			}
