@@ -1,6 +1,8 @@
 import { ListQueryParams, ListResponseData } from './interfaces';
 import { DailySales } from '../types';
 export interface Params extends ListQueryParams {
+    branch_machine_name?: string;
+    branch_machine_id?: number;
     is_with_daily_sales_data?: boolean;
 }
 export interface Create {
