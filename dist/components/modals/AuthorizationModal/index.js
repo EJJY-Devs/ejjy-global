@@ -72,7 +72,7 @@ const AuthorizationModal = ({ title = 'Authorization', description = 'Authorize'
                     !userTypes.includes(String(response.data.user_type))) {
                     setFieldError('password', 'User is not allowed.');
                 }
-                onSuccess === null || onSuccess === void 0 ? void 0 : onSuccess();
+                onSuccess === null || onSuccess === void 0 ? void 0 : onSuccess(response.data);
             }) }, ({ values, setFieldValue }) => (react_1.default.createElement(formik_1.Form, null,
             react_1.default.createElement(antd_1.Row, { gutter: [16, 16] },
                 react_1.default.createElement(antd_1.Col, { span: 24 },
@@ -83,10 +83,10 @@ const AuthorizationModal = ({ title = 'Authorization', description = 'Authorize'
                     react_1.default.createElement(antd_1.Typography.Text, null, "Password"),
                     react_1.default.createElement(antd_1.Input.Password, { type: "password", size: "middle", value: values['password'], onChange: (e) => setFieldValue('password', e.target.value) }),
                     react_1.default.createElement(formik_1.ErrorMessage, { name: "password", render: (error) => react_1.default.createElement(elements_1.FieldError, { message: error }) }),
-                    react_1.default.createElement(RequestErrors_1.RequestErrors, { errors: (0, utils_1.convertIntoArray)(authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors), withSpaceTop: true })),
+                    react_1.default.createElement(RequestErrors_1.RequestErrors, { errors: (0, utils_1.convertIntoArray)(authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors) })),
                 react_1.default.createElement(antd_1.Col, { span: 24 },
                     react_1.default.createElement(antd_1.Space, { className: "w-full justify-center" },
-                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, block: true, size: "middle" }, "Cancel"),
+                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, block: true, size: "middle", onClick: onCancel }, "Cancel"),
                         react_1.default.createElement(antd_1.Button, { htmlType: "submit", loading: isAuthenticating, type: "primary", block: true, size: "middle" }, "Submit")))))))));
 };
 exports.AuthorizationModal = AuthorizationModal;

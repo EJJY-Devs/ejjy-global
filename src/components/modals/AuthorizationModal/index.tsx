@@ -15,12 +15,13 @@ import { useUsersAuthenticate } from '../../../hooks';
 import { convertIntoArray } from '../../../utils';
 import { FieldError } from '../../elements';
 import { RequestErrors } from '../../RequestErrors';
+import { User } from '../../../types';
 
 export type Props = {
 	title?: string;
 	description?: string;
 	userTypes?: string[];
-	onSuccess?: () => void;
+	onSuccess?: (user: User) => void;
 	onCancel?: () => void;
 };
 
@@ -84,7 +85,7 @@ export const AuthorizationModal = ({
 						setFieldError('password', 'User is not allowed.');
 					}
 
-					onSuccess?.();
+					onSuccess?.(response.data);
 				}}
 			>
 				{({ values, setFieldValue }) => (
@@ -119,13 +120,17 @@ export const AuthorizationModal = ({
 
 								<RequestErrors
 									errors={convertIntoArray(authenticateUserError?.errors)}
-									withSpaceTop
 								/>
 							</Col>
 
 							<Col span={24}>
 								<Space className="w-full justify-center">
-									<Button disabled={isAuthenticating} block size="middle">
+									<Button
+										disabled={isAuthenticating}
+										block
+										size="middle"
+										onClick={onCancel}
+									>
 										Cancel
 									</Button>
 									<Button
