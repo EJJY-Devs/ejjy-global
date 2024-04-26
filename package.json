@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.224",
+	"version": "0.0.225",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -35,7 +35,8 @@
 		"query-string": "^7.1.3",
 		"qz-tray": "^2.2.2",
 		"type-fest": "^4.3.1",
-		"use-debounce": "^7.0.1"
+		"use-debounce": "^7.0.1",
+		"yup": "^0.29.3"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.197",
@@ -43,6 +44,7 @@
 		"@types/react": "^16.9.49",
 		"@types/react-dom": "^16.9.8",
 		"@types/react-router-dom": "^5.3.3",
+		"@types/yup": "^0.29.6",
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
 		"@typescript-eslint/parser": "^5.0.0",
 		"@vitejs/plugin-react": "^4.0.3",
