@@ -31,8 +31,8 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
             ' ',
             [
                 (0, utils_1.formatTime)(dailySales.datetime_created),
-                dailySales.daily_sales_data.date
-                    ? (0, utils_1.formatTime)(dailySales.daily_sales_data.date)
+                dailySales.generation_datetime
+                    ? (0, utils_1.formatTime)(dailySales.generation_datetime)
                     : null,
             ]
                 .filter(Boolean)

@@ -49,8 +49,8 @@ export const DailySalesContent = ({
 			{formatDate(dailySales.datetime_created)} |{' '}
 			{[
 				formatTime(dailySales.datetime_created),
-				dailySales.daily_sales_data.date
-					? formatTime(dailySales.daily_sales_data.date)
+				dailySales.generation_datetime
+					? formatTime(dailySales.generation_datetime)
 					: null,
 			]
 				.filter(Boolean)
