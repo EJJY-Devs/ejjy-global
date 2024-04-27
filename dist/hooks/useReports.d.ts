@@ -8,10 +8,11 @@ interface BulkExport {
     user: User;
 }
 export declare const useBulkExport: () => import("react-query").UseMutationResult<AxiosResponse<string>[], AxiosErrorResponse<any>, BulkExport, unknown>;
-interface GenerateReports {
+type GenerateReports = {
     enabled: boolean;
     intervalMs: number;
-    branchId: number;
-}
-export declare const useGenerateReports: ({ branchId, enabled, intervalMs, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
+    branchId?: number;
+    branchMachineId?: number;
+};
+export declare const useGenerateReports: ({ branchId, branchMachineId, enabled, intervalMs, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
 export {};

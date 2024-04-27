@@ -69,8 +69,9 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     return Promise.all(requests);
 }));
 exports.useBulkExport = useBulkExport;
-const useGenerateReports = ({ branchId, enabled, intervalMs, }) => (0, react_query_1.useQuery)(['useGenerateReports', branchId], () => (0, helper_1.wrapServiceWithCatch)(services_1.ReportsService.generate({
-    branch_id: Number(branchId),
+const useGenerateReports = ({ branchId, branchMachineId, enabled, intervalMs, }) => (0, react_query_1.useQuery)(['useGenerateReports', branchId, branchMachineId], () => (0, helper_1.wrapServiceWithCatch)(services_1.ReportsService.generate({
+    branch_id: branchId,
+    branch_machine_id: branchMachineId,
 })), {
     enabled: Number(branchId) > 0 && enabled,
     refetchInterval: intervalMs,

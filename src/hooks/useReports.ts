@@ -120,23 +120,26 @@ export const useBulkExport = () =>
 		},
 	);
 
-interface GenerateReports {
+type GenerateReports = {
 	enabled: boolean;
 	intervalMs: number;
-	branchId: number;
-}
+	branchId?: number;
+	branchMachineId?: number;
+};
 
 export const useGenerateReports = ({
 	branchId,
+	branchMachineId,
 	enabled,
 	intervalMs,
 }: GenerateReports) =>
 	useQuery(
-		['useGenerateReports', branchId],
+		['useGenerateReports', branchId, branchMachineId],
 		() =>
 			wrapServiceWithCatch(
 				ReportsService.generate({
-					branch_id: Number(branchId),
+					branch_id: branchId,
+					branch_machine_id: branchMachineId,
 				}),
 			),
 		{

@@ -7,7 +7,8 @@ interface BulkExport {
     data?: BulkExportData[];
 }
 interface Generate {
-    branch_id: number;
+    branch_id?: number;
+    branch_machine_id?: number;
 }
 declare const service: {
     bulkExportReports: (body: BulkExport) => Promise<import("axios").AxiosResponse<string>>;
