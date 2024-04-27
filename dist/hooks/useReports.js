@@ -73,7 +73,7 @@ const useGenerateReports = ({ branchId, branchMachineId, enabled, intervalMs, })
     branch_id: branchId,
     branch_machine_id: branchMachineId,
 })), {
-    enabled: Number(branchId) > 0 && enabled,
+    enabled,
     refetchInterval: intervalMs,
     refetchIntervalInBackground: true,
     notifyOnChangeProps: [],

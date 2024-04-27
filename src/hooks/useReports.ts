@@ -143,7 +143,7 @@ export const useGenerateReports = ({
 				}),
 			),
 		{
-			enabled: Number(branchId) > 0 && enabled,
+			enabled,
 			refetchInterval: intervalMs,
 			refetchIntervalInBackground: true,
 			notifyOnChangeProps: [],
