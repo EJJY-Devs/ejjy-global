@@ -160,12 +160,12 @@ export const XReadContent = ({
 			<ItemBlock
 				items={[
 					{
-						label: '+Cash on Hand',
-						value: formatInPeso(report.total_cash_on_hand, PESO_SIGN),
+						label: '+Cash in Drawer',
+						value: formatInPeso(report.cash_in_drawer, PESO_SIGN),
 					},
 					{
-						label: '-Cash in Drawer',
-						value: formatInPeso(report.cash_in_drawer, PESO_SIGN),
+						label: '-Cash on Hand',
+						value: formatInPeso(report.total_cash_on_hand, PESO_SIGN),
 					},
 					{
 						label: '=Short/Over',

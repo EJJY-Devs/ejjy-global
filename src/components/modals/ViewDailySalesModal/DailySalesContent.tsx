@@ -46,9 +46,10 @@ export const DailySalesContent = ({
 		)}
 		<div style={{ textAlign: 'center' }}>Day Datetime</div>
 		<div style={{ textAlign: 'center' }}>
-			{formatDate(dailySales.datetime_created)} |{' '}
 			{[
-				formatTime(dailySales.datetime_created),
+				dailySales.daily_sales_data.branch_day_open_datetime
+					? formatTime(dailySales.daily_sales_data.branch_day_open_datetime)
+					: null,
 				dailySales.generation_datetime
 					? formatTime(dailySales.generation_datetime)
 					: null,
@@ -284,12 +285,12 @@ export const DailySalesContent = ({
 		<ItemBlock
 			items={[
 				{
-					label: '+Cash on Hand',
-					value: formatInPeso(dailySales.total_cash_on_hand, PESO_SIGN),
+					label: '+Cash in Drawer',
+					value: formatInPeso(dailySales.cash_in_drawer, PESO_SIGN),
 				},
 				{
-					label: '-Cash in Drawer',
-					value: formatInPeso(dailySales.cash_in_drawer, PESO_SIGN),
+					label: '-Cash on Hand',
+					value: formatInPeso(dailySales.total_cash_on_hand, PESO_SIGN),
 				},
 				{
 					label: '=(Short)/Over',

@@ -32,7 +32,9 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             " |",
             ' ',
             [
-                (0, utils_1.formatTime)(report.datetime_created),
+                report.branch_day_open_datetime
+                    ? (0, utils_1.formatTime)(report.branch_day_open_datetime)
+                    : null,
                 report.generation_datetime
                     ? (0, utils_1.formatTime)(report.generation_datetime)
                     : null,
@@ -163,12 +165,12 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Transaction Summary"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: '+Cash on Hand',
-                    value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
+                    label: '+Cash in Drawer',
+                    value: (0, utils_1.formatInPeso)(report.cash_in_drawer, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '-Cash in Drawer',
-                    value: (0, utils_1.formatInPeso)(report.cash_in_drawer, helper_receipt_1.PESO_SIGN),
+                    label: '-Cash on Hand',
+                    value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=(Short)/Over',

@@ -72,6 +72,7 @@ export interface XReadReport {
 }
 type DailySalesData = {
     date: string;
+    branch_day_open_datetime: string;
     cashier: GeneratedByUser;
 };
 export interface DailySales extends XReadReport {
@@ -94,6 +95,7 @@ export interface ZReadReport {
     ending_transactions_count: number;
     generated_by: GeneratedByUser;
     generation_datetime?: string;
+    branch_day_open_datetime?: string;
     gross_sales: number;
     location?: string;
     net_sales: number;
