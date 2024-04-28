@@ -25,16 +25,20 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
             ' ',
             (0, utils_1.formatTime)(dailySales.generation_datetime))),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Day Datetime"),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, [
-            dailySales.daily_sales_data.branch_day_open_datetime
-                ? (0, utils_1.formatTime)(dailySales.daily_sales_data.branch_day_open_datetime)
-                : null,
-            dailySales.generation_datetime
-                ? (0, utils_1.formatTime)(dailySales.generation_datetime)
-                : null,
-        ]
-            .filter(Boolean)
-            .join(' - ')),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } },
+            (0, utils_1.formatDate)(dailySales.datetime_created),
+            " |",
+            ' ',
+            [
+                dailySales.daily_sales_data.branch_day_open_datetime
+                    ? (0, utils_1.formatTime)(dailySales.daily_sales_data.branch_day_open_datetime)
+                    : null,
+                dailySales.generation_datetime
+                    ? (0, utils_1.formatTime)(dailySales.generation_datetime)
+                    : null,
+            ]
+                .filter(Boolean)
+                .join(' - ')),
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
