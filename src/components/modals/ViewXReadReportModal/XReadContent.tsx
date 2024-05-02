@@ -52,11 +52,18 @@ export const XReadContent = ({
 
 			<br />
 
-			<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
-			<div style={{ textAlign: 'center' }}>
-				{formatDate(report.datetime_created)} -{' '}
-				{formatTime(report.datetime_created)}
-			</div>
+			{report.generation_datetime && (
+				<>
+					<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
+					<div style={{ textAlign: 'center' }}>
+						{[
+							formatDate(report.generation_datetime),
+							formatTime(report.generation_datetime),
+						].join(' - ')}
+					</div>
+				</>
+			)}
+
 			{cashieringSession && (
 				<>
 					<div style={{ textAlign: 'center' }}>Session Datetime</div>
