@@ -295,7 +295,11 @@ export const DailySalesContent = ({
 				},
 				{
 					label: '=(Short)/Over',
-					value: formatInPeso(dailySales.short_over, PESO_SIGN),
+					value: [
+						dailySales.short_over < 0 ? '(' : '',
+						formatInPeso(Math.abs(dailySales.short_over), PESO_SIGN),
+						dailySales.short_over < 0 ? ')' : '',
+					].join(''),
 				},
 			]}
 		/>

@@ -127,7 +127,11 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '=Short/Over',
-                    value: (0, utils_1.formatInPeso)(report.short_over, helper_receipt_1.PESO_SIGN),
+                    value: [
+                        report.short_over < 0 ? '(' : '',
+                        (0, utils_1.formatInPeso)(Math.abs(report.short_over), helper_receipt_1.PESO_SIGN),
+                        report.short_over < 0 ? ')' : '',
+                    ].join(''),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),

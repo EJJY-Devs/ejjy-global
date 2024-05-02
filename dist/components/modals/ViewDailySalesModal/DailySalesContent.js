@@ -245,7 +245,11 @@ const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
                 },
                 {
                     label: '=(Short)/Over',
-                    value: (0, utils_1.formatInPeso)(dailySales.short_over, helper_receipt_1.PESO_SIGN),
+                    value: [
+                        dailySales.short_over < 0 ? '(' : '',
+                        (0, utils_1.formatInPeso)(Math.abs(dailySales.short_over), helper_receipt_1.PESO_SIGN),
+                        dailySales.short_over < 0 ? ')' : '',
+                    ].join(''),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),

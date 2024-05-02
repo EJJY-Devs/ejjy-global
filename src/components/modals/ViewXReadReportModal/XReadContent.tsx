@@ -169,7 +169,11 @@ export const XReadContent = ({
 					},
 					{
 						label: '=Short/Over',
-						value: formatInPeso(report.short_over, PESO_SIGN),
+						value: [
+							report.short_over < 0 ? '(' : '',
+							formatInPeso(Math.abs(report.short_over), PESO_SIGN),
+							report.short_over < 0 ? ')' : '',
+						].join(''),
 					},
 				]}
 			/>
