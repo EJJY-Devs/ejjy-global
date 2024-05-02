@@ -346,12 +346,6 @@ export const ZReadContent = ({
 		/>
 		<Divider />
 
-		<div>
-			GDT:{' '}
-			{report.generation_datetime
-				? formatDateTime(report.generation_datetime)
-				: EMPTY_CELL}
-		</div>
 		<PrintDetails user={user} />
 
 		<br />

@@ -180,12 +180,6 @@ export const XReadContent = ({
 
 			<Divider />
 
-			<div>
-				GDT:{' '}
-				{report.generation_datetime
-					? formatDateTime(report.generation_datetime)
-					: EMPTY_CELL}
-			</div>
 			<PrintDetails user={user} />
 
 			<br />

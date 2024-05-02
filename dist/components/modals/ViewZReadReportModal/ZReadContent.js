@@ -282,12 +282,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", null,
-            "GDT:",
-            ' ',
-            report.generation_datetime
-                ? (0, utils_1.formatDateTime)(report.generation_datetime)
-                : globals_1.EMPTY_CELL),
         react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),

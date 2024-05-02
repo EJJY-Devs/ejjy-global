@@ -305,12 +305,6 @@ export const DailySalesContent = ({
 		/>
 		<Divider />
 
-		<div>
-			GDT:{' '}
-			{dailySales.generation_datetime
-				? formatDateTime(dailySales.generation_datetime)
-				: EMPTY_CELL}
-		</div>
 		<PrintDetails user={user} />
 
 		<br />
