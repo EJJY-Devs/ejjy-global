@@ -71,6 +71,7 @@ const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'A
                 if (userTypes.length &&
                     !userTypes.includes(String(response.data.user_type))) {
                     setFieldError('password', 'User is not allowed.');
+                    return;
                 }
                 onSuccess === null || onSuccess === void 0 ? void 0 : onSuccess(response.data);
             }) }, ({ values, setFieldValue }) => (react_1.default.createElement(formik_1.Form, null,

@@ -85,6 +85,7 @@ export const AuthorizationModal = ({
 						!userTypes.includes(String(response.data.user_type))
 					) {
 						setFieldError('password', 'User is not allowed.');
+						return;
 					}
 
 					onSuccess?.(response.data);
