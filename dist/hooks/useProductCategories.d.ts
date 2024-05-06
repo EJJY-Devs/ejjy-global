@@ -10,9 +10,12 @@ export declare const useProductCategoryCreate: (options?: UseMutationOptions<Axi
     name: string;
     priorityLevel: number;
 }, unknown>;
-export declare const useProductCategoryEdit: (options?: UseMutationOptions<AxiosResponse<ProductCategory>, AxiosErrorResponse, CamelCasedProperties<Modify>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<ProductCategory>, AxiosErrorResponse<any>, {
+export declare const useProductCategoryEdit: (options?: UseMutationOptions<AxiosResponse<ProductCategory>, AxiosErrorResponse, CamelCasedProperties<Modify & {
+    id: number;
+}>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<ProductCategory>, AxiosErrorResponse<any>, {
     name: string;
     priorityLevel: number;
+    id: number;
 }, unknown>;
 export declare const useProductCategoryDelete: (options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<void>, AxiosErrorResponse<any>, number, unknown>;
 export default useProductCategories;

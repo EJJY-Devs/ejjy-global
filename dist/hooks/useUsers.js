@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUsersAuthenticate = void 0;
+exports.useUserDelete = exports.useUserEdit = exports.useUserCreate = exports.useUserAuthenticate = exports.useUserRetrieve = void 0;
 const react_query_1 = require("react-query");
 const globals_1 = require("../globals");
 const services_1 = require("../services");
@@ -45,10 +45,38 @@ const useUsers = (data = {}) => {
             total: query.count,
         }) }, options));
 };
-const useUsersAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)(({ login, password, description }) => services_1.UsersService.authenticateAnAction({
+const useUserRetrieve = (data) => {
+    const { id, options, serviceOptions } = data;
+    return (0, react_query_1.useQuery)(['useUserRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.UsersService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), options);
+};
+exports.useUserRetrieve = useUserRetrieve;
+const useUserAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)(({ login, password, description }) => services_1.UsersService.authenticateAnAction({
     login,
     password,
     description,
-}, baseURL));
-exports.useUsersAuthenticate = useUsersAuthenticate;
+}, baseURL), options);
+exports.useUserAuthenticate = useUserAuthenticate;
+const useUserCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ contactNumber, displayName, email, firstName, lastName, password, userType, username, }) => services_1.UsersService.create({
+    contact_number: contactNumber,
+    display_name: displayName,
+    email,
+    first_name: firstName,
+    last_name: lastName,
+    password,
+    user_type: userType,
+    username,
+}, baseURL), options);
+exports.useUserCreate = useUserCreate;
+const useUserEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, contactNumber, displayName, email, firstName, lastName, password, userType, }) => services_1.UsersService.edit(id, {
+    contact_number: contactNumber,
+    display_name: displayName,
+    email,
+    first_name: firstName,
+    last_name: lastName,
+    password,
+    user_type: userType,
+}, baseURL), options);
+exports.useUserEdit = useUserEdit;
+const useUserDelete = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.UsersService.delete(id, baseURL), options);
+exports.useUserDelete = useUserDelete;
 exports.default = useUsers;

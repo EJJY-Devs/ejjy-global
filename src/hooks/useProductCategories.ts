@@ -75,16 +75,16 @@ export const useProductCategoryEdit = (
 	options?: UseMutationOptions<
 		AxiosResponse<ProductCategory>,
 		AxiosErrorResponse,
-		CamelCasedProperties<Modify>
+		CamelCasedProperties<Modify & { id: number }>
 	>,
 	baseURL?: string,
 ) =>
 	useMutation<
 		AxiosResponse<ProductCategory>,
 		AxiosErrorResponse,
-		CamelCasedProperties<Modify>
+		CamelCasedProperties<Modify & { id: number }>
 	>(
-		({ id, name, priorityLevel }: any) =>
+		({ id, name, priorityLevel }) =>
 			ProductCategoriesService.edit(
 				id,
 				{

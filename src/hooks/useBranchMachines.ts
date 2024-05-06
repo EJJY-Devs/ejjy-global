@@ -102,7 +102,7 @@ export const useBranchMachineCreate = (
 			serverUrl,
 			storageSerialNumber,
 			type,
-		}: any) =>
+		}) =>
 			BranchMachinesService.create(
 				{
 					branch_id: branchId,
@@ -122,14 +122,14 @@ export const useBranchMachineEdit = (
 	options?: UseMutationOptions<
 		AxiosResponse<BranchMachine>,
 		AxiosErrorResponse,
-		CamelCasedProperties<Modify>
+		CamelCasedProperties<Modify & { id: number }>
 	>,
 	baseURL?: string,
 ) =>
 	useMutation<
 		AxiosResponse<BranchMachine>,
 		AxiosErrorResponse,
-		CamelCasedProperties<Modify>
+		CamelCasedProperties<Modify & { id: number }>
 	>(
 		({
 			id,
@@ -140,7 +140,7 @@ export const useBranchMachineEdit = (
 			serverUrl,
 			storageSerialNumber,
 			type,
-		}: any) =>
+		}) =>
 			BranchMachinesService.edit(
 				id,
 				{

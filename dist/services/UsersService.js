@@ -26,6 +26,13 @@ const service = {
         });
         return response.data;
     }),
+    retrieve: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield axios_1.default.get(`/users/${id}/`, { baseURL });
+        return response.data;
+    }),
     authenticateAnAction: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('users/authenticate/', body, { baseURL }); }),
+    create: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/users/', body, { baseURL }); }),
+    edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/users/${id}/`, body, { baseURL }); }),
+    delete: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`/users/${id}/`, { baseURL }); }),
 };
 exports.default = service;

@@ -3,7 +3,7 @@ import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { UsersService } from '../services';
-import { AuthenticateAnAction, Params } from '../services/UsersService';
+import { AuthenticateAnAction, Modify, Params } from '../services/UsersService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -11,7 +11,7 @@ import {
 } from '../services/interfaces';
 import { User } from '../types';
 import { wrapServiceWithCatch } from './helper';
-import { UseListQuery } from './inteface';
+import { UseListQuery, UseRetrieveQuery } from './inteface';
 
 const useUsers = (
 	data: UseListQuery<User, CamelCasedProperties<Params>> = {},
@@ -62,7 +62,18 @@ const useUsers = (
 	);
 };
 
-export const useUsersAuthenticate = (
+export const useUserRetrieve = (data: UseRetrieveQuery<User>) => {
+	const { id, options, serviceOptions } = data;
+
+	return useQuery<User>(
+		['useUserRetrieve', id],
+		() =>
+			wrapServiceWithCatch(UsersService.retrieve(id, serviceOptions?.baseURL)),
+		options,
+	);
+};
+
+export const useUserAuthenticate = (
 	options?: UseMutationOptions<
 		AxiosResponse<User>,
 		AxiosErrorResponse,
@@ -74,15 +85,104 @@ export const useUsersAuthenticate = (
 		AxiosResponse<User>,
 		AxiosErrorResponse,
 		CamelCasedProperties<AuthenticateAnAction>
-	>(({ login, password, description }) =>
-		UsersService.authenticateAnAction(
-			{
-				login,
-				password,
-				description,
-			},
-			baseURL,
-		),
+	>(
+		({ login, password, description }) =>
+			UsersService.authenticateAnAction(
+				{
+					login,
+					password,
+					description,
+				},
+				baseURL,
+			),
+		options,
+	);
+
+export const useUserCreate = (
+	options?: UseMutationOptions<
+		AxiosResponse<User>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<User>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify>
+	>(
+		({
+			contactNumber,
+			displayName,
+			email,
+			firstName,
+			lastName,
+			password,
+			userType,
+			username,
+		}) =>
+			UsersService.create(
+				{
+					contact_number: contactNumber,
+					display_name: displayName,
+					email,
+					first_name: firstName,
+					last_name: lastName,
+					password,
+					user_type: userType,
+					username,
+				},
+				baseURL,
+			),
+		options,
+	);
+
+export const useUserEdit = (
+	options?: UseMutationOptions<
+		AxiosResponse<User>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify & { id: number }>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<User>,
+		AxiosErrorResponse,
+		CamelCasedProperties<Modify & { id: number }>
+	>(
+		({
+			id,
+			contactNumber,
+			displayName,
+			email,
+			firstName,
+			lastName,
+			password,
+			userType,
+		}) =>
+			UsersService.edit(
+				id,
+				{
+					contact_number: contactNumber,
+					display_name: displayName,
+					email,
+					first_name: firstName,
+					last_name: lastName,
+					password,
+					user_type: userType,
+				},
+				baseURL,
+			),
+		options,
+	);
+
+export const useUserDelete = (
+	options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>,
+	baseURL?: string,
+) =>
+	useMutation<AxiosResponse<void>, AxiosErrorResponse, number>(
+		(id: number) => UsersService.delete(id, baseURL),
+		options,
 	);
 
 export default useUsers;

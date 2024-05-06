@@ -20,7 +20,9 @@ export declare const useBranchMachineCreate: (options?: UseMutationOptions<Axios
     type: string;
     storageSerialNumber: string;
 }, unknown>;
-export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<BranchMachine>, AxiosErrorResponse<any>, {
+export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify & {
+    id: number;
+}>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<BranchMachine>, AxiosErrorResponse<any>, {
     branchId: string;
     machineIdentificationNumber: string;
     name: string;
@@ -28,6 +30,7 @@ export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosRe
     serverUrl: string;
     type: string;
     storageSerialNumber: string;
+    id: number;
 }, unknown>;
 export declare const useBranchMachineDelete: (options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<void>, AxiosErrorResponse<any>, number, unknown>;
 export default useBranchMachines;

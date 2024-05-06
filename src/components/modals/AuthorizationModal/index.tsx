@@ -11,11 +11,11 @@ import {
 import { ErrorMessage, Form, Formik } from 'formik';
 import React, { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
-import { useUsersAuthenticate } from '../../../hooks';
+import { useUserAuthenticate } from '../../../hooks';
+import { User } from '../../../types';
 import { convertIntoArray } from '../../../utils';
 import { FieldError } from '../../elements';
 import { RequestErrors } from '../../RequestErrors';
-import { User } from '../../../types';
 
 export type Props = {
 	baseURL?: string;
@@ -38,7 +38,7 @@ export const AuthorizationModal = ({
 		mutateAsync: authenticateUser,
 		isLoading: isAuthenticating,
 		error: authenticateUserError,
-	} = useUsersAuthenticate(undefined, baseURL);
+	} = useUserAuthenticate(undefined, baseURL);
 
 	// REFS
 	const usernameRef = useRef<InputRef | null>(null);
