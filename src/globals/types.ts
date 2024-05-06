@@ -7,6 +7,7 @@ import {
 	PaymentType,
 	ProductEntryType,
 	UnitOfMeasurement,
+	UserPendingApprovalType,
 } from '../types';
 
 export const appVersions = {
@@ -270,9 +271,9 @@ export const productCategoryTypes = {
 };
 
 export const userPendingApprovalTypes = {
-	CREATE: 'create',
-	UPDATE_USER_TYPE: 'update_user_type',
-	DELETE: 'delete',
+	CREATE: 'create' as UserPendingApprovalType,
+	UPDATE_USER_TYPE: 'update_user_type' as UserPendingApprovalType,
+	DELETE: 'delete' as UserPendingApprovalType,
 };
 
 export const returnItemSlipsStatuses = {

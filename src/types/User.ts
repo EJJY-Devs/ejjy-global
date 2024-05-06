@@ -6,6 +6,8 @@ export type UserType =
 	| 'branch_manager'
 	| 'branch_personnel';
 
+export type UserPendingApprovalType = 'create' | 'update_user_type' | 'delete';
+
 export interface User {
 	id: number;
 	last_login?: string;
@@ -22,7 +24,7 @@ export interface User {
 	branch_assignment: BranchAssignment;
 	online_id?: number;
 	employee_id: string;
-	pending_approval: string;
+	pending_approval: null | { approval_type: UserPendingApprovalType };
 }
 
 export interface UserPendingApproval {

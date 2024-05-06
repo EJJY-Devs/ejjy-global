@@ -1,4 +1,4 @@
-import { AttendanceLogCategory, AttendanceLogType, BranchMachineType, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement } from '../types';
+import { AttendanceLogCategory, AttendanceLogType, BranchMachineType, CashBreakdownCategory, CashBreakdownType, PaymentType, ProductEntryType, UnitOfMeasurement, UserPendingApprovalType } from '../types';
 export declare const appVersions: {
     V1: number;
     V2: number;
@@ -217,9 +217,9 @@ export declare const productCategoryTypes: {
     NONE: string;
 };
 export declare const userPendingApprovalTypes: {
-    CREATE: string;
-    UPDATE_USER_TYPE: string;
-    DELETE: string;
+    CREATE: UserPendingApprovalType;
+    UPDATE_USER_TYPE: UserPendingApprovalType;
+    DELETE: UserPendingApprovalType;
 };
 export declare const returnItemSlipsStatuses: {
     DONE: string;
