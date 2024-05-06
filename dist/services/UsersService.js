@@ -34,5 +34,17 @@ const service = {
     create: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/users/', body, { baseURL }); }),
     edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/users/${id}/`, body, { baseURL }); }),
     delete: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`/users/${id}/`, { baseURL }); }),
+    requestUserTypeChange: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        return axios_1.default.post(`/users/${id}/request-user-type-change/`, body, {
+            baseURL,
+        });
+    }),
+    requestUserDeletion: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/users/${id}/request-user-deletion/`, {}, { baseURL }); }),
+    approveUserPendingApproval: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post(`/users/${id}/approve/`, body, { baseURL }); }),
+    declineUserPendingApproval: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        return axios_1.default.post(`/users/${id}/decline/`, body, {
+            baseURL,
+        });
+    }),
 };
 exports.default = service;

@@ -1,5 +1,5 @@
 import { ServiceType } from '../globals';
-import { User } from '../types';
+import { User, UserPendingApprovalType } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Params extends ListQueryParams {
     branch_id?: number;
@@ -26,8 +26,8 @@ export interface Modify {
 export interface RequestUserTypeChange {
     new_user_type: string;
 }
-export interface DeclineUserPendingApproval {
-    pending_approval_type: string;
+export interface UserPendingApproval {
+    pending_approval_type: UserPendingApprovalType;
 }
 declare const service: {
     list: (params: Params, baseURL?: string, serviceType?: ServiceType) => Promise<ListResponseData<User>>;
@@ -36,5 +36,9 @@ declare const service: {
     create: (body: Modify, baseURL?: string) => Promise<import("axios").AxiosResponse<User>>;
     edit: (id: number, body: Modify, baseURL?: string) => Promise<import("axios").AxiosResponse<User>>;
     delete: (id: number, baseURL?: string) => Promise<import("axios").AxiosResponse<any>>;
+    requestUserTypeChange: (id: number, body: RequestUserTypeChange, baseURL?: string) => Promise<import("axios").AxiosResponse<boolean>>;
+    requestUserDeletion: (id: number, baseURL?: string) => Promise<import("axios").AxiosResponse<boolean>>;
+    approveUserPendingApproval: (id: number, body: UserPendingApproval, baseURL?: string) => Promise<import("axios").AxiosResponse<boolean>>;
+    declineUserPendingApproval: (id: number, body: UserPendingApproval, baseURL?: string) => Promise<import("axios").AxiosResponse<boolean>>;
 };
 export default service;

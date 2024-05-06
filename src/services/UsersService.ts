@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ServiceType } from '../globals';
-import { User } from '../types';
+import { User, UserPendingApprovalType } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
 export interface Params extends ListQueryParams {
@@ -31,8 +31,8 @@ export interface RequestUserTypeChange {
 	new_user_type: string;
 }
 
-export interface DeclineUserPendingApproval {
-	pending_approval_type: string;
+export interface UserPendingApproval {
+	pending_approval_type: UserPendingApprovalType;
 }
 
 const service = {
@@ -74,6 +74,33 @@ const service = {
 
 	delete: async (id: number, baseURL?: string) =>
 		axios.delete(`/users/${id}/`, { baseURL }),
+
+	requestUserTypeChange: async (
+		id: number,
+		body: RequestUserTypeChange,
+		baseURL?: string,
+	) =>
+		axios.post<boolean>(`/users/${id}/request-user-type-change/`, body, {
+			baseURL,
+		}),
+
+	requestUserDeletion: async (id: number, baseURL?: string) =>
+		axios.post<boolean>(`/users/${id}/request-user-deletion/`, {}, { baseURL }),
+
+	approveUserPendingApproval: async (
+		id: number,
+		body: UserPendingApproval,
+		baseURL?: string,
+	) => axios.post<boolean>(`/users/${id}/approve/`, body, { baseURL }),
+
+	declineUserPendingApproval: async (
+		id: number,
+		body: UserPendingApproval,
+		baseURL?: string,
+	) =>
+		axios.post<boolean>(`/users/${id}/decline/`, body, {
+			baseURL,
+		}),
 };
 
 export default service;

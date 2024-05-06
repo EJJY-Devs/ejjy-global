@@ -3,7 +3,13 @@ import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
 import { UsersService } from '../services';
-import { AuthenticateAnAction, Modify, Params } from '../services/UsersService';
+import {
+	AuthenticateAnAction,
+	Modify,
+	Params,
+	RequestUserTypeChange,
+	UserPendingApproval,
+} from '../services/UsersService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -182,6 +188,85 @@ export const useUserDelete = (
 ) =>
 	useMutation<AxiosResponse<void>, AxiosErrorResponse, number>(
 		(id: number) => UsersService.delete(id, baseURL),
+		options,
+	);
+
+export const useUserRequestUserTypeChange = (
+	options?: UseMutationOptions<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<RequestUserTypeChange & { id: number }>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<RequestUserTypeChange & { id: number }>
+	>(
+		({ id, newUserType }) =>
+			UsersService.requestUserTypeChange(
+				id,
+				{ new_user_type: newUserType },
+				baseURL,
+			),
+		options,
+	);
+
+export const useUserRequestUserDeletion = (
+	options?: UseMutationOptions<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		number
+	>,
+	baseURL?: string,
+) =>
+	useMutation<AxiosResponse<boolean>, AxiosErrorResponse, number>(
+		(id) => UsersService.requestUserDeletion(id, baseURL),
+		options,
+	);
+
+export const useUserApproveUserPendingApproval = (
+	options?: UseMutationOptions<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<UserPendingApproval & { id: number }>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<UserPendingApproval & { id: number }>
+	>(
+		({ id, pendingApprovalType }) =>
+			UsersService.approveUserPendingApproval(
+				id,
+				{ pending_approval_type: pendingApprovalType },
+				baseURL,
+			),
+		options,
+	);
+
+export const useUserDeclineUserPendingApproval = (
+	options?: UseMutationOptions<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<UserPendingApproval & { id: number }>
+	>,
+	baseURL?: string,
+) =>
+	useMutation<
+		AxiosResponse<boolean>,
+		AxiosErrorResponse,
+		CamelCasedProperties<UserPendingApproval & { id: number }>
+	>(
+		({ id, pendingApprovalType }) =>
+			UsersService.declineUserPendingApproval(
+				id,
+				{ pending_approval_type: pendingApprovalType },
+				baseURL,
+			),
 		options,
 	);
 

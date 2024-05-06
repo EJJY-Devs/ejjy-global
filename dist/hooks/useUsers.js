@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUserDelete = exports.useUserEdit = exports.useUserCreate = exports.useUserAuthenticate = exports.useUserRetrieve = void 0;
+exports.useUserDeclineUserPendingApproval = exports.useUserApproveUserPendingApproval = exports.useUserRequestUserDeletion = exports.useUserRequestUserTypeChange = exports.useUserDelete = exports.useUserEdit = exports.useUserCreate = exports.useUserAuthenticate = exports.useUserRetrieve = void 0;
 const react_query_1 = require("react-query");
 const globals_1 = require("../globals");
 const services_1 = require("../services");
@@ -79,4 +79,12 @@ const useUserEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, 
 exports.useUserEdit = useUserEdit;
 const useUserDelete = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.UsersService.delete(id, baseURL), options);
 exports.useUserDelete = useUserDelete;
+const useUserRequestUserTypeChange = (options, baseURL) => (0, react_query_1.useMutation)(({ id, newUserType }) => services_1.UsersService.requestUserTypeChange(id, { new_user_type: newUserType }, baseURL), options);
+exports.useUserRequestUserTypeChange = useUserRequestUserTypeChange;
+const useUserRequestUserDeletion = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.UsersService.requestUserDeletion(id, baseURL), options);
+exports.useUserRequestUserDeletion = useUserRequestUserDeletion;
+const useUserApproveUserPendingApproval = (options, baseURL) => (0, react_query_1.useMutation)(({ id, pendingApprovalType }) => services_1.UsersService.approveUserPendingApproval(id, { pending_approval_type: pendingApprovalType }, baseURL), options);
+exports.useUserApproveUserPendingApproval = useUserApproveUserPendingApproval;
+const useUserDeclineUserPendingApproval = (options, baseURL) => (0, react_query_1.useMutation)(({ id, pendingApprovalType }) => services_1.UsersService.declineUserPendingApproval(id, { pending_approval_type: pendingApprovalType }, baseURL), options);
+exports.useUserDeclineUserPendingApproval = useUserDeclineUserPendingApproval;
 exports.default = useUsers;
