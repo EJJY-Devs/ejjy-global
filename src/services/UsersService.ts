@@ -3,6 +3,13 @@ import { ServiceType } from '../globals';
 import { User } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
+export interface Params extends ListQueryParams {
+	branch_id?: number;
+	is_pending_create_approval?: boolean;
+	is_pending_update_user_type_approval?: boolean;
+	is_pending_delete_approval?: boolean;
+}
+
 export interface AuthenticateAnAction {
 	login: string;
 	password: string;
@@ -11,7 +18,7 @@ export interface AuthenticateAnAction {
 
 const service = {
 	list: async (
-		params: ListQueryParams,
+		params: Params,
 		baseURL?: string,
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
