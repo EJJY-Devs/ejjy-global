@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useZReadReports = exports.useXReadReports = exports.useUsers = exports.useUserLogs = exports.useTransactions = exports.useSiteSettings = exports.useSalesTrackers = exports.useResetLogs = exports.useQueryParams = exports.useProductCategories = exports.usePdf = exports.useOrderOfPayments = exports.useDiscountOptions = exports.useDailySales = exports.useCreditRegistrations = exports.useCashieringSessions = exports.useCashBreakdowns = exports.useBranchMachines = exports.useBranches = exports.useBranchDayAuthorizations = exports.useBirReports = exports.useBackOrders = exports.useAttendanceLogs = exports.useAccounts = void 0;
+exports.useZReadReports = exports.useXReadReports = exports.useUsers = exports.useUserLogs = exports.useTransactions = exports.useSiteSettings = exports.useSalesTrackers = exports.useResetLogs = exports.useQueryParams = exports.useProductCategories = exports.usePdf = exports.useOrderOfPayments = exports.useDiscountOptions = exports.useDailySales = exports.useCreditRegistrations = exports.useCollectionReceipts = exports.useCashieringSessions = exports.useCashBreakdowns = exports.useBranchMachines = exports.useBranches = exports.useBranchDayAuthorizations = exports.useBirReports = exports.useBackOrders = exports.useAttendanceLogs = exports.useAccounts = void 0;
 __exportStar(require("./useAccounts"), exports);
 var useAccounts_1 = require("./useAccounts");
 Object.defineProperty(exports, "useAccounts", { enumerable: true, get: function () { return __importDefault(useAccounts_1).default; } });
@@ -48,7 +48,8 @@ __exportStar(require("./useCashieringSessions"), exports);
 var useCashieringSessions_1 = require("./useCashieringSessions");
 Object.defineProperty(exports, "useCashieringSessions", { enumerable: true, get: function () { return __importDefault(useCashieringSessions_1).default; } });
 __exportStar(require("./useCollectionReceipts"), exports);
-// export { default as useCollectionReceipts } from './useCollectionReceipts';
+var useCollectionReceipts_1 = require("./useCollectionReceipts");
+Object.defineProperty(exports, "useCollectionReceipts", { enumerable: true, get: function () { return __importDefault(useCollectionReceipts_1).default; } });
 __exportStar(require("./helper"), exports);
 __exportStar(require("./useAuth"), exports);
 __exportStar(require("./useBranchProducts"), exports);
