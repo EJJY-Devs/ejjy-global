@@ -29,7 +29,6 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "[Collection Receipt]"),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Received payment from"),
-        react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'Name',

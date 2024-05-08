@@ -50,8 +50,6 @@ export const CollectionReceiptContent = ({
 
 			<div style={{ textAlign: 'center' }}>Received payment from</div>
 
-			<br />
-
 			<ItemBlock
 				items={[
 					{
