@@ -14,6 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const service = {
+    list: (params, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield axios_1.default.get('/collection-receipts/', {
+            baseURL,
+            params,
+        });
+        return response.data;
+    }),
     create: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/collection-receipts/', body); }),
 };
 exports.default = service;

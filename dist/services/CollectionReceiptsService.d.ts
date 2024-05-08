@@ -1,4 +1,5 @@
 import { CollectionReceipt } from '../types';
+import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Create {
     amount: string;
     bank_branch?: string;
@@ -10,6 +11,7 @@ export interface Create {
     order_of_payment_id: number;
 }
 declare const service: {
+    list: (params: ListQueryParams, baseURL?: string) => Promise<ListResponseData<CollectionReceipt>>;
     create: (body: Create) => Promise<import("axios").AxiosResponse<CollectionReceipt>>;
 };
 export default service;
