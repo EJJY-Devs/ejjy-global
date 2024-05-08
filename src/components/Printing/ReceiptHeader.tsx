@@ -2,11 +2,11 @@ import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
-interface Props {
+type Props = {
 	branchMachine?: BranchMachine;
 	siteSettings: SiteSettings;
 	title?: string;
-}
+};
 
 const globalStyles = React.createElement('style', {}, [
 	`

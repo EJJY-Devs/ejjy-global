@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { DEFAULT_PAGE } from '../globals';
 
-interface Props {
+type Props = {
 	onParamsCheck?: (currentParams: ParsedQuery<string>) => ParsedQuery<string>;
-}
+};
 
 const useQueryParams = ({ onParamsCheck }: Props = {}) => {
 	const history = useHistory();

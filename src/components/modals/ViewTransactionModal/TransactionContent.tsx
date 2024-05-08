@@ -17,11 +17,11 @@ import {
 } from '../../../utils';
 import { ReceiptFooter, ReceiptHeader } from '../../Printing';
 
-interface Props {
+type Props = {
 	transaction: Transaction;
 	siteSettings: SiteSettings;
 	isReprint?: boolean;
-}
+};
 
 export const TransactionContent = ({
 	transaction,

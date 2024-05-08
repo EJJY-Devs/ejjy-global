@@ -10,7 +10,7 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 	hotfixes: ['px_scaling'],
 };
 
-interface UsePDFProps {
+type UsePDFProps = {
 	title?: string;
 	print: (() => string | undefined) | (() => Promise<string | undefined>);
 	jsPdfSettings?: jsPDFOptions;
@@ -21,7 +21,7 @@ interface UsePDFProps {
 		w: number;
 		h: number;
 	};
-}
+};
 
 const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 	const [htmlPdf, setHtmlPdf] = useState<string>('');

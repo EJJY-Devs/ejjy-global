@@ -2,12 +2,12 @@ import cn from 'classnames';
 import React from 'react';
 import { FieldError } from '../elements';
 
-interface Props {
+type Props = {
 	className?: string;
 	errors: string[];
 	withSpaceTop?: boolean;
 	withSpaceBottom?: boolean;
-}
+};
 
 export const RequestErrors = ({
 	className,

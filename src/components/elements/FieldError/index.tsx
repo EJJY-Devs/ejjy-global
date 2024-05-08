@@ -3,12 +3,12 @@ import cn from 'classnames';
 import { FormikErrors } from 'formik';
 import * as React from 'react';
 
-interface Props {
+type Props = {
 	message: string | FormikErrors<any> | string[] | FormikErrors<any>[];
 	classNames?: string;
 	withSpaceTop?: boolean;
 	withSpaceBottom?: boolean;
-}
+};
 
 const FieldError = ({
 	message,

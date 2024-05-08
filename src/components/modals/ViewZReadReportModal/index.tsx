@@ -8,13 +8,13 @@ import { SiteSettings, User, ZReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { ZReadContent } from './ZReadContent';
 
-interface Props {
+type Props = {
 	report: ZReadReport;
 	siteSettings: SiteSettings;
 	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
-}
+};
 
 export const ViewZReadReportModal = ({
 	report,

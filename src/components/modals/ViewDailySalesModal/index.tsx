@@ -7,13 +7,13 @@ import { DailySales, SiteSettings, User } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DailySalesContent } from './DailySalesContent';
 
-interface Props {
+type Props = {
 	dailySales: DailySales;
 	siteSettings: SiteSettings;
 	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
-}
+};
 
 export const ViewDailySalesModal = ({
 	dailySales,

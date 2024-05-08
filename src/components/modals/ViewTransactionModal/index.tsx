@@ -8,11 +8,11 @@ import { SiteSettings, Transaction } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { TransactionContent } from './TransactionContent';
 
-interface Props {
+type Props = {
 	transaction: Transaction | number;
 	siteSettings: SiteSettings;
 	onClose: () => void;
-}
+};
 
 export const ViewTransactionModal = ({
 	transaction,

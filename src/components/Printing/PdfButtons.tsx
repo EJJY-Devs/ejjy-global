@@ -8,12 +8,12 @@ import { Button, Dropdown } from 'antd';
 import React from 'react';
 import { pdfButtonsKey } from '../../globals';
 
-interface Props {
+type Props = {
 	downloadPdf: () => void;
 	isDisabled?: boolean;
 	isLoading?: boolean;
 	previewPdf: () => void;
-}
+};
 
 export const PdfButtons = ({
 	downloadPdf,

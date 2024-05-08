@@ -1,5 +1,5 @@
 import { jsPDFOptions } from 'jspdf';
-interface UsePDFProps {
+type UsePDFProps = {
     title?: string;
     print: (() => string | undefined) | (() => Promise<string | undefined>);
     jsPdfSettings?: jsPDFOptions;
@@ -10,7 +10,7 @@ interface UsePDFProps {
         w: number;
         h: number;
     };
-}
+};
 declare const usePdf: ({ title, print, jsPdfSettings, image }: UsePDFProps) => {
     htmlPdf: string;
     isLoadingPdf: boolean;

@@ -1,8 +1,8 @@
 import * as queryString from 'query-string';
 import { ParsedQuery } from 'query-string';
-interface Props {
+type Props = {
     onParamsCheck?: (currentParams: ParsedQuery<string>) => ParsedQuery<string>;
-}
+};
 declare const useQueryParams: ({ onParamsCheck }?: Props) => {
     params: queryString.ParsedQuery<string>;
     setQueryParams: (param: Record<string, any>, { shouldResetPage, shouldIncludeCurrentParams }?: {

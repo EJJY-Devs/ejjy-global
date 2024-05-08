@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { formatInPeso } from '../../utils';
 
-interface Props {
+type Props = {
 	value: number;
 	prefix?: string | ReactNode;
 	postfix?: string | ReactNode;
-}
+};
 
 export const ReceiptUnderlinedValue = ({ value, prefix, postfix }: Props) => (
 	<>

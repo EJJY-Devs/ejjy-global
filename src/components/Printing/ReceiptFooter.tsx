@@ -1,9 +1,9 @@
 import React from 'react';
 import { SiteSettings } from '../../types';
 
-interface Props {
+type Props = {
 	siteSettings: SiteSettings;
-}
+};
 
 export const ReceiptFooter = ({ siteSettings }: Props) => {
 	const {
