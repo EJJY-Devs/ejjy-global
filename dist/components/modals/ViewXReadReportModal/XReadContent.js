@@ -126,7 +126,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Short/Over',
+                    label: '=(Short)/Over',
                     value: [
                         report.short_over < 0 ? '(' : '',
                         (0, utils_1.formatInPeso)(Math.abs(report.short_over), helper_receipt_1.PESO_SIGN),

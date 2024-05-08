@@ -175,7 +175,7 @@ export const XReadContent = ({
 						value: formatInPeso(report.total_cash_on_hand, PESO_SIGN),
 					},
 					{
-						label: '=Short/Over',
+						label: '=(Short)/Over',
 						value: [
 							report.short_over < 0 ? '(' : '',
 							formatInPeso(Math.abs(report.short_over), PESO_SIGN),
