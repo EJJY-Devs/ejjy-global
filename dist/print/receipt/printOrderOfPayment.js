@@ -1,6 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printOrderOfPayment = void 0;
+const react_1 = __importDefault(require("react"));
+const server_1 = __importDefault(require("react-dom/server"));
 const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
@@ -22,52 +27,80 @@ const printOrderOfPayment = (orderOfPayment) => {
     else if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         purposeDescription = 'Full Payment';
     }
-    const letterStyles = 'display: inline-block; min-width: 225px; padding: 0 8px; border-bottom: 2px solid black; text-align:center; font-weight: bold';
-    const data = `
-		<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 795px;')}">
-			<div><b>Entity Name: EJ & JY WET MARKET AND ENTERPRISES</b></div>
-			<div style="display:flex; justify-content: space-between">
-				<div>
-					<b>OP No.: <span style="width: 200px; display: inline-block; border-bottom: 2px solid black; text-align:center;">${opNo}</span></b>
-				</div>
-				<div>
-					<b>Date: <span style="width: 200px; display: inline-block; border-bottom: 2px solid black; text-align:center;">${date}</span></b>
-				</div>
-			</div>
-
-			<br/>
-			<br/>
-
-			<div style="font-size: 1.5em; font-weight: bold; text-align: center">ORDER OF PAYMENT</div>
-
-			<br/>
-
-			<div><b>The Cashier</b></div>
-			<div>Cashiering Unit</div>
-
-			<br/>
-			<br/>
-
-			<div style="text-align: justify">&emsp;&emsp;&emsp;Please issue Collection Receipt in favor of
-				<span style="${letterStyles}">${payor}</span> from
-				<span style="${letterStyles}; min-width: 300px">${address}</span> in the amount of
-				<span style="${letterStyles}">${amount}</span> for payment of
-				<span style="${letterStyles}">${purposeDescription}</span> per Charge Invoice No.
-				<span style="${letterStyles}">${invoiceId}</span> dated
-				<span style="${letterStyles}">${invoiceDate}</span>.
-			</div>
-
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-
-			<div style="padding: 0 12px; width: 60%; border-top: 2px solid black; float:right; text-align: center;">
-				Manager/Authorized Official
-			</div>
-		</div>
-	`;
-    return data;
+    const letterStyles = {
+        display: 'inline-block',
+        minWidth: 225,
+        padding: '0 8px',
+        borderBottom: '2px solid black',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    };
+    const dataDom = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)({ padding: 24, width: 795 }) },
+        react_1.default.createElement("div", null,
+            react_1.default.createElement("b", null, "Entity Name: EJ & JY WET MARKET AND ENTERPRISES")),
+        react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'space-between' } },
+            react_1.default.createElement("div", null,
+                react_1.default.createElement("b", null,
+                    "OP No.:",
+                    ' ',
+                    react_1.default.createElement("span", { style: {
+                            width: 200,
+                            display: 'inline-block',
+                            borderBottom: '2 solid black',
+                            textAlign: 'center',
+                        } }, opNo))),
+            react_1.default.createElement("div", null,
+                react_1.default.createElement("b", null,
+                    "Date:",
+                    ' ',
+                    react_1.default.createElement("span", { style: {
+                            width: 200,
+                            display: 'inline-block',
+                            borderBottom: '2 solid black',
+                            textAlign: 'center',
+                        } },
+                        "$",
+                        date)))),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", { style: {
+                fontSize: '1.5em',
+                fontWeight: 'bold',
+                textAlign: 'center',
+            } }, "ORDER OF PAYMENT"),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", null,
+            react_1.default.createElement("b", null, "The Cashier")),
+        react_1.default.createElement("div", null, "Cashiering Unit"),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", { style: { textAlign: 'justify' } },
+            "\u2003\u2003\u2003Please issue Collection Receipt in favor of",
+            react_1.default.createElement("span", { style: letterStyles }, payor),
+            " from",
+            react_1.default.createElement("span", { style: Object.assign(Object.assign({}, letterStyles), { minWidth: 300 }) }, address),
+            ' ',
+            "in the amount of",
+            react_1.default.createElement("span", { style: letterStyles }, amount),
+            " for payment of",
+            react_1.default.createElement("span", { style: letterStyles }, purposeDescription),
+            " per Charge Invoice No.",
+            react_1.default.createElement("span", { style: letterStyles }, invoiceId),
+            " dated",
+            react_1.default.createElement("span", { style: letterStyles }, invoiceDate),
+            "."),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement("div", { style: {
+                padding: '0 12px',
+                width: '60%',
+                borderTop: '2px solid black',
+                float: 'right',
+                textAlign: 'center',
+            } }, "Manager/Authorized Official")));
+    return dataDom;
 };
 exports.printOrderOfPayment = printOrderOfPayment;
