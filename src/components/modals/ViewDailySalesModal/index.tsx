@@ -1,6 +1,7 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
+import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
 import { createDailySalesTxt, printDailySales } from '../../../print';
 import { DailySales, SiteSettings, User } from '../../../types';
@@ -28,6 +29,16 @@ export const ViewDailySalesModal = ({
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `DailySales_${dailySales.id}`,
+		image:
+			dailySales?.gross_sales === 0
+				? {
+						src: imgNoTransaction,
+						x: 50,
+						y: 50,
+						w: 300,
+						h: 600,
+					}
+				: undefined,
 		print: () => printDailySales(dailySales, siteSettings, user, true),
 	});
 

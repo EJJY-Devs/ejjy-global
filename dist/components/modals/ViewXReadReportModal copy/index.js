@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ViewDailySalesModal = void 0;
+exports.ViewXReadReportModal = void 0;
 const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
 const react_1 = __importStar(require("react"));
@@ -34,14 +34,14 @@ const no_transaction_png_1 = __importDefault(require("../../../../public/no-tran
 const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
-const DailySalesContent_1 = require("./DailySalesContent");
-const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClose, }) => {
+const XReadContent_1 = require("./XReadContent");
+const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
-        title: `DailySales_${dailySales.id}`,
-        image: (dailySales === null || dailySales === void 0 ? void 0 : dailySales.gross_sales) === 0
+        title: `XReadReport_${report.id}`,
+        image: (report === null || report === void 0 ? void 0 : report.gross_sales) === 0
             ? {
                 src: no_transaction_png_1.default,
                 x: 50,
@@ -50,23 +50,23 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printDailySales)(dailySales, siteSettings, user, true),
+        print: () => (0, print_1.printXReadReport)(report, siteSettings, user, true),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printDailySales)(dailySales, siteSettings, user);
+        (0, print_1.printXReadReport)(report, siteSettings, user);
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);
-        (0, print_1.createDailySalesTxt)(dailySales, siteSettings, user);
+        (0, print_1.createXReadTxt)(report, siteSettings, user);
         setIsCreatingTxt(false);
     };
-    return (react_1.default.createElement(antd_1.Modal, { footer: [
+    return (react_1.default.createElement(antd_1.Modal, { className: "ViewReportModal", footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
-        ], title: "Daily Sales", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        react_1.default.createElement(DailySalesContent_1.DailySalesContent, { dailySales: dailySales, siteSettings: siteSettings, isForPrint: isForPrint }),
+        ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
+        react_1.default.createElement(XReadContent_1.XReadContent, { report: report, siteSettings: siteSettings, isForPrint: isForPrint }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
-exports.ViewDailySalesModal = ViewDailySalesModal;
+exports.ViewXReadReportModal = ViewXReadReportModal;

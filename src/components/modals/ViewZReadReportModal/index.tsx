@@ -55,7 +55,6 @@ export const ViewZReadReportModal = ({
 
 	return (
 		<Modal
-			className="ViewReportModal"
 			footer={[
 				<Button
 					key="print"

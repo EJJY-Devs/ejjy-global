@@ -55,7 +55,6 @@ export const ViewXReadReportModal = ({
 
 	return (
 		<Modal
-			className="ViewReportModal"
 			footer={[
 				<Button
 					key="print"
