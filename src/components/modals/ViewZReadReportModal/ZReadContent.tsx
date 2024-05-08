@@ -13,12 +13,12 @@ import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
-interface Props {
+type Props = {
 	report: ZReadReport;
 	siteSettings: SiteSettings;
 	user?: User;
 	isForPrint?: boolean;
-}
+};
 
 export const ZReadContent = ({
 	report,

@@ -20,6 +20,7 @@ export const printDailySales = (
 				dailySales={dailySales}
 				siteSettings={siteSettings}
 				user={user}
+				isForPrint
 			/>
 		</div>,
 	);

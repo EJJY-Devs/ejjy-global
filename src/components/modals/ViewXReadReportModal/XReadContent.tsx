@@ -5,7 +5,6 @@ import { PESO_SIGN } from '../../../print/helper-receipt';
 import { SiteSettings, User, XReadReport } from '../../../types';
 import {
 	formatDate,
-	formatDateTime,
 	formatInPeso,
 	formatTime,
 	getFullName,
@@ -14,12 +13,12 @@ import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
-interface Props {
+type Props = {
 	report: XReadReport;
 	siteSettings: SiteSettings;
 	user?: User;
 	isForPrint?: boolean;
-}
+};
 
 export const XReadContent = ({
 	report,

@@ -5,15 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DailySalesContent = void 0;
 const react_1 = __importDefault(require("react"));
+const no_transaction_png_1 = __importDefault(require("../../../../public/no-transaction.png"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const PrintDetails_1 = require("../../Printing/PrintDetails");
-const DailySalesContent = ({ dailySales, siteSettings, user, }) => {
+const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
     var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
+        dailySales.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "DAILY SALES REPORT"),

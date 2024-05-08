@@ -1,29 +1,35 @@
 import React from 'react';
+import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { PESO_SIGN } from '../../../print/helper-receipt';
 import { DailySales, SiteSettings, User } from '../../../types';
-import {
-	formatDate,
-	formatDateTime,
-	formatInPeso,
-	formatTime,
-} from '../../../utils';
+import { formatDate, formatInPeso, formatTime } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
-interface Props {
+type Props = {
 	dailySales: DailySales;
 	siteSettings: SiteSettings;
 	user?: User;
-}
+	isForPrint?: boolean;
+};
 
 export const DailySalesContent = ({
 	dailySales,
 	siteSettings,
 	user,
+	isForPrint,
 }: Props) => (
 	<>
+		{dailySales.gross_sales === 0 && !isForPrint && (
+			<img
+				alt="no transaction"
+				className="pointer-events-none absolute left-0 top-0 w-full"
+				src={imgNoTransaction}
+			/>
+		)}
+
 		<ReceiptHeader
 			branchMachine={dailySales.branch_machine}
 			siteSettings={siteSettings}

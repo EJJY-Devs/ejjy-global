@@ -31,7 +31,7 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const DailySalesContent_1 = require("./DailySalesContent");
-const ViewDailySalesModal = ({ dailySales, siteSettings, user, onClose, }) => {
+const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -53,7 +53,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, onClose, }) => {
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Daily Sales", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        react_1.default.createElement(DailySalesContent_1.DailySalesContent, { dailySales: dailySales, siteSettings: siteSettings }),
+        react_1.default.createElement(DailySalesContent_1.DailySalesContent, { dailySales: dailySales, siteSettings: siteSettings, isForPrint: isForPrint }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewDailySalesModal = ViewDailySalesModal;

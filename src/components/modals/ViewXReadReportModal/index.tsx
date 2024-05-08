@@ -8,13 +8,13 @@ import { SiteSettings, User, XReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { XReadContent } from './XReadContent';
 
-interface Props {
+type Props = {
 	report: XReadReport;
 	siteSettings: SiteSettings;
 	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
-}
+};
 
 export const ViewXReadReportModal = ({
 	report,

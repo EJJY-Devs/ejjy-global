@@ -11,6 +11,7 @@ interface Props {
 	dailySales: DailySales;
 	siteSettings: SiteSettings;
 	user?: User;
+	isForPrint?: boolean;
 	onClose: () => void;
 }
 
@@ -18,6 +19,7 @@ export const ViewDailySalesModal = ({
 	dailySales,
 	siteSettings,
 	user,
+	isForPrint,
 	onClose,
 }: Props) => {
 	// STATES
@@ -77,7 +79,11 @@ export const ViewDailySalesModal = ({
 			open
 			onCancel={onClose}
 		>
-			<DailySalesContent dailySales={dailySales} siteSettings={siteSettings} />
+			<DailySalesContent
+				dailySales={dailySales}
+				siteSettings={siteSettings}
+				isForPrint={isForPrint}
+			/>
 
 			<div
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
