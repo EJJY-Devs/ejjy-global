@@ -33,7 +33,7 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 
 	const letterStyles: CSSProperties = {
 		display: 'inline-block',
-		minWidth: 225,
+		minWidth: 100,
 		padding: '0 8px',
 		borderBottom: '2px solid black',
 		textAlign: 'center',
@@ -43,41 +43,44 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 	const dataDom = ReactDOMServer.renderToStaticMarkup(
 		<div
 			className="container"
-			style={getPageStyleObject({ padding: 24, width: 795 })}
+			style={getPageStyleObject({ padding: 24, width: 460 })}
 		>
 			<div>
 				<b>Entity Name: EJ & JY WET MARKET AND ENTERPRISES</b>
 			</div>
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<div>
-					<b>
-						OP No.:{' '}
-						<span
-							style={{
-								width: 200,
-								display: 'inline-block',
-								borderBottom: '2 solid black',
-								textAlign: 'center',
-							}}
-						>
-							{opNo}
-						</span>
-					</b>
+			<div
+				style={{
+					width: '100%',
+					display: 'flex',
+					justifyContent: 'space-between',
+					columnGap: 10,
+					fontWeight: 'bold',
+				}}
+			>
+				<div style={{ width: '100%', display: 'flex' }}>
+					<span style={{ flexShrink: 0 }}>OP No:</span>
+					<div
+						style={{
+							flexGrow: 1,
+							borderBottom: '2px solid black',
+							textAlign: 'center',
+						}}
+					>
+						{opNo}
+					</div>
 				</div>
-				<div>
-					<b>
-						Date:{' '}
-						<span
-							style={{
-								width: 200,
-								display: 'inline-block',
-								borderBottom: '2 solid black',
-								textAlign: 'center',
-							}}
-						>
-							${date}
-						</span>
-					</b>
+
+				<div style={{ width: '100%', display: 'flex' }}>
+					<span style={{ flexShrink: 0 }}>Date:</span>
+					<div
+						style={{
+							flexGrow: 1,
+							borderBottom: '2px solid black',
+							textAlign: 'center',
+						}}
+					>
+						{date}
+					</div>
 				</div>
 			</div>
 
@@ -107,15 +110,7 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 			<div style={{ textAlign: 'justify' }}>
 				&emsp;&emsp;&emsp;Please issue Collection Receipt in favor of
 				<span style={letterStyles}>{payor}</span> from
-				<span
-					style={{
-						...letterStyles,
-						...{ minWidth: 300 },
-					}}
-				>
-					{address}
-				</span>{' '}
-				in the amount of
+				<span style={letterStyles}>{address}</span> in the amount of
 				<span style={letterStyles}>{amount}</span> for payment of
 				<span style={letterStyles}>{purposeDescription}</span> per Charge
 				Invoice No.
