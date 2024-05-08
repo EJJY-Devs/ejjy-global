@@ -26,7 +26,7 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "[Collection Receipt]"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "[Collection Receipt]"),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Received payment from"),
         react_1.default.createElement("br", null),
@@ -34,26 +34,32 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
                 {
                     label: 'Name',
                     value: (0, utils_1.getFullName)(payor),
+                    contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'Address',
                     value: payor.home_address || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'Tin',
                     value: payor.tin || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'the sum of',
                     value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
+                    contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'Description',
                     value: description || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'with invoice',
                     value: (invoice === null || invoice === void 0 ? void 0 : invoice.or_number) || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
                 },
             ] }),
         react_1.default.createElement("br", null),
@@ -80,7 +86,6 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
                     },
                 ] }),
             react_1.default.createElement("br", null))),
-        react_1.default.createElement("br", null),
         react_1.default.createElement("div", null,
             "GDT: ",
             (0, utils_1.formatDateTime)(collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.datetime_created)),
@@ -96,6 +101,7 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
                 "ID: ",
                 (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.id) || globals_1.EMPTY_CELL),
             react_1.default.createElement("span", { style: { textAlign: 'right' } }, (_c = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.created_by) === null || _c === void 0 ? void 0 : _c.employee_id)),
+        react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Thank You!")));

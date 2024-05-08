@@ -44,9 +44,7 @@ export const CollectionReceiptContent = ({
 
 			<br />
 
-			<div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-				[Collection Receipt]
-			</div>
+			<div style={{ textAlign: 'center' }}>[Collection Receipt]</div>
 
 			<br />
 
@@ -59,26 +57,32 @@ export const CollectionReceiptContent = ({
 					{
 						label: 'Name',
 						value: getFullName(payor),
+						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'Address',
 						value: payor.home_address || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'Tin',
 						value: payor.tin || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'the sum of',
 						value: formatInPeso(amount, PESO_SIGN),
+						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'Description',
 						value: description || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'with invoice',
 						value: invoice?.or_number || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
 					},
 				]}
 			/>
@@ -116,8 +120,6 @@ export const CollectionReceiptContent = ({
 				</>
 			)}
 
-			<br />
-
 			<div>GDT: {formatDateTime(collectionReceipt?.datetime_created)}</div>
 			<div>PDT: {formatDateTime(dayjs(), false)}</div>
 			<div
@@ -132,6 +134,8 @@ export const CollectionReceiptContent = ({
 					{collectionReceipt?.created_by?.employee_id}
 				</span>
 			</div>
+
+			<br />
 
 			<ReceiptFooter siteSettings={siteSettings} />
 
