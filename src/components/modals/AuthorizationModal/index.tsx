@@ -39,7 +39,7 @@ export const AuthorizationModal = ({
 		isLoading: isAuthenticating,
 		error: authenticateUserError,
 	} = useUserAuthenticate(undefined, baseURL);
-
+	console.log(authenticateUserError);
 	// REFS
 	const usernameRef = useRef<InputRef | null>(null);
 
@@ -74,6 +74,8 @@ export const AuthorizationModal = ({
 				})}
 				onSubmit={async (values, { setFieldError }) => {
 					const response = await authenticateUser(values);
+
+					console.log('response', response);
 
 					if (response.status !== 200) {
 						setFieldError('password', 'Incorrect username or password.');
