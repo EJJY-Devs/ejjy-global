@@ -43,8 +43,6 @@ const elements_1 = require("../../elements");
 const RequestErrors_1 = require("../../RequestErrors");
 const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, onCancel, }) => {
     const { mutateAsync: authenticateUser, isLoading: isAuthenticating, error: authenticateUserError, } = (0, hooks_1.useUserAuthenticate)(undefined, baseURL);
-    console.log('authenticateUserError', authenticateUserError);
-    console.log('authenticateUserError?.errors', authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors);
     // REFS
     const usernameRef = (0, react_1.useRef)(null);
     // METHODS
@@ -66,7 +64,6 @@ const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'A
                 password: Yup.string().required().label('Password'),
             }), onSubmit: (values, { setFieldError }) => __awaiter(void 0, void 0, void 0, function* () {
                 const response = yield authenticateUser(values);
-                console.log('response', response);
                 if (response.status !== 200) {
                     setFieldError('password', 'Incorrect username or password.');
                     return;
