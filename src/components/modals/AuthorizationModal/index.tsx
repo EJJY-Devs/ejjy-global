@@ -39,7 +39,8 @@ export const AuthorizationModal = ({
 		isLoading: isAuthenticating,
 		error: authenticateUserError,
 	} = useUserAuthenticate(undefined, baseURL);
-	console.log(authenticateUserError);
+	console.log('authenticateUserError', authenticateUserError);
+	console.log('authenticateUserError?.errors', authenticateUserError?.errors);
 	// REFS
 	const usernameRef = useRef<InputRef | null>(null);
 
