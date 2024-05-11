@@ -58,7 +58,6 @@ export const getTxtHeader = ({
 		[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
 		`MIN: ${machineID}`,
 		`SN: ${posTerminal}`,
-		TXT_LINE_BREAK,
 	]
 		.filter((row) => typeof row === 'string')
 		.map((data) => ({ center: data }));

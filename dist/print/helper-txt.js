@@ -28,7 +28,6 @@ const getTxtHeader = ({ branchMachine, siteSettings, }) => {
         [(0, utils_1.getTaxTypeDescription)(taxType), tin].filter(Boolean).join(' | '),
         `MIN: ${machineID}`,
         `SN: ${posTerminal}`,
-        exports.TXT_LINE_BREAK,
     ]
         .filter((row) => typeof row === 'string')
         .map((data) => ({ center: data }));
