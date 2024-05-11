@@ -66,11 +66,13 @@ const getTxtItemBlock = (items) => items.map((item) => ({
 }));
 exports.getTxtItemBlock = getTxtItemBlock;
 const writeFile = (rowData) => {
-    const reportTextFile = new utils_1.ReportTextFile(rowData.length + 1);
+    const reportTextFile = new utils_1.ReportTextFile(rowData.length + 10);
+    console.log('rowData.length', rowData.length);
     let rowNumber = 0;
     rowData.forEach((row) => {
         if (row === exports.TXT_LINE_BREAK) {
             rowNumber += 1;
+            return;
         }
         else if (typeof row === 'string') {
             reportTextFile.write({
