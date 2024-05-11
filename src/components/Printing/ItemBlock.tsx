@@ -18,32 +18,37 @@ export type ItemBlockProps = {
 
 export const ItemBlock = ({ items }: ItemBlockProps) => (
 	<table style={{ width: '100%' }}>
-		{items.map((item) => (
-			<tr key={item.label}>
-				<td
-					style={{ paddingLeft: item.isIndented ? 15 : 0, ...item.labelStyle }}
-				>
-					{item.label}
-				</td>
-				<td style={{ textAlign: 'right', ...item.contentStyle }}>
-					{item.isParenthesized ? '(' : ' '}
-					{item.isUnderlined ? (
-						<>
-							<div style={{ display: 'inline-block' }}>
-								{formatInPeso(item.value as number, PESO_SIGN)}
-							</div>
-							{Number(item.value) > 0 && (
-								<div style={{ width: '100%', textAlign: 'right' }}>
-									-----------
+		<tbody>
+			{items.map((item) => (
+				<tr key={item.label}>
+					<td
+						style={{
+							paddingLeft: item.isIndented ? 15 : 0,
+							...item.labelStyle,
+						}}
+					>
+						{item.label}
+					</td>
+					<td style={{ textAlign: 'right', ...item.contentStyle }}>
+						{item.isParenthesized ? '(' : ' '}
+						{item.isUnderlined ? (
+							<>
+								<div style={{ display: 'inline-block' }}>
+									{formatInPeso(item.value as number, PESO_SIGN)}
 								</div>
-							)}
-						</>
-					) : (
-						item.value
-					)}
-					{item.isParenthesized ? ')' : ' '}
-				</td>
-			</tr>
-		))}
+								{Number(item.value) > 0 && (
+									<div style={{ width: '100%', textAlign: 'right' }}>
+										-----------
+									</div>
+								)}
+							</>
+						) : (
+							item.value
+						)}
+						{item.isParenthesized ? ')' : ' '}
+					</td>
+				</tr>
+			))}
+		</tbody>
 	</table>
 );

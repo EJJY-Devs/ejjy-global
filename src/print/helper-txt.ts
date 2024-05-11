@@ -9,7 +9,7 @@ import {
 export const TXT_LINE_BREAK = '';
 export const TXT_NBSP = ' ';
 export const TXT_DIVIDER =
-	'-------------------------------------------------------------------';
+	'----------------------------------------------------------------------';
 
 export type RowData = {
 	left?: string | number;
@@ -114,9 +114,10 @@ export const getTxtItemBlock = (
 	}));
 
 export const writeFile = (rowData: (string | RowData)[]) => {
-	const reportTextFile = new ReportTextFile(rowData.length + 10);
-
-	console.log('rowData.length', rowData.length);
+	const BUFFER_LINE_LENGTH = 5;
+	const reportTextFile = new ReportTextFile(
+		rowData.length + BUFFER_LINE_LENGTH,
+	);
 
 	let rowNumber = 0;
 

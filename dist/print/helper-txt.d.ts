@@ -2,7 +2,7 @@ import { BranchMachine, SiteSettings, User } from '../types';
 import { ReportTextFile } from '../utils';
 export declare const TXT_LINE_BREAK = "";
 export declare const TXT_NBSP = " ";
-export declare const TXT_DIVIDER = "-------------------------------------------------------------------";
+export declare const TXT_DIVIDER = "----------------------------------------------------------------------";
 export type RowData = {
     left?: string | number;
     center?: string | number;
