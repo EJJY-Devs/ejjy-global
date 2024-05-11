@@ -43,12 +43,14 @@ export const DailySalesContent = ({
 
 		<br />
 
-		<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
 		{dailySales.generation_datetime && (
-			<div style={{ textAlign: 'center' }}>
-				{formatDate(dailySales.generation_datetime)} -{' '}
-				{formatTime(dailySales.generation_datetime)}
-			</div>
+			<>
+				<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
+				<div style={{ textAlign: 'center' }}>
+					{formatDate(dailySales.generation_datetime)} -{' '}
+					{formatTime(dailySales.generation_datetime)}
+				</div>
+			</>
 		)}
 		<div style={{ textAlign: 'center' }}>Day Datetime</div>
 		<div style={{ textAlign: 'center' }}>
@@ -234,7 +236,7 @@ export const DailySalesContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Payment Received </div>
+		<div style={{ textAlign: 'center' }}>Payment Received</div>
 		<ItemBlock
 			items={[
 				{

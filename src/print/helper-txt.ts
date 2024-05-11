@@ -1,18 +1,38 @@
-import { BranchMachine, SiteSettings } from '../types';
-import { ReportTextFile, getTaxTypeDescription } from '../utils';
+import dayjs from 'dayjs';
+import { BranchMachine, SiteSettings, User } from '../types';
+import {
+	ReportTextFile,
+	formatDateTime,
+	getTaxTypeDescription,
+} from '../utils';
 
-export const writeHeader = (
-	reportTextFile: ReportTextFile,
-	siteSettings: SiteSettings,
-	branchMachine: BranchMachine,
-	rowNumber: number,
-	title?: string,
-) => {
+export const TXT_LINE_BREAK = '';
+export const TXT_NBSP = ' ';
+export const TXT_DIVIDER =
+	'----------------------------------------------------------------------';
+
+export type RowData = {
+	left?: string | number;
+	center?: string | number;
+	right?: string | number;
+};
+
+type Props = {
+	title?: string;
+	branchMachine: BranchMachine;
+	siteSettings: SiteSettings;
+};
+
+export const getTxtHeader = ({
+	title,
+	branchMachine,
+	siteSettings,
+}: Props): (RowData | string)[] => {
 	const {
 		contact_number: contactNumber,
-		address_of_tax_payer: location,
+		address_of_tax_payer: location = '',
 		proprietor,
-		store_name: storeName,
+		store_name: storeName = '',
 		tax_type: taxType,
 		tin,
 	} = siteSettings;
@@ -22,85 +42,49 @@ export const writeHeader = (
 		pos_terminal: posTerminal,
 	} = branchMachine;
 
-	if (storeName) {
-		const storeNames = storeName.trim().split('\n');
-		storeNames.forEach((item) => {
-			reportTextFile.write({
-				text: item,
-				alignment: ReportTextFile.ALIGNMENTS.CENTER,
-				rowNumber,
-			});
-			rowNumber += 1;
-		});
-	}
+	const storeNames = storeName
+		.trim()
+		.split('\n')
+		.map((item) => item);
 
-	if (location) {
-		const locations = location.trim().split('\n');
-		locations.forEach((item) => {
-			reportTextFile.write({
-				text: item,
-				alignment: ReportTextFile.ALIGNMENTS.CENTER,
-				rowNumber,
-			});
-			rowNumber += 1;
-		});
-	}
+	const locations = location
+		.trim()
+		.split('\n')
+		.map((item) => item);
 
-	reportTextFile.write({
-		text: `${contactNumber} | ${name}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: proprietor,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `${getTaxTypeDescription(taxType)} | ${tin}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `MIN: ${machineID}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `SN: ${posTerminal}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	if (title) {
-		rowNumber += 1;
-		reportTextFile.write({
-			text: `[${title}]`,
-			alignment: ReportTextFile.ALIGNMENTS.CENTER,
-			rowNumber,
-		});
-	}
-
-	return rowNumber;
+	return [
+		...storeNames,
+		...locations,
+		[contactNumber, name].filter(Boolean).join(' | '),
+		proprietor,
+		[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
+		`MIN: ${machineID}`,
+		`SN: ${posTerminal}`,
+		TXT_LINE_BREAK,
+		title ? `[${title}]` : null,
+	]
+		.filter((row) => typeof row === 'string')
+		.map((data) => ({ center: data }));
 };
 
-export const writeFooter = (
-	reportTextFile: ReportTextFile,
+export const getTxtPrintDetails = (user: User): (RowData | string)[] => {
+	const rowData = [];
+
+	if (user) {
+		rowData.push({
+			left: `PDT: ${formatDateTime(dayjs(), false)} ${user?.employee_id}`,
+		});
+	}
+
+	return rowData;
+};
+
+export const getTxtFooter = (
 	siteSettings: SiteSettings,
-	rowNumber: number,
-) => {
+): (RowData | string)[] => {
 	const {
 		software_developer: softwareDeveloper,
-		software_developer_address: softwareDeveloperAddress,
+		software_developer_address: softwareDeveloperAddress = '',
 		software_developer_tin: softwareDeveloperTin,
 		pos_accreditation_number: posAccreditationNumber,
 		pos_accreditation_date: posAccreditationDate,
@@ -108,60 +92,75 @@ export const writeFooter = (
 		ptu_date: ptuDate,
 	} = siteSettings;
 
-	reportTextFile.write({
-		text: softwareDeveloper,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
+	const locations = softwareDeveloperAddress
+		.trim()
+		.split('\n')
+		.map((item) => item);
 
-	if (softwareDeveloperAddress) {
-		const locations = softwareDeveloperAddress.trim().split('\n');
-		locations.forEach((name) => {
+	return [
+		softwareDeveloper,
+		...locations,
+		softwareDeveloperTin,
+		`Acc No: ${posAccreditationNumber}`,
+		`Date Issued: ${posAccreditationDate}`,
+		TXT_LINE_BREAK,
+		`PTU No: ${ptuNumber}`,
+		`Date Issued: ${ptuDate}`,
+	]
+		.filter((row) => typeof row === 'string')
+		.map((data) => ({ center: data }));
+};
+
+export const getTxtItemBlock = (
+	items: {
+		label: string;
+		value: string | number;
+	}[],
+): RowData[] =>
+	items.map((item) => ({
+		left: item.label,
+		right: item.value,
+	}));
+
+export const writeFile = (
+	rowData: (string | RowData)[],
+	reportTextFile: ReportTextFile,
+) => {
+	let rowNumber = 0;
+
+	rowData.forEach((row) => {
+		if (typeof row === 'string') {
 			reportTextFile.write({
-				text: name,
-				alignment: ReportTextFile.ALIGNMENTS.CENTER,
+				text: row,
+				alignment: ReportTextFile.ALIGNMENTS.LEFT,
 				rowNumber,
 			});
-			rowNumber += 1;
-		});
-	}
+		} else {
+			if (row?.left) {
+				reportTextFile.write({
+					text: row.left.toString(),
+					alignment: ReportTextFile.ALIGNMENTS.LEFT,
+					rowNumber,
+				});
+			}
 
-	reportTextFile.write({
-		text: softwareDeveloperTin,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
+			if (row?.center) {
+				reportTextFile.write({
+					text: row.center.toString(),
+					alignment: ReportTextFile.ALIGNMENTS.CENTER,
+					rowNumber,
+				});
+			}
+
+			if (row?.right) {
+				reportTextFile.write({
+					text: row.right.toString(),
+					alignment: ReportTextFile.ALIGNMENTS.RIGHT,
+					rowNumber,
+				});
+			}
+		}
+
+		rowNumber += 1;
 	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `Acc No: ${posAccreditationNumber}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `Date Issued: ${posAccreditationDate}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `PTU No: ${ptuNumber}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	reportTextFile.write({
-		text: `Date Issued: ${ptuDate}`,
-		alignment: ReportTextFile.ALIGNMENTS.CENTER,
-		rowNumber,
-	});
-	rowNumber += 1;
-
-	return rowNumber;
 };

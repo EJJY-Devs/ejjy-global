@@ -48,12 +48,14 @@ export const ZReadContent = ({
 
 		<br />
 
-		<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
 		{report.generation_datetime && (
-			<div style={{ textAlign: 'center' }}>
-				{formatDate(report.generation_datetime)} -{' '}
-				{formatTime(report.generation_datetime)}
-			</div>
+			<>
+				<div style={{ textAlign: 'center' }}>Report Generation Datetime</div>
+				<div style={{ textAlign: 'center' }}>
+					{formatDate(report.generation_datetime)} -{' '}
+					{formatTime(report.generation_datetime)}
+				</div>
+			</>
 		)}
 		<div style={{ textAlign: 'center' }}>Day Datetime</div>
 		<div style={{ textAlign: 'center' }}>
@@ -157,7 +159,7 @@ export const ZReadContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Current Day Payment Received </div>
+		<div style={{ textAlign: 'center' }}>Current Day Payment Received</div>
 		<ItemBlock
 			items={[
 				{
@@ -234,7 +236,7 @@ export const ZReadContent = ({
 		/>
 		<Divider />
 
-		<div style={{ textAlign: 'center' }}>Accumulated Sales Breakdown </div>
+		<div style={{ textAlign: 'center' }}>Accumulated Sales Breakdown</div>
 		<ItemBlock
 			items={[
 				{

@@ -23,66 +23,53 @@ type Props = {
 	isReprint?: boolean;
 };
 
-export const TransactionContent = ({
-	transaction,
-	siteSettings,
-	isReprint,
-}: Props) => {
-	const [fields, setFields] = useState<Record<string, string | undefined>[]>(
-		[],
-	);
-	const [title, setTitle] = useState('Invoice');
+export const getTransactionData = (transaction: Transaction) => {
+	let title = '';
 
-	useEffect(() => {
-		// Set title
-		if (transaction.payment.mode === saleTypes.CASH) {
-			setTitle('CASH SALES INVOICE');
-		} else if (transaction.payment.mode === saleTypes.CREDIT) {
-			setTitle('CHARGE SALES INVOICE');
-		}
+	if (transaction.payment.mode === saleTypes.CASH) {
+		title = 'CASH SALES INVOICE';
+	} else if (transaction.payment.mode === saleTypes.CREDIT) {
+		title = 'CHARGE SALES INVOICE';
+	}
 
-		// Set client fields
-		let newFields: Record<string, string | undefined>[] = [];
-		if (transaction?.discount_option_additional_fields_values?.length) {
-			const discountOptionFields = JSON.parse(
-				transaction.discount_option_additional_fields_values,
-			);
+	let fields: Record<string, string | undefined>[] = [];
+	if (transaction?.discount_option_additional_fields_values?.length) {
+		const discountOptionFields = JSON.parse(
+			transaction.discount_option_additional_fields_values,
+		);
 
-			newFields = Object.keys(discountOptionFields).map((key) => ({
-				key,
-				value: discountOptionFields[key],
-			}));
-		} else if (
-			transaction?.client?.name ||
-			transaction?.payment?.creditor_account
-		) {
-			newFields = [
-				{
-					key: 'NAME',
-					value:
-						transaction.client?.name ||
-						getFullName(transaction.payment?.creditor_account) ||
-						EMPTY_CELL,
-				},
-				{
-					key: 'TIN',
-					value:
-						transaction.client?.tin ||
-						transaction.payment?.creditor_account?.tin ||
-						EMPTY_CELL,
-				},
-				{
-					key: 'ADDRESS',
-					value:
-						transaction.client?.address ||
-						transaction.payment?.creditor_account?.home_address ||
-						EMPTY_CELL,
-				},
-			];
-		}
-
-		setFields(newFields);
-	}, [transaction]);
+		fields = Object.keys(discountOptionFields).map((key) => ({
+			key,
+			value: discountOptionFields[key],
+		}));
+	} else if (
+		transaction?.client?.name ||
+		transaction?.payment?.creditor_account
+	) {
+		fields = [
+			{
+				key: 'NAME',
+				value:
+					transaction.client?.name ||
+					getFullName(transaction.payment?.creditor_account) ||
+					EMPTY_CELL,
+			},
+			{
+				key: 'TIN',
+				value:
+					transaction.client?.tin ||
+					transaction.payment?.creditor_account?.tin ||
+					EMPTY_CELL,
+			},
+			{
+				key: 'ADDRESS',
+				value:
+					transaction.client?.address ||
+					transaction.payment?.creditor_account?.home_address ||
+					EMPTY_CELL,
+			},
+		];
+	}
 
 	const change =
 		Number(transaction.payment.amount_tendered) - transaction.total_amount;
@@ -93,6 +80,28 @@ export const TransactionContent = ({
 	const newTransactionOrNumber =
 		transaction?.adjustment_remarks?.new_updated_transaction?.invoice
 			?.or_number;
+
+	return {
+		title,
+		fields,
+		change,
+		previousTransactionOrNumber,
+		newTransactionOrNumber,
+	};
+};
+
+export const TransactionContent = ({
+	transaction,
+	siteSettings,
+	isReprint,
+}: Props) => {
+	const {
+		title,
+		fields,
+		change,
+		previousTransactionOrNumber,
+		newTransactionOrNumber,
+	} = getTransactionData(transaction);
 
 	return (
 		<>
@@ -278,16 +287,12 @@ export const TransactionContent = ({
 					flexDirection: 'column',
 				}}
 			>
-				<span>
-					{isReprint &&
-						transaction.status === transactionStatuses.FULLY_PAID &&
-						'REPRINT ONLY'}
-				</span>
-				<span style={{ whiteSpace: 'pre-line' }}>
-					{!isReprint &&
-						transaction.status === transactionStatuses.FULLY_PAID &&
-						INVOICE_LAST_MESSAGE}
-				</span>
+				{transaction.status === transactionStatuses.FULLY_PAID && (
+					<span style={{ whiteSpace: 'pre-line' }}>
+						{isReprint ? 'REPRINT ONLY' : INVOICE_LAST_MESSAGE}
+					</span>
+				)}
+
 				<span>
 					{[
 						transactionStatuses.VOID_EDITED,
