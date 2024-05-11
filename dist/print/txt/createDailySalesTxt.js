@@ -276,7 +276,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user) => {
         { center: helper_txt_1.TXT_DIVIDER },
     ]);
     if (user) {
-        rowData.push(...(0, helper_txt_1.getTxtPrintDetails)(user));
+        rowData.push((0, helper_txt_1.getTxtPrintDetails)(user));
     }
     rowData.push(...[helper_txt_1.TXT_LINE_BREAK, ...(0, helper_txt_1.getTxtFooter)(siteSettings)]);
     (0, helper_txt_1.writeFile)(rowData, reportTextFile);

@@ -36,15 +36,9 @@ const getTxtHeader = ({ title, branchMachine, siteSettings, }) => {
         .map((data) => ({ center: data }));
 };
 exports.getTxtHeader = getTxtHeader;
-const getTxtPrintDetails = (user) => {
-    const rowData = [];
-    if (user) {
-        rowData.push({
-            left: `PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user === null || user === void 0 ? void 0 : user.employee_id}`,
-        });
-    }
-    return rowData;
-};
+const getTxtPrintDetails = (user) => ({
+    left: `PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user === null || user === void 0 ? void 0 : user.employee_id}`,
+});
 exports.getTxtPrintDetails = getTxtPrintDetails;
 const getTxtFooter = (siteSettings) => {
     const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress = '', software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
@@ -73,6 +67,7 @@ const getTxtItemBlock = (items) => items.map((item) => ({
 exports.getTxtItemBlock = getTxtItemBlock;
 const writeFile = (rowData, reportTextFile) => {
     let rowNumber = 0;
+    console.log('rowData', rowData);
     rowData.forEach((row) => {
         if (typeof row === 'string') {
             reportTextFile.write({

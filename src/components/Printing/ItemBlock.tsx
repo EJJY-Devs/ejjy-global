@@ -19,7 +19,7 @@ export type ItemBlockProps = {
 export const ItemBlock = ({ items }: ItemBlockProps) => (
 	<table style={{ width: '100%' }}>
 		{items.map((item) => (
-			<tr>
+			<tr key={item.label}>
 				<td
 					style={{ paddingLeft: item.isIndented ? 15 : 0, ...item.labelStyle }}
 				>

@@ -68,17 +68,9 @@ export const getTxtHeader = ({
 		.map((data) => ({ center: data }));
 };
 
-export const getTxtPrintDetails = (user: User): (RowData | string)[] => {
-	const rowData = [];
-
-	if (user) {
-		rowData.push({
-			left: `PDT: ${formatDateTime(dayjs(), false)} ${user?.employee_id}`,
-		});
-	}
-
-	return rowData;
-};
+export const getTxtPrintDetails = (user: User): RowData => ({
+	left: `PDT: ${formatDateTime(dayjs(), false)} ${user?.employee_id}`,
+});
 
 export const getTxtFooter = (siteSettings: SiteSettings): RowData[] => {
 	const {
@@ -126,6 +118,8 @@ export const writeFile = (
 	reportTextFile: ReportTextFile,
 ) => {
 	let rowNumber = 0;
+
+	console.log('rowData', rowData);
 
 	rowData.forEach((row) => {
 		if (typeof row === 'string') {

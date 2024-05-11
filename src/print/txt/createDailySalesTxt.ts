@@ -332,7 +332,7 @@ export const createDailySalesTxt = (
 	);
 
 	if (user) {
-		rowData.push(...getTxtPrintDetails(user));
+		rowData.push(getTxtPrintDetails(user));
 	}
 
 	rowData.push(...[TXT_LINE_BREAK, ...getTxtFooter(siteSettings)]);

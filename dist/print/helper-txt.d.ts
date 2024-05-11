@@ -14,7 +14,7 @@ type Props = {
     siteSettings: SiteSettings;
 };
 export declare const getTxtHeader: ({ title, branchMachine, siteSettings, }: Props) => RowData[];
-export declare const getTxtPrintDetails: (user: User) => (RowData | string)[];
+export declare const getTxtPrintDetails: (user: User) => RowData;
 export declare const getTxtFooter: (siteSettings: SiteSettings) => RowData[];
 export declare const getTxtItemBlock: (items: {
     label: string;

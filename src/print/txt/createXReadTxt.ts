@@ -184,7 +184,7 @@ export const createXReadTxt = (
 	);
 
 	if (user) {
-		rowData.push(...getTxtPrintDetails(user));
+		rowData.pushgetTxtPrintDetails(user));
 	}
 
 	rowData.push(

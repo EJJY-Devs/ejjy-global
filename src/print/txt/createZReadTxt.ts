@@ -359,7 +359,7 @@ export const createZReadTxt = (
 	);
 
 	if (user) {
-		rowData.push(...getTxtPrintDetails(user));
+		rowData.push(getTxtPrintDetails(user));
 	}
 
 	rowData.push(

@@ -303,7 +303,7 @@ const createZReadTxt = (report, siteSettings, user, returnContent = false) => {
         { center: helper_txt_1.TXT_DIVIDER },
     ]);
     if (user) {
-        rowData.push(...(0, helper_txt_1.getTxtPrintDetails)(user));
+        rowData.push((0, helper_txt_1.getTxtPrintDetails)(user));
     }
     rowData.push(...[
         helper_txt_1.TXT_LINE_BREAK,
