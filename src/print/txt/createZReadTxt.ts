@@ -14,6 +14,7 @@ import {
 	RowData,
 	TXT_DIVIDER,
 	TXT_LINE_BREAK,
+	writeFile,
 } from '../helper-txt';
 
 export const createZReadTxt = (
@@ -369,6 +370,8 @@ export const createZReadTxt = (
 			{ center: 'Thank You!' },
 		],
 	);
+
+	writeFile(rowData, reportTextFile);
 
 	if (returnContent) {
 		return reportTextFile.get();

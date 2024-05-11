@@ -14,6 +14,7 @@ import {
 	RowData,
 	TXT_DIVIDER,
 	TXT_LINE_BREAK,
+	writeFile,
 } from '../helper-txt';
 
 export const createDailySalesTxt = (
@@ -335,6 +336,8 @@ export const createDailySalesTxt = (
 	}
 
 	rowData.push(...[TXT_LINE_BREAK, ...getTxtFooter(siteSettings)]);
+
+	writeFile(rowData, reportTextFile);
 
 	reportTextFile.export(`DailySales_${dailySales.id}.txt`);
 

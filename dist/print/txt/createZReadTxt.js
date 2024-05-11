@@ -311,6 +311,7 @@ const createZReadTxt = (report, siteSettings, user, returnContent = false) => {
         { center: 'This Document Is Not Valid For Claim Of Input Tax' },
         { center: 'Thank You!' },
     ]);
+    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
     if (returnContent) {
         return reportTextFile.get();
     }

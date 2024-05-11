@@ -279,6 +279,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user) => {
         rowData.push(...(0, helper_txt_1.getTxtPrintDetails)(user));
     }
     rowData.push(...[helper_txt_1.TXT_LINE_BREAK, ...(0, helper_txt_1.getTxtFooter)(siteSettings)]);
+    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
     reportTextFile.export(`DailySales_${dailySales.id}.txt`);
     return null;
 };
