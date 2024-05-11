@@ -1,10 +1,5 @@
 import { DailySales, SiteSettings, User } from '../../types';
-import {
-	formatDate,
-	formatInPeso,
-	formatTime,
-	ReportTextFile,
-} from '../../utils';
+import { formatDate, formatInPeso, formatTime } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
 import {
 	getTxtFooter,
@@ -22,8 +17,6 @@ export const createDailySalesTxt = (
 	siteSettings: SiteSettings,
 	user?: User,
 ) => {
-	const reportTextFile = new ReportTextFile();
-
 	const rowData: (RowData | string)[] = getTxtHeader({
 		branchMachine: dailySales.branch_machine,
 		siteSettings,
@@ -337,7 +330,7 @@ export const createDailySalesTxt = (
 
 	rowData.push(...[TXT_LINE_BREAK, ...getTxtFooter(siteSettings)]);
 
-	writeFile(rowData, reportTextFile);
+	const reportTextFile = writeFile(rowData);
 
 	reportTextFile.export(`DailySales_${dailySales.id}.txt`);
 

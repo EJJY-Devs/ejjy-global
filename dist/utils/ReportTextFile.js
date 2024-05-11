@@ -8,19 +8,18 @@ var ALIGNMENTS;
     ALIGNMENTS["RIGHT"] = "right";
 })(ALIGNMENTS || (ALIGNMENTS = {}));
 class ReportTextFile {
-    constructor() {
+    constructor(rowLength) {
         this.MAX_SIZE = 0;
         this.MIDDLE_INDEX = 0;
         this.contents = [];
         this.MAX_SIZE = 71;
         this.MIDDLE_INDEX = parseInt(`${this.MAX_SIZE / 2}`);
-        this.contents = Array(this.MAX_SIZE * 2)
+        this.contents = Array(rowLength)
             .fill(' ')
             .map(() => Array(this.MAX_SIZE).fill(' '));
     }
     write({ text = '', alignment, rowNumber }) {
         const elements = [...text];
-        console.log(this.contents);
         if (alignment === ReportTextFile.ALIGNMENTS.LEFT) {
             elements.forEach((c, index) => {
                 this.contents[rowNumber][index] = c;

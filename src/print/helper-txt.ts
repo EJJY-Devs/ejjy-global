@@ -113,16 +113,12 @@ export const getTxtItemBlock = (
 		right: item.value,
 	}));
 
-export const writeFile = (
-	rowData: (string | RowData)[],
-	reportTextFile: ReportTextFile,
-) => {
+export const writeFile = (rowData: (string | RowData)[]) => {
+	const reportTextFile = new ReportTextFile(rowData.length + 1);
+
 	let rowNumber = 0;
 
-	console.log('rowData', rowData);
-
 	rowData.forEach((row) => {
-		console.log('rowNumber', rowNumber);
 		if (row === TXT_LINE_BREAK) {
 			rowNumber += 1;
 		} else if (typeof row === 'string') {
@@ -159,4 +155,6 @@ export const writeFile = (
 
 		rowNumber += 1;
 	});
+
+	return reportTextFile;
 };

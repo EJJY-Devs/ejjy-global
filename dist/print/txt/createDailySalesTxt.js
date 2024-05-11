@@ -6,7 +6,6 @@ const helper_receipt_1 = require("../helper-receipt");
 const helper_txt_1 = require("../helper-txt");
 const createDailySalesTxt = (dailySales, siteSettings, user) => {
     var _a, _b;
-    const reportTextFile = new utils_1.ReportTextFile();
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: dailySales.branch_machine,
         siteSettings,
@@ -279,7 +278,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user) => {
         rowData.push((0, helper_txt_1.getTxtPrintDetails)(user));
     }
     rowData.push(...[helper_txt_1.TXT_LINE_BREAK, ...(0, helper_txt_1.getTxtFooter)(siteSettings)]);
-    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
+    const reportTextFile = (0, helper_txt_1.writeFile)(rowData);
     reportTextFile.export(`DailySales_${dailySales.id}.txt`);
     return null;
 };

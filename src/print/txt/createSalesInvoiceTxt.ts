@@ -7,12 +7,7 @@ import {
 	vatTypes,
 } from '../../globals';
 import { SiteSettings, Transaction } from '../../types';
-import {
-	formatDateTime,
-	formatInPeso,
-	getComputedDiscount,
-	ReportTextFile,
-} from '../../utils';
+import { formatDateTime, formatInPeso, getComputedDiscount } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN, UNDERLINE_TEXT } from '../helper-receipt';
 import {
 	getTxtFooter,
@@ -42,8 +37,6 @@ export const createSalesInvoiceTxt = (
 		previousTransactionOrNumber,
 		newTransactionOrNumber,
 	} = getTransactionData(transaction);
-
-	const reportTextFile = new ReportTextFile();
 
 	const rowData: (RowData | string)[] = getTxtHeader({
 		branchMachine: transaction.branch_machine,
@@ -212,7 +205,7 @@ export const createSalesInvoiceTxt = (
 		center: siteSettings?.thank_you_message,
 	});
 
-	writeFile(rowData, reportTextFile);
+	const reportTextFile = writeFile(rowData);
 
 	if (returnContent) {
 		return reportTextFile.get();

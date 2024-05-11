@@ -13,7 +13,7 @@ export declare class ReportTextFile {
     MAX_SIZE: number;
     MIDDLE_INDEX: number;
     contents: string[][];
-    constructor();
+    constructor(rowLength: number);
     write({ text, alignment, rowNumber }: Write): void;
     get(): string;
     export(fileName: string): void;

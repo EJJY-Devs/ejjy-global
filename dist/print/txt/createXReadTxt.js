@@ -7,7 +7,6 @@ const helper_txt_1 = require("../helper-txt");
 const createXReadTxt = (report, siteSettings, user, returnContent = false) => {
     var _a, _b;
     const cashieringSession = report.cashiering_session;
-    const reportTextFile = new utils_1.ReportTextFile();
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: report.branch_machine,
         siteSettings,
@@ -150,7 +149,7 @@ const createXReadTxt = (report, siteSettings, user, returnContent = false) => {
         { center: 'This Document Is Not Valid For Claim Of Input Tax' },
         { center: 'Thank You!' },
     ]);
-    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
+    const reportTextFile = (0, helper_txt_1.writeFile)(rowData);
     if (returnContent) {
         return reportTextFile.get();
     }

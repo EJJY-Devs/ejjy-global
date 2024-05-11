@@ -1,10 +1,5 @@
 import { SiteSettings, User, ZReadReport } from '../../types';
-import {
-	formatDate,
-	formatInPeso,
-	formatTime,
-	ReportTextFile,
-} from '../../utils';
+import { formatDate, formatInPeso, formatTime } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
 import {
 	getTxtFooter,
@@ -23,7 +18,6 @@ export const createZReadTxt = (
 	user?: User,
 	returnContent = false,
 ) => {
-	const reportTextFile = new ReportTextFile();
 	const rowData: (RowData | string)[] = getTxtHeader({
 		branchMachine: report.branch_machine,
 		siteSettings,
@@ -371,7 +365,7 @@ export const createZReadTxt = (
 		],
 	);
 
-	writeFile(rowData, reportTextFile);
+	const reportTextFile = writeFile(rowData);
 
 	if (returnContent) {
 		return reportTextFile.get();

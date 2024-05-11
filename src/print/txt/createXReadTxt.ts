@@ -1,11 +1,5 @@
 import { SiteSettings, User, XReadReport } from '../../types';
-import {
-	formatDate,
-	formatInPeso,
-	formatTime,
-	getFullName,
-	ReportTextFile,
-} from '../../utils';
+import { formatDate, formatInPeso, formatTime, getFullName } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
 import {
 	getTxtFooter,
@@ -25,7 +19,6 @@ export const createXReadTxt = (
 	returnContent = false,
 ) => {
 	const cashieringSession = report.cashiering_session;
-	const reportTextFile = new ReportTextFile();
 
 	const rowData: (RowData | string)[] = getTxtHeader({
 		branchMachine: report.branch_machine,
@@ -196,7 +189,7 @@ export const createXReadTxt = (
 		],
 	);
 
-	writeFile(rowData, reportTextFile);
+	const reportTextFile = writeFile(rowData);
 
 	if (returnContent) {
 		return reportTextFile.get();

@@ -20,5 +20,5 @@ export declare const getTxtItemBlock: (items: {
     label: string;
     value: string | number;
 }[]) => RowData[];
-export declare const writeFile: (rowData: (string | RowData)[], reportTextFile: ReportTextFile) => void;
+export declare const writeFile: (rowData: (string | RowData)[]) => ReportTextFile;
 export {};

@@ -13,7 +13,6 @@ const helper_txt_1 = require("../helper-txt");
 const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, returnContent = false) => {
     var _a;
     const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, TransactionContent_1.getTransactionData)(transaction);
-    const reportTextFile = new utils_1.ReportTextFile();
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: transaction.branch_machine,
         siteSettings,
@@ -139,7 +138,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
     rowData.push({
         center: siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message,
     });
-    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
+    const reportTextFile = (0, helper_txt_1.writeFile)(rowData);
     if (returnContent) {
         return reportTextFile.get();
     }

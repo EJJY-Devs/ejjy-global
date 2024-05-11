@@ -19,17 +19,16 @@ export class ReportTextFile {
 
 	contents: string[][] = [];
 
-	constructor() {
+	constructor(rowLength: number) {
 		this.MAX_SIZE = 71;
 		this.MIDDLE_INDEX = parseInt(`${this.MAX_SIZE / 2}`);
-		this.contents = Array(this.MAX_SIZE * 2)
+		this.contents = Array(rowLength)
 			.fill(' ')
 			.map(() => Array(this.MAX_SIZE).fill(' '));
 	}
 
 	write({ text = '', alignment, rowNumber }: Write) {
 		const elements = [...text];
-		console.log(this.contents);
 		if (alignment === ReportTextFile.ALIGNMENTS.LEFT) {
 			elements.forEach((c, index) => {
 				this.contents[rowNumber][index] = c;

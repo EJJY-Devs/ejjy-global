@@ -6,7 +6,6 @@ const helper_receipt_1 = require("../helper-receipt");
 const helper_txt_1 = require("../helper-txt");
 const createZReadTxt = (report, siteSettings, user, returnContent = false) => {
     var _a, _b, _c, _d;
-    const reportTextFile = new utils_1.ReportTextFile();
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: report.branch_machine,
         siteSettings,
@@ -311,7 +310,7 @@ const createZReadTxt = (report, siteSettings, user, returnContent = false) => {
         { center: 'This Document Is Not Valid For Claim Of Input Tax' },
         { center: 'Thank You!' },
     ]);
-    (0, helper_txt_1.writeFile)(rowData, reportTextFile);
+    const reportTextFile = (0, helper_txt_1.writeFile)(rowData);
     if (returnContent) {
         return reportTextFile.get();
     }
