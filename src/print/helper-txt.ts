@@ -122,6 +122,7 @@ export const writeFile = (
 	console.log('rowData', rowData);
 
 	rowData.forEach((row) => {
+		console.log('rowNumber', rowNumber);
 		if (typeof row === 'string') {
 			reportTextFile.write({
 				text: row,
