@@ -12,7 +12,7 @@ class ReportTextFile {
         this.MAX_SIZE = 0;
         this.MIDDLE_INDEX = 0;
         this.contents = [];
-        this.MAX_SIZE = 200;
+        this.MAX_SIZE = 71;
         this.MIDDLE_INDEX = parseInt(`${this.MAX_SIZE / 2}`);
         this.contents = Array(this.MAX_SIZE)
             .fill(' ')

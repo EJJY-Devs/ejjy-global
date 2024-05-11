@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../utils");
 exports.TXT_LINE_BREAK = '';
 exports.TXT_NBSP = ' ';
-exports.TXT_DIVIDER = '----------------------------------------------------------------------';
+exports.TXT_DIVIDER = '-------------------------------------------------------------------';
 const getTxtHeader = ({ title, branchMachine, siteSettings, }) => {
     const { contact_number: contactNumber, address_of_tax_payer: location = '', proprietor, store_name: storeName = '', tax_type: taxType, tin, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine;

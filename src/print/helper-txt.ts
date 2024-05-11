@@ -9,7 +9,7 @@ import {
 export const TXT_LINE_BREAK = '';
 export const TXT_NBSP = ' ';
 export const TXT_DIVIDER =
-	'----------------------------------------------------------------------';
+	'-------------------------------------------------------------------';
 
 export type RowData = {
 	left?: string | number;
