@@ -123,7 +123,9 @@ export const writeFile = (
 
 	rowData.forEach((row) => {
 		console.log('rowNumber', rowNumber);
-		if (typeof row === 'string') {
+		if (row === TXT_LINE_BREAK) {
+			rowNumber += 1;
+		} else if (typeof row === 'string') {
 			reportTextFile.write({
 				text: row,
 				alignment: ReportTextFile.ALIGNMENTS.LEFT,

@@ -70,7 +70,10 @@ const writeFile = (rowData, reportTextFile) => {
     console.log('rowData', rowData);
     rowData.forEach((row) => {
         console.log('rowNumber', rowNumber);
-        if (typeof row === 'string') {
+        if (row === exports.TXT_LINE_BREAK) {
+            rowNumber += 1;
+        }
+        else if (typeof row === 'string') {
             reportTextFile.write({
                 text: row,
                 alignment: utils_1.ReportTextFile.ALIGNMENTS.LEFT,
