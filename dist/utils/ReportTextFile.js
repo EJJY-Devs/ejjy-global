@@ -14,7 +14,7 @@ class ReportTextFile {
         this.contents = [];
         this.MAX_SIZE = 71;
         this.MIDDLE_INDEX = parseInt(`${this.MAX_SIZE / 2}`);
-        this.contents = Array(this.MAX_SIZE)
+        this.contents = Array(this.MAX_SIZE * 2)
             .fill(' ')
             .map(() => Array(this.MAX_SIZE).fill(' '));
     }
