@@ -25,7 +25,7 @@ export const createXReadTxt = (
 		siteSettings,
 	});
 
-	rowData.push({ center: 'X-READING REPORT' });
+	rowData.push(...[TXT_LINE_BREAK, { center: 'X-READING REPORT' }]);
 
 	if (report.gross_sales === 0) {
 		rowData.push(...[{ center: '(NO TRANSACTION)' }, TXT_LINE_BREAK]);

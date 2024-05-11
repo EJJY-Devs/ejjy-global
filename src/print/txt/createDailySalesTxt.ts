@@ -22,7 +22,7 @@ export const createDailySalesTxt = (
 		siteSettings,
 	});
 
-	rowData.push({ center: 'DAILY SALES REPORT' });
+	rowData.push(...[TXT_LINE_BREAK, { center: 'DAILY SALES REPORT' }]);
 
 	if (dailySales.gross_sales === 0) {
 		rowData.push(...[{ center: '(NO TRANSACTION)' }, TXT_LINE_BREAK]);

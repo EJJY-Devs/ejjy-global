@@ -9,11 +9,10 @@ export type RowData = {
     right?: string | number;
 };
 type Props = {
-    title?: string;
     branchMachine: BranchMachine;
     siteSettings: SiteSettings;
 };
-export declare const getTxtHeader: ({ title, branchMachine, siteSettings, }: Props) => RowData[];
+export declare const getTxtHeader: ({ branchMachine, siteSettings, }: Props) => RowData[];
 export declare const getTxtPrintDetails: (user: User) => RowData;
 export declare const getTxtFooter: (siteSettings: SiteSettings) => RowData[];
 export declare const getTxtItemBlock: (items: {

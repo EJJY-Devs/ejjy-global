@@ -10,7 +10,7 @@ const createDailySalesTxt = (dailySales, siteSettings, user) => {
         branchMachine: dailySales.branch_machine,
         siteSettings,
     });
-    rowData.push({ center: 'DAILY SALES REPORT' });
+    rowData.push(...[helper_txt_1.TXT_LINE_BREAK, { center: 'DAILY SALES REPORT' }]);
     if (dailySales.gross_sales === 0) {
         rowData.push(...[{ center: '(NO TRANSACTION)' }, helper_txt_1.TXT_LINE_BREAK]);
     }

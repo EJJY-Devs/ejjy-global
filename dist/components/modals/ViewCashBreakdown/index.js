@@ -4,16 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViewCashBreakdownModal = void 0;
-/* eslint-disable no-prototype-builtins */
 const icons_1 = require("@ant-design/icons");
 const antd_1 = require("antd");
 const react_1 = __importDefault(require("react"));
-const CashBreakdownContent_1 = require("./CashBreakdownContent");
-const utils_1 = require("../../../utils");
-const hooks_1 = require("../../../hooks");
 const globals_1 = require("../../../globals");
+const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
+const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
+const CashBreakdownContent_1 = require("./CashBreakdownContent");
 const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, }) => {
     // VARIABLES
     const type = (0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type);

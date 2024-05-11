@@ -19,11 +19,6 @@ import {
 	writeFile,
 } from '../helper-txt';
 
-type DiscountOptionField = {
-	key: string;
-	value: string;
-};
-
 export const createSalesInvoiceTxt = (
 	transaction: Transaction,
 	siteSettings: SiteSettings,
@@ -41,8 +36,9 @@ export const createSalesInvoiceTxt = (
 	const rowData: (RowData | string)[] = getTxtHeader({
 		branchMachine: transaction.branch_machine,
 		siteSettings,
-		title,
 	});
+
+	rowData.push(...[TXT_LINE_BREAK, { center: title }, TXT_LINE_BREAK]);
 
 	transaction.products.forEach((item) => {
 		rowData.push(

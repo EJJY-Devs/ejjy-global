@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
 	EMPTY_CELL,
 	INVOICE_LAST_MESSAGE,

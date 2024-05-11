@@ -18,13 +18,11 @@ export type RowData = {
 };
 
 type Props = {
-	title?: string;
 	branchMachine: BranchMachine;
 	siteSettings: SiteSettings;
 };
 
 export const getTxtHeader = ({
-	title,
 	branchMachine,
 	siteSettings,
 }: Props): RowData[] => {
@@ -61,9 +59,7 @@ export const getTxtHeader = ({
 		`MIN: ${machineID}`,
 		`SN: ${posTerminal}`,
 		TXT_LINE_BREAK,
-		title,
 	]
-		.filter(Boolean)
 		.filter((row) => typeof row === 'string')
 		.map((data) => ({ center: data }));
 };

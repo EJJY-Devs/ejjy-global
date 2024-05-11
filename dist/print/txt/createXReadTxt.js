@@ -11,7 +11,7 @@ const createXReadTxt = (report, siteSettings, user, returnContent = false) => {
         branchMachine: report.branch_machine,
         siteSettings,
     });
-    rowData.push({ center: 'X-READING REPORT' });
+    rowData.push(...[helper_txt_1.TXT_LINE_BREAK, { center: 'X-READING REPORT' }]);
     if (report.gross_sales === 0) {
         rowData.push(...[{ center: '(NO TRANSACTION)' }, helper_txt_1.TXT_LINE_BREAK]);
     }

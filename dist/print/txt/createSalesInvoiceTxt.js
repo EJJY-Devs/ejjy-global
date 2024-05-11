@@ -16,8 +16,8 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: transaction.branch_machine,
         siteSettings,
-        title,
     });
+    rowData.push(...[helper_txt_1.TXT_LINE_BREAK, { center: title }, helper_txt_1.TXT_LINE_BREAK]);
     transaction.products.forEach((item) => {
         rowData.push(...[
             {

@@ -1,20 +1,18 @@
-/* eslint-disable no-prototype-builtins */
 import { PrinterOutlined } from '@ant-design/icons';
 import { Button, Descriptions, Modal } from 'antd';
 import React from 'react';
-
+import { cashBreakdownCategories } from '../../../globals';
+import { usePdf } from '../../../hooks';
+import { printCashBreakdown, printCashOut } from '../../../print';
 import { CashBreakdown, SiteSettings, User } from '../../../types';
-import { CashBreakdownContent } from './CashBreakdownContent';
 import {
 	formatDateTime,
 	formatInPeso,
 	getCashBreakdownTypeDescription,
 	getFullName,
 } from '../../../utils';
-import { usePdf } from '../../../hooks';
-import { cashBreakdownCategories } from '../../../globals';
-import { printCashBreakdown, printCashOut } from '../../../print';
 import { PdfButtons } from '../../Printing';
+import { CashBreakdownContent } from './CashBreakdownContent';
 
 type Props = {
 	cashBreakdown: CashBreakdown;

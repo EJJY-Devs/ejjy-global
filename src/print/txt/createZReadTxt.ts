@@ -23,7 +23,7 @@ export const createZReadTxt = (
 		siteSettings,
 	});
 
-	rowData.push({ center: 'Z-READING REPORT' });
+	rowData.push(...[TXT_LINE_BREAK, { center: 'Z-READING REPORT' }]);
 
 	if (report.gross_sales === 0) {
 		rowData.push(...[{ center: '(NO TRANSACTION)' }, TXT_LINE_BREAK]);

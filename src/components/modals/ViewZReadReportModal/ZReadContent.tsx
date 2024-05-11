@@ -3,12 +3,7 @@ import imgNoTransaction from '../../../../public/no-transaction.png';
 import { EMPTY_CELL } from '../../../globals';
 import { PESO_SIGN } from '../../../print/helper-receipt';
 import { SiteSettings, User, ZReadReport } from '../../../types';
-import {
-	formatDate,
-	formatDateTime,
-	formatInPeso,
-	formatTime,
-} from '../../../utils';
+import { formatDate, formatInPeso, formatTime } from '../../../utils';
 import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 import { PrintDetails } from '../../Printing/PrintDetails';
