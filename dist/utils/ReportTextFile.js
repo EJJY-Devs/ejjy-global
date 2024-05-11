@@ -20,6 +20,7 @@ class ReportTextFile {
     }
     write({ text = '', alignment, rowNumber }) {
         const elements = [...text];
+        console.log(this.contents);
         if (alignment === ReportTextFile.ALIGNMENTS.LEFT) {
             elements.forEach((c, index) => {
                 this.contents[rowNumber][index] = c;

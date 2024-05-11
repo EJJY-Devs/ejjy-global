@@ -29,7 +29,7 @@ export class ReportTextFile {
 
 	write({ text = '', alignment, rowNumber }: Write) {
 		const elements = [...text];
-
+		console.log(this.contents);
 		if (alignment === ReportTextFile.ALIGNMENTS.LEFT) {
 			elements.forEach((c, index) => {
 				this.contents[rowNumber][index] = c;
