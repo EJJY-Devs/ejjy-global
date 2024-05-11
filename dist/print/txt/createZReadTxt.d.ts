@@ -1,2 +1,2 @@
-import { GeneratedByUser, SiteSettings, ZReadReport } from '../../types';
-export declare const createZReadTxt: (report: ZReadReport, siteSettings: SiteSettings, user?: GeneratedByUser, returnContent?: boolean) => string | null;
+import { SiteSettings, User, ZReadReport } from '../../types';
+export declare const createZReadTxt: (report: ZReadReport, siteSettings: SiteSettings, user?: User, returnContent?: boolean) => string | null;

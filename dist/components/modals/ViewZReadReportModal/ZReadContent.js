@@ -20,12 +20,13 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "Z-READING REPORT"),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Report Generation Datetime"),
-        report.generation_datetime && (react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            (0, utils_1.formatDate)(report.generation_datetime),
-            " -",
-            ' ',
-            (0, utils_1.formatTime)(report.generation_datetime))),
+        report.generation_datetime && (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Report Generation Datetime"),
+            react_1.default.createElement("div", { style: { textAlign: 'center' } },
+                (0, utils_1.formatDate)(report.generation_datetime),
+                " -",
+                ' ',
+                (0, utils_1.formatTime)(report.generation_datetime)))),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Day Datetime"),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
             (0, utils_1.formatDate)(report.datetime_created),
@@ -114,7 +115,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Payment Received "),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -182,7 +183,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Sales Breakdown "),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Sales Breakdown"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',

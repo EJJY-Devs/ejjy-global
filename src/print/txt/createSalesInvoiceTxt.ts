@@ -167,7 +167,6 @@ export const createSalesInvoiceTxt = (
 
 	rowData.push(
 		...[
-			TXT_LINE_BREAK,
 			{ left: `GDT: ${formatDateTime(transaction.invoice.datetime_created)}` },
 			{ left: `PDT: ${formatDateTime(dayjs(), false)}` },
 			{
@@ -206,7 +205,7 @@ export const createSalesInvoiceTxt = (
 			transactionStatuses.VOID_CANCELLED,
 		].includes(transaction.status)
 	) {
-		rowData.push(...[TXT_LINE_BREAK, { center: 'VOIDED TRANSACTION' }]);
+		rowData.push({ center: 'VOIDED TRANSACTION' });
 	}
 
 	rowData.push({

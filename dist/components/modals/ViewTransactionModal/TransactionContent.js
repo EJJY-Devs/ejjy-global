@@ -1,88 +1,70 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionContent = void 0;
+exports.TransactionContent = exports.getTransactionData = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
-const react_1 = __importStar(require("react"));
+const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
-const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
-    var _a, _b, _c, _d, _e, _f, _g;
-    const [fields, setFields] = (0, react_1.useState)([]);
-    const [title, setTitle] = (0, react_1.useState)('Invoice');
-    (0, react_1.useEffect)(() => {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-        // Set title
-        if (transaction.payment.mode === globals_1.saleTypes.CASH) {
-            setTitle('CASH SALES INVOICE');
-        }
-        else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
-            setTitle('CHARGE SALES INVOICE');
-        }
-        // Set client fields
-        let newFields = [];
-        if ((_a = transaction === null || transaction === void 0 ? void 0 : transaction.discount_option_additional_fields_values) === null || _a === void 0 ? void 0 : _a.length) {
-            const discountOptionFields = JSON.parse(transaction.discount_option_additional_fields_values);
-            newFields = Object.keys(discountOptionFields).map((key) => ({
-                key,
-                value: discountOptionFields[key],
-            }));
-        }
-        else if (((_b = transaction === null || transaction === void 0 ? void 0 : transaction.client) === null || _b === void 0 ? void 0 : _b.name) ||
-            ((_c = transaction === null || transaction === void 0 ? void 0 : transaction.payment) === null || _c === void 0 ? void 0 : _c.creditor_account)) {
-            newFields = [
-                {
-                    key: 'NAME',
-                    value: ((_d = transaction.client) === null || _d === void 0 ? void 0 : _d.name) ||
-                        (0, utils_1.getFullName)((_e = transaction.payment) === null || _e === void 0 ? void 0 : _e.creditor_account) ||
-                        globals_1.EMPTY_CELL,
-                },
-                {
-                    key: 'TIN',
-                    value: ((_f = transaction.client) === null || _f === void 0 ? void 0 : _f.tin) ||
-                        ((_h = (_g = transaction.payment) === null || _g === void 0 ? void 0 : _g.creditor_account) === null || _h === void 0 ? void 0 : _h.tin) ||
-                        globals_1.EMPTY_CELL,
-                },
-                {
-                    key: 'ADDRESS',
-                    value: ((_j = transaction.client) === null || _j === void 0 ? void 0 : _j.address) ||
-                        ((_l = (_k = transaction.payment) === null || _k === void 0 ? void 0 : _k.creditor_account) === null || _l === void 0 ? void 0 : _l.home_address) ||
-                        globals_1.EMPTY_CELL,
-                },
-            ];
-        }
-        setFields(newFields);
-    }, [transaction]);
+const getTransactionData = (transaction) => {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+    let title = '';
+    if (transaction.payment.mode === globals_1.saleTypes.CASH) {
+        title = 'CASH SALES INVOICE';
+    }
+    else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
+        title = 'CHARGE SALES INVOICE';
+    }
+    let fields = [];
+    if ((_a = transaction === null || transaction === void 0 ? void 0 : transaction.discount_option_additional_fields_values) === null || _a === void 0 ? void 0 : _a.length) {
+        const discountOptionFields = JSON.parse(transaction.discount_option_additional_fields_values);
+        fields = Object.keys(discountOptionFields).map((key) => ({
+            key,
+            value: discountOptionFields[key],
+        }));
+    }
+    else if (((_b = transaction === null || transaction === void 0 ? void 0 : transaction.client) === null || _b === void 0 ? void 0 : _b.name) ||
+        ((_c = transaction === null || transaction === void 0 ? void 0 : transaction.payment) === null || _c === void 0 ? void 0 : _c.creditor_account)) {
+        fields = [
+            {
+                key: 'NAME',
+                value: ((_d = transaction.client) === null || _d === void 0 ? void 0 : _d.name) ||
+                    (0, utils_1.getFullName)((_e = transaction.payment) === null || _e === void 0 ? void 0 : _e.creditor_account) ||
+                    globals_1.EMPTY_CELL,
+            },
+            {
+                key: 'TIN',
+                value: ((_f = transaction.client) === null || _f === void 0 ? void 0 : _f.tin) ||
+                    ((_h = (_g = transaction.payment) === null || _g === void 0 ? void 0 : _g.creditor_account) === null || _h === void 0 ? void 0 : _h.tin) ||
+                    globals_1.EMPTY_CELL,
+            },
+            {
+                key: 'ADDRESS',
+                value: ((_j = transaction.client) === null || _j === void 0 ? void 0 : _j.address) ||
+                    ((_l = (_k = transaction.payment) === null || _k === void 0 ? void 0 : _k.creditor_account) === null || _l === void 0 ? void 0 : _l.home_address) ||
+                    globals_1.EMPTY_CELL,
+            },
+        ];
+    }
     const change = Number(transaction.payment.amount_tendered) - transaction.total_amount;
-    const previousTransactionOrNumber = (_c = (_b = (_a = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _a === void 0 ? void 0 : _a.previous_voided_transaction) === null || _b === void 0 ? void 0 : _b.invoice) === null || _c === void 0 ? void 0 : _c.or_number;
-    const newTransactionOrNumber = (_f = (_e = (_d = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _d === void 0 ? void 0 : _d.new_updated_transaction) === null || _e === void 0 ? void 0 : _e.invoice) === null || _f === void 0 ? void 0 : _f.or_number;
+    const previousTransactionOrNumber = (_p = (_o = (_m = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _m === void 0 ? void 0 : _m.previous_voided_transaction) === null || _o === void 0 ? void 0 : _o.invoice) === null || _p === void 0 ? void 0 : _p.or_number;
+    const newTransactionOrNumber = (_s = (_r = (_q = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _q === void 0 ? void 0 : _q.new_updated_transaction) === null || _r === void 0 ? void 0 : _r.invoice) === null || _s === void 0 ? void 0 : _s.or_number;
+    return {
+        title,
+        fields,
+        change,
+        previousTransactionOrNumber,
+        newTransactionOrNumber,
+    };
+};
+exports.getTransactionData = getTransactionData;
+const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
+    var _a;
+    const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, exports.getTransactionData)(transaction);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: transaction.branch_machine, siteSettings: siteSettings, title: title }),
         react_1.default.createElement("br", null),
@@ -189,7 +171,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
             react_1.default.createElement("span", null,
                 transaction.products.length,
                 " item(s)")),
-        react_1.default.createElement("div", null, ((_g = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _g === void 0 ? void 0 : _g.employee_id) || globals_1.EMPTY_CELL),
+        react_1.default.createElement("div", null, ((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || globals_1.EMPTY_CELL),
         react_1.default.createElement("br", null),
         previousTransactionOrNumber && (react_1.default.createElement("div", null,
             "Prev Invoice #: ",
@@ -210,12 +192,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                 display: 'flex',
                 flexDirection: 'column',
             } },
-            react_1.default.createElement("span", null, isReprint &&
-                transaction.status === globals_1.transactionStatuses.FULLY_PAID &&
-                'REPRINT ONLY'),
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, !isReprint &&
-                transaction.status === globals_1.transactionStatuses.FULLY_PAID &&
-                globals_1.INVOICE_LAST_MESSAGE),
+            transaction.status === globals_1.transactionStatuses.FULLY_PAID && (react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, isReprint ? 'REPRINT ONLY' : globals_1.INVOICE_LAST_MESSAGE)),
             react_1.default.createElement("span", null, [
                 globals_1.transactionStatuses.VOID_EDITED,
                 globals_1.transactionStatuses.VOID_CANCELLED,

@@ -27,7 +27,7 @@ export const getTxtHeader = ({
 	title,
 	branchMachine,
 	siteSettings,
-}: Props): (RowData | string)[] => {
+}: Props): RowData[] => {
 	const {
 		contact_number: contactNumber,
 		address_of_tax_payer: location = '',
@@ -61,8 +61,9 @@ export const getTxtHeader = ({
 		`MIN: ${machineID}`,
 		`SN: ${posTerminal}`,
 		TXT_LINE_BREAK,
-		title ? `[${title}]` : null,
+		title,
 	]
+		.filter(Boolean)
 		.filter((row) => typeof row === 'string')
 		.map((data) => ({ center: data }));
 };
@@ -79,9 +80,7 @@ export const getTxtPrintDetails = (user: User): (RowData | string)[] => {
 	return rowData;
 };
 
-export const getTxtFooter = (
-	siteSettings: SiteSettings,
-): (RowData | string)[] => {
+export const getTxtFooter = (siteSettings: SiteSettings): RowData[] => {
 	const {
 		software_developer: softwareDeveloper,
 		software_developer_address: softwareDeveloperAddress = '',
