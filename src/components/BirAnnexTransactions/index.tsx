@@ -18,25 +18,24 @@ import {
 	SPFields,
 } from '../../utils';
 import { ViewTransactionModal } from '../modals';
-import { tabs } from './data';
+import { birAnnexTransactionsTabs } from './data';
 
 type Props = {
+	category: string;
+	discountCode: SpecialDiscountCode;
+	isLoading: boolean;
+	siteSettings: SiteSettings;
 	transactions: Transaction[];
 	transactionsTotal: number;
-	discountCode: SpecialDiscountCode;
-	category: string;
-	isLoading: boolean;
-
-	siteSettings: SiteSettings;
 };
 
 export const BirAnnexTransactions = ({
-	transactions,
-	transactionsTotal,
 	category,
 	discountCode,
-	siteSettings,
 	isLoading,
+	siteSettings,
+	transactions,
+	transactionsTotal,
 }: Props) => {
 	const [dataSource, setDataSource] = useState<any>([]);
 	const [selectedTransaction, setSelectedTransaction] =
@@ -47,12 +46,12 @@ export const BirAnnexTransactions = ({
 	useEffect(() => {
 		if (transactions && discountCode) {
 			const listPwdSc = [
-				tabs.SENIOR_CITIZEN_SALES_REPORT,
-				tabs.PERSONS_WITH_DISABILITY_SALES_REPORT,
+				birAnnexTransactionsTabs.SENIOR_CITIZEN_SALES_REPORT,
+				birAnnexTransactionsTabs.PERSONS_WITH_DISABILITY_SALES_REPORT,
 			];
 			const listNaacSp = [
-				tabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT,
-				tabs.SOLO_PARENTS_SALES_REPORT,
+				birAnnexTransactionsTabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT,
+				birAnnexTransactionsTabs.SOLO_PARENTS_SALES_REPORT,
 			];
 
 			const data = transactions.map((transaction) => {
@@ -75,12 +74,17 @@ export const BirAnnexTransactions = ({
 					transaction.discount_option_additional_fields_values || '',
 				);
 
-				if (category === tabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT) {
+				if (
+					category ===
+					birAnnexTransactionsTabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT
+				) {
 					fields = fields as NaacFields;
 
 					content['coach'] = fields.coach;
 					content['id'] = fields.id;
-				} else if (category === tabs.SOLO_PARENTS_SALES_REPORT) {
+				} else if (
+					category === birAnnexTransactionsTabs.SOLO_PARENTS_SALES_REPORT
+				) {
 					fields = fields as SPFields;
 
 					content['name'] = fields.name;
@@ -88,13 +92,18 @@ export const BirAnnexTransactions = ({
 					content['childName'] = fields.childName;
 					content['childBirthdate'] = fields.childBirthdate;
 					content['childAge'] = fields.childAge;
-				} else if (category === tabs.SENIOR_CITIZEN_SALES_REPORT) {
+				} else if (
+					category === birAnnexTransactionsTabs.SENIOR_CITIZEN_SALES_REPORT
+				) {
 					fields = fields as SCFields;
 
 					content['name'] = fields.name;
 					content['id'] = fields.id;
 					content['tin'] = fields.tin;
-				} else if (category === tabs.PERSONS_WITH_DISABILITY_SALES_REPORT) {
+				} else if (
+					category ===
+					birAnnexTransactionsTabs.PERSONS_WITH_DISABILITY_SALES_REPORT
+				) {
 					fields = fields as PWDFields;
 
 					content['name'] = fields.name;
@@ -126,23 +135,23 @@ export const BirAnnexTransactions = ({
 
 	const getColumns = useCallback((): any => {
 		const categoryColumnsMap = {
-			[tabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT]: [
+			[birAnnexTransactionsTabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT]: [
 				{ title: 'Name of National Athlete/Coach', dataIndex: 'coach' },
 				{ title: 'PNSTM ID No.', dataIndex: 'id' },
 			],
-			[tabs.SOLO_PARENTS_SALES_REPORT]: [
+			[birAnnexTransactionsTabs.SOLO_PARENTS_SALES_REPORT]: [
 				{ title: 'Name of Solo Parent', dataIndex: 'name' },
 				{ title: 'SPIC No.', dataIndex: 'id' },
 				{ title: 'Name of child', dataIndex: 'childName' },
 				{ title: 'Birth Date of child', dataIndex: 'childBirthdate' },
 				{ title: 'Age of child', dataIndex: 'childAge' },
 			],
-			[tabs.SENIOR_CITIZEN_SALES_REPORT]: [
+			[birAnnexTransactionsTabs.SENIOR_CITIZEN_SALES_REPORT]: [
 				{ title: 'Name of Senior Citizen (SC)', dataIndex: 'name' },
 				{ title: 'OSCA ID No./ SC ID No.', dataIndex: 'id' },
 				{ title: 'SC TIN', dataIndex: 'tin' },
 			],
-			[tabs.PERSONS_WITH_DISABILITY_SALES_REPORT]: [
+			[birAnnexTransactionsTabs.PERSONS_WITH_DISABILITY_SALES_REPORT]: [
 				{ title: 'Name of Person with Disability (PWD)', dataIndex: 'name' },
 				{ title: 'PWD ID No.', dataIndex: 'id' },
 				{ title: 'PWD TIN', dataIndex: 'tin' },
@@ -168,10 +177,12 @@ export const BirAnnexTransactions = ({
 		];
 
 		const salesColumnsMap = {
-			[tabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT]: columnsNaacSp,
-			[tabs.SOLO_PARENTS_SALES_REPORT]: columnsNaacSp,
-			[tabs.SENIOR_CITIZEN_SALES_REPORT]: columnsScPwd,
-			[tabs.PERSONS_WITH_DISABILITY_SALES_REPORT]: columnsScPwd,
+			[birAnnexTransactionsTabs.NATIONAL_ATHLETES_AND_COACHES_SALES_REPORT]:
+				columnsNaacSp,
+			[birAnnexTransactionsTabs.SOLO_PARENTS_SALES_REPORT]: columnsNaacSp,
+			[birAnnexTransactionsTabs.SENIOR_CITIZEN_SALES_REPORT]: columnsScPwd,
+			[birAnnexTransactionsTabs.PERSONS_WITH_DISABILITY_SALES_REPORT]:
+				columnsScPwd,
 		};
 
 		return [

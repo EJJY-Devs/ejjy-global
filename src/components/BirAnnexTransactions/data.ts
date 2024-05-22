@@ -1,4 +1,4 @@
-export const tabs = {
+export const birAnnexTransactionsTabs = {
 	BIR_SALES_SUMMARY_REPORT: 'BIR Sales Summary',
 	SENIOR_CITIZEN_SALES_REPORT: 'Senior Citizen Sales Report',
 	PERSONS_WITH_DISABILITY_SALES_REPORT: 'Persons with Disability Sales Report',

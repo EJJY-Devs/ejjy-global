@@ -1,4 +1,4 @@
-export declare const tabs: {
+export declare const birAnnexTransactionsTabs: {
     BIR_SALES_SUMMARY_REPORT: string;
     SENIOR_CITIZEN_SALES_REPORT: string;
     PERSONS_WITH_DISABILITY_SALES_REPORT: string;
