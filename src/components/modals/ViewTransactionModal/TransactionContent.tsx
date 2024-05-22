@@ -269,7 +269,7 @@ export const TransactionContent = ({
 			<table style={{ width: '100%', paddingLeft: '4ch' }}>
 				{fields.map(({ key, value }) => (
 					<tr>
-						<td style={{ width: 80 }}>{key}:</td>
+						<td style={{ width: 130 }}>{key}:</td>
 						<td>{value}</td>
 					</tr>
 				))}

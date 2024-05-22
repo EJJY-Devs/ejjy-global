@@ -17,12 +17,12 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 	const address = orderOfPayment.payor.home_address;
 	const amount = formatInPeso(orderOfPayment.amount, PESO_SIGN);
 	const invoiceId =
-		orderOfPayment?.charge_sales_transaction?.invoice?.or_number || '&nbsp;';
+		orderOfPayment?.charge_sales_transaction?.invoice?.or_number || '';
 	const invoiceDate = orderOfPayment?.charge_sales_transaction
 		? formatDateTime(
 				orderOfPayment.charge_sales_transaction.invoice.datetime_created,
 			)
-		: '&nbsp;';
+		: '';
 
 	let purposeDescription = orderOfPayment.extra_description;
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT) {

@@ -180,7 +180,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
             "New Invoice #: ",
             newTransactionOrNumber)),
         react_1.default.createElement("table", { style: { width: '100%', paddingLeft: '4ch' } }, fields.map(({ key, value }) => (react_1.default.createElement("tr", null,
-            react_1.default.createElement("td", { style: { width: 80 } },
+            react_1.default.createElement("td", { style: { width: 130 } },
                 key,
                 ":"),
             react_1.default.createElement("td", null, value))))),

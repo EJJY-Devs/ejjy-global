@@ -16,10 +16,10 @@ const printOrderOfPayment = (orderOfPayment) => {
     const payor = (0, utils_1.getFullName)(orderOfPayment.payor);
     const address = orderOfPayment.payor.home_address;
     const amount = (0, utils_1.formatInPeso)(orderOfPayment.amount, helper_receipt_1.PESO_SIGN);
-    const invoiceId = ((_b = (_a = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction) === null || _a === void 0 ? void 0 : _a.invoice) === null || _b === void 0 ? void 0 : _b.or_number) || '&nbsp;';
+    const invoiceId = ((_b = (_a = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction) === null || _a === void 0 ? void 0 : _a.invoice) === null || _b === void 0 ? void 0 : _b.or_number) || '';
     const invoiceDate = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction)
         ? (0, utils_1.formatDateTime)(orderOfPayment.charge_sales_transaction.invoice.datetime_created)
-        : '&nbsp;';
+        : '';
     let purposeDescription = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
         purposeDescription = 'Partial Payment';
