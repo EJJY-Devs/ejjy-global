@@ -3,9 +3,13 @@ import { ServiceType } from '../globals';
 import { DiscountOption } from '../types';
 import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
+export interface Params extends ListQueryParams {
+	is_special_discount?: boolean;
+}
+
 const service = {
 	list: async (
-		params: ListQueryParams,
+		params: Params,
 		baseURL?: string,
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
