@@ -28,7 +28,7 @@ const useDiscountOptions = (
 					{
 						page: params?.page || DEFAULT_PAGE,
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-						is_special_discount: params?.isSpecialDiscount || undefined,
+						is_special_discount: params?.isSpecialDiscount,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,
