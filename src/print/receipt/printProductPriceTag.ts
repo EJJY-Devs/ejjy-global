@@ -22,7 +22,7 @@ export const printProductPriceTag = (
 	return `
 	<div style="
     width: ${paperSettings.paperWidth}mm;
-    height: ${paperSettings.paperHeight - 0.5}mm;
+    height: ${paperSettings.paperHeight - 0.25}mm;
     padding: 1mm 1mm;
     display: flex;
     flex-direction: column;
@@ -33,7 +33,7 @@ export const printProductPriceTag = (
     overflow:hidden;
   ">
     <div style="height: 2.2em; overflow: hidden; font-size: 1em; line-height: 1.1em;">${name}</div>
-    <div style="width: 100%; margin: 6px 0; border-bottom: 0.25px solid black;"></div>
+    <div style="width: 100%; margin: 4px 0; border-bottom: 0.25px solid black;"></div>
     <div style="font-size: 1.23em; text-align: right;">${price}</div>
     <div style="margin-top: auto; font-size: 0.46em; text-align: center; line-height: 100%;">${
 			siteSettings?.store_name
