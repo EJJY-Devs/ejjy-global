@@ -23,7 +23,7 @@ export const printProductPriceTag = (
 	<div style="
     width: ${paperSettings.paperWidth}mm;
     height: ${paperSettings.paperHeight - 0.25}mm;
-    padding: 1mm 1mm;
+    padding: 1mm 1.5mm;
     display: flex;
     flex-direction: column;
     font-size: ${paperSettings.fontSize}px;
