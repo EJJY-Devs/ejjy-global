@@ -14,7 +14,7 @@ export const printProductPriceTag = (
 	siteSettings: SiteSettings,
 	paperSettings: PaperSettings,
 ) => {
-	const name =
+	const productName =
 		(product.name || product.price_tag_print_details)?.replace('\n', '<br/>') ||
 		EMPTY_CELL;
 	const price = formatInPeso(product.price_per_piece, PESO_SIGN);
@@ -32,7 +32,7 @@ export const printProductPriceTag = (
     color: black;
     overflow:hidden;
   ">
-    <div style="height: 2.2em; overflow: hidden; font-size: 1em; line-height: 1.1em;">${name}</div>
+    <div style="height: 2.2em; overflow: hidden; font-size: 1em; line-height: 1.1em;">${productName}</div>
     <div style="width: 100%; margin: 4px 0; border-bottom: 0.25px solid black;"></div>
     <div style="font-size: 1.23em; text-align: right;">${price}</div>
     <div style="margin-top: auto; font-size: 0.46em; text-align: center; line-height: 100%;">${
