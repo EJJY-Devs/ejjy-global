@@ -74,6 +74,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
         setTimeout(() => {
             pdf.html(dataHtml, {
                 margin: 10,
+                autoPaging: false,
                 callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
