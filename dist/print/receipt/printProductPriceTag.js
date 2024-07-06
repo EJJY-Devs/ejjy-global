@@ -11,7 +11,7 @@ const printProductPriceTag = (product, siteSettings, paperSettings) => {
     return `
 	<div style="
     width: ${paperSettings.paperWidth}mm;
-    height: ${paperSettings.paperHeight}mm;
+    height: ${Math.floor(paperSettings.paperHeight * 0.9)}mm;
     padding: 1mm 2mm 0 2mm;
     display: flex;
     flex-direction: column;
