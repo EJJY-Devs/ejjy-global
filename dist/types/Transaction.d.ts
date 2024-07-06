@@ -63,11 +63,12 @@ export interface AdjustmentRemark {
     back_order: BackOrder;
     discount_option: DiscountOption;
 }
+export type TransactionStatus = 'new' | 'hold' | 'void_cancelled' | 'void_edited' | 'fully_paid';
 export interface Transaction {
     id: number;
     datetime_created: string;
     overall_discount: string;
-    status: 'new' | 'hold' | 'void_cancelled' | 'void_edited' | 'fully_paid';
+    status: TransactionStatus;
     client: Client;
     reverse: string;
     gross_amount: number;
