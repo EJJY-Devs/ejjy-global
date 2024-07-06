@@ -373,12 +373,19 @@ export const getDiscountFields = (
 ) => {
 	const fields = JSON.parse(fieldsJSON);
 
-	if (discountCode === specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES) {
+	const lowerDiscountCode = discountCode.toLowerCase();
+
+	if (
+		lowerDiscountCode ===
+		specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES.toLowerCase()
+	) {
 		return {
 			id: fields?.['PNSTM ID'] || EMPTY_CELL,
 			coach: fields?.['Name'] || EMPTY_CELL,
 		} as NaacFields;
-	} else if (discountCode === specialDiscountCodes.SOLO_PARENTS) {
+	} else if (
+		lowerDiscountCode === specialDiscountCodes.SOLO_PARENTS.toLowerCase()
+	) {
 		return {
 			id: fields?.['SPIC No.'] || EMPTY_CELL,
 			name: fields?.['Name of Parent'] || EMPTY_CELL,
@@ -386,13 +393,18 @@ export const getDiscountFields = (
 			childBirthdate: fields?.['Birth Date of Child'] || EMPTY_CELL,
 			childAge: fields?.['Age of Child'] || EMPTY_CELL,
 		} as SPFields;
-	} else if (discountCode === specialDiscountCodes.SENIOR_CITIZEN) {
+	} else if (
+		lowerDiscountCode === specialDiscountCodes.SENIOR_CITIZEN.toLowerCase()
+	) {
 		return {
 			name: fields?.['Name'] || EMPTY_CELL,
 			id: fields?.['ID no.'] || EMPTY_CELL,
 			tin: fields?.['TIN'] || EMPTY_CELL,
 		} as SCFields;
-	} else if (discountCode === specialDiscountCodes.PERSONS_WITH_DISABILITY) {
+	} else if (
+		lowerDiscountCode ===
+		specialDiscountCodes.PERSONS_WITH_DISABILITY.toLowerCase()
+	) {
 		return {
 			name: fields?.['Name'] || EMPTY_CELL,
 			id: fields?.['ID no.'] || EMPTY_CELL,

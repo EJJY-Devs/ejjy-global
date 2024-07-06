@@ -265,13 +265,15 @@ const showErrorMessages = (errors) => {
 exports.showErrorMessages = showErrorMessages;
 const getDiscountFields = (discountCode, fieldsJSON) => {
     const fields = JSON.parse(fieldsJSON);
-    if (discountCode === globals_1.specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES) {
+    const lowerDiscountCode = discountCode.toLowerCase();
+    if (lowerDiscountCode ===
+        globals_1.specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES.toLowerCase()) {
         return {
             id: (fields === null || fields === void 0 ? void 0 : fields['PNSTM ID']) || globals_1.EMPTY_CELL,
             coach: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
         };
     }
-    else if (discountCode === globals_1.specialDiscountCodes.SOLO_PARENTS) {
+    else if (lowerDiscountCode === globals_1.specialDiscountCodes.SOLO_PARENTS.toLowerCase()) {
         return {
             id: (fields === null || fields === void 0 ? void 0 : fields['SPIC No.']) || globals_1.EMPTY_CELL,
             name: (fields === null || fields === void 0 ? void 0 : fields['Name of Parent']) || globals_1.EMPTY_CELL,
@@ -280,14 +282,15 @@ const getDiscountFields = (discountCode, fieldsJSON) => {
             childAge: (fields === null || fields === void 0 ? void 0 : fields['Age of Child']) || globals_1.EMPTY_CELL,
         };
     }
-    else if (discountCode === globals_1.specialDiscountCodes.SENIOR_CITIZEN) {
+    else if (lowerDiscountCode === globals_1.specialDiscountCodes.SENIOR_CITIZEN.toLowerCase()) {
         return {
             name: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
             id: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
             tin: (fields === null || fields === void 0 ? void 0 : fields['TIN']) || globals_1.EMPTY_CELL,
         };
     }
-    else if (discountCode === globals_1.specialDiscountCodes.PERSONS_WITH_DISABILITY) {
+    else if (lowerDiscountCode ===
+        globals_1.specialDiscountCodes.PERSONS_WITH_DISABILITY.toLowerCase()) {
         return {
             name: (fields === null || fields === void 0 ? void 0 : fields['Name']) || globals_1.EMPTY_CELL,
             id: (fields === null || fields === void 0 ? void 0 : fields['ID no.']) || globals_1.EMPTY_CELL,
