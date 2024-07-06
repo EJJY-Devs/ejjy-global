@@ -100,10 +100,10 @@ export const printBirReport = (
 
 							<th rowSpan={3}>VAT Payable</th>
 							<th rowSpan={3}>Net Sales</th>
-							<th rowSpan={3}>Other Income</th>
-							<th rowSpan={3}>Sales Overrun/ Overflow</th>
-							<th rowSpan={3}>Total Net Sales</th>
+							<th rowSpan={3}>Sales Overrun/Overflow</th>
+							<th rowSpan={3}>Total Income</th>
 							<th rowSpan={3}>Reset Counter</th>
+							<th rowSpan={3}>Z-Counter</th>
 							<th rowSpan={3}>Remarks</th>
 						</tr>
 
