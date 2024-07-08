@@ -9,6 +9,10 @@ const react_1 = __importDefault(require("react"));
 const utils_1 = require("../../../utils");
 exports.birReportStyles = react_1.default.createElement('style', {}, [
     `
+    body {
+      max-width: 2100px;
+    }
+
     body .bir-reports-pdf {
       font-family: Helvetica, monospace;
       font-size: 12px;
