@@ -1,7 +1,7 @@
-import { jsPDFOptions } from 'jspdf';
+import jsPDF, { jsPDFOptions } from 'jspdf';
 type UsePDFProps = {
     title?: string;
-    print: (() => string | undefined) | (() => Promise<string | undefined>);
+    print: ((pdf: jsPDF) => string | undefined) | ((pdf: jsPDF) => Promise<string | undefined>);
     jsPdfSettings?: jsPDFOptions;
     image?: {
         src: string;

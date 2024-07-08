@@ -12,7 +12,9 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 
 type UsePDFProps = {
 	title?: string;
-	print: (() => string | undefined) | (() => Promise<string | undefined>);
+	print:
+		| ((pdf: jsPDF) => string | undefined)
+		| ((pdf: jsPDF) => Promise<string | undefined>);
 	jsPdfSettings?: jsPDFOptions;
 	image?: {
 		src: string;
@@ -35,7 +37,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 
 		try {
 			// Correctly resolving the type of dataHtml here.
-			const dataHtml = typeof print === 'function' ? print() : undefined;
+			const dataHtml = typeof print === 'function' ? print(pdf) : undefined;
 
 			if (dataHtml instanceof Promise) {
 				// If dataHtml is a Promise, await it.

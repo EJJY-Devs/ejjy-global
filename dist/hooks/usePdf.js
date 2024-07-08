@@ -30,7 +30,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
         pdf.setProperties({ title });
         try {
             // Correctly resolving the type of dataHtml here.
-            const dataHtml = typeof print === 'function' ? print() : undefined;
+            const dataHtml = typeof print === 'function' ? print(pdf) : undefined;
             if (dataHtml instanceof Promise) {
                 // If dataHtml is a Promise, await it.
                 const resolvedDataHtml = yield dataHtml;
