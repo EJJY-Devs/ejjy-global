@@ -71,7 +71,7 @@ const usePdf = ({
 			if (containerRef?.current) {
 				JSPDF_SETTINGS.format = [
 					containerRef?.current.offsetWidth || FORMAT_WIDTH,
-					containerRef?.current.offsetHeight || FORMAT_HEIGHT,
+					(containerRef?.current.offsetHeight || FORMAT_HEIGHT) * 1.25,
 				];
 
 				console.log(containerRef?.current);

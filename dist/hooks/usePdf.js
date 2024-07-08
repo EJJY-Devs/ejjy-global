@@ -56,7 +56,7 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
             if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) {
                 JSPDF_SETTINGS.format = [
                     (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || FORMAT_WIDTH,
-                    (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT,
+                    ((containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT) * 1.25,
                 ];
                 console.log(containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
                 console.log(JSPDF_SETTINGS.format);
