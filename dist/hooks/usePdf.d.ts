@@ -1,9 +1,9 @@
-import jsPDF, { jsPDFOptions } from 'jspdf';
+import { jsPDFOptions } from 'jspdf';
 import { MutableRefObject } from 'react';
 type UsePDFProps = {
     containerRef?: MutableRefObject<HTMLDivElement>;
     title?: string;
-    print: ((pdf: jsPDF) => string | undefined) | ((pdf: jsPDF) => Promise<string | undefined>);
+    print: (() => string | undefined) | (() => Promise<string | undefined>);
     jsPdfSettings?: jsPDFOptions;
     image?: {
         src: string;

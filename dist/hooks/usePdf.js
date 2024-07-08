@@ -15,10 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jspdf_1 = __importDefault(require("jspdf"));
 const react_1 = require("react");
 const TIMEOUT_MS = 2000;
+const FORMAT_WIDTH = 400;
+const FORMAT_HEIGHT = 400;
 const JSPDF_SETTINGS = {
     orientation: 'p',
     unit: 'px',
-    format: [400, 2000],
     hotfixes: ['px_scaling'],
 };
 const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
@@ -26,21 +27,19 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     const handlePdfAction = (actionCallback) => __awaiter(void 0, void 0, void 0, function* () {
         setLoadingPdf(true);
-        const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
-        pdf.setProperties({ title });
         try {
             // Correctly resolving the type of dataHtml here.
-            const dataHtml = typeof print === 'function' ? print(pdf) : undefined;
+            const dataHtml = typeof print === 'function' ? print() : undefined;
             if (dataHtml instanceof Promise) {
                 // If dataHtml is a Promise, await it.
                 const resolvedDataHtml = yield dataHtml;
                 if (resolvedDataHtml) {
-                    processPdfData(pdf, resolvedDataHtml, actionCallback);
+                    performPdfOperation(resolvedDataHtml, actionCallback);
                 }
             }
             else if (typeof dataHtml === 'string') {
                 // If dataHtml is a string, process it directly.
-                processPdfData(pdf, dataHtml, actionCallback);
+                performPdfOperation(dataHtml, actionCallback);
             }
         }
         catch (error) {
@@ -50,40 +49,22 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
             setLoadingPdf(false);
         }
     });
-    const processPdfData = (pdf, dataHtml, callback) => {
-        console.log('dataHtml', dataHtml);
+    const performPdfOperation = (dataHtml, callback) => {
         setHtmlPdf(dataHtml);
-        if (image) {
-            const img = new Image();
-            img.onload = () => addImageToPdf(img, pdf, dataHtml, callback);
-            img.onerror = () => {
-                console.error('Failed to load image');
-                setLoadingPdf(false);
-            };
-            img.src = image.src;
-        }
-        else {
-            performPdfOperation(pdf, dataHtml, callback);
-        }
-    };
-    const addImageToPdf = (img, pdf, dataHtml, callback) => {
-        pdf.addImage(img, 'png', image.x, image.y, image.w, image.h);
-        performPdfOperation(pdf, dataHtml, callback);
-    };
-    const performPdfOperation = (pdf, dataHtml, callback) => {
-        console.log('containerRef?.current', containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
+        console.log('dataHtml', dataHtml);
         setTimeout(() => {
-            let html2canvasOptions = {};
-            if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) {
-                console.log('containerRef?.current', containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
-                html2canvasOptions.width = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || 0;
-                html2canvasOptions.height = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || 0;
-                console.log('html2canvasOptions', html2canvasOptions);
+            if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) {
+                JSPDF_SETTINGS.format = [
+                    (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || FORMAT_WIDTH,
+                    (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT,
+                ];
             }
+            const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
+            pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
+            pdf.setProperties({ title });
             pdf.html(dataHtml, {
                 margin: 10,
                 autoPaging: false,
-                html2canvas: html2canvasOptions,
                 callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
