@@ -60,8 +60,10 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
                 ];
             }
             const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
-            pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             pdf.setProperties({ title });
+            if (image) {
+                pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
+            }
             pdf.html(dataHtml, {
                 margin: 10,
                 autoPaging: false,

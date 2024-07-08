@@ -76,8 +76,11 @@ const usePdf = ({
 			}
 
 			const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
-			pdf.addImage(image!.src, 'png', image!.x, image!.y, image!.w, image!.h);
 			pdf.setProperties({ title });
+
+			if (image) {
+				pdf.addImage(image!.src, 'png', image!.x, image!.y, image!.w, image!.h);
+			}
 
 			pdf.html(dataHtml, {
 				margin: 10,
