@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jspdf_1 = __importDefault(require("jspdf"));
 const react_1 = require("react");
-const TIMEOUT_MS = 2000;
+const TIMEOUT_MS = 3000;
 const FORMAT_WIDTH = 400;
-const FORMAT_HEIGHT = 400;
+const FORMAT_HEIGHT = 2000;
 const JSPDF_SETTINGS = {
     orientation: 'p',
     unit: 'px',
@@ -53,7 +53,7 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
         setHtmlPdf(dataHtml);
         console.log('dataHtml', dataHtml);
         setTimeout(() => {
-            if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) {
+            if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) {
                 JSPDF_SETTINGS.format = [
                     (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || FORMAT_WIDTH,
                     (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT,

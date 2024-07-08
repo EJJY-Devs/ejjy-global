@@ -1,10 +1,10 @@
 import jsPDF, { jsPDFOptions } from 'jspdf';
 import { MutableRefObject, useState } from 'react';
 
-const TIMEOUT_MS = 2000;
+const TIMEOUT_MS = 3000;
 
 const FORMAT_WIDTH = 400;
-const FORMAT_HEIGHT = 400;
+const FORMAT_HEIGHT = 2000;
 
 const JSPDF_SETTINGS: jsPDFOptions = {
 	orientation: 'p',
@@ -68,7 +68,7 @@ const usePdf = ({
 		console.log('dataHtml', dataHtml);
 
 		setTimeout(() => {
-			if (containerRef?.current.offsetWidth) {
+			if (containerRef?.current) {
 				JSPDF_SETTINGS.format = [
 					containerRef?.current.offsetWidth || FORMAT_WIDTH,
 					containerRef?.current.offsetHeight || FORMAT_HEIGHT,
