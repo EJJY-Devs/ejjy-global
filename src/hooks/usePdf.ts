@@ -100,6 +100,13 @@ const usePdf = ({
 	) => {
 		console.log('containerRef?.current', containerRef?.current);
 		setTimeout(() => {
+			if (containerRef?.current) {
+				console.log('containerRef?.current', containerRef?.current);
+				pdf.internal.pageSize.width = containerRef?.current.offsetWidth || 0;
+				pdf.internal.pageSize.height = containerRef?.current.offsetHeight || 0;
+				console.log('pdf.internal.pageSize', pdf.internal.pageSize);
+			}
+
 			pdf.html(dataHtml, {
 				margin: 10,
 				autoPaging: false,
