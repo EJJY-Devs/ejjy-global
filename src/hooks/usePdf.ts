@@ -98,7 +98,7 @@ const usePdf = ({
 		dataHtml: string,
 		callback: (instance: jsPDF) => void,
 	) => {
-		console.log(containerRef?.current);
+		console.log('containerRef?.current', containerRef?.current);
 		setTimeout(() => {
 			pdf.html(dataHtml, {
 				margin: 10,

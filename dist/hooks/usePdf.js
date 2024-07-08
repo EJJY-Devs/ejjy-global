@@ -71,7 +71,7 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
         performPdfOperation(pdf, dataHtml, callback);
     };
     const performPdfOperation = (pdf, dataHtml, callback) => {
-        console.log(containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
+        console.log('containerRef?.current', containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
         setTimeout(() => {
             pdf.html(dataHtml, {
                 margin: 10,
