@@ -58,6 +58,8 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
                     (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || FORMAT_WIDTH,
                     (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT,
                 ];
+                console.log(containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
+                console.log(JSPDF_SETTINGS.format);
             }
             const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
             pdf.setProperties({ title });
@@ -70,7 +72,6 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
                 callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
-                    setHtmlPdf('');
                 },
             });
         }, TIMEOUT_MS);

@@ -73,6 +73,10 @@ const usePdf = ({
 					containerRef?.current.offsetWidth || FORMAT_WIDTH,
 					containerRef?.current.offsetHeight || FORMAT_HEIGHT,
 				];
+
+				console.log(containerRef?.current);
+
+				console.log(JSPDF_SETTINGS.format);
 			}
 
 			const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
@@ -88,7 +92,6 @@ const usePdf = ({
 				callback: (instance) => {
 					callback(instance);
 					setLoadingPdf(false);
-					setHtmlPdf('');
 				},
 			});
 		}, TIMEOUT_MS);
