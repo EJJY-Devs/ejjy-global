@@ -73,15 +73,17 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
     const performPdfOperation = (pdf, dataHtml, callback) => {
         console.log('containerRef?.current', containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
         setTimeout(() => {
+            let html2canvasOptions = {};
             if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) {
                 console.log('containerRef?.current', containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
-                pdf.internal.pageSize.width = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || 0;
-                pdf.internal.pageSize.height = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || 0;
-                console.log('pdf.internal.pageSize', pdf.internal.pageSize);
+                html2canvasOptions.width = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || 0;
+                html2canvasOptions.height = (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || 0;
+                console.log('html2canvasOptions', html2canvasOptions);
             }
             pdf.html(dataHtml, {
                 margin: 10,
                 autoPaging: false,
+                html2canvas: html2canvasOptions,
                 callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);

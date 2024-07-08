@@ -1,4 +1,4 @@
-import jsPDF, { jsPDFOptions } from 'jspdf';
+import jsPDF, { Html2CanvasOptions, jsPDFOptions } from 'jspdf';
 import { MutableRefObject, useState } from 'react';
 
 const TIMEOUT_MS = 2000;
@@ -100,16 +100,18 @@ const usePdf = ({
 	) => {
 		console.log('containerRef?.current', containerRef?.current);
 		setTimeout(() => {
+			let html2canvasOptions: Html2CanvasOptions = {};
 			if (containerRef?.current) {
 				console.log('containerRef?.current', containerRef?.current);
-				pdf.internal.pageSize.width = containerRef?.current.offsetWidth || 0;
-				pdf.internal.pageSize.height = containerRef?.current.offsetHeight || 0;
-				console.log('pdf.internal.pageSize', pdf.internal.pageSize);
+				html2canvasOptions.width = containerRef?.current.offsetWidth || 0;
+				html2canvasOptions.height = containerRef?.current.offsetHeight || 0;
+				console.log('html2canvasOptions', html2canvasOptions);
 			}
 
 			pdf.html(dataHtml, {
 				margin: 10,
 				autoPaging: false,
+				html2canvas: html2canvasOptions,
 				callback: (instance) => {
 					callback(instance);
 					setLoadingPdf(false);
