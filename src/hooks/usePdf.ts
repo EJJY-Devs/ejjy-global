@@ -1,5 +1,5 @@
 import jsPDF, { jsPDFOptions } from 'jspdf';
-import { useState } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 const TIMEOUT_MS = 2000;
 
@@ -11,6 +11,7 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 };
 
 type UsePDFProps = {
+	containerRef?: MutableRefObject<HTMLDivElement>;
 	title?: string;
 	print:
 		| ((pdf: jsPDF) => string | undefined)
@@ -25,7 +26,13 @@ type UsePDFProps = {
 	};
 };
 
-const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
+const usePdf = ({
+	title = '',
+	containerRef,
+	print,
+	jsPdfSettings,
+	image,
+}: UsePDFProps) => {
 	const [htmlPdf, setHtmlPdf] = useState<string>('');
 	const [isLoadingPdf, setLoadingPdf] = useState<boolean>(false);
 
@@ -91,6 +98,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }: UsePDFProps) => {
 		dataHtml: string,
 		callback: (instance: jsPDF) => void,
 	) => {
+		console.log(containerRef?.current);
 		setTimeout(() => {
 			pdf.html(dataHtml, {
 				margin: 10,

@@ -21,7 +21,7 @@ const JSPDF_SETTINGS = {
     format: [400, 2000],
     hotfixes: ['px_scaling'],
 };
-const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
+const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
     const [htmlPdf, setHtmlPdf] = (0, react_1.useState)('');
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     const handlePdfAction = (actionCallback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,6 +71,7 @@ const usePdf = ({ title = '', print, jsPdfSettings, image }) => {
         performPdfOperation(pdf, dataHtml, callback);
     };
     const performPdfOperation = (pdf, dataHtml, callback) => {
+        console.log(containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
         setTimeout(() => {
             pdf.html(dataHtml, {
                 margin: 10,
