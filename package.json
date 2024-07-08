@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.293",
+	"version": "0.0.294",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -22,14 +22,14 @@
 	"peerDependencies": {
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-router-dom": "^5.2.0"
+		"react-router-dom": "^5.2.0",
+		"jspdf": "^2.5.1"
 	},
 	"dependencies": {
 		"antd": "^4.24.8",
 		"axios": "^0.20.0",
 		"dayjs": "^1.11.9",
 		"formik": "2.2.6",
-		"jspdf": "^2.5.1",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
 		"query-string": "^7.1.3",
