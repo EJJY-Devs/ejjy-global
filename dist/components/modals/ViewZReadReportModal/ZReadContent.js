@@ -79,7 +79,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: 'Z Counter No.:',
-                    value: report.z_counter,
+                    value: report.gross_sales === 0 ? globals_1.EMPTY_CELL : report.z_counter,
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),

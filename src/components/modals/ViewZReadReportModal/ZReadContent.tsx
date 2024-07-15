@@ -110,7 +110,7 @@ export const ZReadContent = ({
 				},
 				{
 					label: 'Z Counter No.:',
-					value: report.z_counter,
+					value: report.gross_sales === 0 ? EMPTY_CELL : report.z_counter,
 				},
 			]}
 		/>
