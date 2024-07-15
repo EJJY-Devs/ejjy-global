@@ -10,6 +10,7 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 	orientation: 'p',
 	unit: 'px',
 	hotfixes: ['px_scaling'],
+	format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
 
 type UsePDFProps = {
@@ -87,7 +88,7 @@ const usePdf = ({
 			}
 
 			pdf.html(dataHtml, {
-				margin: 10,
+				margin: 20,
 				autoPaging: false,
 				callback: (instance) => {
 					callback(instance);

@@ -29,8 +29,10 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 (0, utils_1.formatTime)(report.generation_datetime)))),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Day Datetime"),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            (0, utils_1.formatDate)(report.datetime_created),
-            " |",
+            report.branch_day_open_datetime &&
+                (0, utils_1.formatDate)(report.branch_day_open_datetime),
+            ' ',
+            "|",
             ' ',
             [
                 report.branch_day_open_datetime
@@ -77,7 +79,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: 'Z Counter No.:',
-                    value: report.id,
+                    value: report.z_counter,
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),

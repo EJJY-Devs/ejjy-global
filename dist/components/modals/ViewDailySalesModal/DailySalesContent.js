@@ -29,7 +29,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 (0, utils_1.formatTime)(dailySales.generation_datetime)))),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Day Datetime"),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            (0, utils_1.formatDate)(dailySales.datetime_created),
+            (0, utils_1.formatDate)(dailySales.daily_sales_data.branch_day_open_datetime),
             " |",
             ' ',
             [

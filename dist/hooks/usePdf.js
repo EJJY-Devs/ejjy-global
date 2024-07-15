@@ -21,6 +21,7 @@ const JSPDF_SETTINGS = {
     orientation: 'p',
     unit: 'px',
     hotfixes: ['px_scaling'],
+    format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
 const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
     const [htmlPdf, setHtmlPdf] = (0, react_1.useState)('');
@@ -67,7 +68,7 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
             pdf.html(dataHtml, {
-                margin: 10,
+                margin: 20,
                 autoPaging: false,
                 callback: (instance) => {
                     callback(instance);

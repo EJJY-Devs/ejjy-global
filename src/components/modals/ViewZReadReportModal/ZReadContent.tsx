@@ -54,7 +54,9 @@ export const ZReadContent = ({
 		)}
 		<div style={{ textAlign: 'center' }}>Day Datetime</div>
 		<div style={{ textAlign: 'center' }}>
-			{formatDate(report.datetime_created)} |{' '}
+			{report.branch_day_open_datetime &&
+				formatDate(report.branch_day_open_datetime)}{' '}
+			|{' '}
 			{[
 				report.branch_day_open_datetime
 					? formatTime(report.branch_day_open_datetime)
@@ -108,7 +110,7 @@ export const ZReadContent = ({
 				},
 				{
 					label: 'Z Counter No.:',
-					value: report.id,
+					value: report.z_counter,
 				},
 			]}
 		/>

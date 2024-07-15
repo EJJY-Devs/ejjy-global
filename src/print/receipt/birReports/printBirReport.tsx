@@ -88,7 +88,7 @@ export const printBirReport = (
 							<th rowSpan={3}>Grand Accum. Sales Ending Balance</th>
 							<th rowSpan={3}>Grand Accum. Sales Beg. Balance</th>
 							<th rowSpan={3}>Sales Issued w/ Manual SI/OR (per RR 16-2018)</th>
-							<th rowSpan={3}>Gross Sales for the Day</th>
+							<th rowSpan={3}>Gross Sales of the Day</th>
 
 							<th rowSpan={3}>VATable Sales</th>
 							<th rowSpan={3}>VAT Amount</th>

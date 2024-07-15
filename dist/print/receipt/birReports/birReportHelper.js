@@ -12,7 +12,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     .bir-reports-pdf {
       font-family: Helvetica, monospace;
       font-size: 12px;
-      max-width: 2100px;
+      max-width: 2050px;
     }
 
     table.bir-reports,

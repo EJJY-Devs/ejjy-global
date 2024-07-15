@@ -54,7 +54,7 @@ export const DailySalesContent = ({
 		)}
 		<div style={{ textAlign: 'center' }}>Day Datetime</div>
 		<div style={{ textAlign: 'center' }}>
-			{formatDate(dailySales.datetime_created)} |{' '}
+			{formatDate(dailySales.daily_sales_data.branch_day_open_datetime)} |{' '}
 			{[
 				dailySales.daily_sales_data.branch_day_open_datetime
 					? formatTime(dailySales.daily_sales_data.branch_day_open_datetime)

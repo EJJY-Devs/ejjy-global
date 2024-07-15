@@ -150,5 +150,6 @@ export interface ZReadReport {
     current_day_deductions: number;
     current_day_vat_deductions: number;
     current_day_net_sales: number;
+    z_counter: number;
 }
 export {};

@@ -62,7 +62,7 @@ const printBirReport = (birReports, siteSettings, user, branchMachine) => {
                         react_1.default.createElement("th", { rowSpan: 3 }, "Grand Accum. Sales Ending Balance"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "Grand Accum. Sales Beg. Balance"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "Sales Issued w/ Manual SI/OR (per RR 16-2018)"),
-                        react_1.default.createElement("th", { rowSpan: 3 }, "Gross Sales for the Day"),
+                        react_1.default.createElement("th", { rowSpan: 3 }, "Gross Sales of the Day"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "VATable Sales"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "VAT Amount"),
                         react_1.default.createElement("th", { rowSpan: 3 }, "VAT-Exempt Sales"),
