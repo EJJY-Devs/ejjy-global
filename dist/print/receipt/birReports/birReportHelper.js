@@ -11,6 +11,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     `
     .bir-reports-pdf {
       max-width: 2300px;
+      min-width: 2000px;
     }
 
     .bir-reports-pdf * {
@@ -21,6 +22,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     table.bir-reports,
     .bir-report-header div.details,
     .bir-report-header .title {
+      min-width: 2000px;
       width: 100%;
     }
 
