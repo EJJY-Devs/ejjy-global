@@ -10,9 +10,12 @@ const utils_1 = require("../../../utils");
 exports.birReportStyles = react_1.default.createElement('style', {}, [
     `
     .bir-reports-pdf {
+      max-width: 2300px;
+    }
+
+    .bir-reports-pdf * {
       font-family: Helvetica, monospace;
       font-size: 12px;
-      max-width: 2050px;
     }
 
     table.bir-reports,

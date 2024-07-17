@@ -6,9 +6,12 @@ import { formatDateTime } from '../../../utils';
 export const birReportStyles = React.createElement('style', {}, [
 	`
     .bir-reports-pdf {
+      max-width: 2300px;
+    }
+
+    .bir-reports-pdf * {
       font-family: Helvetica, monospace;
       font-size: 12px;
-      max-width: 2050px;
     }
 
     table.bir-reports,
