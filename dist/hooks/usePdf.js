@@ -23,7 +23,7 @@ const JSPDF_SETTINGS = {
     hotfixes: ['px_scaling'],
     format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
-const usePdf = ({ title = '', container, print, jsPdfSettings, image, }) => {
+const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, image, }) => {
     const [htmlPdf, setHtmlPdf] = (0, react_1.useState)('');
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     const handlePdfAction = (actionCallback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,8 +45,6 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, image, }) => {
         }
         catch (error) {
             console.error(error);
-        }
-        finally {
             setLoadingPdf(false);
         }
     });
@@ -69,15 +67,10 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, image, }) => {
             if (image) {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
-            pdf.html(dataHtml, {
-                margin: 20,
-                x: 10,
-                y: 10,
-                callback: (instance) => {
+            pdf.html(dataHtml, Object.assign(Object.assign({ margin: 20, x: 10, y: 10 }, htmlOptions), { callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
-                },
-            });
+                } }));
         }, TIMEOUT_MS);
     };
     const previewPdf = () => {

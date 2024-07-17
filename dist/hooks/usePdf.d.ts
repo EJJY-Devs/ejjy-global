@@ -1,4 +1,4 @@
-import { jsPDFOptions } from 'jspdf';
+import { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { MutableRefObject } from 'react';
 type ContainerProps = {
     containerRef?: MutableRefObject<HTMLDivElement>;
@@ -10,6 +10,7 @@ type UsePDFProps = {
     title?: string;
     print: (() => string | undefined) | (() => Promise<string | undefined>);
     jsPdfSettings?: jsPDFOptions;
+    htmlOptions?: HTMLOptions;
     image?: {
         src: string;
         x: number;
@@ -18,7 +19,7 @@ type UsePDFProps = {
         h: number;
     };
 };
-declare const usePdf: ({ title, container, print, jsPdfSettings, image, }: UsePDFProps) => {
+declare const usePdf: ({ title, container, print, jsPdfSettings, htmlOptions, image, }: UsePDFProps) => {
     htmlPdf: string;
     isLoadingPdf: boolean;
     previewPdf: () => void;

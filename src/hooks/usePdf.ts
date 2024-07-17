@@ -1,4 +1,4 @@
-import jsPDF, { jsPDFOptions } from 'jspdf';
+import jsPDF, { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { MutableRefObject, useState } from 'react';
 
 const TIMEOUT_MS = 3000;
@@ -24,6 +24,7 @@ type UsePDFProps = {
 	title?: string;
 	print: (() => string | undefined) | (() => Promise<string | undefined>);
 	jsPdfSettings?: jsPDFOptions;
+	htmlOptions?: HTMLOptions;
 	image?: {
 		src: string;
 		x: number;
@@ -38,6 +39,7 @@ const usePdf = ({
 	container,
 	print,
 	jsPdfSettings,
+	htmlOptions,
 	image,
 }: UsePDFProps) => {
 	const [htmlPdf, setHtmlPdf] = useState<string>('');
@@ -62,7 +64,6 @@ const usePdf = ({
 			}
 		} catch (error) {
 			console.error(error);
-		} finally {
 			setLoadingPdf(false);
 		}
 	};
@@ -101,6 +102,7 @@ const usePdf = ({
 				margin: 20,
 				x: 10,
 				y: 10,
+				...htmlOptions,
 				callback: (instance) => {
 					callback(instance);
 					setLoadingPdf(false);
