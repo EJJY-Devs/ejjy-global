@@ -13,8 +13,14 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 	format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
 
-type UsePDFProps = {
+type ContainerProps = {
 	containerRef?: MutableRefObject<HTMLDivElement>;
+	heightMultiplier?: number;
+	widthMultiplier?: number;
+};
+
+type UsePDFProps = {
+	container?: ContainerProps;
 	title?: string;
 	print: (() => string | undefined) | (() => Promise<string | undefined>);
 	jsPdfSettings?: jsPDFOptions;
@@ -29,7 +35,7 @@ type UsePDFProps = {
 
 const usePdf = ({
 	title = '',
-	containerRef,
+	container,
 	print,
 	jsPdfSettings,
 	image,
@@ -69,13 +75,17 @@ const usePdf = ({
 		console.log('dataHtml', dataHtml);
 
 		setTimeout(() => {
-			if (containerRef?.current) {
-				JSPDF_SETTINGS.format = [
-					containerRef?.current.offsetWidth || FORMAT_WIDTH,
-					(containerRef?.current.offsetHeight || FORMAT_HEIGHT) * 1.25,
-				];
+			if (container?.containerRef?.current) {
+				const width =
+					(container?.containerRef?.current.offsetWidth || FORMAT_WIDTH) *
+					(container.widthMultiplier || 1);
+				const height =
+					(container?.containerRef?.current.offsetHeight || FORMAT_HEIGHT) *
+					(container.heightMultiplier || 1);
 
-				console.log(containerRef?.current);
+				JSPDF_SETTINGS.format = [width, height];
+
+				console.log(container.containerRef?.current);
 
 				console.log(JSPDF_SETTINGS.format);
 			}
@@ -89,7 +99,8 @@ const usePdf = ({
 
 			pdf.html(dataHtml, {
 				margin: 20,
-				autoPaging: false,
+				x: 10,
+				y: 10,
 				callback: (instance) => {
 					callback(instance);
 					setLoadingPdf(false);

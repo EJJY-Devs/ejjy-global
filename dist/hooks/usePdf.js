@@ -23,7 +23,7 @@ const JSPDF_SETTINGS = {
     hotfixes: ['px_scaling'],
     format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
-const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
+const usePdf = ({ title = '', container, print, jsPdfSettings, image, }) => {
     const [htmlPdf, setHtmlPdf] = (0, react_1.useState)('');
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     const handlePdfAction = (actionCallback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,12 +54,14 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
         setHtmlPdf(dataHtml);
         console.log('dataHtml', dataHtml);
         setTimeout(() => {
-            if (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current) {
-                JSPDF_SETTINGS.format = [
-                    (containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetWidth) || FORMAT_WIDTH,
-                    ((containerRef === null || containerRef === void 0 ? void 0 : containerRef.current.offsetHeight) || FORMAT_HEIGHT) * 1.25,
-                ];
-                console.log(containerRef === null || containerRef === void 0 ? void 0 : containerRef.current);
+            var _a, _b, _c, _d;
+            if ((_a = container === null || container === void 0 ? void 0 : container.containerRef) === null || _a === void 0 ? void 0 : _a.current) {
+                const width = (((_b = container === null || container === void 0 ? void 0 : container.containerRef) === null || _b === void 0 ? void 0 : _b.current.offsetWidth) || FORMAT_WIDTH) *
+                    (container.widthMultiplier || 1);
+                const height = (((_c = container === null || container === void 0 ? void 0 : container.containerRef) === null || _c === void 0 ? void 0 : _c.current.offsetHeight) || FORMAT_HEIGHT) *
+                    (container.heightMultiplier || 1);
+                JSPDF_SETTINGS.format = [width, height];
+                console.log((_d = container.containerRef) === null || _d === void 0 ? void 0 : _d.current);
                 console.log(JSPDF_SETTINGS.format);
             }
             const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
@@ -69,7 +71,8 @@ const usePdf = ({ title = '', containerRef, print, jsPdfSettings, image, }) => {
             }
             pdf.html(dataHtml, {
                 margin: 20,
-                autoPaging: false,
+                x: 10,
+                y: 10,
                 callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
