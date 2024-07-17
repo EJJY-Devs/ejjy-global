@@ -89,6 +89,7 @@ const usePdf = ({
 					(container.heightMultiplier || 1);
 
 				JSPDF_SETTINGS.format = [width, height];
+				JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
 
 				console.log(container.containerRef?.current);
 

@@ -61,6 +61,7 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
                     ((container === null || container === void 0 ? void 0 : container.heightAdd) || 0)) *
                     (container.heightMultiplier || 1);
                 JSPDF_SETTINGS.format = [width, height];
+                JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
                 console.log((_d = container.containerRef) === null || _d === void 0 ? void 0 : _d.current);
                 console.log(JSPDF_SETTINGS.format);
             }
