@@ -21,7 +21,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     table.bir-reports,
     .bir-report-header div.details,
     .bir-report-header .title {
-      width: 2000px;
+      width: 100%;
     }
 
     table.bir-reports {
@@ -52,6 +52,7 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     .bir-reports-pdf .title {
       text-align: center;
       font-weight: bold;
+      margin-bottom:4px;
     }
   `,
 ]);
@@ -66,5 +67,5 @@ const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.de
     react_1.default.createElement("div", { className: "details" }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
     react_1.default.createElement("div", { className: "details" }, user.employee_id),
     react_1.default.createElement("br", null),
-    react_1.default.createElement("h4", { className: "title" }, title)));
+    react_1.default.createElement("div", { className: "title" }, title)));
 exports.BirHeader = BirHeader;

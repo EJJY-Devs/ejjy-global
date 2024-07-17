@@ -17,7 +17,7 @@ export const birReportStyles = React.createElement('style', {}, [
     table.bir-reports,
     .bir-report-header div.details,
     .bir-report-header .title {
-      width: 2000px;
+      width: 100%;
     }
 
     table.bir-reports {
@@ -48,6 +48,7 @@ export const birReportStyles = React.createElement('style', {}, [
     .bir-reports-pdf .title {
       text-align: center;
       font-weight: bold;
+      margin-bottom:4px;
     }
   `,
 ]);
@@ -79,6 +80,6 @@ export const BirHeader = ({
 
 		<br />
 
-		<h4 className="title">{title}</h4>
+		<div className="title">{title}</div>
 	</div>
 );
