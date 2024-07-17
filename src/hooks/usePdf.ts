@@ -15,6 +15,8 @@ const JSPDF_SETTINGS: jsPDFOptions = {
 
 type ContainerProps = {
 	containerRef?: MutableRefObject<HTMLDivElement>;
+	heightAdd?: number;
+	widthAdd?: number;
 	heightMultiplier?: number;
 	widthMultiplier?: number;
 };
@@ -78,10 +80,12 @@ const usePdf = ({
 		setTimeout(() => {
 			if (container?.containerRef?.current) {
 				const width =
-					(container?.containerRef?.current.offsetWidth || FORMAT_WIDTH) *
+					((container?.containerRef?.current.offsetWidth || FORMAT_WIDTH) +
+						(container?.widthAdd || 0)) *
 					(container.widthMultiplier || 1);
 				const height =
-					(container?.containerRef?.current.offsetHeight || FORMAT_HEIGHT) *
+					((container?.containerRef?.current.offsetHeight || FORMAT_HEIGHT) +
+						(container?.heightAdd || 0)) *
 					(container.heightMultiplier || 1);
 
 				JSPDF_SETTINGS.format = [width, height];
@@ -99,9 +103,7 @@ const usePdf = ({
 			}
 
 			pdf.html(dataHtml, {
-				margin: 20,
-				x: 10,
-				y: 10,
+				margin: 10,
 				...htmlOptions,
 				callback: (instance) => {
 					callback(instance);

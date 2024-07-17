@@ -13,58 +13,161 @@ export const printBirReport = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = birReports.map((report) => (
-		<tr>
-			<td>{formatDate(report.date)}</td>
-			<td>{report?.beginning_or?.or_number || EMPTY_CELL}</td>
-			<td>{report?.ending_or?.or_number || EMPTY_CELL}</td>
+	const rows = birReports.map((report) => {
+		const hasNoTransaction = Number(report.gross_sales_for_the_day) === 0;
 
-			<td>
-				{formatInPeso(report.grand_accumulated_sales_ending_balance, PESO_SIGN)}
-			</td>
-			<td>
-				{formatInPeso(
-					report.grand_accumulated_sales_beginning_balance,
-					PESO_SIGN,
-				)}
-			</td>
-			<td>{formatInPeso(report.sales_issue_with_manual, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.gross_sales_for_the_day, PESO_SIGN)}</td>
+		return (
+			<tr>
+				<td>{formatDate(report.date)}</td>
+				<td>
+					{hasNoTransaction ? EMPTY_CELL : report?.beginning_or?.or_number}
+				</td>
+				<td>{hasNoTransaction ? EMPTY_CELL : report?.ending_or?.or_number}</td>
 
-			<td>{formatInPeso(report.vatable_sales, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_amount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_exempt_sales, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.zero_rated_sales, PESO_SIGN)}</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(
+								report.grand_accumulated_sales_ending_balance,
+								PESO_SIGN,
+							)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(
+								report.grand_accumulated_sales_beginning_balance,
+								PESO_SIGN,
+							)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.sales_issue_with_manual, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.gross_sales_for_the_day, PESO_SIGN)}
+				</td>
 
-			<td>{formatInPeso(report.sc_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.pwd_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.naac_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.sp_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.others_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.returns, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.void, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.total_deductions, PESO_SIGN)}</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vatable_sales, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_amount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_exempt_sales, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.zero_rated_sales, PESO_SIGN)}
+				</td>
 
-			<td>{formatInPeso(report.vat_sc_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_pwd_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_others_discount, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_returns, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.vat_others, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.total_vat_adjusted, PESO_SIGN)}</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.sc_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.pwd_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.naac_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.sp_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.others_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.returns, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction ? EMPTY_CELL : formatInPeso(report.void, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.total_deductions, PESO_SIGN)}
+				</td>
 
-			<td>{formatInPeso(report.vat_payable, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.net_sales, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.sales_overrun_or_overflow, PESO_SIGN)}</td>
-			<td>{formatInPeso(report.total_income, PESO_SIGN)}</td>
-			<td>{report.reset_counter}</td>
-			<td>{report.z_counter}</td>
-			<td>
-				{Number(report.gross_sales_for_the_day) === 0
-					? NO_TRANSACTION_REMARK
-					: report.remarks}
-			</td>
-		</tr>
-	));
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_sc_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_pwd_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_others_discount, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_returns, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_others, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.total_vat_adjusted, PESO_SIGN)}
+				</td>
+
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.vat_payable, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.net_sales, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.sales_overrun_or_overflow, PESO_SIGN)}
+				</td>
+				<td>
+					{hasNoTransaction
+						? EMPTY_CELL
+						: formatInPeso(report.total_income, PESO_SIGN)}
+				</td>
+				<td>{hasNoTransaction ? EMPTY_CELL : report.reset_counter}</td>
+				<td>{hasNoTransaction ? EMPTY_CELL : report.z_counter}</td>
+				<td>{hasNoTransaction ? NO_TRANSACTION_REMARK : report.remarks}</td>
+			</tr>
+		);
+	});
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">

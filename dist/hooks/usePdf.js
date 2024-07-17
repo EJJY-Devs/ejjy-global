@@ -54,9 +54,11 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
         setTimeout(() => {
             var _a, _b, _c, _d;
             if ((_a = container === null || container === void 0 ? void 0 : container.containerRef) === null || _a === void 0 ? void 0 : _a.current) {
-                const width = (((_b = container === null || container === void 0 ? void 0 : container.containerRef) === null || _b === void 0 ? void 0 : _b.current.offsetWidth) || FORMAT_WIDTH) *
+                const width = ((((_b = container === null || container === void 0 ? void 0 : container.containerRef) === null || _b === void 0 ? void 0 : _b.current.offsetWidth) || FORMAT_WIDTH) +
+                    ((container === null || container === void 0 ? void 0 : container.widthAdd) || 0)) *
                     (container.widthMultiplier || 1);
-                const height = (((_c = container === null || container === void 0 ? void 0 : container.containerRef) === null || _c === void 0 ? void 0 : _c.current.offsetHeight) || FORMAT_HEIGHT) *
+                const height = ((((_c = container === null || container === void 0 ? void 0 : container.containerRef) === null || _c === void 0 ? void 0 : _c.current.offsetHeight) || FORMAT_HEIGHT) +
+                    ((container === null || container === void 0 ? void 0 : container.heightAdd) || 0)) *
                     (container.heightMultiplier || 1);
                 JSPDF_SETTINGS.format = [width, height];
                 console.log((_d = container.containerRef) === null || _d === void 0 ? void 0 : _d.current);
@@ -67,7 +69,7 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
             if (image) {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
-            pdf.html(dataHtml, Object.assign(Object.assign({ margin: 20, x: 10, y: 10 }, htmlOptions), { callback: (instance) => {
+            pdf.html(dataHtml, Object.assign(Object.assign({ margin: 10 }, htmlOptions), { callback: (instance) => {
                     callback(instance);
                     setLoadingPdf(false);
                 } }));
