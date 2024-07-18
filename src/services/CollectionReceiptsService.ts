@@ -2,6 +2,11 @@ import axios from 'axios';
 import { CollectionReceipt } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
+export interface Params extends ListQueryParams {
+	is_pending?: boolean;
+	payor_id?: number;
+}
+
 export interface Create {
 	amount: string;
 	bank_branch?: string;
@@ -14,7 +19,7 @@ export interface Create {
 }
 
 const service = {
-	list: async (params: ListQueryParams, baseURL?: string) => {
+	list: async (params: Params, baseURL?: string) => {
 		const response = await axios.get<ListResponseData<CollectionReceipt>>(
 			'/collection-receipts/',
 			{

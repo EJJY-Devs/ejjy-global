@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, timeRangeTypes } from '../globals';
 import { OrderOfPaymentsService } from '../services';
 import { Params } from '../services/OrderOfPaymentsService';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
@@ -18,14 +18,23 @@ const useOrderOfPayments = (
 		Error,
 		QueryResponse<OrderOfPayment>
 	>(
-		['useOrderOfPayments', params],
+		[
+			'useOrderOfPayments',
+			params?.isPending,
+			params?.page,
+			params?.pageSize,
+			params?.payorId,
+			params?.timeRange,
+		],
 		() =>
 			wrapServiceWithCatch(
 				OrderOfPaymentsService.list(
 					{
+						is_pending: params?.isPending,
 						page: params?.page || DEFAULT_PAGE,
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-						is_pending: params?.isPending,
+						payor_id: params?.payorId,
+						time_range: params?.timeRange || timeRangeTypes.DAILY,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,

@@ -5,6 +5,7 @@ import { Endpoints, ListQueryParams, ListResponseData } from './interfaces';
 
 export interface Params extends ListQueryParams {
 	is_pending?: boolean;
+	payor_id?: number;
 }
 
 const service = {

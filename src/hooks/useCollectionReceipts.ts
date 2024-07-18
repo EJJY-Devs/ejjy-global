@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { UseMutationOptions, useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, timeRangeTypes } from '../globals';
 import { CollectionReceiptsService } from '../services';
-import { Create } from '../services/CollectionReceiptsService';
+import { Create, Params } from '../services/CollectionReceiptsService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
@@ -13,7 +13,9 @@ import { CollectionReceipt } from '../types';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery } from './inteface';
 
-const useCollectionReceipts = (data: UseListQuery<CollectionReceipt> = {}) => {
+const useCollectionReceipts = (
+	data: UseListQuery<CollectionReceipt, CamelCasedProperties<Params>> = {},
+) => {
 	const { params, options, serviceOptions } = data;
 
 	return useQuery<
@@ -21,13 +23,21 @@ const useCollectionReceipts = (data: UseListQuery<CollectionReceipt> = {}) => {
 		Error,
 		QueryResponse<CollectionReceipt>
 	>(
-		['useCollectionReceipts', params ? { ...params } : null],
+		[
+			'useCollectionReceipts',
+			params?.page,
+			params?.pageSize,
+			params?.payorId,
+			params?.timeRange,
+		],
 		() =>
 			wrapServiceWithCatch(
 				CollectionReceiptsService.list(
 					{
 						page: params?.page || DEFAULT_PAGE,
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
+						payor_id: params?.payorId,
+						time_range: params?.timeRange || timeRangeTypes.DAILY,
 					},
 					serviceOptions?.baseURL,
 				),
