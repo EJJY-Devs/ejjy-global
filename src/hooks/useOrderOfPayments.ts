@@ -41,10 +41,6 @@ const useOrderOfPayments = (
 				),
 			),
 		{
-			placeholderData: {
-				results: [],
-				count: 0,
-			},
 			select: (query) => ({
 				list: query.results,
 				total: query.count,

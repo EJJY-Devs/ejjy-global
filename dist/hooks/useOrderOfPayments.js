@@ -19,10 +19,7 @@ const useOrderOfPayments = (data = {}) => {
         page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
         payor_id: params === null || params === void 0 ? void 0 : params.payorId,
         time_range: (params === null || params === void 0 ? void 0 : params.timeRange) || globals_1.timeRangeTypes.DAILY,
-    }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ placeholderData: {
-            results: [],
-            count: 0,
-        }, select: (query) => ({
+    }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ select: (query) => ({
             list: query.results,
             total: query.count,
         }) }, options));
