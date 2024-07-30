@@ -31,5 +31,5 @@ export const getComputedDiscount = (transaction: Transaction) => {
 	return transaction.discount_option.is_special_discount
 		? Number(transaction.overall_discount) -
 				Number(transaction.invoice.vat_amount)
-		: transaction.overall_discount;
+		: Number(transaction.overall_discount);
 };

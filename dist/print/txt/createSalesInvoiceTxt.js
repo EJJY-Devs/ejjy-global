@@ -49,7 +49,7 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
             rowData.push(...[
                 ...(0, helper_txt_1.getTxtItemBlock)([
                     {
-                        label: 'VAT AMOUNT',
+                        label: 'ADJ. ON VAT',
                         value: `(${(0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN)})`,
                     },
                 ]),

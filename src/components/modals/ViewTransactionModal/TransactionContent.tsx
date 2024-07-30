@@ -162,7 +162,7 @@ export const TransactionContent = ({
 
 						{transaction.discount_option.is_special_discount && (
 							<tr>
-								<td>VAT AMOUNT</td>
+								<td>ADJ. ON VAT</td>
 								<td style={{ textAlign: 'right' }}>
 									({formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)})
 								</td>

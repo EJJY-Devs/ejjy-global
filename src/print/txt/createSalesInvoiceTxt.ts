@@ -84,7 +84,7 @@ export const createSalesInvoiceTxt = (
 				...[
 					...getTxtItemBlock([
 						{
-							label: 'VAT AMOUNT',
+							label: 'ADJ. ON VAT',
 							value: `(${formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)})`,
 						},
 					]),

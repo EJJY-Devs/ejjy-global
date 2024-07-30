@@ -103,7 +103,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                         (0, utils_1.formatInPeso)((0, utils_1.getComputedDiscount)(transaction), helper_receipt_1.PESO_SIGN),
                         ")")),
                 transaction.discount_option.is_special_discount && (react_1.default.createElement("tr", null,
-                    react_1.default.createElement("td", null, "VAT AMOUNT"),
+                    react_1.default.createElement("td", null, "ADJ. ON VAT"),
                     react_1.default.createElement("td", { style: { textAlign: 'right' } },
                         "(",
                         (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
