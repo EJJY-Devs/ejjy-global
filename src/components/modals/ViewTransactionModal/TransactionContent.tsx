@@ -197,13 +197,13 @@ export const TransactionContent = ({
 								&nbsp;
 							</td>
 						</tr>
-						<tr>
+						<tr style={{ fontSize: '1.2em' }}>
 							<td style={{ paddingLeft: '4ch' }}>AMOUNT DUE</td>
 							<td style={{ textAlign: 'right' }}>
 								{formatInPeso(transaction.total_amount, PESO_SIGN)}&nbsp;
 							</td>
 						</tr>
-						<tr>
+						<tr style={{ fontSize: '1.2em' }}>
 							<td style={{ paddingLeft: '4ch' }}>CHANGE</td>
 							<td style={{ textAlign: 'right', fontWeight: 'bold' }}>
 								{formatInPeso(change, PESO_SIGN)}&nbsp;
