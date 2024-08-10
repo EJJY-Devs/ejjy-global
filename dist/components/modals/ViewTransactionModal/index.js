@@ -32,7 +32,7 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const TransactionContent_1 = require("./TransactionContent");
-const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
+const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClose, }) => {
     var _a;
     // STATE
     const [transactionData, setTransactionData] = (0, react_1.useState)(null);
@@ -52,6 +52,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, onClose, }) => {
     const { data: transactionRetrieved, isFetching } = (0, hooks_1.useTransactionRetrieve)({
         id: typeof transaction === 'number' ? transaction : transaction.id,
         options: { enabled: typeof transaction === 'number' },
+        serviceOptions,
     });
     // METHODS
     (0, react_1.useEffect)(() => {

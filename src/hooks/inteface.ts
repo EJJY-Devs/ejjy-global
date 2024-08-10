@@ -38,7 +38,7 @@ export interface UseListQueryParams {
 	timeRange?: string;
 }
 
-interface ServiceOptions {
+export interface ServiceOptions {
 	type?: ServiceType;
 	baseURL?: string;
 }

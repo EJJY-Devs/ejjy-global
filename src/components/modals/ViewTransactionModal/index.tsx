@@ -7,16 +7,19 @@ import { createSalesInvoiceTxt, printSalesInvoice } from '../../../print';
 import { SiteSettings, Transaction } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { TransactionContent } from './TransactionContent';
+import { ServiceOptions } from '../../../hooks/inteface';
 
 type Props = {
 	transaction: Transaction | number;
 	siteSettings: SiteSettings;
+	serviceOptions?: ServiceOptions;
 	onClose: () => void;
 };
 
 export const ViewTransactionModal = ({
 	transaction,
 	siteSettings,
+	serviceOptions,
 	onClose,
 }: Props) => {
 	// STATE
@@ -41,6 +44,7 @@ export const ViewTransactionModal = ({
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({
 		id: typeof transaction === 'number' ? transaction : transaction.id,
 		options: { enabled: typeof transaction === 'number' },
+		serviceOptions,
 	});
 
 	// METHODS
