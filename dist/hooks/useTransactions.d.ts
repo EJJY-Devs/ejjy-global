@@ -43,6 +43,7 @@ export declare const useTransactionPay: () => import("react-query").UseMutationR
     discountOptionAdditionalFieldsValues?: string | undefined;
     discountOptionId?: string | undefined;
     transactionId: number;
+    mode: string;
 }, unknown>;
 export declare const useTransactionEdit: () => import("react-query").UseMutationResult<AxiosResponse<Transaction>, AxiosErrorResponse<any>, {
     id: number;

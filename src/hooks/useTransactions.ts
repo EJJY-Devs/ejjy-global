@@ -163,6 +163,7 @@ export const useTransactionPay = () =>
 			discountOptionAdditionalFieldsValues,
 			discountOptionId,
 			transactionId,
+			mode,
 		}) =>
 			TransactionsService.pay({
 				amount_tendered: amountTendered,
@@ -176,6 +177,7 @@ export const useTransactionPay = () =>
 					discountOptionAdditionalFieldsValues,
 				discount_option_id: discountOptionId,
 				transaction_id: transactionId,
+				mode: mode,
 			}),
 	);
 

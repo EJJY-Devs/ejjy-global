@@ -44,6 +44,7 @@ export interface Pay {
     discount_option_additional_fields_values?: string;
     discount_option_id?: string;
     transaction_id: number;
+    mode: string;
 }
 export interface TransactionProduct {
     transaction_product_id?: number;
