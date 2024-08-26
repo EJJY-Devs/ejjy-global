@@ -131,6 +131,7 @@ export const useTransactionCreate = () =>
 			products,
 			status,
 			tellerId,
+			invoiceType,
 		}) =>
 			TransactionsService.create({
 				branch_machine_id: branchMachineId,
@@ -141,6 +142,7 @@ export const useTransactionCreate = () =>
 				products,
 				status,
 				teller_id: tellerId,
+				invoice_type: invoiceType,
 			}),
 	);
 

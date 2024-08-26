@@ -55,7 +55,7 @@ const useTransactionComputeDiscount = () => (0, react_query_1.useMutation)(({ br
     discount_option_id: discountOptionId,
 }));
 exports.useTransactionComputeDiscount = useTransactionComputeDiscount;
-const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount = 0, previousVoidedTransactionId, products, status, tellerId, }) => services_1.TransactionsService.create({
+const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount = 0, previousVoidedTransactionId, products, status, tellerId, invoiceType}) => services_1.TransactionsService.create({
     branch_machine_id: branchMachineId,
     client,
     customer_account_id: customerAccountId,
@@ -64,6 +64,7 @@ const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachi
     products,
     status,
     teller_id: tellerId,
+    invoice_type: invoiceType,
 }));
 exports.useTransactionCreate = useTransactionCreate;
 const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered, branchMachineId, cashierUserId, creditPaymentAuthorizerId, creditorAccountId, discountAuthorizerId, discountAmount, discountOptionAdditionalFieldsValues, discountOptionId, transactionId, }) => services_1.TransactionsService.pay({

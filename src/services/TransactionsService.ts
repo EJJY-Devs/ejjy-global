@@ -71,6 +71,7 @@ export interface Create {
 	products: TransactionProduct[];
 	status?: string;
 	teller_id: number;
+	invoice_type: string;
 }
 
 export interface TransactionProductEdit extends TransactionProduct {
