@@ -28,6 +28,7 @@ const useCollectionReceipts = (
 			params?.page,
 			params?.pageSize,
 			params?.payorId,
+			params?.branchMachineId,
 			params?.timeRange,
 		],
 		() =>
@@ -38,6 +39,7 @@ const useCollectionReceipts = (
 						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 						payor_id: params?.payorId,
 						time_range: params?.timeRange || timeRangeTypes.DAILY,
+						branch_machine_id: params?.branchMachineId,
 					},
 					serviceOptions?.baseURL,
 				),
