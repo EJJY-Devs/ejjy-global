@@ -10,7 +10,7 @@ export interface BranchProduct {
     max_balance: number;
     price_per_piece: number;
     price_per_bulk: number;
-    credit_price_per_piece: number;
+    credit_price: number;
     credit_price_per_bulk: number;
     government_credit_price_per_piece: number;
     government_credit_price_per_bulk: number;

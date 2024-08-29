@@ -5,7 +5,7 @@ export type ProductEntryType = 'searched' | 'scanned';
 
 export interface CashieringTransactionProduct extends BranchProduct {
 	id: number; // branch_product.product.id
-	creditPrice: BranchProduct['credit_price_per_piece'];
+	creditPrice: BranchProduct['credit_price'];
 	discount_per_piece: number;
 	original_quantity: number;
 	productEntryType?: ProductEntryType;
