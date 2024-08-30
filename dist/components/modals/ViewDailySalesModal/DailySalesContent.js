@@ -15,7 +15,7 @@ const PrintDetails_1 = require("../../Printing/PrintDetails");
 const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
     var _a, _b;
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        dailySales.x_read_report.total_transactions === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
+        dailySales.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "DAILY SALES REPORT"),
