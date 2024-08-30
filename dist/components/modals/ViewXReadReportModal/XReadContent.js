@@ -50,11 +50,11 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Beg Invoice #:',
+                    label: 'Beg SI/OR NO.',
                     value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
-                    label: 'End Invoice #:',
+                    label: 'End SI/OR NO.',
                     value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
@@ -81,8 +81,18 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     label: '+Credit Card',
                     value: (0, utils_1.formatInPeso)(report.credit_card_payment, helper_receipt_1.PESO_SIGN),
                 },
+
+                //To be updated
                 {
-                    label: '=Total',
+                    label: '+Others',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Cancelled',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=Payments Received',
                     value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -110,7 +120,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(report.cash_collection, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Total',
+                    label: '=Cash on Hand',
                     value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
             ] }),

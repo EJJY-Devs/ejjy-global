@@ -45,11 +45,11 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Beg Sales Invoice #:',
+                    label: 'Beg SI/OR No.:',
                     value: ((_a = dailySales.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
-                    label: 'End Sales Invoice #:',
+                    label: 'End SI/OR No.:',
                     value: ((_b = dailySales.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                 },
             ] }),
@@ -66,6 +66,16 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 {
                     label: '=Gross Sales of the Day',
                     value: (0, utils_1.formatInPeso)(dailySales.gross_sales, helper_receipt_1.PESO_SIGN),
+                },
+
+                //To be updated
+                {
+                    label: 'Cash SI',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: 'Charge SI',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
@@ -116,11 +126,11 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '+Void',
+                    label: '+Voids',
                     value: (0, utils_1.formatInPeso)(dailySales.void, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Total',
+                    label: '=Deductions',
                     value: (0, utils_1.formatInPeso)(dailySales.total_deductions, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -148,7 +158,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.vat_others, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Total',
+                    label: '=VAT Adjustment',
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -164,7 +174,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Total',
+                    label: '=VAT Payable',
                     value: (0, utils_1.formatInPeso)(dailySales.vat_payable, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -183,7 +193,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Net Amount',
+                    label: '=Net Sales',
                     value: (0, utils_1.formatInPeso)(dailySales.net_sales, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -202,8 +212,18 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     label: '+Credit Card',
                     value: (0, utils_1.formatInPeso)(dailySales.credit_card_payment, helper_receipt_1.PESO_SIGN),
                 },
+
+                //To be added
                 {
-                    label: '=Total',
+                    label: '+Others',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '-Cancelled',
+                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: '=Payments Received',
                     value: (0, utils_1.formatInPeso)(dailySales.total_payment_received, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -231,7 +251,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.cash_collection, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Total',
+                    label: '=Cash on Hand',
                     value: (0, utils_1.formatInPeso)(dailySales.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
