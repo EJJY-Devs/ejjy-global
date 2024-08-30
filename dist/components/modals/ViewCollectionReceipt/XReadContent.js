@@ -16,7 +16,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     var _a, _b;
     const cashieringSession = report.cashiering_session;
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
+        report.total_transactions === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { fontWeight: 'bold', textAlign: 'center' } }, "X-READING REPORT"),
