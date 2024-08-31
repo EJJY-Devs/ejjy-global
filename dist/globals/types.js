@@ -93,10 +93,6 @@ exports.saleTypes = {
     CASH: 'cash',
     CREDIT: 'credit_pay',
 };
-exports.invoiceTypes = {
-    SALES_INVOICE: 'sales_invoice',
-    CHARGE_INVOICE: 'charge_invoice'
-}
 exports.paymentTypes = {
     CASH: 'cash',
     CHECK: 'check',

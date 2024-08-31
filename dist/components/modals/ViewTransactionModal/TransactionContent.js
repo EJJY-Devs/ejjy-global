@@ -13,10 +13,10 @@ const Printing_1 = require("../../Printing");
 const getTransactionData = (transaction) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
     let title = '';
-    if (transaction.invoice_type === globals_1.invoiceTypes.SALES_INVOICE) {
+    if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         title = 'CASH SALES INVOICE';
     }
-    else if (transaction.invoice_type === globals_1.invoiceTypes.CHARGE_INVOICE) {
+    else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
         title = 'CHARGE SALES INVOICE';
     }
     let fields = [];
@@ -116,7 +116,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                     (0, utils_1.formatInPeso)(transaction.total_amount, helper_receipt_1.PESO_SIGN),
                     "\u00A0"))),
         react_1.default.createElement("br", null),
-        transaction.payment.mode === globals_1.invoiceTypes.SALES_INVOICE && (react_1.default.createElement(react_1.default.Fragment, null,
+        transaction.payment.mode === globals_1.saleTypes.CASH && (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("table", { style: { width: '100%' } },
                 react_1.default.createElement("tr", null,
                     react_1.default.createElement("td", { style: { paddingLeft: '4ch' } }, "AMOUNT RECEIVED"),
