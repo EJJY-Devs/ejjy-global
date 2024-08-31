@@ -68,6 +68,10 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
+                    label: ' ',
+                    value: '',
+                },
+                {
                     label: 'Cash SI',
                     value: (0, utils_1.formatInPeso)(dailySales.sales_invoice_payments, helper_receipt_1.PESO_SIGN),
                 },
