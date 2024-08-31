@@ -136,8 +136,10 @@ export const getModeOfPaymentDescription = (modeOfPayment: PaymentType) => {
 		description = 'Cash';
 	} else if (modeOfPayment === paymentTypes.CREDIT) {
 		description = 'Charge';
-	} else if (modeOfPayment === paymentTypes.CHEQUE) {
-		description = 'Cheque';
+	} else if (modeOfPayment === paymentTypes.CHECK) {
+		description = 'Check';
+	} else {
+		description = 'Others';
 	}
 
 	return description;

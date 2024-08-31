@@ -122,8 +122,9 @@ export const saleTypes = {
 
 export const paymentTypes = {
 	CASH: 'cash' as PaymentType,
-	CHEQUE: 'cheque' as PaymentType,
+	CHECK: 'check' as PaymentType,
 	CREDIT: 'credit_pay' as PaymentType,
+	OTHERS: 'others' as PaymentType,
 };
 
 export const orderOfPaymentPurposes = {
