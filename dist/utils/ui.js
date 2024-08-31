@@ -106,8 +106,11 @@ const getModeOfPaymentDescription = (modeOfPayment) => {
     else if (modeOfPayment === globals_1.paymentTypes.CREDIT) {
         description = 'Charge';
     }
-    else if (modeOfPayment === globals_1.paymentTypes.CHEQUE) {
-        description = 'Cheque';
+    else if (modeOfPayment === globals_1.paymentTypes.CHECK) {
+        description = 'Check';
+    }
+    else {
+        description = 'Others';
     }
     return description;
 };
