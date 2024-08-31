@@ -107,4 +107,5 @@ export interface Transaction {
 	adjustment_remarks: AdjustmentRemark;
 	has_lacking_balance_log: boolean;
 	customer_account: Account;
+	invoice_type: string;
 }
