@@ -67,15 +67,13 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     label: '=Gross Sales of the Day',
                     value: (0, utils_1.formatInPeso)(dailySales.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
-
-                //To be updated
                 {
                     label: 'Cash SI',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(dailySales.sales_invoice_payments, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: 'Charge SI',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(dailySales.charge_invoice_payments, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),

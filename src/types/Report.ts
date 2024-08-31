@@ -75,6 +75,8 @@ export interface XReadReport {
 	vat_others_discount: number;
 	vat_returns: number;
 	vat_others: number;
+	sales_invoice_payments: number;
+	charge_invoice_payments: number;
 }
 
 type DailySalesData = {
