@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serviceTypes = exports.inputTypes = exports.accountTypes = exports.taxTypes = exports.backOrdersStatuses = exports.returnItemSlipsStatuses = exports.userPendingApprovalTypes = exports.productCategoryTypes = exports.pendingTransactionTypes = exports.productCheckingTypes = exports.deliveryReceiptStatus = exports.OSDRStatus = exports.deliveryReceiptProductStatus = exports.backOrderStatus = exports.preparationSlipStatus = exports.orderSlipStatus = exports.quantityTypes = exports.productStatus = exports.requisitionSlipActions = exports.requisitionSlipProductStatus = exports.requisitionSlipTypes = exports.productTypes = exports.appTypes = exports.pdfButtonsKey = exports.productEntryTypes = exports.priceCodes = exports.markdownTypes = exports.backOrderTypes = exports.discountTypes = exports.orderOfPaymentPurposes = exports.paymentTypes = exports.invoiceTypes = exports.saleTypes = exports.connectivityTypes = exports.timeRangeTypes = exports.logTypes = exports.weighingInputTypes = exports.machineInputTypes = exports.unitOfMeasurementTypes = exports.vatTypes = exports.reportTypes = exports.transactionStatuses = exports.navigationTypes = exports.branchProductStatuses = exports.cashBreakdownCategories = exports.cashBreakdownTypes = exports.userTypes = exports.printerStatuses = exports.productNavigations = exports.request = exports.appVersions = void 0;
-exports.specialDiscountCodes = exports.reportCategories = exports.authorizationStatuses = exports.readReportTypes = exports.closingTypes = exports.branchMachineTypes = exports.userLogTypes = exports.attendanceScheduleTypes = exports.attendanceSchedulePeriods = exports.attendanceTypes = exports.attendanceCategories = exports.requisitionSlipDetailsType = void 0;
+exports.inputTypes = exports.accountTypes = exports.taxTypes = exports.backOrdersStatuses = exports.returnItemSlipsStatuses = exports.userPendingApprovalTypes = exports.productCategoryTypes = exports.pendingTransactionTypes = exports.productCheckingTypes = exports.deliveryReceiptStatus = exports.OSDRStatus = exports.deliveryReceiptProductStatus = exports.backOrderStatus = exports.preparationSlipStatus = exports.orderSlipStatus = exports.quantityTypes = exports.productStatus = exports.requisitionSlipActions = exports.requisitionSlipProductStatus = exports.requisitionSlipTypes = exports.productTypes = exports.appTypes = exports.pdfButtonsKey = exports.productEntryTypes = exports.priceCodes = exports.markdownTypes = exports.backOrderTypes = exports.discountTypes = exports.orderOfPaymentPurposes = exports.invoiceTypes = exports.paymentTypes = exports.saleTypes = exports.connectivityTypes = exports.timeRangeTypes = exports.logTypes = exports.weighingInputTypes = exports.machineInputTypes = exports.unitOfMeasurementTypes = exports.vatTypes = exports.reportTypes = exports.transactionStatuses = exports.navigationTypes = exports.branchProductStatuses = exports.cashBreakdownCategories = exports.cashBreakdownTypes = exports.userTypes = exports.printerStatuses = exports.productNavigations = exports.request = exports.appVersions = void 0;
+exports.specialDiscountCodes = exports.reportCategories = exports.authorizationStatuses = exports.readReportTypes = exports.closingTypes = exports.branchMachineTypes = exports.userLogTypes = exports.attendanceScheduleTypes = exports.attendanceSchedulePeriods = exports.attendanceTypes = exports.attendanceCategories = exports.requisitionSlipDetailsType = exports.serviceTypes = void 0;
 exports.appVersions = {
     V1: 1,
     V2: 2,
@@ -93,15 +93,15 @@ exports.saleTypes = {
     CASH: 'cash',
     CREDIT: 'credit_pay',
 };
-exports.invoiceTypes = {
-    SALES_INVOICE: 'sales_invoice',
-    CHARGE_INVOICE: 'charge_invoice'
-}
 exports.paymentTypes = {
     CASH: 'cash',
     CHECK: 'check',
     CREDIT: 'credit_pay',
     OTHERS: 'others',
+};
+exports.invoiceTypes = {
+    SALES_INVOICE: 'sales_invoice',
+    CHARGE_INVOICE: 'charge_invoice',
 };
 exports.orderOfPaymentPurposes = {
     PARTIAL_PAYMENT: 'partial_payment',

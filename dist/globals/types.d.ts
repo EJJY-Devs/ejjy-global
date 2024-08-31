@@ -96,6 +96,10 @@ export declare const paymentTypes: {
     CREDIT: PaymentType;
     OTHERS: PaymentType;
 };
+export declare const invoiceTypes: {
+    SALES_INVOICE: string;
+    CHARGE_INVOICE: string;
+};
 export declare const orderOfPaymentPurposes: {
     PARTIAL_PAYMENT: string;
     FULL_PAYMENT: string;

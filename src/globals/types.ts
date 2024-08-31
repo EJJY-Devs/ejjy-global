@@ -127,6 +127,11 @@ export const paymentTypes = {
 	OTHERS: 'others' as PaymentType,
 };
 
+export const invoiceTypes = {
+	SALES_INVOICE: 'sales_invoice',
+	CHARGE_INVOICE: 'charge_invoice',
+};
+
 export const orderOfPaymentPurposes = {
 	PARTIAL_PAYMENT: 'partial_payment',
 	FULL_PAYMENT: 'full_payment',
