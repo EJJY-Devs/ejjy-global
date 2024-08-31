@@ -92,8 +92,9 @@ export declare const saleTypes: {
 };
 export declare const paymentTypes: {
     CASH: PaymentType;
-    CHEQUE: PaymentType;
+    CHECK: PaymentType;
     CREDIT: PaymentType;
+    OTHERS: PaymentType;
 };
 export declare const orderOfPaymentPurposes: {
     PARTIAL_PAYMENT: string;

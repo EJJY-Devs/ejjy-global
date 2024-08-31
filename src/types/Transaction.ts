@@ -37,7 +37,7 @@ export interface Invoice {
 	vat_amount: number;
 }
 
-export type PaymentType = 'cash' | 'credit_pay';
+export type PaymentType = 'cash' | 'credit_pay' | 'check' | 'others';
 
 export interface Payment {
 	amount_tendered: string;
