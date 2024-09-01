@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.getDiscountFields = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.getDiscountFields = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getInvoiceType = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importDefault(require("react"));
@@ -115,6 +115,17 @@ const getModeOfPaymentDescription = (modeOfPayment) => {
     return description;
 };
 exports.getModeOfPaymentDescription = getModeOfPaymentDescription;
+const getInvoiceType = (invoiceType) => {
+    let description;
+    if (invoiceType === globals_1.invoiceTypes.SALES_INVOICE) {
+        description = 'Sales Invoice';
+    }
+    else {
+        description = 'Charge Invoice';
+    }
+    return description;
+};
+exports.getInvoiceType = getInvoiceType;
 const getTaxTypeDescription = (taxType) => {
     let data = '';
     if (taxType === 'VAT') {

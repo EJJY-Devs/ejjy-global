@@ -16,6 +16,7 @@ import {
 	specialDiscountCodes,
 	transactionStatuses,
 	userTypes,
+	invoiceTypes
 } from '../globals';
 import { UsersService } from '../services';
 import {
@@ -144,6 +145,18 @@ export const getModeOfPaymentDescription = (modeOfPayment: PaymentType) => {
 
 	return description;
 };
+
+export const getInvoiceType = (invoiceType: string) => {
+	let description;
+
+	if (invoiceType === invoiceTypes.SALES_INVOICE) {
+		description = 'Sales Invoice'
+	} else {
+		description = 'Charge Invoice'
+	}
+
+	return description;
+}
 
 export const getTaxTypeDescription = (taxType?: TaxType) => {
 	let data = '';
