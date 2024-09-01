@@ -17,6 +17,7 @@ export interface Create {
 	check_number?: string;
 	created_by_id: number;
 	order_of_payment_id: number;
+	mode: string;
 }
 
 const service = {

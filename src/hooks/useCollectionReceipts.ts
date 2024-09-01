@@ -79,6 +79,7 @@ export const useCollectionReceiptCreate = (
 			checkNumber,
 			createdById,
 			orderOfPaymentId,
+			mode,
 		}) =>
 			CollectionReceiptsService.create({
 				amount,
@@ -89,6 +90,7 @@ export const useCollectionReceiptCreate = (
 				check_number: checkNumber,
 				created_by_id: createdById,
 				order_of_payment_id: orderOfPaymentId,
+				mode: mode
 			}),
 		options,
 	);

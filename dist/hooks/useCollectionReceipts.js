@@ -28,7 +28,7 @@ const useCollectionReceipts = (data = {}) => {
             total: query.count,
         }) }, options));
 };
-const useCollectionReceiptCreate = (options) => (0, react_query_1.useMutation)(({ amount, bankBranch, bankName, branchMachineId, checkDate, checkNumber, createdById, orderOfPaymentId, }) => services_1.CollectionReceiptsService.create({
+const useCollectionReceiptCreate = (options) => (0, react_query_1.useMutation)(({ amount, bankBranch, bankName, branchMachineId, checkDate, checkNumber, createdById, orderOfPaymentId, mode, }) => services_1.CollectionReceiptsService.create({
     amount,
     bank_branch: bankBranch,
     bank_name: bankName,
@@ -37,6 +37,7 @@ const useCollectionReceiptCreate = (options) => (0, react_query_1.useMutation)((
     check_number: checkNumber,
     created_by_id: createdById,
     order_of_payment_id: orderOfPaymentId,
+    mode: mode
 }), options);
 exports.useCollectionReceiptCreate = useCollectionReceiptCreate;
 exports.default = useCollectionReceipts;

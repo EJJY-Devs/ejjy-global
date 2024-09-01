@@ -15,5 +15,6 @@ export declare const useCollectionReceiptCreate: (options?: UseMutationOptions<A
     checkNumber?: string | undefined;
     createdById: number;
     orderOfPaymentId: number;
+    mode: string;
 }, unknown>;
 export default useCollectionReceipts;
