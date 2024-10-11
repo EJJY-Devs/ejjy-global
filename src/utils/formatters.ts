@@ -65,7 +65,11 @@ export const formatQuantity = (
 		return Number(quantity).toFixed(3);
 	}
 
-	if (product.unit_of_measurement === unitOfMeasurementTypes.NON_WEIGHING) {
+	if (
+		[product.unit_of_measurement, type].includes(
+			unitOfMeasurementTypes.NON_WEIGHING,
+		)
+	) {
 		return Number(quantity).toFixed(0);
 	}
 

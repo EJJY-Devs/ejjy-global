@@ -41,7 +41,7 @@ const formatQuantity = (quantity, product, type = null) => {
     if ([product.unit_of_measurement, type].includes(globals_1.unitOfMeasurementTypes.WEIGHING)) {
         return Number(quantity).toFixed(3);
     }
-    if (product.unit_of_measurement === globals_1.unitOfMeasurementTypes.NON_WEIGHING) {
+    if ([product.unit_of_measurement, type].includes(globals_1.unitOfMeasurementTypes.NON_WEIGHING)) {
         return Number(quantity).toFixed(0);
     }
     return '';
