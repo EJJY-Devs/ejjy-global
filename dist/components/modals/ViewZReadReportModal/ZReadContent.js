@@ -117,7 +117,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -142,12 +141,11 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Payments Received',
+                    label: '=Payment Received',
                     value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -195,7 +193,8 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Sales Breakdown"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "ACCUMULATED REPORTS"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Gross Sales Breakdown"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',
@@ -206,7 +205,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(report.vat_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'VAT Amount (12%)',
+                    label: 'VAT Amount',
                     value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -215,7 +214,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated Deductions"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -242,7 +240,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '+Void',
+                    label: '+Voids',
                     value: (0, utils_1.formatInPeso)(report.void, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -251,7 +249,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated VAT Adjustment"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -279,7 +276,6 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Accumulated VAT Payable"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+VAT Amount (12%)',
@@ -295,7 +291,13 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
+        report.print_datetime && (
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement("div", { style: { textAlign: 'center' } }, 
+                    `Print Datetime: ${utils_1.formatDate(report.print_datetime)} - ${utils_1.formatTime(report.print_datetime)}`
+                )
+            )
+        ),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

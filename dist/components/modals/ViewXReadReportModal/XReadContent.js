@@ -67,7 +67,6 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -97,7 +96,6 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -145,7 +143,13 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
+        report.print_datetime && (
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement("div", { style: { textAlign: 'center' } }, 
+                    `Print Datetime: ${utils_1.formatDate(report.print_datetime)} - ${utils_1.formatTime(report.print_datetime)}`
+                )
+            )
+        ),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

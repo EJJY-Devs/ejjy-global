@@ -79,7 +79,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Sales Breakdown"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Gross Sales Breakdown"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',
@@ -90,7 +90,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.vat_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'VAT Amount (12%)',
+                    label: 'VAT Amount',
                     value: (0, utils_1.formatInPeso)(dailySales.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -99,7 +99,6 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Deductions"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -135,7 +134,23 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Adjustment"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+            {
+                label: '+Regular',
+                value: (0, utils_1.formatInPeso)(dailySales.regular_discount, helper_receipt_1.PESO_SIGN),
+            },
+            {
+                label: '+Special',
+                value: (0, utils_1.formatInPeso)(dailySales.special_discount, helper_receipt_1.PESO_SIGN),
+            },
+            // Should add total discounts in serializer
+            {
+                label: '=Discounts',
+                value: (0, utils_1.formatInPeso)(dailySales.regular_discount + dailySales.special_discount, helper_receipt_1.PESO_SIGN),
+            },
+
+        ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -163,7 +178,6 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Payable"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+VAT Amount (12%)',
@@ -198,7 +212,6 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -228,7 +241,6 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -276,7 +288,13 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
+        report.print_datetime && (
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement("div", { style: { textAlign: 'center' } }, 
+                    `Print Datetime: ${utils_1.formatDate(report.print_datetime)} - ${utils_1.formatTime(report.print_datetime)}`
+                )
+            )
+        ),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

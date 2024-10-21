@@ -116,7 +116,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                     (0, utils_1.formatInPeso)(transaction.total_amount, helper_receipt_1.PESO_SIGN),
                     "\u00A0"))),
         react_1.default.createElement("br", null),
-        transaction.payment.mode === globals_1.invoiceTypes.SALES_INVOICE && (react_1.default.createElement(react_1.default.Fragment, null,
+        transaction.invoice_type === globals_1.invoiceTypes.SALES_INVOICE && (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("table", { style: { width: '100%' } },
                 react_1.default.createElement("tr", null,
                     react_1.default.createElement("td", { style: { paddingLeft: '4ch' } }, "AMOUNT RECEIVED"),
