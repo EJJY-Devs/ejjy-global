@@ -146,9 +146,8 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
             // Should add total discounts in serializer
             {
                 label: '=Discounts',
-                value: (0, utils_1.formatInPeso)(dailySales.regular_discount + dailySales.special_discount, helper_receipt_1.PESO_SIGN),
+                value: utils_1.formatInPeso(dailySales.regular_discount + dailySales.special_discount) + helper_receipt_1.PESO_SIGN,
             },
-
         ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
