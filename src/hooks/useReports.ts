@@ -125,11 +125,13 @@ type GenerateReports = {
 	intervalMs: number;
 	branchId?: number;
 	branchMachineId?: number;
+	userId?: number;
 };
 
 export const useGenerateReports = ({
 	branchId,
 	branchMachineId,
+	userId,
 	enabled,
 	intervalMs,
 }: GenerateReports) =>
@@ -140,6 +142,7 @@ export const useGenerateReports = ({
 				ReportsService.generate({
 					branch_id: branchId,
 					branch_machine_id: branchMachineId,
+					user_id: userId,
 				}),
 			),
 		{

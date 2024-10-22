@@ -13,6 +13,7 @@ type GenerateReports = {
     intervalMs: number;
     branchId?: number;
     branchMachineId?: number;
+    userId?: number;
 };
-export declare const useGenerateReports: ({ branchId, branchMachineId, enabled, intervalMs, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
+export declare const useGenerateReports: ({ branchId, branchMachineId, userId, enabled, intervalMs, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
 export {};
