@@ -143,10 +143,9 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 label: '+Special',
                 value: (0, utils_1.formatInPeso)(dailySales.special_discount, helper_receipt_1.PESO_SIGN),
             },
-            // Should add total discounts in serializer
             {
                 label: '=Discounts',
-                value: utils_1.formatInPeso(dailySales.regular_discount + dailySales.special_discount) + helper_receipt_1.PESO_SIGN,
+                value: (0, utils_1.formatInPeso)(dailySales.sum_of_discounts, helper_receipt_1.PESO_SIGN),
             },
         ] }),
         react_1.default.createElement(Printing_1.Divider, null),
@@ -287,11 +286,9 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        dailySales.printing_datetime && (
-            react_1.default.createElement(react_1.default.Fragment, null,
-                react_1.default.createElement("div", { style: { textAlign: 'center' } }, 
-                    `Print Datetime: ${utils_1.formatDate(dailySales.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)}`
-                )
+        react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement( PrintDetails_1.PrintDetails, { style: { textAlign: 'center' } }, 
+                `Print Datetime: ${utils_1.formatDate(dailySales.printing_datetime)} - ${utils_1.formatTime(dailySales.printing_datetime)}`, { user: user }
             )
         ),
         react_1.default.createElement("br", null),
