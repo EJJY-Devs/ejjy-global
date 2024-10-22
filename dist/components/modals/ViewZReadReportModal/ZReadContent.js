@@ -292,8 +292,9 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement( "div", { style: { textAlign: 'center' } }, 
-                `Print Datetime: ${utils_1.formatDate(report.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)}`, { user: user }
+            react_1.default.createElement("div", { style: { textAlign: 'center' } },
+                `Print Datetime: ${utils_1.formatDate(report.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)}`,
+                user && `${user?.employee_id}`
             )
         ),
         react_1.default.createElement("br", null),
