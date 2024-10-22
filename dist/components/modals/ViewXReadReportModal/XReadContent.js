@@ -88,7 +88,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '-Cancelled',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.void, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=Payments Received',
@@ -144,7 +144,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement( PrintDetails_1.PrintDetails, { style: { textAlign: 'center' } }, 
+            react_1.default.createElement( "div", { style: { textAlign: 'center' } }, 
                 `Print Datetime: ${utils_1.formatDate(report.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)}`, { user: user }
             )
         ),
