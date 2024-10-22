@@ -288,8 +288,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("div", { style: { textAlign: 'center' } },
-                `Print Datetime: ${utils_1.formatDate(dailySales.printing_datetime)} - ${utils_1.formatTime(dailySales.printing_datetime)}`,
-                user && `${user?.employee_id}`
+                `Print Datetime: ${utils_1.formatDate(dailySales.printing_datetime)} - ${utils_1.formatTime(dailySales.printing_datetime)} ${user?.employee_id}`,
             )
         ),
         react_1.default.createElement("br", null),
