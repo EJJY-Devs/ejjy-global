@@ -13,6 +13,7 @@ const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
     var _a, _b;
+    const cashieringSession = dailySales.cashiering_session;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         dailySales.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
@@ -287,7 +288,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
             react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(dailySales.generation_datetime)} - ${utils_1.formatTime(dailySales.generation_datetime)}`),
-            react_1.default.createElement("span", null, ` ${user.employee_id}`)
+            react_1.default.createElement("span", null, ` ${cashieringSession.user.employee_id}`)
         ),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
