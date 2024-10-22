@@ -294,7 +294,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)}`),
             report.generated_by.employee_id ? 
                 react_1.default.createElement("span", null, ` ${report.generated_by.employee_id}`) 
-                : null
+                : "auto"
         ),  
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),

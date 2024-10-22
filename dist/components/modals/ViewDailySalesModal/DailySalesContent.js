@@ -290,7 +290,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
             react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(dailySales.generation_datetime)} - ${utils_1.formatTime(dailySales.generation_datetime)}`),
             dailySales.generated_by.employee_id ? 
                 react_1.default.createElement("span", null, ` ${dailySales.generated_by.employee_id}`) 
-                : null
+                : "auto"
         ),  
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
