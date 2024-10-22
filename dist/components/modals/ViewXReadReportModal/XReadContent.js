@@ -11,10 +11,8 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
-const PrintDetails_1 = require("../../Printing/PrintDetails");
 const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     var _a, _b;
-    const cashieringSession = report.cashiering_session;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         report.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: report.branch_machine, siteSettings: siteSettings }),
@@ -143,10 +141,9 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("div", { style: { textAlign: 'center' } },
-                `Print Datetime: ${utils_1.formatDate(report.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)} ${cashieringSession.user.employee_id}`,
-            )
+        react_1.default.createElement("div", { style: { textAlign: 'center' } },
+            react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(report.printing_datetime)} - ${utils_1.formatTime(report.printing_datetime)}`),
+            user && react_1.default.createElement("span", null, ` ${user.employee_id}`)
         ),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
