@@ -287,10 +287,10 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(dailySales.generation_datetime)} - ${utils_1.formatTime(dailySales.generation_datetime)}`),
+            react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(dailySales.generation_datetime)} - ${utils_1.formatTime(dailySales.generation_datetime)} `),
             dailySales.generated_by ? 
                 react_1.default.createElement("span", null, ` ${dailySales.generated_by.employee_id}`) 
-                : "auto"
+                : " auto"
         ),  
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
