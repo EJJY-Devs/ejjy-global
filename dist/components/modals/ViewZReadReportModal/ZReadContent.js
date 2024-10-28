@@ -172,7 +172,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Current Day Transaction Summary"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Transaction Summary"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash on Hand',
@@ -267,7 +267,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '+Others',
-                    value: (0, utils_1.formatInPeso)(report.vat_others, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(0, report.vat_others, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=Accum. VAT Adjustment',
@@ -291,7 +291,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)} `),
+            react_1.default.createElement("span", null, `Print Details: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)} `),
             report.generated_by ? 
                 react_1.default.createElement("span", null, ` ${report.generated_by.employee_id}`) 
                 : " auto"

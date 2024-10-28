@@ -143,7 +143,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            react_1.default.createElement("span", null, `Print Datetime: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)} `),
+            react_1.default.createElement("span", null, `Print Details: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)} `),
             cashieringSession.user ? 
                 react_1.default.createElement("span", null, ` ${cashieringSession.user.employee_id}`) 
                 : null
