@@ -129,11 +129,9 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     label: '+Credit Card',
                     value: (0, utils_1.formatInPeso)(report.credit_card_payment, helper_receipt_1.PESO_SIGN),
                 },
-
-                //To be updated
                 {
                     label: '+Others',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '-Cancelled',
@@ -267,7 +265,7 @@ const ZReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '+Others',
-                    value: (0, utils_1.formatInPeso)(0, report.vat_others, helper_receipt_1.PESO_SIGN),
+                    value: (0, utils_1.formatInPeso)(report.vat_others, helper_receipt_1.PESO_SIGN),
                 },
                 {
                     label: '=Accum. VAT Adjustment',

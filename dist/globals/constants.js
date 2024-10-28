@@ -42,4 +42,4 @@ exports.JSPDF_SETTINGS = {
 exports.EJOURNAL_FOLDER = 'media';
 exports.DESKTOP_FOLDER_OPEN_FUNCTION = 'openFolder';
 exports.AUTOMATIC_GENERATED_REPORT_USER_NAME = 'Auto';
-exports.INVOICE_LAST_MESSAGE = 'This Serve As Your Official Receipt';
+exports.INVOICE_LAST_MESSAGE = 'This Serves As Your Official Receipt';
