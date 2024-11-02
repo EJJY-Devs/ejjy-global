@@ -15,6 +15,7 @@ export interface Params extends ListQueryParams {
     search?: string;
     time_range?: string;
     unit_of_measurement?: string;
+    barcode?: string;
 }
 declare const service: {
     list: (params: Params, baseURL?: string, serviceType?: ServiceType) => Promise<ListResponseData<BranchProduct>>;

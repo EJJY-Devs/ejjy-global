@@ -17,6 +17,7 @@ export interface Params extends ListQueryParams {
 	search?: string;
 	time_range?: string;
 	unit_of_measurement?: string;
+	barcode?: string;
 }
 const service = {
 	list: async (
