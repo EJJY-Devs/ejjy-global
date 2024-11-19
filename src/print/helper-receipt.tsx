@@ -137,14 +137,14 @@ export const print = async (
 
 	console.log('PrinterStatus', printerStatus);
 
-	if (printerStatus === null) {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'Unable to detect selected printer.',
-		});
+	// if (printerStatus === null) {
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content: 'Unable to detect selected printer.',
+	// 	});
 
-		return;
-	}
+	// 	return;
+	// }
 
 	// NOT_AVAILABLE: Printer is not available
 	if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
