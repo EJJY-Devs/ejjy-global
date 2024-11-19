@@ -112,6 +112,7 @@ export const print = async (
 		message.error({
 			content: 'Printer is not connected or QZTray is not open.',
 		});
+
 		return;
 	}
 
@@ -123,113 +124,94 @@ export const print = async (
 
 	let printerStatus: any = null;
 
+	// Add printer callback
 	qz.printers.setPrinterCallbacks((event: any) => {
 		console.log('event', event);
 		printerStatus = event;
 	});
 
-	try {
-		await qz.printers.startListening(printerName);
+	// Register listener and get status; deregister after
+	await qz.printers.startListening(printerName);
+	await qz.printers.getStatus();
+	await qz.printers.stopListening();
 
-		// Wait for the printer status to be updated through the callback
-		const waitForStatus = new Promise<void>((resolve, reject) => {
-			const timeout = setTimeout(
-				() => reject(new Error('Timeout waiting for printer status update')),
-				10000,
-			); // 5-second timeout
-			const interval = setInterval(() => {
-				if (printerStatus) {
-					clearInterval(interval);
-					clearTimeout(timeout);
-					resolve();
-				}
-			}, 100);
+	if (printerStatus === null) {
+		message.error({
+			key: PRINT_MESSAGE_KEY,
+			content: 'Unable to detect selected printer.',
 		});
 
-		await waitForStatus;
+		return;
+	}
 
-		console.log('PrinterStatus:', printerStatus);
-
-		if (printerStatus === null) {
-			message.error({
-				key: PRINT_MESSAGE_KEY,
-				content: 'Unable to detect selected printer.',
-			});
-			return;
-		}
-
-		if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
-			message.error({
-				key: PRINT_MESSAGE_KEY,
-				content:
-					'Printer is not available. Make sure the printer is connected to the machine.',
-			});
-			return;
-		}
-
-		if (
-			[printerStatuses.OK, printerStatuses.PRINTING].includes(
-				printerStatus.statusText,
-			)
-		) {
-			console.log(printData);
-			console.log(printerName);
-
-			try {
-				const config = qz.configs.create(printerName, {
-					margins: {
-						top: 0,
-						right: PAPER_MARGIN_INCHES,
-						bottom: 0,
-						left: PAPER_MARGIN_INCHES,
-					},
-					density: 'draft',
-				});
-
-				await qz.print(config, [
-					{
-						type: 'pixel',
-						format: 'html',
-						flavor: 'plain',
-						options: { pageWidth: PAPER_WIDTH_INCHES },
-						data: printData,
-					},
-				]);
-
-				message.success({
-					content: `${entity} has been printed successfully.`,
-					key: PRINT_MESSAGE_KEY,
-				});
-			} catch (e) {
-				message.error({
-					content: `Error occurred while trying to print ${entity}.`,
-					key: PRINT_MESSAGE_KEY,
-				});
-				console.error(e);
-			} finally {
-				if (onComplete) {
-					onComplete();
-				}
-			}
-
-			return;
-		}
-
+	// NOT_AVAILABLE: Printer is not available
+	if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
+		/*
+      eventType: PRINTER
+      message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
+    */
 		message.error({
 			key: PRINT_MESSAGE_KEY,
 			content:
-				'Printer cannot print right now. Please contact an administrator.',
+				'Printer is not available. Make sure printer is connected to the machine.',
 		});
-	} catch (error) {
-		console.error('Error occurred:', error);
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'An error occurred while checking printer status or printing.',
-		});
-	} finally {
-		// Stop listening once you're done (clean up)
-		await qz.printers.stopListening();
+
+		return;
 	}
+
+	// OK: Ready to print
+	if (
+		[printerStatuses.OK, printerStatuses.PRINTING].includes(
+			printerStatus.statusText,
+		)
+	) {
+		console.log(printData);
+
+		try {
+			const config = qz.configs.create(printerName, {
+				margins: {
+					top: 0,
+					right: PAPER_MARGIN_INCHES,
+					bottom: 0,
+					left: PAPER_MARGIN_INCHES,
+				},
+				density: 'draft',
+			});
+
+			await qz.print(config, [
+				{
+					type: 'pixel',
+					format: 'html',
+					flavor: 'plain',
+					options: { pageWidth: PAPER_WIDTH_INCHES },
+					data: printData,
+				},
+			]);
+
+			message.success({
+				content: `${entity} has been printed successfully.`,
+				key: PRINT_MESSAGE_KEY,
+			});
+		} catch (e) {
+			message.error({
+				content: `Error occurred while trying to print ${entity}.`,
+				key: PRINT_MESSAGE_KEY,
+			});
+			console.error(e);
+		} finally {
+			if (onComplete) {
+				onComplete();
+			}
+		}
+
+		return;
+	}
+
+	// OTHERS
+	message.error({
+		key: PRINT_MESSAGE_KEY,
+		content: 'Printer cannot print right now. Please contact an administrator.',
+	});
 };
 
 export const formatInPesoWithUnderline = (
