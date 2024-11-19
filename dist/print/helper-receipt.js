@@ -102,12 +102,11 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
         printerStatus = event;
     });
     // Register listener and get status; deregister after
-    yield qz_tray_1.default.printers.startListening(printerName);
-    const status = yield qz_tray_1.default.printers.getStatus();
-    yield qz_tray_1.default.printers.stopListening();
+    // await qz.printers.startListening(printerName);
+    // const status = await qz.printers.getStatus();
+    // await qz.printers.stopListening();
     console.log('PrinterStatus', printerStatus);
-    console.log('Status', status);
-    if (status === null) {
+    if (printerStatus === null) {
         antd_1.message.error({
             key: exports.PRINT_MESSAGE_KEY,
             content: 'Unable to detect selected printer.',
