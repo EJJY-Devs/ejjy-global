@@ -104,7 +104,7 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
         yield qz_tray_1.default.printers.startListening(printerName);
         // Wait for the printer status to be updated through the callback
         const waitForStatus = new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => reject(new Error('Timeout waiting for printer status update')), 5000); // 5-second timeout
+            const timeout = setTimeout(() => reject(new Error('Timeout waiting for printer status update')), 10000); // 5-second timeout
             const interval = setInterval(() => {
                 if (printerStatus) {
                     clearInterval(interval);

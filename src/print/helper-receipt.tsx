@@ -135,7 +135,7 @@ export const print = async (
 		const waitForStatus = new Promise<void>((resolve, reject) => {
 			const timeout = setTimeout(
 				() => reject(new Error('Timeout waiting for printer status update')),
-				5000,
+				10000,
 			); // 5-second timeout
 			const interval = setInterval(() => {
 				if (printerStatus) {
