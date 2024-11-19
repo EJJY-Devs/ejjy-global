@@ -135,6 +135,8 @@ export const print = async (
 	await qz.printers.getStatus();
 	await qz.printers.stopListening();
 
+	console.log('PrinterStatus', printerStatus);
+
 	if (printerStatus === null) {
 		message.error({
 			key: PRINT_MESSAGE_KEY,
@@ -166,6 +168,7 @@ export const print = async (
 		)
 	) {
 		console.log(printData);
+		console.log(printerName);
 
 		try {
 			const config = qz.configs.create(printerName, {

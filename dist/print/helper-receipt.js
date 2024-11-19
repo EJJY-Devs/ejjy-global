@@ -105,6 +105,7 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
     yield qz_tray_1.default.printers.startListening(printerName);
     yield qz_tray_1.default.printers.getStatus();
     yield qz_tray_1.default.printers.stopListening();
+    console.log('PrinterStatus', printerStatus);
     if (printerStatus === null) {
         antd_1.message.error({
             key: exports.PRINT_MESSAGE_KEY,
@@ -127,6 +128,7 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
     // OK: Ready to print
     if ([globals_1.printerStatuses.OK, globals_1.printerStatuses.PRINTING].includes(printerStatus.statusText)) {
         console.log(printData);
+        console.log(printerName);
         try {
             const config = qz_tray_1.default.configs.create(printerName, {
                 margins: {
