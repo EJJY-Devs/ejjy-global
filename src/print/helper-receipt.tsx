@@ -160,59 +160,54 @@ export const print = async (
 	// }
 
 	// OK: Ready to print
-	if (
-		[printerStatuses.OK, printerStatuses.PRINTING].includes(
-			printerStatus.statusText,
-		)
-	) {
-		console.log(printData);
 
-		try {
-			const config = qz.configs.create(printerName, {
-				margins: {
-					top: 0,
-					right: PAPER_MARGIN_INCHES,
-					bottom: 0,
-					left: PAPER_MARGIN_INCHES,
-				},
-				density: 'draft',
-			});
+	console.log(printData);
 
-			await qz.print(config, [
-				{
-					type: 'pixel',
-					format: 'html',
-					flavor: 'plain',
-					options: { pageWidth: PAPER_WIDTH_INCHES },
-					data: printData,
-				},
-			]);
+	try {
+		const config = qz.configs.create(printerName, {
+			margins: {
+				top: 0,
+				right: PAPER_MARGIN_INCHES,
+				bottom: 0,
+				left: PAPER_MARGIN_INCHES,
+			},
+			density: 'draft',
+		});
 
-			message.success({
-				content: `${entity} has been printed successfully.`,
-				key: PRINT_MESSAGE_KEY,
-			});
-		} catch (e) {
-			message.error({
-				content: `Error occurred while trying to print ${entity}.`,
-				key: PRINT_MESSAGE_KEY,
-			});
-			console.error(e);
-		} finally {
-			if (onComplete) {
-				onComplete();
-			}
+		await qz.print(config, [
+			{
+				type: 'pixel',
+				format: 'html',
+				flavor: 'plain',
+				options: { pageWidth: PAPER_WIDTH_INCHES },
+				data: printData,
+			},
+		]);
+
+		message.success({
+			content: `${entity} has been printed successfully.`,
+			key: PRINT_MESSAGE_KEY,
+		});
+	} catch (e) {
+		message.error({
+			content: `Error occurred while trying to print ${entity}.`,
+			key: PRINT_MESSAGE_KEY,
+		});
+		console.error(e);
+	} finally {
+		if (onComplete) {
+			onComplete();
 		}
-
-		return;
 	}
 
-	// OTHERS
-	message.error({
-		key: PRINT_MESSAGE_KEY,
-		content: 'Printer cannot print right now. Please contact an administrator.',
-	});
+	return;
 };
+
+// OTHERS
+message.error({
+	key: PRINT_MESSAGE_KEY,
+	content: 'Printer cannot print right now. Please contact an administrator.',
+});
 
 export const formatInPesoWithUnderline = (
 	value: string | number,

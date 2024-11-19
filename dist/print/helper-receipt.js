@@ -18,7 +18,6 @@ const qz_tray_1 = __importDefault(require("qz-tray"));
 const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const components_1 = require("../components");
-const globals_1 = require("../globals");
 const utils_1 = require("../utils");
 exports.PESO_SIGN = 'P';
 exports.EMPTY_CELL = '';
@@ -126,53 +125,51 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
     // 	return;
     // }
     // OK: Ready to print
-    if ([globals_1.printerStatuses.OK, globals_1.printerStatuses.PRINTING].includes(printerStatus.statusText)) {
-        console.log(printData);
-        try {
-            const config = qz_tray_1.default.configs.create(printerName, {
-                margins: {
-                    top: 0,
-                    right: exports.PAPER_MARGIN_INCHES,
-                    bottom: 0,
-                    left: exports.PAPER_MARGIN_INCHES,
-                },
-                density: 'draft',
-            });
-            yield qz_tray_1.default.print(config, [
-                {
-                    type: 'pixel',
-                    format: 'html',
-                    flavor: 'plain',
-                    options: { pageWidth: exports.PAPER_WIDTH_INCHES },
-                    data: printData,
-                },
-            ]);
-            antd_1.message.success({
-                content: `${entity} has been printed successfully.`,
-                key: exports.PRINT_MESSAGE_KEY,
-            });
-        }
-        catch (e) {
-            antd_1.message.error({
-                content: `Error occurred while trying to print ${entity}.`,
-                key: exports.PRINT_MESSAGE_KEY,
-            });
-            console.error(e);
-        }
-        finally {
-            if (onComplete) {
-                onComplete();
-            }
-        }
-        return;
+    console.log(printData);
+    try {
+        const config = qz_tray_1.default.configs.create(printerName, {
+            margins: {
+                top: 0,
+                right: exports.PAPER_MARGIN_INCHES,
+                bottom: 0,
+                left: exports.PAPER_MARGIN_INCHES,
+            },
+            density: 'draft',
+        });
+        yield qz_tray_1.default.print(config, [
+            {
+                type: 'pixel',
+                format: 'html',
+                flavor: 'plain',
+                options: { pageWidth: exports.PAPER_WIDTH_INCHES },
+                data: printData,
+            },
+        ]);
+        antd_1.message.success({
+            content: `${entity} has been printed successfully.`,
+            key: exports.PRINT_MESSAGE_KEY,
+        });
     }
-    // OTHERS
-    antd_1.message.error({
-        key: exports.PRINT_MESSAGE_KEY,
-        content: 'Printer cannot print right now. Please contact an administrator.',
-    });
+    catch (e) {
+        antd_1.message.error({
+            content: `Error occurred while trying to print ${entity}.`,
+            key: exports.PRINT_MESSAGE_KEY,
+        });
+        console.error(e);
+    }
+    finally {
+        if (onComplete) {
+            onComplete();
+        }
+    }
+    return;
 });
 exports.print = print;
+// OTHERS
+antd_1.message.error({
+    key: exports.PRINT_MESSAGE_KEY,
+    content: 'Printer cannot print right now. Please contact an administrator.',
+});
 const formatInPesoWithUnderline = (value) => `<div style="display:inline-block">
     ${(0, utils_1.formatInPeso)(value, exports.PESO_SIGN)}
   </div>`;
