@@ -105,25 +105,26 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
     yield qz_tray_1.default.printers.startListening(printerName);
     yield qz_tray_1.default.printers.getStatus();
     yield qz_tray_1.default.printers.stopListening();
-    if (printerStatus === null) {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Unable to detect selected printer.',
-        });
-        return;
-    }
-    // NOT_AVAILABLE: Printer is not available
-    if (printerStatus.statusText === globals_1.printerStatuses.NOT_AVAILABLE) {
-        /*
-      eventType: PRINTER
-      message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
-    */
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Printer is not available. Make sure printer is connected to the machine.',
-        });
-        return;
-    }
+    // if (printerStatus === null) {
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content: 'Unable to detect selected printer.',
+    // 	});
+    // 	return;
+    // }
+    // // NOT_AVAILABLE: Printer is not available
+    // if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
+    // 	/*
+    //   eventType: PRINTER
+    //   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
+    // */
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content:
+    // 			'Printer is not available. Make sure printer is connected to the machine.',
+    // 	});
+    // 	return;
+    // }
     // OK: Ready to print
     if ([globals_1.printerStatuses.OK, globals_1.printerStatuses.PRINTING].includes(printerStatus.statusText)) {
         console.log(printData);

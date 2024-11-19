@@ -135,29 +135,29 @@ export const print = async (
 	await qz.printers.getStatus();
 	await qz.printers.stopListening();
 
-	if (printerStatus === null) {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'Unable to detect selected printer.',
-		});
+	// if (printerStatus === null) {
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content: 'Unable to detect selected printer.',
+	// 	});
 
-		return;
-	}
+	// 	return;
+	// }
 
-	// NOT_AVAILABLE: Printer is not available
-	if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
-		/*
-      eventType: PRINTER
-      message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
-    */
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content:
-				'Printer is not available. Make sure printer is connected to the machine.',
-		});
+	// // NOT_AVAILABLE: Printer is not available
+	// if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
+	// 	/*
+	//   eventType: PRINTER
+	//   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
+	// */
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content:
+	// 			'Printer is not available. Make sure printer is connected to the machine.',
+	// 	});
 
-		return;
-	}
+	// 	return;
+	// }
 
 	// OK: Ready to print
 	if (
