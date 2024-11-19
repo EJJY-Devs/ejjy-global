@@ -132,19 +132,20 @@ export const print = async (
 
 	// Register listener and get status; deregister after
 	await qz.printers.startListening(printerName);
-	await qz.printers.getStatus();
+	const status = await qz.printers.getStatus();
 	await qz.printers.stopListening();
 
 	console.log('PrinterStatus', printerStatus);
+	console.log('Status', status);
 
-	// if (printerStatus === null) {
-	// 	message.error({
-	// 		key: PRINT_MESSAGE_KEY,
-	// 		content: 'Unable to detect selected printer.',
-	// 	});
+	if (status === null) {
+		message.error({
+			key: PRINT_MESSAGE_KEY,
+			content: 'Unable to detect selected printer.',
+		});
 
-	// 	return;
-	// }
+		return;
+	}
 
 	// NOT_AVAILABLE: Printer is not available
 	if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {

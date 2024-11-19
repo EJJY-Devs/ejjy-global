@@ -103,16 +103,17 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
     });
     // Register listener and get status; deregister after
     yield qz_tray_1.default.printers.startListening(printerName);
-    yield qz_tray_1.default.printers.getStatus();
+    const status = yield qz_tray_1.default.printers.getStatus();
     yield qz_tray_1.default.printers.stopListening();
     console.log('PrinterStatus', printerStatus);
-    // if (printerStatus === null) {
-    // 	message.error({
-    // 		key: PRINT_MESSAGE_KEY,
-    // 		content: 'Unable to detect selected printer.',
-    // 	});
-    // 	return;
-    // }
+    console.log('Status', status);
+    if (status === null) {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Unable to detect selected printer.',
+        });
+        return;
+    }
     // NOT_AVAILABLE: Printer is not available
     if (printerStatus.statusText === globals_1.printerStatuses.NOT_AVAILABLE) {
         /*
