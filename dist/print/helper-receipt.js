@@ -96,82 +96,96 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
         duration: 5000,
     });
     let printerStatus = null;
-    // Add printer callback
     qz_tray_1.default.printers.setPrinterCallbacks((event) => {
         console.log('event', event);
         printerStatus = event;
     });
-    // Register listener and get status; deregister after
-    // await qz.printers.startListening(printerName);
-    // const status = await qz.printers.getStatus();
-    // await qz.printers.stopListening();
-    console.log('PrinterStatus', printerStatus);
-    if (printerStatus === null) {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Unable to detect selected printer.',
+    try {
+        yield qz_tray_1.default.printers.startListening(printerName);
+        // Wait for the printer status to be updated through the callback
+        const waitForStatus = new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => reject(new Error('Timeout waiting for printer status update')), 5000); // 5-second timeout
+            const interval = setInterval(() => {
+                if (printerStatus) {
+                    clearInterval(interval);
+                    clearTimeout(timeout);
+                    resolve();
+                }
+            }, 100);
         });
-        return;
-    }
-    // NOT_AVAILABLE: Printer is not available
-    if (printerStatus.statusText === globals_1.printerStatuses.NOT_AVAILABLE) {
-        /*
-      eventType: PRINTER
-      message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
-    */
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Printer is not available. Make sure printer is connected to the machine.',
-        });
-        return;
-    }
-    // OK: Ready to print
-    if ([globals_1.printerStatuses.OK, globals_1.printerStatuses.PRINTING].includes(printerStatus.statusText)) {
-        console.log(printData);
-        console.log(printerName);
-        try {
-            const config = qz_tray_1.default.configs.create(printerName, {
-                margins: {
-                    top: 0,
-                    right: exports.PAPER_MARGIN_INCHES,
-                    bottom: 0,
-                    left: exports.PAPER_MARGIN_INCHES,
-                },
-                density: 'draft',
-            });
-            yield qz_tray_1.default.print(config, [
-                {
-                    type: 'pixel',
-                    format: 'html',
-                    flavor: 'plain',
-                    options: { pageWidth: exports.PAPER_WIDTH_INCHES },
-                    data: printData,
-                },
-            ]);
-            antd_1.message.success({
-                content: `${entity} has been printed successfully.`,
-                key: exports.PRINT_MESSAGE_KEY,
-            });
-        }
-        catch (e) {
+        yield waitForStatus;
+        console.log('PrinterStatus:', printerStatus);
+        if (printerStatus === null) {
             antd_1.message.error({
-                content: `Error occurred while trying to print ${entity}.`,
                 key: exports.PRINT_MESSAGE_KEY,
+                content: 'Unable to detect selected printer.',
             });
-            console.error(e);
+            return;
         }
-        finally {
-            if (onComplete) {
-                onComplete();
+        if (printerStatus.statusText === globals_1.printerStatuses.NOT_AVAILABLE) {
+            antd_1.message.error({
+                key: exports.PRINT_MESSAGE_KEY,
+                content: 'Printer is not available. Make sure the printer is connected to the machine.',
+            });
+            return;
+        }
+        if ([globals_1.printerStatuses.OK, globals_1.printerStatuses.PRINTING].includes(printerStatus.statusText)) {
+            console.log(printData);
+            console.log(printerName);
+            try {
+                const config = qz_tray_1.default.configs.create(printerName, {
+                    margins: {
+                        top: 0,
+                        right: exports.PAPER_MARGIN_INCHES,
+                        bottom: 0,
+                        left: exports.PAPER_MARGIN_INCHES,
+                    },
+                    density: 'draft',
+                });
+                yield qz_tray_1.default.print(config, [
+                    {
+                        type: 'pixel',
+                        format: 'html',
+                        flavor: 'plain',
+                        options: { pageWidth: exports.PAPER_WIDTH_INCHES },
+                        data: printData,
+                    },
+                ]);
+                antd_1.message.success({
+                    content: `${entity} has been printed successfully.`,
+                    key: exports.PRINT_MESSAGE_KEY,
+                });
             }
+            catch (e) {
+                antd_1.message.error({
+                    content: `Error occurred while trying to print ${entity}.`,
+                    key: exports.PRINT_MESSAGE_KEY,
+                });
+                console.error(e);
+            }
+            finally {
+                if (onComplete) {
+                    onComplete();
+                }
+            }
+            return;
         }
-        return;
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Printer cannot print right now. Please contact an administrator.',
+        });
     }
-    // OTHERS
-    antd_1.message.error({
-        key: exports.PRINT_MESSAGE_KEY,
-        content: 'Printer cannot print right now. Please contact an administrator.',
-    });
+    catch (error) {
+        console.error('Error occurred:', error);
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'An error occurred while checking printer status or printing.',
+        });
+    }
+    finally {
+        // Stop listening once you're done (clean up)
+        yield qz_tray_1.default.printers.stopListening();
+    }
 });
 exports.print = print;
 const formatInPesoWithUnderline = (value) => `<div style="display:inline-block">
