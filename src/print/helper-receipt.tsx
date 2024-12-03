@@ -172,6 +172,7 @@ export const print = async (
 				left: PAPER_MARGIN_INCHES,
 			},
 			density: 'draft',
+
 			scaling: 'none',
 		});
 
