@@ -135,6 +135,7 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
                 left: exports.PAPER_MARGIN_INCHES,
             },
             density: 'draft',
+            scaleContent: true,
             scaling: 'none',
         });
         yield qz_tray_1.default.print(config, [
