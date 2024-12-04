@@ -63,7 +63,7 @@ exports.getHeader = getHeader;
 const getFooter = (siteSettings) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptFooter, { siteSettings: siteSettings }));
 exports.getFooter = getFooter;
 const getPageStyle = (extraStyle = '') => {
-    return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
+    return `width: 100%; font-size: ${printerFontSize || '12'}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative;  word-wrap: break-word;${extraStyle} `;
 };
 exports.getPageStyle = getPageStyle;
 const getPageStyleObject = (extraStyle) => (Object.assign({ width: '100%', fontSize: `${printerFontSize}pt`, fontFamily: printerFontFamily, lineHeight: '100%', position: 'relative' }, extraStyle));
@@ -73,7 +73,10 @@ const appendHtmlElement = (data) => `
   <head>
     <style>
       .container, .container > div, .container > table {
-        width: 380px !important;
+        width: 240px !important;
+		 max-width: 100%; /* Prevent overflow */
+		font-size: ${printerFontSize || '12'}pt;
+		word-wrap: break-word;
       }
     </style>
   </head>
@@ -136,7 +139,7 @@ const print = (printData, entity, onComplete) => __awaiter(void 0, void 0, void 
             },
             density: 'draft',
             scaleContent: true,
-            scaling: 'none',
+            scaling: 'fit',
         });
         yield qz_tray_1.default.print(config, [
             {
