@@ -75,7 +75,7 @@ export const getFooter = (siteSettings: SiteSettings) =>
 	);
 
 export const getPageStyle = (extraStyle = '') => {
-	return `width: 100%; font-size: ${printerFontSize || '12'}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative;  word-wrap: break-word;${extraStyle} `;
+	return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
 };
 
 export const getPageStyleObject = (
@@ -94,10 +94,7 @@ export const appendHtmlElement = (data: string) => `
   <head>
     <style>
       .container, .container > div, .container > table {
-        width: 240px !important;
-		 max-width: 100%; /* Prevent overflow */
-		font-size: ${printerFontSize || '12'}pt;
-		word-wrap: break-word;
+        width: 380px !important;
       }
     </style>
   </head>
@@ -176,7 +173,7 @@ export const print = async (
 			},
 			density: 'draft',
 			scaleContent: true,
-			scaling: 'fit',
+			scaling: 'strinkToFit',
 		});
 
 		await qz.print(config, [
