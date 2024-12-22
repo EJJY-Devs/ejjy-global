@@ -82,7 +82,7 @@ const appendHtmlElement = (data) => `
   </body>
 </html>`;
 exports.appendHtmlElement = appendHtmlElement;
-const print = (printData, entity, onComplete, dataOptions) => __awaiter(void 0, void 0, void 0, function* () {
+const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0, void 0, function* () {
     if (!qz_tray_1.default.websocket.isActive()) {
         antd_1.message.error({
             content: 'Printer is not connected or QZTray is not open.',
@@ -139,9 +139,29 @@ const print = (printData, entity, onComplete, dataOptions) => __awaiter(void 0, 
             scaling: 'strinkToFit',
             forceRaw: true,
         });
-        yield qz_tray_1.default.print(config, [
-            Object.assign({ type: 'pixel', format: 'html', flavor: 'plain', options: { pageWidth: exports.PAPER_WIDTH_INCHES }, data: printData }, dataOptions),
-        ]);
+        if (type === 'raw') {
+            yield qz_tray_1.default.print(config, [
+                {
+                    type: 'raw',
+                    format: 'command',
+                    flavor: 'plain',
+                    options: { pageWidth: exports.PAPER_WIDTH_INCHES },
+                    data: '',
+                },
+                ...printData,
+            ]);
+        }
+        else {
+            yield qz_tray_1.default.print(config, [
+                {
+                    type: 'pixel',
+                    format: 'html',
+                    flavor: 'plain',
+                    options: { pageWidth: exports.PAPER_WIDTH_INCHES },
+                    data: printData,
+                },
+            ]);
+        }
         antd_1.message.success({
             content: `${entity} has been printed successfully.`,
             key: exports.PRINT_MESSAGE_KEY,

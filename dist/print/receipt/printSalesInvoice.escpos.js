@@ -15,11 +15,7 @@ const printSalesInvoiceEscPos = (transaction, siteSettings, isReprint = false) =
             title,
         }),
     ];
-    (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, {
-        type: 'raw',
-        format: 'command',
-        flavor: 'plain',
-    });
+    (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, 'raw');
 };
 exports.printSalesInvoiceEscPos = printSalesInvoiceEscPos;
 const generateReceiptHeaderCommands = ({ branchMachine, siteSettings, title, }) => {

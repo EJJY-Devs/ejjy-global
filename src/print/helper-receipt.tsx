@@ -107,7 +107,7 @@ export const print = async (
 	printData: string | string[],
 	entity: string,
 	onComplete?: () => void,
-	dataOptions?: any,
+	type?: any,
 ) => {
 	if (!qz.websocket.isActive()) {
 		message.error({
@@ -178,16 +178,28 @@ export const print = async (
 			forceRaw: true,
 		});
 
-		await qz.print(config, [
-			{
-				type: 'pixel',
-				format: 'html',
-				flavor: 'plain',
-				options: { pageWidth: PAPER_WIDTH_INCHES },
-				data: printData,
-				...dataOptions,
-			},
-		]);
+		if (type === 'raw') {
+			await qz.print(config, [
+				{
+					type: 'raw',
+					format: 'command',
+					flavor: 'plain',
+					options: { pageWidth: PAPER_WIDTH_INCHES },
+					data: '',
+				},
+				...printData,
+			]);
+		} else {
+			await qz.print(config, [
+				{
+					type: 'pixel',
+					format: 'html',
+					flavor: 'plain',
+					options: { pageWidth: PAPER_WIDTH_INCHES },
+					data: printData,
+				},
+			]);
+		}
 
 		message.success({
 			content: `${entity} has been printed successfully.`,

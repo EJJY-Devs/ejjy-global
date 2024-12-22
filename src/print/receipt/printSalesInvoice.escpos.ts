@@ -26,11 +26,7 @@ export const printSalesInvoiceEscPos = (
 		}),
 	];
 
-	print(data, 'Sales Invoice', undefined, {
-		type: 'raw',
-		format: 'command',
-		flavor: 'plain',
-	});
+	print(data, 'Sales Invoice', undefined, 'raw');
 };
 
 const generateReceiptHeaderCommands = ({
