@@ -22,3 +22,5 @@ export * from './txt/createSalesInvoiceTxt';
 export * from './txt/createXReadTxt';
 export * from './txt/createZReadTxt';
 export * from './utils/cashier';
+
+export * from './receipt/printSalesInvoice.escpos';
