@@ -51,7 +51,7 @@ export const configurePrinter = (
 					content: 'Cannot connect to QZTray.',
 					key: QZ_MESSAGE_KEY,
 				});
-				console.error(err);
+				console.error('QZ Tray Error', err);
 			});
 	}
 };
@@ -104,9 +104,10 @@ export const appendHtmlElement = (data: string) => `
 </html>`;
 
 export const print = async (
-	printData: string,
+	printData: string | string[],
 	entity: string,
 	onComplete?: () => void,
+	dataOptions?: any,
 ) => {
 	if (!qz.websocket.isActive()) {
 		message.error({
@@ -183,6 +184,7 @@ export const print = async (
 				flavor: 'plain',
 				options: { pageWidth: PAPER_WIDTH_INCHES },
 				data: printData,
+				...dataOptions,
 			},
 		]);
 

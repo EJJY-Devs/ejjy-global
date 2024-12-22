@@ -2,7 +2,7 @@ import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
-type Props = {
+export type Props = {
 	branchMachine?: BranchMachine;
 	siteSettings: SiteSettings;
 	title?: string;
