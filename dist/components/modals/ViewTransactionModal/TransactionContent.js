@@ -13,10 +13,10 @@ const Printing_1 = require("../../Printing");
 const getTransactionData = (transaction) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
     let title = '';
-    if (transaction.invoice_type === globals_1.invoiceTypes.SALES_INVOICE) {
+    if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         title = 'CASH SALES INVOICE';
     }
-    else if (transaction.invoice_type === globals_1.invoiceTypes.CHARGE_INVOICE) {
+    else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
         title = 'CHARGE SALES INVOICE';
     }
     let fields = [];
@@ -103,7 +103,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                         (0, utils_1.formatInPeso)((0, utils_1.getComputedDiscount)(transaction), helper_receipt_1.PESO_SIGN),
                         ")")),
                 transaction.discount_option.is_special_discount && (react_1.default.createElement("tr", null,
-                    react_1.default.createElement("td", null, "VAT Adjustment"),
+                    react_1.default.createElement("td", null, "ADJ. ON VAT"),
                     react_1.default.createElement("td", { style: { textAlign: 'right' } },
                         "(",
                         (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
@@ -111,14 +111,14 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                 react_1.default.createElement("tr", null,
                     react_1.default.createElement("td", { colSpan: 2, style: { textAlign: 'right' } }, "----------------")))),
             react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "AMOUNT DUE"),
+                react_1.default.createElement("td", null, "TOTAL AMOUNT"),
                 react_1.default.createElement("td", { style: { textAlign: 'right', fontWeight: 'bold' } },
                     (0, utils_1.formatInPeso)(transaction.total_amount, helper_receipt_1.PESO_SIGN),
                     "\u00A0"))),
         react_1.default.createElement("br", null),
-        transaction.invoice_type === globals_1.invoiceTypes.SALES_INVOICE && (react_1.default.createElement(react_1.default.Fragment, null,
+        transaction.payment.mode === globals_1.saleTypes.CASH && (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("table", { style: { width: '100%' } },
-                react_1.default.createElement("tr", { style: { fontSize: '1.2em' } },
+                react_1.default.createElement("tr", null,
                     react_1.default.createElement("td", { style: { paddingLeft: '4ch' } }, "AMOUNT RECEIVED"),
                     react_1.default.createElement("td", { style: { textAlign: 'right' } },
                         (0, utils_1.formatInPeso)(transaction.payment.amount_tendered, helper_receipt_1.PESO_SIGN),
@@ -135,11 +135,6 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                         "\u00A0"))),
             react_1.default.createElement("br", null))),
         react_1.default.createElement("table", { style: { width: '100%' } },
-            react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "Gross Sales"),
-                react_1.default.createElement("td", { style: { textAlign: 'right' } },
-                    (0, utils_1.formatInPeso)(transaction.gross_amount, helper_receipt_1.PESO_SIGN),
-                    "\u00A0")),
             react_1.default.createElement("tr", null,
                 react_1.default.createElement("td", null, "VAT Exempt"),
                 react_1.default.createElement("td", { style: { textAlign: 'right' } },

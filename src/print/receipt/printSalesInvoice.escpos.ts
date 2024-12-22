@@ -1,5 +1,5 @@
 import { getTransactionData } from '../../components/modals/ViewTransactionModal/TransactionContent';
-import { type Props as ReceiptHeaderProps } from '../../components/Printing/ReceiptHeader';
+import { ReceiptHeaderProps } from '../../components/Printing/ReceiptHeader';
 import { SiteSettings, Transaction } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 import { print } from '../helper-receipt';

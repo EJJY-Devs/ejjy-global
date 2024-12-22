@@ -11,6 +11,7 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
     var _a, _b;
     const cashieringSession = report.cashiering_session;
@@ -49,11 +50,11 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Beg SI/OR NO.',
+                    label: 'Beg Invoice #:',
                     value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
-                    label: 'End SI/OR NO.',
+                    label: 'End Invoice #:',
                     value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
@@ -66,6 +67,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -79,22 +81,13 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     label: '+Credit Card',
                     value: (0, utils_1.formatInPeso)(report.credit_card_payment, helper_receipt_1.PESO_SIGN),
                 },
-
-                //To be updated
                 {
-                    label: '+Others',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-Cancelled',
-                    value: (0, utils_1.formatInPeso)(report.void, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '=Payments Received',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -117,7 +110,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(report.cash_collection, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Cash on Hand',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -142,12 +135,7 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            react_1.default.createElement("span", null, `Print Details: ${utils_1.formatDate(report.generation_datetime)} - ${utils_1.formatTime(report.generation_datetime)} `),
-            cashieringSession.user ? 
-                react_1.default.createElement("span", null, ` ${cashieringSession.user.employee_id}`) 
-                : null
-        ),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),

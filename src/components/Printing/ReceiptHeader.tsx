@@ -2,7 +2,7 @@ import React from 'react';
 import { BranchMachine, SiteSettings } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
-export type Props = {
+export type ReceiptHeaderProps = {
 	branchMachine?: BranchMachine;
 	siteSettings: SiteSettings;
 	title?: string;
@@ -24,7 +24,7 @@ export const ReceiptHeader = ({
 	branchMachine,
 	siteSettings,
 	title,
-}: Props) => {
+}: ReceiptHeaderProps) => {
 	const {
 		contact_number: contactNumber,
 		address_of_tax_payer: location,

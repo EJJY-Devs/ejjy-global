@@ -11,9 +11,9 @@ const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
     var _a, _b;
-    const cashieringSession = dailySales.cashiering_session;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         dailySales.gross_sales === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: dailySales.branch_machine, siteSettings: siteSettings }),
@@ -45,11 +45,11 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
-                    label: 'Beg SI/OR No.:',
+                    label: 'Beg Sales Invoice #:',
                     value: ((_a = dailySales.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
                 },
                 {
-                    label: 'End SI/OR No.:',
+                    label: 'End Sales Invoice #:',
                     value: ((_b = dailySales.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
                 },
             ] }),
@@ -68,18 +68,8 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.gross_sales, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
-            react_1.default.createElement("br", null),             
-            react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [{
-                    label: 'Cash SI',
-                    value: (0, utils_1.formatInPeso)(dailySales.sales_invoice_payments, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: 'Charge SI',
-                    value: (0, utils_1.formatInPeso)(dailySales.charge_invoice_payments, helper_receipt_1.PESO_SIGN),
-                },
-            ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Gross Sales Breakdown"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Sales Breakdown"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'VAT Exempt Sales',
@@ -90,7 +80,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.vat_sales, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: 'VAT Amount',
+                    label: 'VAT Amount (12%)',
                     value: (0, utils_1.formatInPeso)(dailySales.vat_amount, helper_receipt_1.PESO_SIGN),
                 },
                 {
@@ -99,6 +89,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Deductions"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -125,30 +116,16 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '+Voids',
+                    label: '+Void',
                     value: (0, utils_1.formatInPeso)(dailySales.void, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Deductions',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(dailySales.total_deductions, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-            {
-                label: '+Regular',
-                value: (0, utils_1.formatInPeso)(dailySales.regular_discount, helper_receipt_1.PESO_SIGN),
-            },
-            {
-                label: '+Special',
-                value: (0, utils_1.formatInPeso)(dailySales.special_discount, helper_receipt_1.PESO_SIGN),
-            },
-            {
-                label: '=Discounts',
-                value: (0, utils_1.formatInPeso)(dailySales.sum_of_discounts, helper_receipt_1.PESO_SIGN),
-            },
-        ] }),
-        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Adjustment"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Disc. SC',
@@ -171,11 +148,12 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.vat_others, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=VAT Adjustment',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "VAT Payable"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+VAT Amount (12%)',
@@ -186,7 +164,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=VAT Payable',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(dailySales.vat_payable, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -205,11 +183,12 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Net Sales',
+                    label: '=Net Amount',
                     value: (0, utils_1.formatInPeso)(dailySales.net_sales, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Cash',
@@ -223,22 +202,13 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     label: '+Credit Card',
                     value: (0, utils_1.formatInPeso)(dailySales.credit_card_payment, helper_receipt_1.PESO_SIGN),
                 },
-
-                //To be added
                 {
-                    label: '+Others',
-                    value: (0, utils_1.formatInPeso)(helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '-Cancelled',
-                    value: (0, utils_1.formatInPeso)(dailySales.void, helper_receipt_1.PESO_SIGN),
-                },
-                {
-                    label: '=Payments Received',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(dailySales.total_payment_received, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Cash on Hand"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: '+Payment Received',
@@ -261,7 +231,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                     value: (0, utils_1.formatInPeso)(dailySales.cash_collection, helper_receipt_1.PESO_SIGN),
                 },
                 {
-                    label: '=Cash on Hand',
+                    label: '=Total',
                     value: (0, utils_1.formatInPeso)(dailySales.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
                 },
             ] }),
@@ -286,12 +256,7 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } },
-            react_1.default.createElement("span", null, `Print Details: ${utils_1.formatDate(dailySales.generation_datetime)} - ${utils_1.formatTime(dailySales.generation_datetime)} `),
-            dailySales.generated_by ? 
-                react_1.default.createElement("span", null, ` ${dailySales.generated_by.employee_id}`) 
-                : " auto"
-        ),  
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };
