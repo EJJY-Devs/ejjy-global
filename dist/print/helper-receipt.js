@@ -137,16 +137,17 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
             density: 'draft',
             scaleContent: true,
             scaling: 'strinkToFit',
-            forceRaw: true,
+            copies: 1,
+            jobName: 'EJJY',
         });
         if (type === 'raw') {
-            yield qz_tray_1.default.print(config, [
+            yield qz_tray_1.default.print(Object.assign(Object.assign({}, config), { forceRaw: true }), [
                 {
                     type: 'raw',
                     format: 'command',
                     flavor: 'plain',
-                    options: { pageWidth: exports.PAPER_WIDTH_INCHES },
                     data: '',
+                    options: { language: 'ESCPOS', dotDensity: 'single' },
                 },
                 ...printData,
             ]);

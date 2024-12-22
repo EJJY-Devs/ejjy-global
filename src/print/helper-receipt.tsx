@@ -175,20 +175,27 @@ export const print = async (
 			density: 'draft',
 			scaleContent: true,
 			scaling: 'strinkToFit',
-			forceRaw: true,
+			copies: 1,
+			jobName: 'EJJY',
 		});
 
 		if (type === 'raw') {
-			await qz.print(config, [
+			await qz.print(
 				{
-					type: 'raw',
-					format: 'command',
-					flavor: 'plain',
-					options: { pageWidth: PAPER_WIDTH_INCHES },
-					data: '',
+					...config,
+					forceRaw: true,
 				},
-				...printData,
-			]);
+				[
+					{
+						type: 'raw',
+						format: 'command',
+						flavor: 'plain',
+						data: '',
+						options: { language: 'ESCPOS', dotDensity: 'single' },
+					},
+					...printData,
+				],
+			);
 		} else {
 			await qz.print(config, [
 				{
