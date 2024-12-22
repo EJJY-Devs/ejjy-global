@@ -175,6 +175,7 @@ export const print = async (
 			density: 'draft',
 			scaleContent: true,
 			scaling: 'strinkToFit',
+			forceRaw: true,
 		});
 
 		await qz.print(config, [

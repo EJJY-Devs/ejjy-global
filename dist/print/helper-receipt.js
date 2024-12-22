@@ -137,6 +137,7 @@ const print = (printData, entity, onComplete, dataOptions) => __awaiter(void 0, 
             density: 'draft',
             scaleContent: true,
             scaling: 'strinkToFit',
+            forceRaw: true,
         });
         yield qz_tray_1.default.print(config, [
             Object.assign({ type: 'pixel', format: 'html', flavor: 'plain', options: { pageWidth: exports.PAPER_WIDTH_INCHES }, data: printData }, dataOptions),
