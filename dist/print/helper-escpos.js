@@ -73,11 +73,11 @@ const generateReceiptFooterCommands = (siteSettings) => {
         commands.push(`Acc No: ${posAccreditationNumber}`);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (posAccreditationDate) {
         commands.push(`Date Issued: ${posAccreditationDate}`);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (ptuNumber) {
         commands.push(`PTU No: ${ptuNumber}`);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -102,7 +102,7 @@ const generateItemBlockCommands = (items) => {
             value = `(${value})`;
         }
         commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
-        commands.push(value.toString());
+        commands.push(` ${value.toString()}`);
         if (item.isUnderlined && typeof item.value === 'number' && item.value > 0) {
             commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
             commands.push('-----------');

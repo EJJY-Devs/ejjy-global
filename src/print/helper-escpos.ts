@@ -1,8 +1,7 @@
 import { ReceiptHeaderProps } from '../components';
 import { ItemBlockItems } from '../components/Printing/ItemBlock';
 import { SiteSettings } from '../types';
-import { formatInPeso, getTaxTypeDescription } from '../utils';
-import { PESO_SIGN } from './helper-receipt';
+import { getTaxTypeDescription } from '../utils';
 import { EscPosCommands } from './utils/escpos.enum';
 
 export const generateReceiptHeaderCommands = ({
@@ -117,12 +116,12 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	if (posAccreditationDate) {
 		commands.push(`Date Issued: ${posAccreditationDate}`);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
+
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	if (ptuNumber) {
 		commands.push(`PTU No: ${ptuNumber}`);
@@ -159,7 +158,7 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 		}
 
 		commands.push(EscPosCommands.ALIGN_RIGHT);
-		commands.push(value.toString());
+		commands.push(` ${value.toString()}`);
 
 		if (item.isUnderlined && typeof item.value === 'number' && item.value > 0) {
 			commands.push(EscPosCommands.LINE_BREAK);

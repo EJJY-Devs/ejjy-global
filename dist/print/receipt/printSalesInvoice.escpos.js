@@ -14,6 +14,7 @@ const escpos_enum_1 = require("../utils/escpos.enum");
 const printSalesInvoiceEscPos = (transaction, siteSettings, isReprint = false) => {
     const data = [
         escpos_enum_1.EscPosCommands.INITIALIZE,
+        escpos_enum_1.EscPosCommands.TEXT_SMALL,
         ...generateTransactionContentCommands(transaction, siteSettings, isReprint),
     ];
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, 'raw');
@@ -28,6 +29,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         siteSettings,
         title,
     }));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Products
     transaction.products.forEach((item) => {
         const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}`;
@@ -36,10 +38,13 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
         commands.push(productDetails);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push(quantityAndPrice);
-        commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
-        commands.push(totalAmount);
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: quantityAndPrice,
+                value: totalAmount,
+                isIndented: true,
+            },
+        ]));
     });
     // Divider
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
@@ -78,6 +83,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     ]));
     // Payment Details
     if (transaction.payment.mode === globals_1.saleTypes.CASH) {
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
                 label: 'AMOUNT RECEIVED',
@@ -94,6 +100,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         ]));
     }
     // VAT Details
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: 'VAT Exempt',

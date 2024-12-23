@@ -1,9 +1,9 @@
 export enum EscPosCommands {
 	INITIALIZE = '\x1B\x40', // Initialize printer
 
-	ALIGN_LEFT = '\x1B\x61\x30', // Left align
-	ALIGN_CENTER = '\x1B\x61\x31', // Center align
-	ALIGN_RIGHT = '\x1B\x61\x32', // Right align
+	ALIGN_LEFT = '\x1B' + '\x61' + '\x30', // Left align
+	ALIGN_CENTER = '\x1B' + '\x61' + '\x31', // Center align
+	ALIGN_RIGHT = '\x1B' + '\x61' + '\x32', // Right align
 
 	TEXT_SMALL = '\x1B\x4D\x31', // Small text
 	TEXT_NORMAL = '\x1B\x4D\x30', // Normal text

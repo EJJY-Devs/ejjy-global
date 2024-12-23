@@ -24,6 +24,7 @@ export const printSalesInvoiceEscPos = (
 ) => {
 	const data = [
 		EscPosCommands.INITIALIZE,
+		EscPosCommands.TEXT_SMALL,
 		...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 	];
 
@@ -53,6 +54,8 @@ const generateTransactionContentCommands = (
 		}),
 	);
 
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	// Products
 	transaction.products.forEach((item) => {
 		const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE}`;
@@ -65,10 +68,16 @@ const generateTransactionContentCommands = (
 		commands.push(EscPosCommands.ALIGN_LEFT);
 		commands.push(productDetails);
 		commands.push(EscPosCommands.LINE_BREAK);
-		commands.push(quantityAndPrice);
-		commands.push(EscPosCommands.ALIGN_RIGHT);
-		commands.push(totalAmount);
-		commands.push(EscPosCommands.LINE_BREAK);
+
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: quantityAndPrice,
+					value: totalAmount,
+					isIndented: true,
+				},
+			]),
+		);
 	});
 
 	// Divider
@@ -119,6 +128,7 @@ const generateTransactionContentCommands = (
 
 	// Payment Details
 	if (transaction.payment.mode === saleTypes.CASH) {
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			...generateItemBlockCommands([
 				{
@@ -138,6 +148,7 @@ const generateTransactionContentCommands = (
 	}
 
 	// VAT Details
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(
 		...generateItemBlockCommands([
 			{
