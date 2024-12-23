@@ -103,7 +103,7 @@ const generateItemBlockCommands = (items) => {
     items.forEach((item) => {
         let label = item.label;
         if (item.isIndented) {
-            label = `    ${label}`;
+            label = `  ${label}`;
         }
         let value = String(item.value);
         if (item.isParenthesized) {

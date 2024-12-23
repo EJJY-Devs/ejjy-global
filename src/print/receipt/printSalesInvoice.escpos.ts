@@ -27,6 +27,8 @@ export const printSalesInvoiceEscPos = (
 		EscPosCommands.TEXT_SMALL,
 		...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 		EscPosCommands.FEED_LINES,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
 		EscPosCommands.CUT_FULL,
 	];
 
@@ -174,21 +176,22 @@ const generateTransactionContentCommands = (
 
 	// Add GDT and PDT
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.ALIGN_LEFT);
 	commands.push('GDT: ' + formatDateTime(transaction.invoice.datetime_created));
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push('PDT: ' + formatDateTime(dayjs(), false));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// OR Number and Item Count
-	commands.push(EscPosCommands.ALIGN_LEFT);
-	commands.push(transaction.invoice.or_number);
-	commands.push(EscPosCommands.ALIGN_RIGHT);
-	commands.push(`${transaction.products.length} item(s)`);
-	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(
+		...generateItemBlockCommands([
+			{
+				label: transaction.invoice.or_number,
+				value: `${transaction.products.length} item(s)`,
+			},
+		]),
+	);
 
 	// Teller ID
-	commands.push(EscPosCommands.ALIGN_LEFT);
 	commands.push(transaction?.teller?.employee_id || EMPTY_CELL);
 	commands.push(EscPosCommands.LINE_BREAK);
 

@@ -17,6 +17,8 @@ const printSalesInvoiceEscPos = (transaction, siteSettings, isReprint = false) =
         escpos_enum_1.EscPosCommands.TEXT_SMALL,
         ...generateTransactionContentCommands(transaction, siteSettings, isReprint),
         escpos_enum_1.EscPosCommands.FEED_LINES,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
         escpos_enum_1.EscPosCommands.CUT_FULL,
     ];
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, 'raw');
@@ -123,19 +125,18 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     ]));
     // Add GDT and PDT
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     commands.push('GDT: ' + (0, utils_1.formatDateTime)(transaction.invoice.datetime_created));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push('PDT: ' + (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // OR Number and Item Count
-    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
-    commands.push(transaction.invoice.or_number);
-    commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
-    commands.push(`${transaction.products.length} item(s)`);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+        {
+            label: transaction.invoice.or_number,
+            value: `${transaction.products.length} item(s)`,
+        },
+    ]));
     // Teller ID
-    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     commands.push(((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || helper_receipt_1.EMPTY_CELL);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Previous and New Invoice Numbers

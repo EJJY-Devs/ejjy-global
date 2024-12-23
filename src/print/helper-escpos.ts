@@ -162,7 +162,7 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	items.forEach((item) => {
 		let label = item.label;
 		if (item.isIndented) {
-			label = `    ${label}`;
+			label = `  ${label}`;
 		}
 
 		let value = String(item.value);
