@@ -118,6 +118,7 @@ const generateTransactionContentCommands = (
 			);
 		}
 
+    commands.push(EscPosCommands.ALIGN_RIGHT);
 		commands.push('----------------');
 		commands.push(EscPosCommands.LINE_BREAK);
 	}

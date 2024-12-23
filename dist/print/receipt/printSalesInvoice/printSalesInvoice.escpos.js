@@ -73,6 +73,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
                 },
             ]));
         }
+        commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
         commands.push('----------------');
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
