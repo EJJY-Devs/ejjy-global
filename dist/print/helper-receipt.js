@@ -19,6 +19,7 @@ const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const components_1 = require("../components");
 const utils_1 = require("../utils");
+const globals_1 = require("../globals");
 exports.PESO_SIGN = 'P';
 exports.EMPTY_CELL = '';
 exports.UNDERLINE_TEXT = '---------';
@@ -140,7 +141,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
             copies: 1,
             jobName: 'EJJY',
         });
-        if (type === 'raw') {
+        if (type === globals_1.printingTypes.NATIVE) {
             yield qz_tray_1.default.print(Object.assign(Object.assign({}, config), { forceRaw: true }), [
                 {
                     type: 'raw',

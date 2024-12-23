@@ -46,7 +46,12 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            return (0, print_1.printSalesInvoice)(transactionData, siteSettings, true, true);
+            (0, print_1.printSalesInvoice)({
+                transaction: transactionData,
+                siteSettings,
+                isReprint: true,
+                isPdf: true,
+            });
         },
     });
     const { data: transactionRetrieved, isFetching } = (0, hooks_1.useTransactionRetrieve)({
@@ -74,7 +79,11 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
             antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
             return;
         }
-        (0, print_1.printSalesInvoice)(transactionData, siteSettings, true);
+        (0, print_1.printSalesInvoice)({
+            transaction: transactionData,
+            siteSettings: siteSettings,
+            isReprint: true,
+        });
     };
     const handleCreateTxt = () => {
         if (!transactionData) {

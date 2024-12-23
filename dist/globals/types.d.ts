@@ -321,3 +321,8 @@ export declare const salesInvoiceTitles: {
     CASH: string;
     CHARGE: string;
 };
+export type PrintingType = 'HTML' | 'native';
+export declare const printingTypes: {
+    HTML: PrintingType;
+    NATIVE: PrintingType;
+};

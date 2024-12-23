@@ -42,7 +42,12 @@ export const ViewTransactionModal = ({
 				return undefined;
 			}
 
-			return printSalesInvoice(transactionData, siteSettings, true, true);
+			printSalesInvoice({
+				transaction: transactionData,
+				siteSettings,
+				isReprint: true,
+				isPdf: true,
+			});
 		},
 	});
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({
@@ -74,7 +79,11 @@ export const ViewTransactionModal = ({
 			return;
 		}
 
-		printSalesInvoice(transactionData, siteSettings, true);
+		printSalesInvoice({
+			transaction: transactionData,
+			siteSettings: siteSettings,
+			isReprint: true,
+		});
 	};
 
 	const handleCreateTxt = () => {

@@ -1,39 +1,40 @@
 import dayjs from 'dayjs';
-import { getTransactionData } from '../../components/modals/ViewTransactionModal/TransactionContent';
+import { getTransactionData } from '../../../components/modals/ViewTransactionModal/TransactionContent';
 import {
 	INVOICE_LAST_MESSAGE,
 	REPRINT_ONLY_MESSAGE,
 	saleTypes,
 	transactionStatuses,
 	vatTypes,
-} from '../../globals';
-import { SiteSettings, Transaction } from '../../types';
-import { formatDateTime, formatInPeso, getComputedDiscount } from '../../utils';
+} from '../../../globals';
+import { SiteSettings, Transaction } from '../../../types';
+import {
+	formatDateTime,
+	formatInPeso,
+	getComputedDiscount,
+} from '../../../utils';
 import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
-} from '../helper-escpos';
-import { EMPTY_CELL, PESO_SIGN, print } from '../helper-receipt';
-import { EscPosCommands } from '../utils/escpos.enum';
+} from '../../helper-escpos';
+import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
+import { EscPosCommands } from '../../utils/escpos.enum';
+import { PrintSalesInvoice } from './types';
 
-export const printSalesInvoiceEscPos = (
-	transaction: Transaction,
-	siteSettings: SiteSettings,
+export const printSalesInvoiceEscPos = ({
+	transaction,
+	siteSettings,
 	isReprint = false,
-) => {
-	const data = [
-		EscPosCommands.INITIALIZE,
-		EscPosCommands.TEXT_SMALL,
-		...generateTransactionContentCommands(transaction, siteSettings, isReprint),
-		EscPosCommands.FEED_LINES,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.CUT_FULL,
-	];
-
-	print(data, 'Sales Invoice', undefined, 'raw');
-};
+}: PrintSalesInvoice) => [
+	EscPosCommands.INITIALIZE,
+	EscPosCommands.TEXT_SMALL,
+	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
+	EscPosCommands.FEED_LINES,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.CUT_FULL,
+];
 
 const generateTransactionContentCommands = (
 	transaction: Transaction,

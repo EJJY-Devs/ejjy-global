@@ -395,3 +395,9 @@ export const salesInvoiceTitles = {
 	CASH: 'CASH SALES INVOICE',
 	CHARGE: 'CHARGE SALES INVOICE',
 };
+
+export type PrintingType = 'HTML' | 'native';
+export const printingTypes = {
+	HTML: 'HTML' as PrintingType,
+	NATIVE: 'native' as PrintingType,
+};

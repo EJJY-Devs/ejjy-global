@@ -47,3 +47,6 @@ export const DESKTOP_FOLDER_OPEN_FUNCTION = 'openFolder';
 export const AUTOMATIC_GENERATED_REPORT_USER_NAME = 'Auto';
 export const INVOICE_LAST_MESSAGE = 'This Serves As Your Official Receipt';
 export const REPRINT_ONLY_MESSAGE = 'REPRINT ONLY';
+
+// Localstorgae
+export const APP_PRINTING_TYPE = 'EJJY_PRINTING_TYPE';

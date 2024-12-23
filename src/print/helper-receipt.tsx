@@ -3,9 +3,9 @@ import qz from 'qz-tray';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { ReceiptFooter, ReceiptHeader } from '../components';
-import { printerStatuses } from '../globals';
 import { BranchMachine, SiteSettings } from '../types';
 import { authenticateQZTray, formatInPeso } from '../utils';
+import { printingTypes } from '../globals';
 
 export const PESO_SIGN = 'P';
 export const EMPTY_CELL = '';
@@ -179,7 +179,7 @@ export const print = async (
 			jobName: 'EJJY',
 		});
 
-		if (type === 'raw') {
+		if (type === printingTypes.NATIVE) {
 			await qz.print(
 				{
 					...config,

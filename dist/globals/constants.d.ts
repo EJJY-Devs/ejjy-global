@@ -41,3 +41,4 @@ export declare const DESKTOP_FOLDER_OPEN_FUNCTION = "openFolder";
 export declare const AUTOMATIC_GENERATED_REPORT_USER_NAME = "Auto";
 export declare const INVOICE_LAST_MESSAGE = "This Serves As Your Official Receipt";
 export declare const REPRINT_ONLY_MESSAGE = "REPRINT ONLY";
+export declare const APP_PRINTING_TYPE = "EJJY_PRINTING_TYPE";
