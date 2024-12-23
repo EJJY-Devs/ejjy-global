@@ -14,10 +14,10 @@ const getTransactionData = (transaction) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
     let title = '';
     if (transaction.payment.mode === globals_1.saleTypes.CASH) {
-        title = 'CASH SALES INVOICE';
+        title = globals_1.salesInvoiceTitles.CASH;
     }
     else if (transaction.payment.mode === globals_1.saleTypes.CREDIT) {
-        title = 'CHARGE SALES INVOICE';
+        title = globals_1.salesInvoiceTitles.CHARGE;
     }
     let fields = [];
     if ((_a = transaction === null || transaction === void 0 ? void 0 : transaction.discount_option_additional_fields_values) === null || _a === void 0 ? void 0 : _a.length) {

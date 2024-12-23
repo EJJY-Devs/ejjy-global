@@ -1,6 +1,6 @@
 import React from 'react';
-import { SiteSettings, Transaction } from '../../../types';
 import { ServiceOptions } from '../../../hooks/inteface';
+import { SiteSettings, Transaction } from '../../../types';
 type Props = {
     transaction: Transaction | number;
     siteSettings: SiteSettings;

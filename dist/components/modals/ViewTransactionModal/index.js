@@ -62,10 +62,10 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
         // Set title
         if (newTransaction === null || newTransaction === void 0 ? void 0 : newTransaction.id) {
             if (newTransaction.payment.mode === globals_1.saleTypes.CASH) {
-                setTitle('CASH SALES INVOICE');
+                setTitle(globals_1.salesInvoiceTitles.CASH);
             }
             else if (newTransaction.payment.mode === globals_1.saleTypes.CREDIT) {
-                setTitle('CHARGE SALES INVOICE');
+                setTitle(globals_1.salesInvoiceTitles.CHARGE);
             }
         }
     }, [transactionRetrieved, transaction]);

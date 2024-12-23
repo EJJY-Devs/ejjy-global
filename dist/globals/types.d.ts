@@ -317,3 +317,7 @@ export declare const specialDiscountCodes: {
     NATIONAL_ATHLETES_AND_COACHES: SpecialDiscountCode;
     SOLO_PARENTS: SpecialDiscountCode;
 };
+export declare const salesInvoiceTitles: {
+    CASH: string;
+    CHARGE: string;
+};

@@ -3,6 +3,7 @@ import React from 'react';
 import {
 	EMPTY_CELL,
 	INVOICE_LAST_MESSAGE,
+	salesInvoiceTitles,
 	saleTypes,
 	transactionStatuses,
 	vatTypes,
@@ -27,9 +28,9 @@ export const getTransactionData = (transaction: Transaction) => {
 	let title = '';
 
 	if (transaction.payment.mode === saleTypes.CASH) {
-		title = 'CASH SALES INVOICE';
+		title = salesInvoiceTitles.CASH;
 	} else if (transaction.payment.mode === saleTypes.CREDIT) {
-		title = 'CHARGE SALES INVOICE';
+		title = salesInvoiceTitles.CHARGE;
 	}
 
 	let fields: Record<string, string | undefined>[] = [];

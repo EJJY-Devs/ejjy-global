@@ -1,13 +1,17 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Modal, Spin, message } from 'antd';
+import { Button, message, Modal, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { GENERIC_ERROR_MESSAGE, saleTypes } from '../../../globals';
+import {
+	GENERIC_ERROR_MESSAGE,
+	salesInvoiceTitles,
+	saleTypes,
+} from '../../../globals';
 import { usePdf, useTransactionRetrieve } from '../../../hooks';
+import { ServiceOptions } from '../../../hooks/inteface';
 import { createSalesInvoiceTxt, printSalesInvoice } from '../../../print';
 import { SiteSettings, Transaction } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { TransactionContent } from './TransactionContent';
-import { ServiceOptions } from '../../../hooks/inteface';
 
 type Props = {
 	transaction: Transaction | number;
@@ -57,9 +61,9 @@ export const ViewTransactionModal = ({
 		// Set title
 		if (newTransaction?.id) {
 			if (newTransaction.payment.mode === saleTypes.CASH) {
-				setTitle('CASH SALES INVOICE');
+				setTitle(salesInvoiceTitles.CASH);
 			} else if (newTransaction.payment.mode === saleTypes.CREDIT) {
-				setTitle('CHARGE SALES INVOICE');
+				setTitle(salesInvoiceTitles.CHARGE);
 			}
 		}
 	}, [transactionRetrieved, transaction]);

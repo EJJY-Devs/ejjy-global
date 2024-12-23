@@ -390,3 +390,8 @@ export const specialDiscountCodes = {
 	NATIONAL_ATHLETES_AND_COACHES: 'NAAC' as SpecialDiscountCode,
 	SOLO_PARENTS: 'SP' as SpecialDiscountCode,
 };
+
+export const salesInvoiceTitles = {
+	CASH: 'CASH SALES INVOICE',
+	CHARGE: 'CHARGE SALES INVOICE',
+};
