@@ -136,6 +136,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     // Teller ID
     commands.push(((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || helper_receipt_1.EMPTY_CELL);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Previous and New Invoice Numbers
     if (previousTransactionOrNumber) {
         commands.push('Prev Invoice #: ' + previousTransactionOrNumber);
