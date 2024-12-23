@@ -144,8 +144,8 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	const commands: string[] = [];
 
 	items.forEach((item) => {
+		commands.push(EscPosCommands.ALIGN_LEFT);
 		if (item.isIndented) {
-			commands.push(EscPosCommands.ALIGN_LEFT);
 			commands.push(' '.repeat(4));
 		}
 

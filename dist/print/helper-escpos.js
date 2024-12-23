@@ -92,8 +92,8 @@ exports.generateReceiptFooterCommands = generateReceiptFooterCommands;
 const generateItemBlockCommands = (items) => {
     const commands = [];
     items.forEach((item) => {
+        commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
         if (item.isIndented) {
-            commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
             commands.push(' '.repeat(4));
         }
         commands.push(item.label);
