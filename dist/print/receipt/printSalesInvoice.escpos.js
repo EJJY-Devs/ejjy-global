@@ -16,6 +16,8 @@ const printSalesInvoiceEscPos = (transaction, siteSettings, isReprint = false) =
         escpos_enum_1.EscPosCommands.INITIALIZE,
         escpos_enum_1.EscPosCommands.TEXT_SMALL,
         ...generateTransactionContentCommands(transaction, siteSettings, isReprint),
+        escpos_enum_1.EscPosCommands.FEED_LINES,
+        escpos_enum_1.EscPosCommands.CUT_FULL,
     ];
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, 'raw');
 };
@@ -167,8 +169,5 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(`"${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}"`);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };

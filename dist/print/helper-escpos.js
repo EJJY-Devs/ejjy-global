@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateItemBlockCommands = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = void 0;
 const utils_1 = require("../utils");
 const escpos_enum_1 = require("./utils/escpos.enum");
+const PAPER_CHARACTER_WIDTH = 40;
 const generateReceiptHeaderCommands = ({ branchMachine, siteSettings, title, }) => {
     const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine || {};
@@ -89,24 +90,26 @@ const generateReceiptFooterCommands = (siteSettings) => {
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;
+const printLeftRight = (leftText, rightText) => {
+    const leftTextLength = leftText.length;
+    const rightTextLength = rightText.length;
+    const spacesNeeded = PAPER_CHARACTER_WIDTH - (leftTextLength + rightTextLength);
+    const spaces = ' '.repeat(Math.max(0, spacesNeeded));
+    return leftText + spaces + rightText;
+};
 const generateItemBlockCommands = (items) => {
     const commands = [];
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     items.forEach((item) => {
-        commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
+        let label = item.label;
         if (item.isIndented) {
-            commands.push(' '.repeat(4));
+            label = `    ${label}`;
         }
-        commands.push(item.label);
-        let value = item.value;
+        let value = String(item.value);
         if (item.isParenthesized) {
             value = `(${value})`;
         }
-        commands.push(escpos_enum_1.EscPosCommands.ALIGN_RIGHT);
-        commands.push(` ${value.toString()}`);
-        if (item.isUnderlined && typeof item.value === 'number' && item.value > 0) {
-            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-            commands.push('-----------');
-        }
+        commands.push(printLeftRight(label, value));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     });
     return commands;

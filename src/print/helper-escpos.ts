@@ -4,6 +4,8 @@ import { SiteSettings } from '../types';
 import { getTaxTypeDescription } from '../utils';
 import { EscPosCommands } from './utils/escpos.enum';
 
+const PAPER_CHARACTER_WIDTH = 40;
+
 export const generateReceiptHeaderCommands = ({
 	branchMachine,
 	siteSettings,
@@ -136,6 +138,18 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	return commands;
 };
 
+const printLeftRight = (leftText: string, rightText: string) => {
+	const leftTextLength = leftText.length;
+	const rightTextLength = rightText.length;
+
+	const spacesNeeded =
+		PAPER_CHARACTER_WIDTH - (leftTextLength + rightTextLength);
+
+	const spaces = ' '.repeat(Math.max(0, spacesNeeded));
+
+	return leftText + spaces + rightText;
+};
+
 type ItemBlockItemsCommands = Omit<
 	ItemBlockItems,
 	'labelStyle' | 'contentStyle'
@@ -143,28 +157,20 @@ type ItemBlockItemsCommands = Omit<
 export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	const commands: string[] = [];
 
+	commands.push(EscPosCommands.ALIGN_LEFT);
+
 	items.forEach((item) => {
-		commands.push(EscPosCommands.ALIGN_LEFT);
+		let label = item.label;
 		if (item.isIndented) {
-			commands.push(' '.repeat(4));
+			label = `    ${label}`;
 		}
 
-		commands.push(item.label);
-
-		let value = item.value;
-
+		let value = String(item.value);
 		if (item.isParenthesized) {
 			value = `(${value})`;
 		}
 
-		commands.push(EscPosCommands.ALIGN_RIGHT);
-		commands.push(` ${value.toString()}`);
-
-		if (item.isUnderlined && typeof item.value === 'number' && item.value > 0) {
-			commands.push(EscPosCommands.LINE_BREAK);
-			commands.push('-----------');
-		}
-
+		commands.push(printLeftRight(label, value));
 		commands.push(EscPosCommands.LINE_BREAK);
 	});
 

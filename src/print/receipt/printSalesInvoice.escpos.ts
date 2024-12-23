@@ -26,6 +26,8 @@ export const printSalesInvoiceEscPos = (
 		EscPosCommands.INITIALIZE,
 		EscPosCommands.TEXT_SMALL,
 		...generateTransactionContentCommands(transaction, siteSettings, isReprint),
+		EscPosCommands.FEED_LINES,
+		EscPosCommands.CUT_FULL,
 	];
 
 	print(data, 'Sales Invoice', undefined, 'raw');
@@ -229,9 +231,6 @@ const generateTransactionContentCommands = (
 	}
 
 	commands.push(`"${siteSettings?.thank_you_message}"`);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };
