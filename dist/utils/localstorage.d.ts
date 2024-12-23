@@ -1,1 +1,2 @@
-export declare const getAppReceiptPrintingType: () => string;
+import { PrintingType } from '../globals';
+export declare const getAppReceiptPrintingType: () => PrintingType;

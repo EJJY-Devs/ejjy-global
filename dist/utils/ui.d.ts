@@ -10,7 +10,7 @@ export declare const getAttendanceLogDescription: (category: AttendanceLogCatego
 export declare const getModeOfPaymentDescription: (modeOfPayment: PaymentType) => string;
 export declare const getInvoiceType: (invoiceType: string) => string;
 export declare const getTaxTypeDescription: (taxType?: TaxType) => string;
-export declare const getTransactionStatusDescription: (status: string) => "-" | "New" | "Fully Paid" | "Hold" | "Cancelled" | "Edited";
+export declare const getTransactionStatusDescription: (status: string) => "New" | "Fully Paid" | "Hold" | "Cancelled" | "Edited" | "-";
 export declare const getRequestor: (requisitionSlip: RequisitionSlip) => string;
 export declare const getProductCode: (product: Product) => string;
 export declare const getOrderSlipStatusBranchManagerText: (status: string, percentage?: number, osdrStatus?: string) => string;
