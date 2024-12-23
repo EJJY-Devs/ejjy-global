@@ -196,6 +196,8 @@ const generateTransactionContentCommands = (
 	commands.push(transaction?.teller?.employee_id || EMPTY_CELL);
 	commands.push(EscPosCommands.LINE_BREAK);
 
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	// Previous and New Invoice Numbers
 	if (previousTransactionOrNumber) {
 		commands.push('Prev Invoice #: ' + previousTransactionOrNumber);
