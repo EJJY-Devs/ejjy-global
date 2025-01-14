@@ -135,11 +135,8 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 bottom: 0,
                 left: exports.PAPER_MARGIN_INCHES,
             },
-            density: 'draft',
             scaleContent: true,
             scaling: 'strinkToFit',
-            copies: 1,
-            jobName: 'EJJY',
         });
         if (type === globals_1.printingTypes.NATIVE) {
             yield qz_tray_1.default.print(Object.assign(Object.assign({}, config), { forceRaw: true }), [

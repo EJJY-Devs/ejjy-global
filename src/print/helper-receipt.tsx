@@ -172,11 +172,8 @@ export const print = async (
 				bottom: 0,
 				left: PAPER_MARGIN_INCHES,
 			},
-			density: 'draft',
 			scaleContent: true,
 			scaling: 'strinkToFit',
-			copies: 1,
-			jobName: 'EJJY',
 		});
 
 		if (type === printingTypes.NATIVE) {
