@@ -118,10 +118,10 @@ exports.getModeOfPaymentDescription = getModeOfPaymentDescription;
 const getInvoiceType = (invoiceType) => {
     let description;
     if (invoiceType === globals_1.invoiceTypes.SALES_INVOICE) {
-        description = 'Cash Sales Invoice';
+        description = 'Cash';
     }
     else {
-        description = 'Charge Sales Invoice';
+        description = 'Charge';
     }
     return description;
 };
