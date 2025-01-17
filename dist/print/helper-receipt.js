@@ -84,43 +84,62 @@ const appendHtmlElement = (data) => `
 </html>`;
 exports.appendHtmlElement = appendHtmlElement;
 const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0, void 0, function* () {
-    // Check if QZ Tray websocket is active
     if (!qz_tray_1.default.websocket.isActive()) {
         antd_1.message.error({
             content: 'Printer is not connected or QZTray is not open.',
         });
         return;
     }
-    // Show a loading message
     antd_1.message.loading({
         content: `Printing ${entity.toLowerCase()}...`,
         key: exports.PRINT_MESSAGE_KEY,
         duration: 5000,
     });
-    let printerStatus = null;
-    try {
-        // Set printer callback to monitor events
-        qz_tray_1.default.printers.setPrinterCallbacks((event) => {
-            console.log('Printer Event:', event);
-            printerStatus = event;
-        });
-        // Find the printer
-        const printer = yield qz_tray_1.default.printers.find(printerName);
-        console.log('Printer Found:', printer);
-        // Start listening to the printer
-        yield qz_tray_1.default.printers.startListening(printer);
-        // Get the printer's status
-        const status = yield qz_tray_1.default.printers.getStatus();
-        console.log('Printer Status:', status);
-        // Check if the printer is ready
-        if ((status === null || status === void 0 ? void 0 : status.statusText) === 'NOT_AVAILABLE') {
-            antd_1.message.error({
-                key: exports.PRINT_MESSAGE_KEY,
-                content: 'Printer is not available. Make sure it is connected.',
+    // Add printer callback
+    qz_tray_1.default.printers.setPrinterCallbacks((evt) => {
+        console.log(evt.severity, evt.eventType, evt.message);
+    });
+    // get the status of a specific printer
+    function getPrintersStatus() {
+        // get the status of a specific printer
+        qz_tray_1.default.printers
+            .find(printerName)
+            .then((printer) => {
+            // listen to the printer
+            qz_tray_1.default.printers.startListening(printer).then(() => {
+                return qz_tray_1.default.printers.getStatus();
             });
-            return;
-        }
-        // Configure the printer
+        })
+            .catch(function (e) {
+            console.error(e);
+        });
+    }
+    console.log(getPrintersStatus());
+    // Register listener and get status; deregister after
+    yield qz_tray_1.default.printers.stopListening();
+    // if (printerStatus === null) {
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content: 'Unable to detect selected printer.',
+    // 	});
+    // 	return;
+    // }
+    // // NOT_AVAILABLE: Printer is not available
+    // if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
+    // 	/*
+    //   eventType: PRINTER
+    //   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
+    // */
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content:
+    // 			'Printer is not available. Make sure printer is connected to the machine.',
+    // 	});
+    // 	return;
+    // }
+    // OK: Ready to print
+    // console.log(printData);
+    try {
         const config = qz_tray_1.default.configs.create(printerName, {
             margins: {
                 top: 0,
@@ -129,7 +148,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 left: exports.PAPER_MARGIN_INCHES,
             },
             scaleContent: true,
-            scaling: 'shrinkToFit',
+            scaling: 'strinkToFit',
         });
         if (type === globals_1.printingTypes.NATIVE) {
             yield qz_tray_1.default.print(Object.assign(Object.assign({}, config), { forceRaw: true }), [
@@ -164,16 +183,14 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
             content: `Error occurred while trying to print ${entity}.`,
             key: exports.PRINT_MESSAGE_KEY,
         });
-        console.error('Error during printing:', e);
+        console.error(e);
     }
     finally {
-        try {
-            yield qz_tray_1.default.printers.stopListening();
-        }
-        catch (stopError) {
-            console.error('Error stopping printer listener:', stopError);
+        if (onComplete) {
+            onComplete();
         }
     }
+    return;
 });
 exports.print = print;
 // OTHERS

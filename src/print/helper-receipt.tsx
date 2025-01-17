@@ -109,51 +109,79 @@ export const print = async (
 	onComplete?: () => void,
 	type?: any,
 ) => {
-	// Check if QZ Tray websocket is active
 	if (!qz.websocket.isActive()) {
 		message.error({
 			content: 'Printer is not connected or QZTray is not open.',
 		});
+
 		return;
 	}
 
-	// Show a loading message
 	message.loading({
 		content: `Printing ${entity.toLowerCase()}...`,
 		key: PRINT_MESSAGE_KEY,
-		duration: 5000,
+		duration: 5_000,
 	});
 
-	let printerStatus: any = null;
+	// Add printer callback
+
+	qz.printers.setPrinterCallbacks(
+		(evt: { severity: any; eventType: any; message: any }) => {
+			console.log(evt.severity, evt.eventType, evt.message);
+		},
+	);
+
+	// get the status of a specific printer
+	function getPrintersStatus() {
+		// get the status of a specific printer
+		qz.printers
+			.find(printerName)
+			.then((printer: any) => {
+				// listen to the printer
+				qz.printers.startListening(printer).then(() => {
+					return qz.printers.getStatus();
+				});
+			})
+			.catch(function (e: any) {
+				console.error(e);
+			});
+	}
+
+	console.log(getPrintersStatus());
+
+	// Register listener and get status; deregister after
+
+	await qz.printers.stopListening();
+
+	// if (printerStatus === null) {
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content: 'Unable to detect selected printer.',
+	// 	});
+
+	// 	return;
+	// }
+
+	// // NOT_AVAILABLE: Printer is not available
+	// if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
+	// 	/*
+	//   eventType: PRINTER
+	//   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
+	// */
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content:
+	// 			'Printer is not available. Make sure printer is connected to the machine.',
+	// 	});
+
+	// 	return;
+	// }
+
+	// OK: Ready to print
+
+	// console.log(printData);
 
 	try {
-		// Set printer callback to monitor events
-		qz.printers.setPrinterCallbacks((event: any) => {
-			console.log('Printer Event:', event);
-			printerStatus = event;
-		});
-
-		// Find the printer
-		const printer = await qz.printers.find(printerName);
-		console.log('Printer Found:', printer);
-
-		// Start listening to the printer
-		await qz.printers.startListening(printer);
-
-		// Get the printer's status
-		const status = await qz.printers.getStatus();
-		console.log('Printer Status:', status);
-
-		// Check if the printer is ready
-		if (status?.statusText === 'NOT_AVAILABLE') {
-			message.error({
-				key: PRINT_MESSAGE_KEY,
-				content: 'Printer is not available. Make sure it is connected.',
-			});
-			return;
-		}
-
-		// Configure the printer
 		const config = qz.configs.create(printerName, {
 			margins: {
 				top: 0,
@@ -162,7 +190,7 @@ export const print = async (
 				left: PAPER_MARGIN_INCHES,
 			},
 			scaleContent: true,
-			scaling: 'shrinkToFit',
+			scaling: 'strinkToFit',
 		});
 
 		if (type === printingTypes.NATIVE) {
@@ -203,14 +231,14 @@ export const print = async (
 			content: `Error occurred while trying to print ${entity}.`,
 			key: PRINT_MESSAGE_KEY,
 		});
-		console.error('Error during printing:', e);
+		console.error(e);
 	} finally {
-		try {
-			await qz.printers.stopListening();
-		} catch (stopError) {
-			console.error('Error stopping printer listener:', stopError);
+		if (onComplete) {
+			onComplete();
 		}
 	}
+
+	return;
 };
 
 // OTHERS
