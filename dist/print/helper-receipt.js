@@ -95,59 +95,39 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
         key: exports.PRINT_MESSAGE_KEY,
         duration: 5000,
     });
-    // Add printer callback
-    qz_tray_1.default.printers.setPrinterCallbacks((evt) => {
-        console.log(evt.severity, evt.eventType, evt.message);
+    let printerStatus = null;
+    // Add printer callback to capture events
+    qz_tray_1.default.printers.setPrinterCallbacks((event) => {
+        console.log('event', event);
+        printerStatus = event; // Set printer status based on event
     });
-    function getPrintersStatus() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                // Find the printer
-                const printer = yield qz_tray_1.default.printers.find(printerName);
-                // Start listening to the printer's events
-                yield qz_tray_1.default.printers.startListening(printer);
-                // Get the printer status
-                const status = yield qz_tray_1.default.printers.getStatus();
-                console.log('Printer Status:', status);
-                // Check if the status is ready or not
-                if ((status === null || status === void 0 ? void 0 : status.statusText) === 'NOT_AVAILABLE') {
-                    console.error('Printer is not available.');
-                }
-                else {
-                    console.log('Printer is available:', status);
-                }
-            }
-            catch (error) {
-                console.error('Error while getting printer status:', error);
-            }
-        });
-    }
-    // Call the function
-    getPrintersStatus();
     // Register listener and get status; deregister after
+    yield qz_tray_1.default.printers.startListening(printerName);
+    // Wait for the printer status to be retrieved
+    yield qz_tray_1.default.printers.getStatus();
+    // Stop listening after status check
     yield qz_tray_1.default.printers.stopListening();
-    // if (printerStatus === null) {
-    // 	message.error({
-    // 		key: PRINT_MESSAGE_KEY,
-    // 		content: 'Unable to detect selected printer.',
-    // 	});
-    // 	return;
-    // }
-    // // NOT_AVAILABLE: Printer is not available
-    // if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
-    // 	/*
-    //   eventType: PRINTER
-    //   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
-    // */
-    // 	message.error({
-    // 		key: PRINT_MESSAGE_KEY,
-    // 		content:
-    // 			'Printer is not available. Make sure printer is connected to the machine.',
-    // 	});
-    // 	return;
-    // }
-    // OK: Ready to print
-    // console.log(printData);
+    // Check if printerStatus was not set
+    if (printerStatus === null) {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Unable to detect the selected printer.',
+        });
+        return;
+    }
+    // Check if the printer is available
+    if (printerStatus.statusText === 'NOT_AVAILABLE') {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Printer is not available. Make sure the printer is connected to the machine.',
+        });
+        return;
+    }
+    // If status is OK, continue with printing
+    antd_1.message.success({
+        key: exports.PRINT_MESSAGE_KEY,
+        content: 'Printer is available.',
+    });
     try {
         const config = qz_tray_1.default.configs.create(printerName, {
             margins: {

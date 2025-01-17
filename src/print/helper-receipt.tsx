@@ -123,71 +123,46 @@ export const print = async (
 		duration: 5_000,
 	});
 
-	// Add printer callback
+	let printerStatus: any = null;
 
-	qz.printers.setPrinterCallbacks(
-		(evt: { severity: any; eventType: any; message: any }) => {
-			console.log(evt.severity, evt.eventType, evt.message);
-		},
-	);
-
-	async function getPrintersStatus() {
-		try {
-			// Find the printer
-			const printer = await qz.printers.find(printerName);
-
-			// Start listening to the printer's events
-			await qz.printers.startListening(printer);
-
-			// Get the printer status
-			const status = await qz.printers.getStatus();
-			console.log('Printer Status:', status);
-
-			// Check if the status is ready or not
-			if (status?.statusText === 'NOT_AVAILABLE') {
-				console.error('Printer is not available.');
-			} else {
-				console.log('Printer is available:', status);
-			}
-		} catch (error) {
-			console.error('Error while getting printer status:', error);
-		}
-	}
-
-	// Call the function
-	getPrintersStatus();
+	// Add printer callback to capture events
+	qz.printers.setPrinterCallbacks((event: any) => {
+		console.log('event', event);
+		printerStatus = event; // Set printer status based on event
+	});
 
 	// Register listener and get status; deregister after
+	await qz.printers.startListening(printerName);
 
+	// Wait for the printer status to be retrieved
+	await qz.printers.getStatus();
+	// Stop listening after status check
 	await qz.printers.stopListening();
 
-	// if (printerStatus === null) {
-	// 	message.error({
-	// 		key: PRINT_MESSAGE_KEY,
-	// 		content: 'Unable to detect selected printer.',
-	// 	});
+	// Check if printerStatus was not set
+	if (printerStatus === null) {
+		message.error({
+			key: PRINT_MESSAGE_KEY,
+			content: 'Unable to detect the selected printer.',
+		});
+		return;
+	}
 
-	// 	return;
-	// }
+	// Check if the printer is available
+	if (printerStatus.statusText === 'NOT_AVAILABLE') {
+		message.error({
+			key: PRINT_MESSAGE_KEY,
+			content:
+				'Printer is not available. Make sure the printer is connected to the machine.',
+		});
+		return;
+	}
 
-	// // NOT_AVAILABLE: Printer is not available
-	// if (printerStatus.statusText === printerStatuses.NOT_AVAILABLE) {
-	// 	/*
-	//   eventType: PRINTER
-	//   message: NOT_AVAILABLE: Level: FATAL, From: EPSON TM-U220 Receipt, EventType: PRINTER, Code: 4096
-	// */
-	// 	message.error({
-	// 		key: PRINT_MESSAGE_KEY,
-	// 		content:
-	// 			'Printer is not available. Make sure printer is connected to the machine.',
-	// 	});
-
-	// 	return;
-	// }
-
-	// OK: Ready to print
-
-	// console.log(printData);
+	// If status is OK, continue with printing
+	message.success({
+		key: PRINT_MESSAGE_KEY,
+		content: 'Printer is available.',
+	});
 
 	try {
 		const config = qz.configs.create(printerName, {
