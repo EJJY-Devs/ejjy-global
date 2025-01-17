@@ -97,8 +97,23 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     });
     let printerStatus = null;
     // Add printer callback
+    // qz.printers.setPrinterCallbacks((event: any) => {
+    // 	console.log('event', event);
+    // 	printerStatus = event;
+    // });
     qz_tray_1.default.printers.setPrinterCallbacks((event) => {
-        console.log('event', event);
+        qz_tray_1.default.printers
+            .getPrinters()
+            .then(function (printers) {
+            // Loop through the printers and check their statuses
+            printers.forEach(function (printer) {
+                console.log('Printer Name: ' + printer.name);
+                console.log('Printer Status: ' + (printer.status ? 'Online' : 'Offline'));
+            });
+        })
+            .catch(function (err) {
+            console.error('Error fetching printers: ' + err);
+        });
         printerStatus = event;
     });
     // Register listener and get status; deregister after

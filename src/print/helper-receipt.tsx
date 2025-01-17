@@ -126,8 +126,26 @@ export const print = async (
 	let printerStatus: any = null;
 
 	// Add printer callback
+	// qz.printers.setPrinterCallbacks((event: any) => {
+	// 	console.log('event', event);
+	// 	printerStatus = event;
+	// });
+
 	qz.printers.setPrinterCallbacks((event: any) => {
-		console.log('event', event);
+		qz.printers
+			.getPrinters()
+			.then(function (printers: any[]) {
+				// Loop through the printers and check their statuses
+				printers.forEach(function (printer) {
+					console.log('Printer Name: ' + printer.name);
+					console.log(
+						'Printer Status: ' + (printer.status ? 'Online' : 'Offline'),
+					);
+				});
+			})
+			.catch(function (err: string) {
+				console.error('Error fetching printers: ' + err);
+			});
 		printerStatus = event;
 	});
 
