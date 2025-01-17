@@ -99,22 +99,31 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     qz_tray_1.default.printers.setPrinterCallbacks((evt) => {
         console.log(evt.severity, evt.eventType, evt.message);
     });
-    // get the status of a specific printer
     function getPrintersStatus() {
-        // get the status of a specific printer
-        qz_tray_1.default.printers
-            .find(printerName)
-            .then((printer) => {
-            // listen to the printer
-            qz_tray_1.default.printers.startListening(printer).then(() => {
-                return qz_tray_1.default.printers.getStatus();
-            });
-        })
-            .catch(function (e) {
-            console.error(e);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // Find the printer
+                const printer = yield qz_tray_1.default.printers.find(printerName);
+                // Start listening to the printer's events
+                yield qz_tray_1.default.printers.startListening(printer);
+                // Get the printer status
+                const status = yield qz_tray_1.default.printers.getStatus();
+                console.log('Printer Status:', status);
+                // Check if the status is ready or not
+                if ((status === null || status === void 0 ? void 0 : status.statusText) === 'NOT_AVAILABLE') {
+                    console.error('Printer is not available.');
+                }
+                else {
+                    console.log('Printer is available:', status);
+                }
+            }
+            catch (error) {
+                console.error('Error while getting printer status:', error);
+            }
         });
     }
-    console.log(getPrintersStatus());
+    // Call the function
+    getPrintersStatus();
     // Register listener and get status; deregister after
     yield qz_tray_1.default.printers.stopListening();
     // if (printerStatus === null) {

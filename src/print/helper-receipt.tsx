@@ -131,23 +131,31 @@ export const print = async (
 		},
 	);
 
-	// get the status of a specific printer
-	function getPrintersStatus() {
-		// get the status of a specific printer
-		qz.printers
-			.find(printerName)
-			.then((printer: any) => {
-				// listen to the printer
-				qz.printers.startListening(printer).then(() => {
-					return qz.printers.getStatus();
-				});
-			})
-			.catch(function (e: any) {
-				console.error(e);
-			});
+	async function getPrintersStatus() {
+		try {
+			// Find the printer
+			const printer = await qz.printers.find(printerName);
+
+			// Start listening to the printer's events
+			await qz.printers.startListening(printer);
+
+			// Get the printer status
+			const status = await qz.printers.getStatus();
+			console.log('Printer Status:', status);
+
+			// Check if the status is ready or not
+			if (status?.statusText === 'NOT_AVAILABLE') {
+				console.error('Printer is not available.');
+			} else {
+				console.log('Printer is available:', status);
+			}
+		} catch (error) {
+			console.error('Error while getting printer status:', error);
+		}
 	}
 
-	console.log(getPrintersStatus());
+	// Call the function
+	getPrintersStatus();
 
 	// Register listener and get status; deregister after
 
