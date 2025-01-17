@@ -16,7 +16,7 @@ import {
 	specialDiscountCodes,
 	transactionStatuses,
 	userTypes,
-	invoiceTypes
+	invoiceTypes,
 } from '../globals';
 import { UsersService } from '../services';
 import {
@@ -150,13 +150,13 @@ export const getInvoiceType = (invoiceType: string) => {
 	let description;
 
 	if (invoiceType === invoiceTypes.SALES_INVOICE) {
-		description = 'Sales Invoice'
+		description = 'Cash Sales Invoice';
 	} else {
-		description = 'Charge Invoice'
+		description = 'Charge Sales Invoice';
 	}
 
 	return description;
-}
+};
 
 export const getTaxTypeDescription = (taxType?: TaxType) => {
 	let data = '';
