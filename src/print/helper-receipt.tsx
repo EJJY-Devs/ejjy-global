@@ -132,37 +132,37 @@ export const print = async (
 	});
 
 	// Register listener and get status; deregister after
-	await qz.printers.startListening(printerName);
+	await qz.printers.startListening();
 
 	// Wait for the printer status to be retrieved
 	await qz.printers.getStatus();
 	// Stop listening after status check
 	await qz.printers.stopListening();
 
-	// Check if printerStatus was not set
-	if (printerStatus === null) {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'Unable to detect the selected printer.',
-		});
-		return;
-	}
+	// // Check if printerStatus was not set
+	// if (printerStatus === null) {
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content: 'Unable to detect the selected printer.',
+	// 	});
+	// 	return;
+	// }
 
-	// Check if the printer is available
-	if (printerStatus.statusText === 'NOT_AVAILABLE') {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content:
-				'Printer is not available. Make sure the printer is connected to the machine.',
-		});
-		return;
-	}
+	// // Check if the printer is available
+	// if (printerStatus.statusText === 'NOT_AVAILABLE') {
+	// 	message.error({
+	// 		key: PRINT_MESSAGE_KEY,
+	// 		content:
+	// 			'Printer is not available. Make sure the printer is connected to the machine.',
+	// 	});
+	// 	return;
+	// }
 
-	// If status is OK, continue with printing
-	message.success({
-		key: PRINT_MESSAGE_KEY,
-		content: 'Printer is available.',
-	});
+	// // If status is OK, continue with printing
+	// message.success({
+	// 	key: PRINT_MESSAGE_KEY,
+	// 	content: 'Printer is available.',
+	// });
 
 	try {
 		const config = qz.configs.create(printerName, {

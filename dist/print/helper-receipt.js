@@ -102,32 +102,33 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
         printerStatus = event; // Set printer status based on event
     });
     // Register listener and get status; deregister after
-    yield qz_tray_1.default.printers.startListening(printerName);
+    yield qz_tray_1.default.printers.startListening();
     // Wait for the printer status to be retrieved
     yield qz_tray_1.default.printers.getStatus();
     // Stop listening after status check
     yield qz_tray_1.default.printers.stopListening();
-    // Check if printerStatus was not set
-    if (printerStatus === null) {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Unable to detect the selected printer.',
-        });
-        return;
-    }
-    // Check if the printer is available
-    if (printerStatus.statusText === 'NOT_AVAILABLE') {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Printer is not available. Make sure the printer is connected to the machine.',
-        });
-        return;
-    }
-    // If status is OK, continue with printing
-    antd_1.message.success({
-        key: exports.PRINT_MESSAGE_KEY,
-        content: 'Printer is available.',
-    });
+    // // Check if printerStatus was not set
+    // if (printerStatus === null) {
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content: 'Unable to detect the selected printer.',
+    // 	});
+    // 	return;
+    // }
+    // // Check if the printer is available
+    // if (printerStatus.statusText === 'NOT_AVAILABLE') {
+    // 	message.error({
+    // 		key: PRINT_MESSAGE_KEY,
+    // 		content:
+    // 			'Printer is not available. Make sure the printer is connected to the machine.',
+    // 	});
+    // 	return;
+    // }
+    // // If status is OK, continue with printing
+    // message.success({
+    // 	key: PRINT_MESSAGE_KEY,
+    // 	content: 'Printer is available.',
+    // });
     try {
         const config = qz_tray_1.default.configs.create(printerName, {
             margins: {
