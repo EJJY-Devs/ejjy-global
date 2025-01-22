@@ -109,14 +109,6 @@ export const print = async (
 	onComplete?: () => void,
 	type?: any,
 ) => {
-	if (!qz.websocket.isActive()) {
-		message.error({
-			content: 'Printer is not connected or QZTray is not open.',
-		});
-
-		return;
-	}
-
 	message.loading({
 		content: `Printing ${entity.toLowerCase()}...`,
 		key: PRINT_MESSAGE_KEY,

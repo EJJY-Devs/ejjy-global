@@ -84,12 +84,6 @@ const appendHtmlElement = (data) => `
 </html>`;
 exports.appendHtmlElement = appendHtmlElement;
 const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!qz_tray_1.default.websocket.isActive()) {
-        antd_1.message.error({
-            content: 'Printer is not connected or QZTray is not open.',
-        });
-        return;
-    }
     antd_1.message.loading({
         content: `Printing ${entity.toLowerCase()}...`,
         key: exports.PRINT_MESSAGE_KEY,
