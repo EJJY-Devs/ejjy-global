@@ -54,6 +54,7 @@ const openCashDrawer = (printerName) => __awaiter(void 0, void 0, void 0, functi
     // 	return;
     // }
     try {
+        console.log('Opening Cash Drawer.');
         const config = qz_tray_1.default.configs.create(printerName);
         yield qz_tray_1.default.print(config, [
             '\x1B' + '\x40',

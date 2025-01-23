@@ -51,6 +51,7 @@ export const openCashDrawer = async (printerName: string) => {
 	// }
 
 	try {
+		console.log('Opening Cash Drawer.');
 		const config = qz.configs.create(printerName);
 
 		await qz.print(config, [

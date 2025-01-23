@@ -123,8 +123,8 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     // 	key: PRINT_MESSAGE_KEY,
     // 	content: 'Printer is available.',
     // });
-    console.log('1');
     try {
+        console.log('Printing receipt.');
         const config = qz_tray_1.default.configs.create(printerName, {
             margins: {
                 top: 0,

@@ -155,8 +155,9 @@ export const print = async (
 	// 	key: PRINT_MESSAGE_KEY,
 	// 	content: 'Printer is available.',
 	// });
-	console.log('1');
+
 	try {
+		console.log('Printing receipt.');
 		const config = qz.configs.create(printerName, {
 			margins: {
 				top: 0,
