@@ -11,6 +11,8 @@ export const printSalesInvoice = (
 	const printingType = getAppReceiptPrintingType();
 
 	let data: string | string[] = '';
+
+	console.log('printingType', printingType);
 	if (printingType === printingTypes.HTML) {
 		data = printSalesInvoiceHtml(printSalesInvoiceDetails);
 	} else if (printingType === printingTypes.NATIVE) {

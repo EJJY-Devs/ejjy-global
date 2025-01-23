@@ -96,7 +96,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
         printerStatus = event; // Set printer status based on event
     });
     // Register listener and get status; deregister after
-    yield qz_tray_1.default.printers.startListening();
+    yield qz_tray_1.default.printers.startListening(printerName);
     // Wait for the printer status to be retrieved
     yield qz_tray_1.default.printers.getStatus();
     // Stop listening after status check
@@ -123,6 +123,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     // 	key: PRINT_MESSAGE_KEY,
     // 	content: 'Printer is available.',
     // });
+    console.log('1');
     try {
         const config = qz_tray_1.default.configs.create(printerName, {
             margins: {

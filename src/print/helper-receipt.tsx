@@ -124,7 +124,7 @@ export const print = async (
 	});
 
 	// Register listener and get status; deregister after
-	await qz.printers.startListening();
+	await qz.printers.startListening(printerName);
 
 	// Wait for the printer status to be retrieved
 	await qz.printers.getStatus();
@@ -155,7 +155,7 @@ export const print = async (
 	// 	key: PRINT_MESSAGE_KEY,
 	// 	content: 'Printer is available.',
 	// });
-
+	console.log('1');
 	try {
 		const config = qz.configs.create(printerName, {
 			margins: {

@@ -9,6 +9,7 @@ const printSalesInvoice_html_1 = require("./printSalesInvoice.html");
 const printSalesInvoice = (printSalesInvoiceDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     let data = '';
+    console.log('printingType', printingType);
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printSalesInvoice_html_1.printSalesInvoiceHtml)(printSalesInvoiceDetails);
     }
