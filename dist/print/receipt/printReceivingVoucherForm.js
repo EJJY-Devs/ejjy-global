@@ -13,10 +13,10 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
      * * The following details are hidden as it is not implemented yet (per Emman):
      * * 1. Invoice #
      */
-    const products = receivingVoucher.products;
+    const products = receivingVoucher === null || receivingVoucher === void 0 ? void 0 : receivingVoucher.products;
     const data = `
-	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'RECEIVING VOUCHER')}
+	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
+		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'RECEIVING REPORT')}
 
 		<br />
 
@@ -65,6 +65,5 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'Receiving Voucher');
 };
 exports.printReceivingVoucherForm = printReceivingVoucherForm;

@@ -1,7 +1,12 @@
 import dayjs from 'dayjs';
 import { vatTypes } from '../../globals';
 import { BackOrder, SiteSettings } from '../../types';
-import { formatDateTime, formatInPeso, formatQuantity } from '../../utils';
+import {
+	formatDateTime,
+	formatInPeso,
+	formatQuantity,
+	getFullName,
+} from '../../utils';
 import {
 	EMPTY_CELL,
 	PESO_SIGN,
@@ -37,12 +42,12 @@ export const printStockOutForm = (
 	//    <span>Supplier: ${backOrder?.supplier_name || EMPTY_CELL}</span>
 	//  </div>
 
-	const products = backOrder.products;
+	const products = backOrder?.products;
 	let totalAmount = 0;
 
 	const data = `
 	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
-		${getHeader(siteSettings, undefined, 'BO SLIP')}
+		${getHeader(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />
 
@@ -95,7 +100,8 @@ export const printStockOutForm = (
 				backOrder?.encoded_by?.employee_id || EMPTY_CELL
 			}</span>
 		</div>
-		<div>Supplier: ${EMPTY_CELL}</div>
+		<div>Supplier: ${getFullName(backOrder?.supplier_name)}</div>
+		<div>Remarks: ${backOrder?.overall_remarks}</div>
 
 		<br />
 

@@ -21,11 +21,11 @@ export const printReceivingVoucherForm = (
 	 * * 1. Invoice #
 	 */
 
-	const products = receivingVoucher.products;
+	const products = receivingVoucher?.products;
 
 	const data = `
-	<div class="container" style="${getPageStyle()}">
-		${getHeader(siteSettings, undefined, 'RECEIVING VOUCHER')}
+	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
+		${getHeader(siteSettings, undefined, 'RECEIVING REPORT')}
 
 		<br />
 
@@ -84,6 +84,4 @@ export const printReceivingVoucherForm = (
 	if (isPdf) {
 		return appendHtmlElement(data);
 	}
-
-	print(data, 'Receiving Voucher');
 };
