@@ -30,10 +30,12 @@ export const printSalesInvoiceEscPos = ({
 	EscPosCommands.INITIALIZE,
 	EscPosCommands.TEXT_SMALL,
 	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
-	EscPosCommands.FEED_LINES,
+	EscPosCommands.LINE_BREAK,
+  EscPosCommands.LINE_BREAK,
+  EscPosCommands.LINE_BREAK,
+  EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
-	EscPosCommands.CUT_FULL,
 ];
 
 const generateTransactionContentCommands = (
