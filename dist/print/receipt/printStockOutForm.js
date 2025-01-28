@@ -31,11 +31,11 @@ const printStockOutForm = (backOrder, siteSettings) => {
     //  <div>
     //    <span>Supplier: ${backOrder?.supplier_name || EMPTY_CELL}</span>
     //  </div>
-    const products = backOrder.products;
+    const products = backOrder === null || backOrder === void 0 ? void 0 : backOrder.products;
     let totalAmount = 0;
     const data = `
 	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
-		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'BO SLIP')}
+		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />
 
@@ -79,7 +79,8 @@ const printStockOutForm = (backOrder, siteSettings) => {
 			<span>C: ${helper_receipt_1.EMPTY_CELL}</span>
 			<span style="text-align: right;">E: ${((_a = backOrder === null || backOrder === void 0 ? void 0 : backOrder.encoded_by) === null || _a === void 0 ? void 0 : _a.employee_id) || helper_receipt_1.EMPTY_CELL}</span>
 		</div>
-		<div>Supplier: ${helper_receipt_1.EMPTY_CELL}</div>
+		<div>Supplier: ${(0, utils_1.getFullName)(backOrder === null || backOrder === void 0 ? void 0 : backOrder.supplier_name)}</div>
+		<div>Remarks: ${backOrder === null || backOrder === void 0 ? void 0 : backOrder.overall_remarks}</div>
 
 		<br />
 
