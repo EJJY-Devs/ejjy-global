@@ -239,7 +239,7 @@ const generateTransactionContentCommands = (
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(`"${siteSettings?.thank_you_message}"`);
+	commands.push(`${siteSettings?.thank_you_message}`);
 
 	return commands;
 };

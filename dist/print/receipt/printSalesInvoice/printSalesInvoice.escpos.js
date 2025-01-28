@@ -170,6 +170,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         commands.push('VOIDED TRANSACTION');
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(`"${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}"`);
+    commands.push(`${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}`);
     return commands;
 };
