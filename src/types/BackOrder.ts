@@ -30,9 +30,9 @@ export interface BackOrder {
 	overall_remarks?: string;
 	type: BackOrderType;
 	transaction: Transaction;
-	supplier_name?: string;
-	supplier_address?: string;
-	supplier_tin?: string;
+	customer_name?: string;
+	customer_address?: string;
+	customer_tin?: string;
 	encoded_by: BackOrderUser;
 }
 

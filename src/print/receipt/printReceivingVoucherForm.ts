@@ -1,14 +1,17 @@
 import dayjs from 'dayjs';
-import { vatTypes } from '../../globals';
 import { ReceivingVoucher, SiteSettings } from '../../types';
-import { formatDateTime, formatInPeso, formatQuantity } from '../../utils';
 import {
+	formatDateTime,
+	formatInPeso,
+	formatQuantity,
+	getFullName,
+} from '../../utils';
+import {
+	EMPTY_CELL,
 	PESO_SIGN,
 	appendHtmlElement,
-	getFooter,
 	getHeader,
 	getPageStyle,
-	print,
 } from '../helper-receipt';
 
 export const printReceivingVoucherForm = (
@@ -33,11 +36,9 @@ export const printReceivingVoucherForm = (
 			${products
 				.map(
 					(item) => `<tr>
-						<td colspan="2">${item.product.name} - ${
-							item.product.is_vat_exempted
-								? vatTypes.VAT_EMPTY
-								: vatTypes.VATABLE
-						}</td>
+						<td colspan="2">
+							${item.product.name}
+						</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${formatQuantity(
@@ -56,7 +57,7 @@ export const printReceivingVoucherForm = (
 
 		<table style="width: 100%;">
 			<tr>
-				<td>TOTAL AMOUNT PAID</td>
+				<td>TOTAL AMOUNT</td>
 				<td style="text-align: right; font-weight: bold;">
 					${formatInPeso(receivingVoucher.amount_paid, PESO_SIGN)}
 				</td>
@@ -65,19 +66,16 @@ export const printReceivingVoucherForm = (
 
 		<br />
 
-    <div>GDT: ${formatDateTime(receivingVoucher.datetime_created)}</div>
-    <div>PDT: ${formatDateTime(dayjs(), false)}</div>
 		<div style="display: flex; align-items: center; justify-content: space-between">
-			<span>C: ${receivingVoucher.checked_by.employee_id}</span>
-			<span style="text-align: right;">E: ${
-				receivingVoucher.encoded_by.employee_id
+			<span>Encoder: ${getFullName(receivingVoucher?.encoded_by) || EMPTY_CELL}</span>
+			<span style="text-align: right;">Inspector: ${
+				getFullName(receivingVoucher.checked_by) || EMPTY_CELL
 			}</span>
 		</div>
-		<div>Supplier: ${receivingVoucher.supplier_name}</div>
-
+		<div>Vendor: ${receivingVoucher.supplier_name}</div>
+	<div>GDT: ${formatDateTime(receivingVoucher.datetime_created)}</div>
+    <div>PDT: ${formatDateTime(dayjs(), false)}</div>
 		<br />
-
-		${getFooter(siteSettings)}
 	</div>
 	`;
 

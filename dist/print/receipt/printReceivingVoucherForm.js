@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printReceivingVoucherForm = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
-const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false) => {
@@ -23,9 +22,9 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
 		<table style="width: 100%;">
 			${products
         .map((item) => `<tr>
-						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted
-        ? globals_1.vatTypes.VAT_EMPTY
-        : globals_1.vatTypes.VATABLE}</td>
+						<td colspan="2">
+							${item.product.name}
+						</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${(0, utils_1.formatQuantity)(item.quantity, item.product)} @ ${(0, utils_1.formatInPeso)(item.cost_per_piece, helper_receipt_1.PESO_SIGN)}</td>
@@ -40,7 +39,7 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
 
 		<table style="width: 100%;">
 			<tr>
-				<td>TOTAL AMOUNT PAID</td>
+				<td>TOTAL AMOUNT</td>
 				<td style="text-align: right; font-weight: bold;">
 					${(0, utils_1.formatInPeso)(receivingVoucher.amount_paid, helper_receipt_1.PESO_SIGN)}
 				</td>
@@ -49,17 +48,14 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
 
 		<br />
 
-    <div>GDT: ${(0, utils_1.formatDateTime)(receivingVoucher.datetime_created)}</div>
-    <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>
 		<div style="display: flex; align-items: center; justify-content: space-between">
-			<span>C: ${receivingVoucher.checked_by.employee_id}</span>
-			<span style="text-align: right;">E: ${receivingVoucher.encoded_by.employee_id}</span>
+			<span>Encoder: ${(0, utils_1.getFullName)(receivingVoucher === null || receivingVoucher === void 0 ? void 0 : receivingVoucher.encoded_by) || helper_receipt_1.EMPTY_CELL}</span>
+			<span style="text-align: right;">Inspector: ${(0, utils_1.getFullName)(receivingVoucher.checked_by) || helper_receipt_1.EMPTY_CELL}</span>
 		</div>
-		<div>Supplier: ${receivingVoucher.supplier_name}</div>
-
+		<div>Vendor: ${receivingVoucher.supplier_name}</div>
+	<div>GDT: ${(0, utils_1.formatDateTime)(receivingVoucher.datetime_created)}</div>
+    <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>
 		<br />
-
-		${(0, helper_receipt_1.getFooter)(siteSettings)}
 	</div>
 	`;
     if (isPdf) {

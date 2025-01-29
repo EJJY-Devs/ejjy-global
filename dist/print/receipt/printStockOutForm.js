@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printStockOutForm = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
-const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printStockOutForm = (backOrder, siteSettings) => {
@@ -15,7 +14,6 @@ const printStockOutForm = (backOrder, siteSettings) => {
      * * 2. Check/Authorizer
      * * 3. Invoice #
      */
-    var _a;
     //    <div style="display: flex; align-items: center; justify-content: space-between">
     //    <span>${formatDateTime(backOrder.datetime_created)}</span>
     //    <span style="text-align: right;">${
@@ -46,9 +44,7 @@ const printStockOutForm = (backOrder, siteSettings) => {
             Number(item.current_price_per_piece);
         totalAmount += subtotal;
         return `<tr>
-						<td colspan="2">${item.product.name} - ${item.product.is_vat_exempted
-            ? globals_1.vatTypes.VAT_EMPTY
-            : globals_1.vatTypes.VATABLE}</td>
+						<td colspan="2">${item.product.name}</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${(0, utils_1.formatQuantity)(Number(item.quantity_returned), item.product)} @ ${(0, utils_1.formatInPeso)(item.current_price_per_piece, helper_receipt_1.PESO_SIGN)}</td>
@@ -73,18 +69,14 @@ const printStockOutForm = (backOrder, siteSettings) => {
 
 		<br />
 
-    <div>GDT: ${(0, utils_1.formatDateTime)(backOrder.datetime_created)}</div>
-    <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>
 		<div style="display: flex; align-items: center; justify-content: space-between">
-			<span>C: ${helper_receipt_1.EMPTY_CELL}</span>
-			<span style="text-align: right;">E: ${((_a = backOrder === null || backOrder === void 0 ? void 0 : backOrder.encoded_by) === null || _a === void 0 ? void 0 : _a.employee_id) || helper_receipt_1.EMPTY_CELL}</span>
+			<span>Customer: ${(backOrder === null || backOrder === void 0 ? void 0 : backOrder.customer_name) || helper_receipt_1.EMPTY_CELL}</span>
+			<span style="text-align: right;">Encoder: ${(0, utils_1.getFullName)(backOrder === null || backOrder === void 0 ? void 0 : backOrder.encoded_by) || helper_receipt_1.EMPTY_CELL}</span>
 		</div>
-		<div>Supplier: ${(0, utils_1.getFullName)(backOrder === null || backOrder === void 0 ? void 0 : backOrder.supplier_name)}</div>
 		<div>Remarks: ${backOrder === null || backOrder === void 0 ? void 0 : backOrder.overall_remarks}</div>
-
+	<div>GDT: ${(0, utils_1.formatDateTime)(backOrder.datetime_created)}</div>
+    <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>	
 		<br />
-
-		${(0, helper_receipt_1.getFooter)(siteSettings)}
 	</div>
 	`;
     return data;

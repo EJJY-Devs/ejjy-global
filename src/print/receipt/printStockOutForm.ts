@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { vatTypes } from '../../globals';
 import { BackOrder, SiteSettings } from '../../types';
 import {
 	formatDateTime,
@@ -10,7 +9,6 @@ import {
 import {
 	EMPTY_CELL,
 	PESO_SIGN,
-	getFooter,
 	getHeader,
 	getPageStyle,
 } from '../helper-receipt';
@@ -60,11 +58,7 @@ export const printStockOutForm = (
 					totalAmount += subtotal;
 
 					return `<tr>
-						<td colspan="2">${item.product.name} - ${
-							item.product.is_vat_exempted
-								? vatTypes.VAT_EMPTY
-								: vatTypes.VATABLE
-						}</td>
+						<td colspan="2">${item.product.name}</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 30px">${formatQuantity(
@@ -92,20 +86,16 @@ export const printStockOutForm = (
 
 		<br />
 
-    <div>GDT: ${formatDateTime(backOrder.datetime_created)}</div>
-    <div>PDT: ${formatDateTime(dayjs(), false)}</div>
 		<div style="display: flex; align-items: center; justify-content: space-between">
-			<span>C: ${EMPTY_CELL}</span>
-			<span style="text-align: right;">E: ${
-				backOrder?.encoded_by?.employee_id || EMPTY_CELL
+			<span>Customer: ${backOrder?.customer_name || EMPTY_CELL}</span>
+			<span style="text-align: right;">Encoder: ${
+				getFullName(backOrder?.encoded_by) || EMPTY_CELL
 			}</span>
 		</div>
-		<div>Supplier: ${getFullName(backOrder?.supplier_name)}</div>
 		<div>Remarks: ${backOrder?.overall_remarks}</div>
-
+	<div>GDT: ${formatDateTime(backOrder.datetime_created)}</div>
+    <div>PDT: ${formatDateTime(dayjs(), false)}</div>	
 		<br />
-
-		${getFooter(siteSettings)}
 	</div>
 	`;
 
