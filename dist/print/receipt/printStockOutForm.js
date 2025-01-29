@@ -73,7 +73,11 @@ const printStockOutForm = (backOrder, siteSettings) => {
 			<span>Customer: ${(backOrder === null || backOrder === void 0 ? void 0 : backOrder.customer_name) || helper_receipt_1.EMPTY_CELL}</span>
 			<span style="text-align: right;">Encoder: ${(0, utils_1.getFullName)(backOrder === null || backOrder === void 0 ? void 0 : backOrder.encoded_by) || helper_receipt_1.EMPTY_CELL}</span>
 		</div>
+
+		<br />
 		<div>Remarks: ${backOrder === null || backOrder === void 0 ? void 0 : backOrder.overall_remarks}</div>
+
+		<br />
 	<div>GDT: ${(0, utils_1.formatDateTime)(backOrder.datetime_created)}</div>
     <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>	
 		<br />

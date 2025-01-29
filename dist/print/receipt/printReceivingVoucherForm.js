@@ -52,7 +52,11 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
 			<span>Encoder: ${(0, utils_1.getFullName)(receivingVoucher === null || receivingVoucher === void 0 ? void 0 : receivingVoucher.encoded_by) || helper_receipt_1.EMPTY_CELL}</span>
 			<span style="text-align: right;">Inspector: ${(0, utils_1.getFullName)(receivingVoucher.checked_by) || helper_receipt_1.EMPTY_CELL}</span>
 		</div>
+
+		<br />
 		<div>Vendor: ${receivingVoucher.supplier_name}</div>
+
+		<br />
 	<div>GDT: ${(0, utils_1.formatDateTime)(receivingVoucher.datetime_created)}</div>
     <div>PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}</div>
 		<br />

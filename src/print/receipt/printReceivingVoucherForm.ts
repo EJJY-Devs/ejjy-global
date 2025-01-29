@@ -72,7 +72,11 @@ export const printReceivingVoucherForm = (
 				getFullName(receivingVoucher.checked_by) || EMPTY_CELL
 			}</span>
 		</div>
+
+		<br />
 		<div>Vendor: ${receivingVoucher.supplier_name}</div>
+
+		<br />
 	<div>GDT: ${formatDateTime(receivingVoucher.datetime_created)}</div>
     <div>PDT: ${formatDateTime(dayjs(), false)}</div>
 		<br />

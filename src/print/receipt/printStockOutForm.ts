@@ -92,7 +92,11 @@ export const printStockOutForm = (
 				getFullName(backOrder?.encoded_by) || EMPTY_CELL
 			}</span>
 		</div>
+
+		<br />
 		<div>Remarks: ${backOrder?.overall_remarks}</div>
+
+		<br />
 	<div>GDT: ${formatDateTime(backOrder.datetime_created)}</div>
     <div>PDT: ${formatDateTime(dayjs(), false)}</div>	
 		<br />
