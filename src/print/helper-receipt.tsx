@@ -159,14 +159,18 @@ export const print = async (
 	try {
 		console.log('Printing receipt.');
 		const config = qz.configs.create(printerName, {
-			margins: {
-				top: 0,
-				right: PAPER_MARGIN_INCHES,
-				bottom: 0,
-				left: PAPER_MARGIN_INCHES,
-			},
-			scaleContent: true,
-			scaling: 'strinkToFit',
+			...(type !== printingTypes.NATIVE
+				? {
+						margins: {
+							top: 0,
+							right: PAPER_MARGIN_INCHES,
+							bottom: 0,
+							left: PAPER_MARGIN_INCHES,
+						},
+						scaleContent: true,
+						scaling: 'shrinkToFit',
+					}
+				: {}),
 		});
 
 		if (type === printingTypes.NATIVE) {
@@ -181,7 +185,7 @@ export const print = async (
 						format: 'command',
 						flavor: 'plain',
 						data: '',
-						options: { language: 'ESCPOS', dotDensity: 'single' },
+						options: { language: 'ESCPOS' },
 					},
 					...printData,
 				],

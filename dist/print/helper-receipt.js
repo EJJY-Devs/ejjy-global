@@ -125,16 +125,18 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     // });
     try {
         console.log('Printing receipt.');
-        const config = qz_tray_1.default.configs.create(printerName, {
-            margins: {
-                top: 0,
-                right: exports.PAPER_MARGIN_INCHES,
-                bottom: 0,
-                left: exports.PAPER_MARGIN_INCHES,
-            },
-            scaleContent: true,
-            scaling: 'strinkToFit',
-        });
+        const config = qz_tray_1.default.configs.create(printerName, Object.assign({}, (type !== globals_1.printingTypes.NATIVE
+            ? {
+                margins: {
+                    top: 0,
+                    right: exports.PAPER_MARGIN_INCHES,
+                    bottom: 0,
+                    left: exports.PAPER_MARGIN_INCHES,
+                },
+                scaleContent: true,
+                scaling: 'shrinkToFit',
+            }
+            : {})));
         if (type === globals_1.printingTypes.NATIVE) {
             yield qz_tray_1.default.print(Object.assign(Object.assign({}, config), { forceRaw: true }), [
                 {
@@ -142,7 +144,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                     format: 'command',
                     flavor: 'plain',
                     data: '',
-                    options: { language: 'ESCPOS', dotDensity: 'single' },
+                    options: { language: 'ESCPOS' },
                 },
                 ...printData,
             ]);
