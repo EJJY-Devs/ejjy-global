@@ -13,7 +13,7 @@ const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceEscPos = ({ transaction, siteSettings, isReprint = false, }) => [
     escpos_enum_1.EscPosCommands.INITIALIZE,
-    escpos_enum_1.EscPosCommands.TEXT_SMALL,
+    // EscPosCommands.TEXT_SMALL,
     ...generateTransactionContentCommands(transaction, siteSettings, isReprint),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,

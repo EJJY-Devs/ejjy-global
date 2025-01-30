@@ -19,5 +19,7 @@ export const printSalesInvoice = (
 		data = printSalesInvoiceEscPos(printSalesInvoiceDetails);
 	}
 
+	console.log('data', data);
+
 	print(data, 'Sales Invoice', undefined, printingType);
 };

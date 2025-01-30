@@ -16,6 +16,7 @@ const printSalesInvoice = (printSalesInvoiceDetails) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printSalesInvoice_escpos_1.printSalesInvoiceEscPos)(printSalesInvoiceDetails);
     }
+    console.log('data', data);
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
 };
 exports.printSalesInvoice = printSalesInvoice;
