@@ -12,8 +12,6 @@ const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceEscPos = ({ transaction, siteSettings, isReprint = false, }) => [
-    escpos_enum_1.EscPosCommands.INITIALIZE,
-    escpos_enum_1.EscPosCommands.TEXT_SMALL,
     '1. Lorem ipsu',
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     '2. m dolor si',
@@ -61,7 +59,7 @@ const printSalesInvoiceEscPos = ({ transaction, siteSettings, isReprint = false,
     // EscPosCommands.LINE_BREAK,
     // EscPosCommands.LINE_BREAK,
     // EscPosCommands.LINE_BREAK,
-];
+].join('');
 exports.printSalesInvoiceEscPos = printSalesInvoiceEscPos;
 const generateTransactionContentCommands = (transaction, siteSettings, isReprint) => {
     var _a;

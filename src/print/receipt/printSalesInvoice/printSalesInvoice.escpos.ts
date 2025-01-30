@@ -27,8 +27,6 @@ export const printSalesInvoiceEscPos = ({
 	siteSettings,
 	isReprint = false,
 }: PrintSalesInvoice) => [
-	EscPosCommands.INITIALIZE,
-	EscPosCommands.TEXT_SMALL,
 	'1. Lorem ipsu',
 	EscPosCommands.LINE_BREAK,
 	'2. m dolor si',
@@ -76,7 +74,7 @@ export const printSalesInvoiceEscPos = ({
   // EscPosCommands.LINE_BREAK,
 	// EscPosCommands.LINE_BREAK,
 	// EscPosCommands.LINE_BREAK,
-];
+].join('');
 
 const generateTransactionContentCommands = (
 	transaction: Transaction,
