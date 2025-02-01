@@ -176,7 +176,15 @@ export const print = async (
 		});
 
 		if (type === printingTypes.NATIVE) {
-			await qz.print(config, { data: (printData as string[]).join('') });
+			await qz.print(config, [
+				{
+					type: 'raw',
+					format: 'command',
+					flavor: 'plain',
+					data: (printData as string[]).join(''),
+					options: { language: 'ESCPOS', dotDensity: 'single' },
+				},
+			]);
 		} else {
 			await qz.print(config, [
 				{
