@@ -175,6 +175,8 @@ export const print = async (
 					}),
 		});
 
+		console.log('config', config);
+
 		if (type === printingTypes.NATIVE) {
 			await qz.print(config, [
 				{
