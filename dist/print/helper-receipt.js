@@ -138,6 +138,11 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
             }
             : {
                 forceRaw: true,
+                bounds: true,
+                rasterize: true,
+                scaleContent: true,
+                size: true,
+                spool: true,
             })));
         console.log('config', config);
         if (type === globals_1.printingTypes.NATIVE) {

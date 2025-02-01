@@ -172,6 +172,11 @@ export const print = async (
 					}
 				: {
 						forceRaw: true,
+						bounds: true,
+						rasterize: true,
+						scaleContent: true,
+						size: true,
+						spool: true,
 					}),
 		});
 
