@@ -59,7 +59,7 @@ const printSalesInvoiceEscPos = ({ transaction, siteSettings, isReprint = false,
     // EscPosCommands.LINE_BREAK,
     // EscPosCommands.LINE_BREAK,
     // EscPosCommands.LINE_BREAK,
-].join('');
+];
 exports.printSalesInvoiceEscPos = printSalesInvoiceEscPos;
 const generateTransactionContentCommands = (transaction, siteSettings, isReprint) => {
     var _a;

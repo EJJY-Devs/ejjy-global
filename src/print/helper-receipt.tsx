@@ -176,7 +176,7 @@ export const print = async (
 		});
 
 		if (type === printingTypes.NATIVE) {
-			await qz.print(config, { data: (printData as string[]).join('') });
+			await qz.print(config, { data: printData });
 		} else {
 			await qz.print(config, [
 				{

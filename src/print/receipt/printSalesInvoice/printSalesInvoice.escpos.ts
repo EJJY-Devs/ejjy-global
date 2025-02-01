@@ -69,12 +69,12 @@ export const printSalesInvoiceEscPos = ({
 	EscPosCommands.LINE_BREAK,
 	// ...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 	// EscPosCommands.LINE_BREAK,
-  // EscPosCommands.LINE_BREAK,
-  // EscPosCommands.LINE_BREAK,
-  // EscPosCommands.LINE_BREAK,
 	// EscPosCommands.LINE_BREAK,
 	// EscPosCommands.LINE_BREAK,
-].join('');
+	// EscPosCommands.LINE_BREAK,
+	// EscPosCommands.LINE_BREAK,
+	// EscPosCommands.LINE_BREAK,
+];
 
 const generateTransactionContentCommands = (
 	transaction: Transaction,
@@ -158,7 +158,7 @@ const generateTransactionContentCommands = (
 			);
 		}
 
-    commands.push(EscPosCommands.ALIGN_RIGHT);
+		commands.push(EscPosCommands.ALIGN_RIGHT);
 		commands.push('----------------');
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
