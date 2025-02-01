@@ -28,7 +28,7 @@ export const printSalesInvoiceEscPos = ({
 	isReprint = false,
 }: PrintSalesInvoice) => [
   EscPosCommands.INITIALIZE,
-  EscPosCommands.TEXT_NORMAL,
+  EscPosCommands.TEXT_SMALL,
 	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
