@@ -140,7 +140,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 forceRaw: true,
             })));
         if (type === globals_1.printingTypes.NATIVE) {
-            yield qz_tray_1.default.print(config, { data: printData });
+            yield qz_tray_1.default.print(config, { data: printData.join('') });
         }
         else {
             yield qz_tray_1.default.print(config, [
