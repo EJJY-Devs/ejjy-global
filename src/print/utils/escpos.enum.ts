@@ -8,7 +8,7 @@ export enum EscPosCommands {
 	TEXT_SMALL = '\x1B\x4D\x31', // Small text
 	TEXT_NORMAL = '\x1B\x4D\x30', // Normal text
 
-	LINE_BREAK = '\x0A', // Line break
+	LINE_BREAK = '\n', // Line break
 
 	BOLD_ON = '\x1B\x45\x01', // Bold ON
 	BOLD_OFF = '\x1B\x45\x00', // Bold OFF
