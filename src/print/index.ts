@@ -23,4 +23,4 @@ export * from './txt/createXReadTxt';
 export * from './txt/createZReadTxt';
 export * from './utils/cashier';
 
-export * from './receipt/printSalesInvoice/printSalesInvoice.escpos';
+export * from './receipt/printSalesInvoice/printSalesInvoice.native';

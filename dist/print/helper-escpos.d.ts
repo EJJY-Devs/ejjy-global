@@ -3,6 +3,8 @@ import { ItemBlockItems } from '../components/Printing/ItemBlock';
 import { SiteSettings } from '../types';
 export declare const generateReceiptHeaderCommands: ({ branchMachine, siteSettings, title, }: ReceiptHeaderProps) => string[];
 export declare const generateReceiptFooterCommands: (siteSettings: SiteSettings) => string[];
+export declare const printCenter: (text: string) => string;
+export declare const printRight: (text: string) => string;
 type ItemBlockItemsCommands = Omit<ItemBlockItems, 'labelStyle' | 'contentStyle'>;
 export declare const generateItemBlockCommands: (items: ItemBlockItemsCommands[]) => string[];
 export {};

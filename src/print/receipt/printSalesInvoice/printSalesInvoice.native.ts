@@ -17,18 +17,17 @@ import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
+	printRight,
 } from '../../helper-escpos';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import { PrintSalesInvoice } from './types';
 
-export const printSalesInvoiceEscPos = ({
+export const printSalesInvoiceNative = ({
 	transaction,
 	siteSettings,
 	isReprint = false,
 }: PrintSalesInvoice) => [
-  EscPosCommands.INITIALIZE,
-  EscPosCommands.TEXT_SMALL,
 	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
@@ -72,7 +71,6 @@ const generateTransactionContentCommands = (
 			PESO_SIGN,
 		);
 
-		commands.push(EscPosCommands.ALIGN_LEFT);
 		commands.push(productDetails);
 		commands.push(EscPosCommands.LINE_BREAK);
 
@@ -88,8 +86,7 @@ const generateTransactionContentCommands = (
 	});
 
 	// Divider
-	commands.push(EscPosCommands.ALIGN_RIGHT);
-	commands.push('----------------');
+	commands.push(printRight('----------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Discounts and Total
@@ -120,8 +117,7 @@ const generateTransactionContentCommands = (
 			);
 		}
 
-		commands.push(EscPosCommands.ALIGN_RIGHT);
-		commands.push('----------------');
+		commands.push(printRight('----------------'));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
