@@ -104,9 +104,9 @@ const printCenter = (text) => {
     const spaces = ' '.repeat(Math.max(0, spacesNeeded) / 2);
     console.log('spaces', spaces);
     console.log('final', spaces + text + spaces);
-    console.log('final length', (spaces + text + spaces).length);
+    console.log('final length', (spaces + text).length);
     console.groupEnd();
-    return spaces + text + spaces;
+    return spaces + text;
 };
 exports.printCenter = printCenter;
 const printRight = (text) => {

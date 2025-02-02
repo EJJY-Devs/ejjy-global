@@ -165,11 +165,11 @@ export const printCenter = (text: string) => {
 
 	console.log('spaces', spaces);
 	console.log('final', spaces + text + spaces);
-	console.log('final length', (spaces + text + spaces).length);
+	console.log('final length', (spaces + text).length);
 
 	console.groupEnd();
 
-	return spaces + text + spaces;
+	return spaces + text;
 };
 
 export const printRight = (text: string) => {
