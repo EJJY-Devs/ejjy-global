@@ -17,6 +17,7 @@ import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
+	printCenter,
 	printRight,
 } from '../../helper-escpos';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
@@ -221,7 +222,7 @@ const generateTransactionContentCommands = (
 
 	// Final Messages
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
-		commands.push(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE);
+		commands.push(printCenter(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -231,11 +232,11 @@ const generateTransactionContentCommands = (
 			transactionStatuses.VOID_CANCELLED,
 		].includes(transaction.status)
 	) {
-		commands.push('VOIDED TRANSACTION');
+		commands.push(printCenter('VOIDED TRANSACTION'));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(`${siteSettings?.thank_you_message}`);
+	commands.push(printCenter(`${siteSettings?.thank_you_message}`));
 
 	return commands;
 };

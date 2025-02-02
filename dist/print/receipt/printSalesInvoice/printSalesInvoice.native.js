@@ -155,16 +155,16 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Final Messages
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
-        commands.push(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE);
+        commands.push((0, helper_escpos_1.printCenter)(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ([
         globals_1.transactionStatuses.VOID_EDITED,
         globals_1.transactionStatuses.VOID_CANCELLED,
     ].includes(transaction.status)) {
-        commands.push('VOIDED TRANSACTION');
+        commands.push((0, helper_escpos_1.printCenter)('VOIDED TRANSACTION'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(`${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}`);
+    commands.push((0, helper_escpos_1.printCenter)(`${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}`));
     return commands;
 };
