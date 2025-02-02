@@ -152,6 +152,7 @@ const printLeftRight = (leftText: string, rightText: string) => {
 };
 
 export const printCenter = (text: string) => {
+	return text;
 	const textLength = text.length;
 
 	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
@@ -162,6 +163,7 @@ export const printCenter = (text: string) => {
 };
 
 export const printRight = (text: string) => {
+  return text;
 	const textLength = text.length;
 
 	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
