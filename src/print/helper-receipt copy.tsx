@@ -171,14 +171,27 @@ export const print = async (
 						scaling: 'shrinkToFit',
 					}
 				: {
-						
+						forceRaw: true,
+						bounds: true,
+						rasterize: true,
+						scaleContent: true,
+						size: true,
+						spool: true,
 					}),
 		});
 
 		console.log('config', config);
 
 		if (type === printingTypes.NATIVE) {
-			await qz.print(config, printData);
+			await qz.print(config, [
+				{
+					type: 'raw',
+					format: 'command',
+					flavor: 'plain',
+					data: (printData as string[]).join(''),
+					options: { language: 'ESCPOS', dotDensity: 'single' },
+				},
+			]);
 		} else {
 			await qz.print(config, [
 				{
