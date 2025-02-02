@@ -171,7 +171,7 @@ export const print = async (
 						scaling: 'shrinkToFit',
 					}
 				: {
-						
+						encoding: 'UTF-8',
 					}),
 		});
 
