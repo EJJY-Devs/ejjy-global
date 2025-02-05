@@ -136,9 +136,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 scaleContent: true,
                 scaling: 'shrinkToFit',
             }
-            : {
-                encoding: 'UTF-8',
-            })));
+            : {})));
         console.log('config', config);
         if (type === globals_1.printingTypes.NATIVE) {
             yield qz_tray_1.default.print(config, printData);

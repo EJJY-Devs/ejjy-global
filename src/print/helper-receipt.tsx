@@ -170,9 +170,7 @@ export const print = async (
 						scaleContent: true,
 						scaling: 'shrinkToFit',
 					}
-				: {
-						encoding: 'UTF-8',
-					}),
+				: {}),
 		});
 
 		console.log('config', config);

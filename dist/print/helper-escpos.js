@@ -96,16 +96,9 @@ const printLeftRight = (leftText, rightText) => {
     return leftText + spaces + rightText;
 };
 const printCenter = (text) => {
-    console.group();
     const textLength = text.length;
-    console.log('textLength', textLength);
     const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
-    console.log('spacesNeeded', spacesNeeded);
-    const spaces = ' '.repeat(Math.max(0, spacesNeeded) / 2);
-    console.log('spaces', spaces);
-    console.log('final', spaces + text + spaces);
-    console.log('final length', (spaces + text).length);
-    console.groupEnd();
+    const spaces = '-'.repeat(Math.max(0, spacesNeeded) / 2);
     return spaces + text;
 };
 exports.printCenter = printCenter;
