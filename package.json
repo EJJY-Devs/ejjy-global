@@ -1,7 +1,7 @@
 {
 	"name": "ejjy-global",
 	"private": true,
-	"version": "0.0.446",
+	"version": "0.0.447",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {

@@ -156,7 +156,7 @@ export const printCenter = (text: string) => {
 
 	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
 
-	const spaces = '-'.repeat(Math.max(0, spacesNeeded) / 2);
+	const spaces = '\u0020'.repeat(Math.max(0, spacesNeeded) / 2);
 
 	return spaces + text;
 };
