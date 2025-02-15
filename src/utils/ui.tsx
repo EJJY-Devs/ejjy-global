@@ -115,6 +115,12 @@ export const getCashBreakdownTypeDescription = (
 	return description;
 };
 
+export const formatRequisitionSlipId = (slipId: unknown) => {
+	const year = new Date().getFullYear().toString().slice(-2); // Get last two digits of the year
+	const paddedId = String(slipId).padStart(2, '0'); // Ensure at least 2 digits (01, 02, etc.)
+	return `RS${year}-${paddedId}`;
+};
+
 export const getAttendanceLogDescription = (
 	category: AttendanceLogCategory,
 	type: AttendanceLogType,

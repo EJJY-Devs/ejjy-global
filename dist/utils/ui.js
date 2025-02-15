@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDualType = exports.isUserFromBranch = exports.getDiscountFields = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getInvoiceType = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
+exports.isDualType = exports.isUserFromBranch = exports.getDiscountFields = exports.showErrorMessages = exports.authorization = exports.filterOption = exports.getOrderSlipStatusBranchManagerText = exports.getProductCode = exports.getRequestor = exports.getTransactionStatusDescription = exports.getTaxTypeDescription = exports.getInvoiceType = exports.getModeOfPaymentDescription = exports.getAttendanceLogDescription = exports.formatRequisitionSlipId = exports.getCashBreakdownTypeDescription = exports.getUserTypeDescription = exports.getKeyDownCombination = exports.getFullName = exports.getSubtotal = void 0;
 const antd_1 = require("antd");
 const lodash_1 = __importDefault(require("lodash"));
 const react_1 = __importDefault(require("react"));
@@ -87,6 +87,12 @@ const getCashBreakdownTypeDescription = (category, type) => {
     return description;
 };
 exports.getCashBreakdownTypeDescription = getCashBreakdownTypeDescription;
+const formatRequisitionSlipId = (slipId) => {
+    const year = new Date().getFullYear().toString().slice(-2); // Get last two digits of the year
+    const paddedId = String(slipId).padStart(2, '0'); // Ensure at least 2 digits (01, 02, etc.)
+    return `RS${year}-${paddedId}`;
+};
+exports.formatRequisitionSlipId = formatRequisitionSlipId;
 const getAttendanceLogDescription = (category, type) => {
     let description = '';
     if (category === globals_1.attendanceCategories.ATTENDANCE) {

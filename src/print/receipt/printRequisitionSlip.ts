@@ -6,6 +6,7 @@ import {
 	getFullName,
 	getProductCode,
 	getRequestor,
+	formatRequisitionSlipId,
 } from '../../utils';
 import {
 	appendHtmlElement,
@@ -35,7 +36,7 @@ export const printRequisitionSlip = (
       </tr>
       <tr>
         <td>F-RS1:</td>
-        <td style="text-align: right">${requisitionSlip.id}</td>
+        <td style="text-align: right">${formatRequisitionSlipId(requisitionSlip.id)}</td>
       </tr>
       <tr>
         <td>Requestor:</td>
@@ -45,57 +46,28 @@ export const printRequisitionSlip = (
 
     <br />
 
-    ${
-			isPdf
-				? `
-        <table style="width: 100%;">
-          <thead>
-            <tr>
-              <th style="text-align: left; font-weight: normal">NAME</th>
-              <th style="text-align: center; font-weight: normal">QTY ORDERED</th>
-              <th style="text-align: right; font-weight: normal">QTY SERVED</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${requisitionSlip.products
-							.map(
-								({ quantity_piece, product }) => `
-                <tr>
-                  <td>
-                    <span style="display:block">${product.name}</span>
-                    <small>CODE: ${getProductCode(product)}</small>
-                  </td>
-
-                  <td style="text-align: center">
-                    ${formatQuantity(quantity_piece, product)}
-                  </td>
-
-                  <td style="text-align: left">-</td>
-                </tr>
-              `,
-							)
-							.join('')}
-          </tbody>
-        </table>
-      `
-				: `
-        <table style="width: 100%;">
-          ${requisitionSlip.products
-						.map(
-							({ quantity_piece, product }) => `
-              <tr>
-                <td colspan="2">${product.name}</td>
-              </tr>
-              <tr>
-                <td style="padding-left: 4ch; width: 50%">
-                ${formatQuantity(quantity_piece, product)}</td>
-                <td style="width: 50%">-</td>
-              </tr>`,
-						)
-						.join('')}
-        </table>
-        `
-		}
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Product Name</th>
+          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Code</th>
+          <th style="text-align: center; font-weight: bold; border-bottom: 1px solid #000;">Quantity Ordered</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${requisitionSlip.products
+					.map(
+						({ quantity_piece, product }) => `
+          <tr>
+            <td>${product.name}</td>
+            <td>${getProductCode(product)}</td>
+            <td style="text-align: center">${formatQuantity(quantity_piece, product)}</td>
+          </tr>
+        `,
+					)
+					.join('')}
+      </tbody>
+    </table>
 
     <br/>
 
