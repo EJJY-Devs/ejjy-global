@@ -9,7 +9,7 @@ const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false) => {
     const data = `
-  <div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
+ 	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
   ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
@@ -20,12 +20,12 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
         <td style="text-align: right">${(0, utils_1.formatDateTime)(requisitionSlip.datetime_created)}</td>
       </tr>
       <tr>
-        <td>F-RS1:</td>
+        <td>ID:</td>
         <td style="text-align: right">${(0, utils_1.formatRequisitionSlipId)(requisitionSlip.id)}</td>
       </tr>
       <tr>
         <td>Requestor:</td>
-        <td style="text-align: right">${(0, utils_1.getRequestor)(requisitionSlip)}</td>
+        <td style="text-align: right">${(0, utils_1.getFullName)(requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.prepared_by)}</td>
       </tr>
     </table>
 
@@ -34,18 +34,17 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
     <table style="width: 100%; border-collapse: collapse;">
       <thead>
         <tr>
-          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Product Name</th>
-          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Code</th>
-          <th style="text-align: center; font-weight: bold; border-bottom: 1px solid #000;">Quantity Ordered</th>
+          <th style="text-align: left">Product Name</th>
+          <div style="width: 100%; text-align: right">----------------</div>
+          <th style="text-align: right">Quantity</th>
         </tr>
       </thead>
       <tbody>
         ${requisitionSlip.products
-        .map(({ quantity_piece, product }) => `
+        .map(({ quantity, product }) => `
           <tr>
             <td>${product.name}</td>
-            <td>${(0, utils_1.getProductCode)(product)}</td>
-            <td style="text-align: center">${(0, utils_1.formatQuantity)(quantity_piece, product)}</td>
+            <td style="text-align: center">${(0, utils_1.formatQuantity)(quantity, product)}</td>
           </tr>
         `)
         .join('')}

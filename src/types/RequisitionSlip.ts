@@ -26,7 +26,7 @@ type RequisitionSlipProduct = {
 	product_id: number;
 	product: Product;
 	is_out_of_stock: boolean;
-	quantity_piece: number;
+	quantity: number;
 	status: 'added_to_os' | 'not_added_to_os';
 };
 
@@ -52,7 +52,8 @@ type RequisitionSlipRequestingUser = {
 export type RequisitionSlip = {
 	id: number;
 	datetime_created: string;
-	requesting_user: RequisitionSlipRequestingUser;
+	prepared_by: RequisitionSlipRequestingUser;
+	approved_by: RequisitionSlipRequestingUser;
 	type: RequisitionSlipType;
 	action: RequisitionSlipAction;
 	products: RequisitionSlipProduct[];

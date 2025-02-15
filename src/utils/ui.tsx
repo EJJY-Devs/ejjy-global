@@ -200,7 +200,7 @@ export const getTransactionStatusDescription = (status: string) => {
 };
 
 export const getRequestor = (requisitionSlip: RequisitionSlip) => {
-	const user = requisitionSlip?.requesting_user || {};
+	const user = requisitionSlip?.prepared_by || {};
 
 	const data = [];
 	if (user) {

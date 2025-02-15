@@ -4,8 +4,6 @@ import {
 	formatDateTime,
 	formatQuantity,
 	getFullName,
-	getProductCode,
-	getRequestor,
 	formatRequisitionSlipId,
 } from '../../utils';
 import {
@@ -22,7 +20,7 @@ export const printRequisitionSlip = (
 	isPdf = false,
 ) => {
 	const data = `
-  <div class="container" style="${getPageStyle()}">
+ 	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
   ${getHeader(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
@@ -35,12 +33,12 @@ export const printRequisitionSlip = (
 				)}</td>
       </tr>
       <tr>
-        <td>F-RS1:</td>
+        <td>ID:</td>
         <td style="text-align: right">${formatRequisitionSlipId(requisitionSlip.id)}</td>
       </tr>
       <tr>
         <td>Requestor:</td>
-        <td style="text-align: right">${getRequestor(requisitionSlip)}</td>
+        <td style="text-align: right">${getFullName(requisitionSlip?.prepared_by)}</td>
       </tr>
     </table>
 
@@ -49,19 +47,18 @@ export const printRequisitionSlip = (
     <table style="width: 100%; border-collapse: collapse;">
       <thead>
         <tr>
-          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Product Name</th>
-          <th style="text-align: left; font-weight: bold; border-bottom: 1px solid #000;">Code</th>
-          <th style="text-align: center; font-weight: bold; border-bottom: 1px solid #000;">Quantity Ordered</th>
+          <th style="text-align: left">Product Name</th>
+          <div style="width: 100%; text-align: right">----------------</div>
+          <th style="text-align: right">Quantity</th>
         </tr>
       </thead>
       <tbody>
         ${requisitionSlip.products
 					.map(
-						({ quantity_piece, product }) => `
+						({ quantity, product }) => `
           <tr>
             <td>${product.name}</td>
-            <td>${getProductCode(product)}</td>
-            <td style="text-align: center">${formatQuantity(quantity_piece, product)}</td>
+            <td style="text-align: center">${formatQuantity(quantity, product)}</td>
           </tr>
         `,
 					)

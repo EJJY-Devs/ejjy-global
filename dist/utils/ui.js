@@ -167,7 +167,7 @@ const getTransactionStatusDescription = (status) => {
 };
 exports.getTransactionStatusDescription = getTransactionStatusDescription;
 const getRequestor = (requisitionSlip) => {
-    const user = (requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.requesting_user) || {};
+    const user = (requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.prepared_by) || {};
     const data = [];
     if (user) {
         data.push((0, exports.getFullName)(user));
