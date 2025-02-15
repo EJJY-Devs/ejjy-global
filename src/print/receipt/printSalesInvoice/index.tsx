@@ -1,7 +1,7 @@
 import { printingTypes } from '../../../globals';
 import { getAppReceiptPrintingType } from '../../../utils/localstorage';
 import { print } from '../../helper-receipt';
-import { printSalesInvoiceEscPos } from './printSalesInvoice.escpos';
+import { printSalesInvoiceNative } from './printSalesInvoice.native';
 import { printSalesInvoiceHtml } from './printSalesInvoice.html';
 import { PrintSalesInvoice } from './types';
 
@@ -12,12 +12,13 @@ export const printSalesInvoice = (
 
 	let data: string | string[] = '';
 
-	console.log('printingType', printingType);
 	if (printingType === printingTypes.HTML) {
 		data = printSalesInvoiceHtml(printSalesInvoiceDetails);
 	} else if (printingType === printingTypes.NATIVE) {
-		data = printSalesInvoiceEscPos(printSalesInvoiceDetails);
+		data = printSalesInvoiceNative(printSalesInvoiceDetails);
 	}
+
+	console.log('data', data);
 
 	print(data, 'Sales Invoice', undefined, printingType);
 };

@@ -136,10 +136,25 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 scaleContent: true,
                 scaling: 'shrinkToFit',
             }
-            : {})));
+            : {
+                forceRaw: true,
+                bounds: true,
+                rasterize: true,
+                scaleContent: true,
+                size: true,
+                spool: true,
+            })));
         console.log('config', config);
         if (type === globals_1.printingTypes.NATIVE) {
-            yield qz_tray_1.default.print(config, printData);
+            yield qz_tray_1.default.print(config, [
+                {
+                    type: 'raw',
+                    format: 'command',
+                    flavor: 'plain',
+                    data: printData.join(''),
+                    options: { language: 'ESCPOS', dotDensity: 'single' },
+                },
+            ]);
         }
         else {
             yield qz_tray_1.default.print(config, [

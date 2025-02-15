@@ -17,23 +17,23 @@ import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
+	printCenter,
+	printRight,
 } from '../../helper-escpos';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import { PrintSalesInvoice } from './types';
 
-export const printSalesInvoiceEscPos = ({
+export const printSalesInvoiceNative = ({
 	transaction,
 	siteSettings,
 	isReprint = false,
 }: PrintSalesInvoice) => [
-	EscPosCommands.INITIALIZE,
-	EscPosCommands.TEXT_SMALL,
 	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
 	EscPosCommands.LINE_BREAK,
-  EscPosCommands.LINE_BREAK,
-  EscPosCommands.LINE_BREAK,
-  EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 ];
@@ -72,7 +72,6 @@ const generateTransactionContentCommands = (
 			PESO_SIGN,
 		);
 
-		commands.push(EscPosCommands.ALIGN_LEFT);
 		commands.push(productDetails);
 		commands.push(EscPosCommands.LINE_BREAK);
 
@@ -88,8 +87,7 @@ const generateTransactionContentCommands = (
 	});
 
 	// Divider
-	commands.push(EscPosCommands.ALIGN_RIGHT);
-	commands.push('----------------');
+	commands.push(printRight('----------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Discounts and Total
@@ -120,8 +118,7 @@ const generateTransactionContentCommands = (
 			);
 		}
 
-    commands.push(EscPosCommands.ALIGN_RIGHT);
-		commands.push('----------------');
+		commands.push(printRight('----------------'));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -225,7 +222,7 @@ const generateTransactionContentCommands = (
 
 	// Final Messages
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
-		commands.push(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE);
+		commands.push(printCenter(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -235,11 +232,11 @@ const generateTransactionContentCommands = (
 			transactionStatuses.VOID_CANCELLED,
 		].includes(transaction.status)
 	) {
-		commands.push('VOIDED TRANSACTION');
+		commands.push(printCenter('VOIDED TRANSACTION'));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(`${siteSettings?.thank_you_message}`);
+	commands.push(printCenter(`${siteSettings?.thank_you_message}`));
 
 	return commands;
 };

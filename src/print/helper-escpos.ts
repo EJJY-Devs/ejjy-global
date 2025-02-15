@@ -28,11 +28,10 @@ export const generateReceiptHeaderCommands = ({
 
 	const commands: string[] = [];
 
-	commands.push(EscPosCommands.ALIGN_CENTER);
 	if (storeName) {
 		const lines = storeName.split('\n');
 		for (const line of lines) {
-			commands.push(line);
+			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
@@ -40,40 +39,44 @@ export const generateReceiptHeaderCommands = ({
 	if (location) {
 		const lines = location.split('\n');
 		for (const line of lines) {
-			commands.push(line);
+			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
 	if (contactNumber || name) {
-		commands.push([contactNumber, name].filter(Boolean).join(' | '));
+		commands.push(
+			printCenter([contactNumber, name].filter(Boolean).join(' | ')),
+		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (proprietor) {
-		commands.push(proprietor);
+		commands.push(printCenter(proprietor));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (taxType || tin) {
 		commands.push(
-			[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
+			printCenter(
+				[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
+			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (machineID) {
-		commands.push(`MIN: ${machineID}`);
+		commands.push(printCenter(`MIN: ${machineID}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (posTerminal) {
-		commands.push(`SN: ${posTerminal}`);
+		commands.push(printCenter(`SN: ${posTerminal}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
-		commands.push(title);
+		commands.push(printCenter(title));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -93,45 +96,43 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 
 	const commands: string[] = [];
 
-	commands.push(EscPosCommands.ALIGN_CENTER);
-
 	if (softwareDeveloper) {
-		commands.push(softwareDeveloper);
+		commands.push(printCenter(softwareDeveloper));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperAddress) {
 		const lines = softwareDeveloperAddress.split('\n');
 		for (const line of lines) {
-			commands.push(line);
+			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
 	if (softwareDeveloperTin) {
-		commands.push(softwareDeveloperTin);
+		commands.push(printCenter(softwareDeveloperTin));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationNumber) {
-		commands.push(`Acc No: ${posAccreditationNumber}`);
+		commands.push(printCenter(`Acc No: ${posAccreditationNumber}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationDate) {
-		commands.push(`Date Issued: ${posAccreditationDate}`);
+		commands.push(printCenter(`Date Issued: ${posAccreditationDate}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	if (ptuNumber) {
-		commands.push(`PTU No: ${ptuNumber}`);
+		commands.push(printCenter(`PTU No: ${ptuNumber}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (ptuDate) {
-		commands.push(`Date Issued: ${ptuDate}`);
+		commands.push(printCenter(`Date Issued: ${ptuDate}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -150,14 +151,32 @@ const printLeftRight = (leftText: string, rightText: string) => {
 	return leftText + spaces + rightText;
 };
 
+export const printCenter = (text: string) => {
+	const textLength = text.length;
+
+	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
+
+	const spaces = '\u0020'.repeat(Math.max(0, spacesNeeded) / 2);
+
+	return spaces + text;
+};
+
+export const printRight = (text: string) => {
+	const textLength = text.length;
+
+	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
+
+	const spaces = ' '.repeat(Math.max(0, spacesNeeded));
+
+	return spaces + text;
+};
+
 type ItemBlockItemsCommands = Omit<
 	ItemBlockItems,
 	'labelStyle' | 'contentStyle'
 >;
 export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	const commands: string[] = [];
-
-	commands.push(EscPosCommands.ALIGN_LEFT);
 
 	items.forEach((item) => {
 		let label = item.label;
