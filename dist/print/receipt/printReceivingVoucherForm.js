@@ -14,7 +14,7 @@ const printReceivingVoucherForm = (receivingVoucher, siteSettings, isPdf = false
      */
     const products = receivingVoucher === null || receivingVoucher === void 0 ? void 0 : receivingVoucher.products;
     const data = `
-	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px')}">
+	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'RECEIVING REPORT')}
 
 		<br />

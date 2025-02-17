@@ -47,7 +47,7 @@ export const printStockOutForm = (
 	let totalAmount = 0;
 
 	const data = `
-	<div style="${getPageStyle('padding: 24px')}">
+	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
 		${getHeader(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />

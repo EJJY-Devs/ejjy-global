@@ -28,7 +28,7 @@ export const printReceivingVoucherForm = (
 	const products = receivingVoucher?.products;
 
 	const data = `
-	<div style="${getPageStyle('padding: 24px')}">
+	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
 		${getHeader(siteSettings, undefined, 'RECEIVING REPORT')}
 
 		<br />
