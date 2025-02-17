@@ -20,7 +20,7 @@ export const printRequisitionSlip = (
 	isPdf = false,
 ) => {
 	const data = `
- 	<div className="container" style="${getPageStyle('padding: 24px; width: 380px;')}">
+ 	<div className="container" style="${getPageStyle('padding: 12px; width: 380px;')}">
   ${getHeader(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
