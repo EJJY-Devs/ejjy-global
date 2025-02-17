@@ -12,7 +12,7 @@ const helper_receipt_1 = require("../helper-receipt");
 const printOrderSlip = (orderSlip, products, user, quantityType, siteSettings, isPdf = false) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     const data = `
-		<div style="${(0, helper_receipt_1.getPageStyle)()}">
+		<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
     ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'ORDER SLIP')}
 
 			<br />

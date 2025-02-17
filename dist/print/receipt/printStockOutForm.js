@@ -32,7 +32,7 @@ const printStockOutForm = (backOrder, siteSettings, isPdf = false) => {
     const products = backOrder === null || backOrder === void 0 ? void 0 : backOrder.products;
     let totalAmount = 0;
     const data = `
-	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
+	<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />
