@@ -167,7 +167,7 @@ export const print = async (
 							bottom: 0,
 							left: PAPER_MARGIN_INCHES,
 						},
-						scaleContent: false,
+						scaleContent: true,
 						scaling: 'shrinkToFit',
 					}
 				: {}),
