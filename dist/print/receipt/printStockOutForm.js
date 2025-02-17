@@ -86,6 +86,6 @@ const printStockOutForm = (backOrder, siteSettings, isPdf = false) => {
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'Order Slip');
+    (0, helper_receipt_1.print)(data, 'Delivery Receipt');
 };
 exports.printStockOutForm = printStockOutForm;

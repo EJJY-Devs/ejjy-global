@@ -110,5 +110,5 @@ export const printStockOutForm = (
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'Order Slip');
+	print(data, 'Delivery Receipt');
 };
