@@ -75,7 +75,6 @@ const appendHtmlElement = (data) => `
     <style>
       .container, .container > div, .container > table {
         width: 380px !important;
-        padding: 24px; /* Adjust padding as needed */
       }
     </style>
   </head>
