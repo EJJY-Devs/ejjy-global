@@ -133,7 +133,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                     bottom: 0,
                     left: exports.PAPER_MARGIN_INCHES,
                 },
-                scaleContent: true,
+                scaleContent: false,
                 scaling: 'shrinkToFit',
             }
             : {})));
