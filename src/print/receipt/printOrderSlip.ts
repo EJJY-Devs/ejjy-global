@@ -23,7 +23,7 @@ export const printOrderSlip = (
 	isPdf = false,
 ) => {
 	const data = `
-		<div className="container" style="${getPageStyle('width: 3in')}">
+		<div className="container" style="${getPageStyle('width: 380px')}">
     ${getHeader(siteSettings, undefined, 'ORDER SLIP')}
 
 			<br />
