@@ -7,7 +7,7 @@ exports.printStockOutForm = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printStockOutForm = (backOrder, siteSettings) => {
+const printStockOutForm = (backOrder, siteSettings, isPdf = false) => {
     /**
      * * The following details are hidden as it is not implemented yet (per Emman):
      * * 1. Supplier
@@ -32,7 +32,7 @@ const printStockOutForm = (backOrder, siteSettings) => {
     const products = backOrder === null || backOrder === void 0 ? void 0 : backOrder.products;
     let totalAmount = 0;
     const data = `
-	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
+	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px')}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />
@@ -83,6 +83,9 @@ const printStockOutForm = (backOrder, siteSettings) => {
 		<br />
 	</div>
 	`;
-    return data;
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(data);
+    }
+    (0, helper_receipt_1.print)(data, 'Order Slip');
 };
 exports.printStockOutForm = printStockOutForm;

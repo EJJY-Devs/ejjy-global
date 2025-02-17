@@ -20,7 +20,7 @@ export const printRequisitionSlip = (
 	isPdf = false,
 ) => {
 	const data = `
- 	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
+ 	<div style="${getPageStyle('padding: 24px')}">
   ${getHeader(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
@@ -48,17 +48,17 @@ export const printRequisitionSlip = (
       <thead>
         <tr>
           <th style="text-align: left">Product Name</th>
-          <div style="width: 100%; text-align: right">----------------</div>
           <th style="text-align: right">Quantity</th>
         </tr>
       </thead>
+            <div style="width: 100%; text-align: right">----------------</div>
       <tbody>
         ${requisitionSlip.products
 					.map(
 						({ quantity, product }) => `
           <tr>
             <td>${product.name}</td>
-            <td style="text-align: center">${formatQuantity(quantity, product)}</td>
+            <td style="text-align: right">${formatQuantity(quantity, product)}</td>
           </tr>
         `,
 					)

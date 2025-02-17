@@ -6,7 +6,12 @@ import {
 	getFullName,
 	getOrderSlipStatusBranchManagerText,
 } from '../../utils';
-import { getHeader, getPageStyle } from '../helper-receipt';
+import {
+	getHeader,
+	getPageStyle,
+	print,
+	appendHtmlElement,
+} from '../helper-receipt';
 
 // TODO: Finalize once feature is back
 export const printOrderSlip = (
@@ -15,6 +20,7 @@ export const printOrderSlip = (
 	user: User,
 	quantityType: string,
 	siteSettings: SiteSettings,
+	isPdf = false,
 ) => {
 	const data = `
 		<div style="${getPageStyle()}">
@@ -113,5 +119,9 @@ export const printOrderSlip = (
 		</div>
 	`;
 
-	return data;
+	if (isPdf) {
+		return appendHtmlElement(data);
+	}
+
+	print(data, 'Order Slip');
 };

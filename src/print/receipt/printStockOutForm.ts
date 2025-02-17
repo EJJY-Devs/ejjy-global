@@ -11,11 +11,14 @@ import {
 	PESO_SIGN,
 	getHeader,
 	getPageStyle,
+	print,
+	appendHtmlElement,
 } from '../helper-receipt';
 
 export const printStockOutForm = (
 	backOrder: BackOrder,
 	siteSettings: SiteSettings,
+	isPdf = false,
 ) => {
 	/**
 	 * * The following details are hidden as it is not implemented yet (per Emman):
@@ -44,7 +47,7 @@ export const printStockOutForm = (
 	let totalAmount = 0;
 
 	const data = `
-	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
+	<div style="${getPageStyle('padding: 24px')}">
 		${getHeader(siteSettings, undefined, 'DELIVERY RECEIPT')}
 
 		<br />
@@ -103,5 +106,9 @@ export const printStockOutForm = (
 	</div>
 	`;
 
-	return data;
+	if (isPdf) {
+		return appendHtmlElement(data);
+	}
+
+	print(data, 'Order Slip');
 };

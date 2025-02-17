@@ -9,7 +9,7 @@ const globals_1 = require("../../globals");
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 // TODO: Finalize once feature is back
-const printOrderSlip = (orderSlip, products, user, quantityType, siteSettings) => {
+const printOrderSlip = (orderSlip, products, user, quantityType, siteSettings, isPdf = false) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     const data = `
 		<div style="${(0, helper_receipt_1.getPageStyle)()}">
@@ -92,6 +92,9 @@ const printOrderSlip = (orderSlip, products, user, quantityType, siteSettings) =
 			</table>
 		</div>
 	`;
-    return data;
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(data);
+    }
+    (0, helper_receipt_1.print)(data, 'Order Slip');
 };
 exports.printOrderSlip = printOrderSlip;

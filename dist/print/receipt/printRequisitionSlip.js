@@ -9,7 +9,7 @@ const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false) => {
     const data = `
- 	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px; width: 380px;')}">
+ 	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 24px')}">
   ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
@@ -35,16 +35,16 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
       <thead>
         <tr>
           <th style="text-align: left">Product Name</th>
-          <div style="width: 100%; text-align: right">----------------</div>
           <th style="text-align: right">Quantity</th>
         </tr>
       </thead>
+            <div style="width: 100%; text-align: right">----------------</div>
       <tbody>
         ${requisitionSlip.products
         .map(({ quantity, product }) => `
           <tr>
             <td>${product.name}</td>
-            <td style="text-align: center">${(0, utils_1.formatQuantity)(quantity, product)}</td>
+            <td style="text-align: right">${(0, utils_1.formatQuantity)(quantity, product)}</td>
           </tr>
         `)
         .join('')}

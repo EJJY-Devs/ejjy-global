@@ -12,6 +12,7 @@ import {
 	appendHtmlElement,
 	getHeader,
 	getPageStyle,
+	print,
 } from '../helper-receipt';
 
 export const printReceivingVoucherForm = (
@@ -27,7 +28,7 @@ export const printReceivingVoucherForm = (
 	const products = receivingVoucher?.products;
 
 	const data = `
-	<div style="${getPageStyle('padding: 24px; width: 380px;')}">
+	<div style="${getPageStyle('padding: 24px')}">
 		${getHeader(siteSettings, undefined, 'RECEIVING REPORT')}
 
 		<br />
@@ -86,4 +87,6 @@ export const printReceivingVoucherForm = (
 	if (isPdf) {
 		return appendHtmlElement(data);
 	}
+
+	print(data, 'Receiving Report');
 };
