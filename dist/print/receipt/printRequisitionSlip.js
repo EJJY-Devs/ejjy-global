@@ -9,7 +9,7 @@ const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
 const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false) => {
     const data = `
- 	<div style="${(0, helper_receipt_1.getPageStyle)('padding: 12px; width: 3in;')}">
+ 	<div style="${(0, helper_receipt_1.getPageStyle)()}">
   ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />
