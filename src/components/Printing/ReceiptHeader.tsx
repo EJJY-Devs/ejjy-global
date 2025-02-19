@@ -54,9 +54,8 @@ export const ReceiptHeader = ({
 				<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
 				<span>{[contactNumber, name].filter(Boolean).join(' | ')}</span>
 				<span>{proprietor}</span>
-				<span>
-					{[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | ')}
-				</span>
+				<span>{getTaxTypeDescription(taxType)}</span>
+				<span>{tin}</span>
 				<span>MIN: {machineID}</span>
 				<span>SN: {posTerminal}</span>
 
