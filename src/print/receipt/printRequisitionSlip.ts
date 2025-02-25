@@ -1,11 +1,6 @@
 import dayjs from 'dayjs';
 import { RequisitionSlip, SiteSettings, User } from '../../types';
-import {
-	formatDateTime,
-	formatQuantity,
-	getFullName,
-	formatRequisitionSlipId,
-} from '../../utils';
+import { formatDateTime, formatQuantity, getFullName } from '../../utils';
 import {
 	appendHtmlElement,
 	getHeader,
@@ -34,7 +29,7 @@ export const printRequisitionSlip = (
       </tr>
       <tr>
         <td>ID:</td>
-        <td style="text-align: right">${formatRequisitionSlipId(requisitionSlip.id)}</td>
+        <td style="text-align: right">${requisitionSlip?.reference_number}</td>
       </tr>
       <tr>
         <td>Requestor:</td>

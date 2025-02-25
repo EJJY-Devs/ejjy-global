@@ -21,7 +21,7 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
       </tr>
       <tr>
         <td>ID:</td>
-        <td style="text-align: right">${(0, utils_1.formatRequisitionSlipId)(requisitionSlip.id)}</td>
+        <td style="text-align: right">${requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.reference_number}</td>
       </tr>
       <tr>
         <td>Requestor:</td>
