@@ -28,13 +28,18 @@ export const printRequisitionSlip = (
 				)}</td>
       </tr>
       <tr>
+        <td>Requestor:</td>
+        <td style="text-align: right">${getFullName(requisitionSlip?.approved_by)}</td>
+      </tr>
+      <tr>
+        <td>Requesting Branch:</td>
+        <td style="text-align: right">${requisitionSlip?.branch?.name}</td>
+      </tr>
+      <tr>
         <td>ID:</td>
         <td style="text-align: right">${requisitionSlip?.reference_number}</td>
       </tr>
-      <tr>
-        <td>Requestor:</td>
-        <td style="text-align: right">${getFullName(requisitionSlip?.prepared_by)}</td>
-      </tr>
+    
     </table>
 
     <br />
@@ -45,16 +50,18 @@ export const printRequisitionSlip = (
           <th style="text-align: left">Product Name</th>
           <th style="text-align: right">Quantity</th>
         </tr>
+        <tr>
+          <td colspan="2" style="border-bottom: 1px solid black;"></td>
+        </tr>
       </thead>
-            <div style="width: 100%; text-align: right">----------------</div>
       <tbody>
         ${requisitionSlip.products
 					.map(
 						({ quantity, product }) => `
-          <tr>
-            <td>${product.name}</td>
-            <td style="text-align: right">${formatQuantity(quantity, product)}</td>
-          </tr>
+        <tr>
+          <td>${product.name}</td>
+          <td style="text-align: right">${formatQuantity(quantity, product)}</td>
+        </tr>
         `,
 					)
 					.join('')}

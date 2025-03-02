@@ -59,4 +59,5 @@ export type RequisitionSlip = {
 	products: RequisitionSlipProduct[];
 	progress: RequisitionSlipProgress;
 	reference_number: string;
+	branch: Branch;
 };
