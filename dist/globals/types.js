@@ -123,7 +123,7 @@ exports.markdownTypes = {
     CUSTOM: 'custom',
 };
 exports.priceCodes = {
-    W: null,
+    R: null,
     X: 'Added product has a markdown applied.',
     Y: 'Added product has a markdown applied.',
     Z: 'Added product is using a custom price.', // Custom

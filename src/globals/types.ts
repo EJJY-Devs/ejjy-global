@@ -156,7 +156,7 @@ export const markdownTypes = {
 };
 
 export const priceCodes = {
-	W: null,
+	R: null,
 	X: 'Added product has a markdown applied.', // Wholesale
 	Y: 'Added product has a markdown applied.', // Special
 	Z: 'Added product is using a custom price.', // Custom

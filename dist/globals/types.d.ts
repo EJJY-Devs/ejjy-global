@@ -120,7 +120,7 @@ export declare const markdownTypes: {
     CUSTOM: string;
 };
 export declare const priceCodes: {
-    W: null;
+    R: null;
     X: string;
     Y: string;
     Z: string;
