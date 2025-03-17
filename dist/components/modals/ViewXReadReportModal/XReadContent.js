@@ -78,7 +78,8 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
                 {
                     label: '=Gross Sales of the Day',
-                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                    value: (0, utils_1.formatInPeso)(report.gross_sales_of_the_day, helper_receipt_1.PESO_SIGN) ||
+                        globals_1.EMPTY_CELL,
                 },
             ] }),
         react_1.default.createElement("br", null),

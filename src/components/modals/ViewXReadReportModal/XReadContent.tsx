@@ -122,7 +122,9 @@ export const XReadContent = ({
 					},
 					{
 						label: '=Gross Sales of the Day',
-						value: formatInPeso(report.gross_sales, PESO_SIGN) || EMPTY_CELL,
+						value:
+							formatInPeso(report.gross_sales_of_the_day, PESO_SIGN) ||
+							EMPTY_CELL,
 					},
 				]}
 			/>

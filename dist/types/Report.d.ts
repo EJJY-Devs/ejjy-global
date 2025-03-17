@@ -23,6 +23,7 @@ export interface XReadReport {
     generated_by: GeneratedByUser;
     generation_datetime?: string;
     gross_sales: number;
+    gross_sales_of_the_day: string;
     location?: string;
     net_sales: number;
     permit_number?: string;
