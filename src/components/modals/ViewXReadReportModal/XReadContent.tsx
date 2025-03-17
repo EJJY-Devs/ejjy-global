@@ -106,9 +106,75 @@ export const XReadContent = ({
 					},
 				]}
 			/>
+
+			<Divider />
+
+			<ItemBlock
+				items={[
+					{
+						label: '+Current Accum. Sales (end)',
+						value: formatInPeso(report.ending_sales, PESO_SIGN) || EMPTY_CELL,
+					},
+					{
+						label: '-Previous Accum. Sales (beg)',
+						value:
+							formatInPeso(report.beginning_sales, PESO_SIGN) || EMPTY_CELL,
+					},
+					{
+						label: '=Gross Sales of the Day',
+						value: formatInPeso(report.gross_sales, PESO_SIGN) || EMPTY_CELL,
+					},
+				]}
+			/>
+
+			<br />
+
+			<ItemBlock
+				items={[
+					{
+						label: 'Cash SI',
+						value:
+							formatInPeso(report.sales_invoice_payments, PESO_SIGN) ||
+							EMPTY_CELL,
+					},
+					{
+						label: 'Charge SI',
+						value:
+							formatInPeso(report.charge_invoice_payments, PESO_SIGN) ||
+							EMPTY_CELL,
+					},
+				]}
+			/>
+
+			<Divider />
+
+			<div style={{ textAlign: 'center' }}>Gross Sales Breakdown</div>
+
+			<ItemBlock
+				items={[
+					{
+						label: 'VAT Exempt Sales',
+						value: formatInPeso(report.vat_exempt, PESO_SIGN) || EMPTY_CELL,
+					},
+					{
+						label: 'VATable Sales',
+						value: formatInPeso(report.vat_sales, PESO_SIGN) || EMPTY_CELL,
+					},
+					{
+						label: 'VAT Amount',
+						value: formatInPeso(report.vat_amount, PESO_SIGN) || EMPTY_CELL,
+					},
+					{
+						label: 'Zero Rated Sales',
+						value: formatInPeso(0, PESO_SIGN),
+					},
+				]}
+			/>
+
 			<Divider />
 
 			<div style={{ textAlign: 'center' }}>Payment Received</div>
+
 			<ItemBlock
 				items={[
 					{

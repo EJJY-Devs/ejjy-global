@@ -67,6 +67,54 @@ const XReadContent = ({ report, siteSettings, user, isForPrint, }) => {
                 },
             ] }),
         react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: '+Current Accum. Sales (end)',
+                    value: (0, utils_1.formatInPeso)(report.ending_sales, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+                {
+                    label: '-Previous Accum. Sales (beg)',
+                    value: (0, utils_1.formatInPeso)(report.beginning_sales, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+                {
+                    label: '=Gross Sales of the Day',
+                    value: (0, utils_1.formatInPeso)(report.gross_sales, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+            ] }),
+        react_1.default.createElement("br", null),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: 'Cash SI',
+                    value: (0, utils_1.formatInPeso)(report.sales_invoice_payments, helper_receipt_1.PESO_SIGN) ||
+                        globals_1.EMPTY_CELL,
+                },
+                {
+                    label: 'Charge SI',
+                    value: (0, utils_1.formatInPeso)(report.charge_invoice_payments, helper_receipt_1.PESO_SIGN) ||
+                        globals_1.EMPTY_CELL,
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Gross Sales Breakdown"),
+        react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
+                {
+                    label: 'VAT Exempt Sales',
+                    value: (0, utils_1.formatInPeso)(report.vat_exempt, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+                {
+                    label: 'VATable Sales',
+                    value: (0, utils_1.formatInPeso)(report.vat_sales, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+                {
+                    label: 'VAT Amount',
+                    value: (0, utils_1.formatInPeso)(report.vat_amount, helper_receipt_1.PESO_SIGN) || globals_1.EMPTY_CELL,
+                },
+                {
+                    label: 'Zero Rated Sales',
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                },
+            ] }),
+        react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Payment Received"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
