@@ -56,8 +56,8 @@ export const ReceiptHeader = ({
 				<span>{proprietor}</span>
 				<span>{getTaxTypeDescription(taxType)}</span>
 				<span>{tin}</span>
-				<span>MIN: {machineID}</span>
-				<span>SN: {posTerminal}</span>
+				{machineID && <span>MIN: {machineID}</span>}
+				{posTerminal && <span>SN: {posTerminal}</span>}
 
 				{title ? <br /> : ''}
 				{title}
