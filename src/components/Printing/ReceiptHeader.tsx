@@ -36,8 +36,8 @@ export const ReceiptHeader = ({
 
 	const {
 		name,
-		machine_identification_number: machineID,
-		pos_terminal: posTerminal,
+		machine_identification_number: machineID = '',
+		pos_terminal: posTerminal = '',
 	} = branchMachine || {};
 
 	return (

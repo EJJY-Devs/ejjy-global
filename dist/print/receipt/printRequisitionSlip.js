@@ -41,7 +41,7 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
       <thead>
         <tr>
           <th style="text-align: left">Product Name</th>
-          <th style="text-align: right">Quantity</th>
+          <th style="text-align: center">Quantity</th>
         </tr>
         <tr>
           <td colspan="2" style="border-bottom: 1px solid black;"></td>
@@ -52,7 +52,7 @@ const printRequisitionSlip = (requisitionSlip, siteSettings, user, isPdf = false
         .map(({ quantity, product }) => `
         <tr>
           <td>${product.name}</td>
-          <td style="text-align: right">${(0, utils_1.formatQuantity)(quantity, product)}</td>
+          <td style="text-align: center">${(0, utils_1.formatQuantity)(quantity, product)}</td>
         </tr>
         `)
         .join('')}

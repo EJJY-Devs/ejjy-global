@@ -48,7 +48,7 @@ export const printRequisitionSlip = (
       <thead>
         <tr>
           <th style="text-align: left">Product Name</th>
-          <th style="text-align: right">Quantity</th>
+          <th style="text-align: center">Quantity</th>
         </tr>
         <tr>
           <td colspan="2" style="border-bottom: 1px solid black;"></td>
@@ -60,7 +60,7 @@ export const printRequisitionSlip = (
 						({ quantity, product }) => `
         <tr>
           <td>${product.name}</td>
-          <td style="text-align: right">${formatQuantity(quantity, product)}</td>
+          <td style="text-align: center">${formatQuantity(quantity, product)}</td>
         </tr>
         `,
 					)
