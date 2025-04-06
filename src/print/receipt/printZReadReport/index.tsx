@@ -5,19 +5,23 @@ import { printZReadReportNative } from './printZReadReport.native';
 import { printZReadReportHtml } from './printZReadReport.html';
 import { PrintZReadReport } from './types';
 
-export const printZReadReport = (printZReadReportDetails: PrintZReadReport) => {
+export const printZReadReport = (
+	printZReadReportDetails: PrintZReadReport,
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
 		data = printZReadReportHtml(printZReadReportDetails) || '';
+		print(data, 'ZRead Report', undefined, printingType);
+		return data; // ✅ Return HTML string
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printZReadReportNative(printZReadReportDetails);
-		console.log('native');
+		print(data, 'ZRead Report', undefined, printingType);
+		return undefined; // ✅ Native printing doesn't need to return anything
 	}
 
-	console.log('data', data);
-
-	print(data, 'ZRead Report', undefined, printingType);
+	// fallback just in case
+	return undefined;
 };

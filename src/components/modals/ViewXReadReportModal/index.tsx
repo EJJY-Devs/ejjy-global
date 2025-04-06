@@ -39,7 +39,7 @@ export const ViewXReadReportModal = ({
 						h: 600,
 					}
 				: undefined,
-		print: () => printXReadReport(report, siteSettings, user, true),
+		print: () => printXReadReport({ report, siteSettings, user, isPdf: true }),
 	});
 
 	// METHODS

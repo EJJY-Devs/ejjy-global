@@ -50,11 +50,11 @@ const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printZReadReport)(report, siteSettings, user, true),
+        print: () => (0, print_1.printZReadReport)({ report, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printZReadReport)(report, siteSettings, user);
+        (0, print_1.printZReadReport)({ report, siteSettings, user });
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);

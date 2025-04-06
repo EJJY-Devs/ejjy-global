@@ -5,24 +5,21 @@ import { printXReadReportNative } from './printXReadReport.native';
 import { printXReadReportHtml } from './printXReadReport.html';
 import { PrintXReadReport } from './types';
 
-export const printXReadReport = (printXReadReportDetails: PrintXReadReport) => {
+export const printXReadReport = (
+	printXReadReportDetails: PrintXReadReport,
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
-
-	console.log('printingType', printingType);
-
-	console.log('details', printXReadReportDetails);
 
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
 		data = printXReadReportHtml(printXReadReportDetails) || '';
-		console.log('html');
+		print(data, 'XRead Report', undefined, printingType);
+		return data; // ✅ return HTML string
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printXReadReportNative(printXReadReportDetails);
-		console.log('native');
+		print(data, 'XRead Report', undefined, printingType);
+		// native printers don’t need to return anything
+		return undefined;
 	}
-
-	console.log('data', data);
-
-	print(data, 'XRead Report', undefined, printingType);
 };

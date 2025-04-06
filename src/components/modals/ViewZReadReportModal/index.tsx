@@ -39,12 +39,12 @@ export const ViewZReadReportModal = ({
 						h: 600,
 					}
 				: undefined,
-		print: () => printZReadReport(report, siteSettings, user, true),
+		print: () => printZReadReport({ report, siteSettings, user, isPdf: true }),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printZReadReport(report, siteSettings, user);
+		printZReadReport({ report, siteSettings, user });
 	};
 
 	const handleCreateTxt = () => {

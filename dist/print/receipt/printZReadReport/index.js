@@ -11,12 +11,15 @@ const printZReadReport = (printZReadReportDetails) => {
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printZReadReport_html_1.printZReadReportHtml)(printZReadReportDetails) || '';
+        (0, helper_receipt_1.print)(data, 'ZRead Report', undefined, printingType);
+        return data; // ✅ Return HTML string
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printZReadReport_native_1.printZReadReportNative)(printZReadReportDetails);
-        console.log('native');
+        (0, helper_receipt_1.print)(data, 'ZRead Report', undefined, printingType);
+        return undefined; // ✅ Native printing doesn't need to return anything
     }
-    console.log('data', data);
-    (0, helper_receipt_1.print)(data, 'ZRead Report', undefined, printingType);
+    // fallback just in case
+    return undefined;
 };
 exports.printZReadReport = printZReadReport;

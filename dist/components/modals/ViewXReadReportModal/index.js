@@ -50,7 +50,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printXReadReport)(report, siteSettings, user, true),
+        print: () => (0, print_1.printXReadReport)({ report, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {
