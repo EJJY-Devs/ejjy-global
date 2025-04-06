@@ -8,10 +8,13 @@ import { PrintXReadReport } from './types';
 export const printXReadReport = (printXReadReportDetails: PrintXReadReport) => {
 	const printingType = getAppReceiptPrintingType();
 
+	console.log('printingType', printingType);
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
 		data = printXReadReportHtml(printXReadReportDetails) || '';
+		console.log('html');
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printXReadReportNative(printXReadReportDetails);
 		console.log('native');
