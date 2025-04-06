@@ -10,6 +10,8 @@ export const printSalesInvoice = (
 ) => {
 	const printingType = getAppReceiptPrintingType();
 
+	console.log('printingType', printingType);
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {

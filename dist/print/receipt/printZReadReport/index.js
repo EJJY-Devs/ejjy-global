@@ -17,6 +17,6 @@ const printZReadReport = (printZReadReportDetails) => {
         console.log('native');
     }
     console.log('data', data);
-    (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
+    (0, helper_receipt_1.print)(data, 'ZRead Report', undefined, printingType);
 };
 exports.printZReadReport = printZReadReport;

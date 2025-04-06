@@ -19,6 +19,6 @@ const printXReadReport = (printXReadReportDetails) => {
         console.log('native');
     }
     console.log('data', data);
-    (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
+    (0, helper_receipt_1.print)(data, 'XRead Report', undefined, printingType);
 };
 exports.printXReadReport = printXReadReport;

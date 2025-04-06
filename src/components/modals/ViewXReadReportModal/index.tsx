@@ -44,7 +44,7 @@ export const ViewXReadReportModal = ({
 
 	// METHODS
 	const handlePrint = () => {
-		printXReadReport(report, siteSettings, user);
+		printXReadReport({ report, siteSettings, user });
 	};
 
 	const handleCreateTxt = () => {

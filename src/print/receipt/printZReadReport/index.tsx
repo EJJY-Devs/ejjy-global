@@ -19,5 +19,5 @@ export const printZReadReport = (printZReadReportDetails: PrintZReadReport) => {
 
 	console.log('data', data);
 
-	print(data, 'Sales Invoice', undefined, printingType);
+	print(data, 'ZRead Report', undefined, printingType);
 };

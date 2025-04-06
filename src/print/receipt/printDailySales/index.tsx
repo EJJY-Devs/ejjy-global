@@ -19,5 +19,5 @@ export const printDailySales = (printDailySalesDetails: PrintDailySales) => {
 
 	console.log('data', data);
 
-	print(data, 'Sales Invoice', undefined, printingType);
+	print(data, 'Daily Sales', undefined, printingType);
 };

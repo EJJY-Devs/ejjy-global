@@ -22,5 +22,5 @@ export const printXReadReport = (printXReadReportDetails: PrintXReadReport) => {
 
 	console.log('data', data);
 
-	print(data, 'Sales Invoice', undefined, printingType);
+	print(data, 'XRead Report', undefined, printingType);
 };

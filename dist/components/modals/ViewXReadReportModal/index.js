@@ -54,7 +54,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
     });
     // METHODS
     const handlePrint = () => {
-        (0, print_1.printXReadReport)(report, siteSettings, user);
+        (0, print_1.printXReadReport)({ report, siteSettings, user });
     };
     const handleCreateTxt = () => {
         setIsCreatingTxt(true);

@@ -21,5 +21,5 @@ export const printRequisitionSlip = (
 
 	console.log('data', data);
 
-	print(data, 'Sales Invoice', undefined, printingType);
+	print(data, 'Requisition Slip', undefined, printingType);
 };
