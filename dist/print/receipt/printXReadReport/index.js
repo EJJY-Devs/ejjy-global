@@ -9,6 +9,7 @@ const printXReadReport_html_1 = require("./printXReadReport.html");
 const printXReadReport = (printXReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     console.log('printingType', printingType);
+    console.log('details', printXReadReportDetails);
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printXReadReport_html_1.printXReadReportHtml)(printXReadReportDetails) || '';

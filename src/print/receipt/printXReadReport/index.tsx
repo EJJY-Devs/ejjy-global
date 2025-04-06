@@ -10,6 +10,8 @@ export const printXReadReport = (printXReadReportDetails: PrintXReadReport) => {
 
 	console.log('printingType', printingType);
 
+	console.log('details', printXReadReportDetails);
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
