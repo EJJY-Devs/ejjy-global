@@ -13,18 +13,16 @@ export const printXReadReport = (
 
 	console.log(printingType);
 
-	// let data: string | string[] = '';
+	let data: string | string[] = '';
 
-	// if (printingType === printingTypes.HTML) {
-	// 	data = printXReadReportHtml(printXReadReportDetails) || '';
-	// 	print(data, 'XRead Report', undefined, printingType);
-	// 	return data; // ✅ return HTML string
-	// } else if (printingType === printingTypes.NATIVE) {
-	// 	data = printXReadReportNative(printXReadReportDetails);
-	// 	print(data, 'XRead Report', undefined, printingType);
-	// 	// native printers don’t need to return anything
-	// 	return undefined;
-	// }
-
-	return undefined;
+	if (printingType === printingTypes.HTML) {
+		data = printXReadReportHtml(printXReadReportDetails) || '';
+		print(data, 'XRead Report', undefined, printingType);
+		return data; // ✅ return HTML string
+	} else if (printingType === printingTypes.NATIVE) {
+		data = printXReadReportNative(printXReadReportDetails);
+		print(data, 'XRead Report', undefined, printingType);
+		// native printers don’t need to return anything
+		return undefined;
+	}
 };

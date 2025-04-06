@@ -18,7 +18,7 @@ const globalStyles = react_1.default.createElement('style', {}, [
   `,
 ]);
 const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
-    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
+    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings || {};
     const { name, machine_identification_number: machineID = '', pos_terminal: posTerminal = '', } = branchMachine || {};
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,

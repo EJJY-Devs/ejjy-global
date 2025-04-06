@@ -32,7 +32,7 @@ export const ReceiptHeader = ({
 		store_name: storeName,
 		tax_type: taxType,
 		tin,
-	} = siteSettings;
+	} = siteSettings || {};
 
 	const {
 		name,
