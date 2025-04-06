@@ -11,16 +11,20 @@ export const printXReadReport = (
 	const printingType = getAppReceiptPrintingType();
 	console.log('printXReadReportDetails:', printXReadReportDetails); // 🔍
 
-	let data: string | string[] = '';
+	console.log(printingType);
 
-	if (printingType === printingTypes.HTML) {
-		data = printXReadReportHtml(printXReadReportDetails) || '';
-		print(data, 'XRead Report', undefined, printingType);
-		return data; // ✅ return HTML string
-	} else if (printingType === printingTypes.NATIVE) {
-		data = printXReadReportNative(printXReadReportDetails);
-		print(data, 'XRead Report', undefined, printingType);
-		// native printers don’t need to return anything
-		return undefined;
-	}
+	// let data: string | string[] = '';
+
+	// if (printingType === printingTypes.HTML) {
+	// 	data = printXReadReportHtml(printXReadReportDetails) || '';
+	// 	print(data, 'XRead Report', undefined, printingType);
+	// 	return data; // ✅ return HTML string
+	// } else if (printingType === printingTypes.NATIVE) {
+	// 	data = printXReadReportNative(printXReadReportDetails);
+	// 	print(data, 'XRead Report', undefined, printingType);
+	// 	// native printers don’t need to return anything
+	// 	return undefined;
+	// }
+
+	return undefined;
 };
