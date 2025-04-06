@@ -9,6 +9,7 @@ export const printXReadReport = (
 	printXReadReportDetails: PrintXReadReport,
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
+	console.log('printXReadReportDetails:', printXReadReportDetails); // 🔍
 
 	let data: string | string[] = '';
 
