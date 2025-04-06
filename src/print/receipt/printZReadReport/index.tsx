@@ -5,7 +5,7 @@ import { printZReadReportNative } from './printZReadReport.native';
 import { printZReadReportHtml } from './printZReadReport.html';
 import { PrintZReadReport } from './types';
 
-export const printXReadReport = (printZReadReportDetails: PrintZReadReport) => {
+export const printZReadReport = (printZReadReportDetails: PrintZReadReport) => {
 	const printingType = getAppReceiptPrintingType();
 
 	let data: string | string[] = '';

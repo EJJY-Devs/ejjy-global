@@ -14,6 +14,7 @@ export const printDailySales = (printDailySalesDetails: PrintDailySales) => {
 		data = printDailySalesHtml(printDailySalesDetails) || '';
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printDailySalesNative(printDailySalesDetails);
+		console.log('native');
 	}
 
 	console.log('data', data);

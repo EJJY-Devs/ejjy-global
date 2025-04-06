@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.printXReadReport = void 0;
+exports.printZReadReport = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
 const printZReadReport_native_1 = require("./printZReadReport.native");
 const printZReadReport_html_1 = require("./printZReadReport.html");
-const printXReadReport = (printZReadReportDetails) => {
+const printZReadReport = (printZReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
@@ -19,4 +19,4 @@ const printXReadReport = (printZReadReportDetails) => {
     console.log('data', data);
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
 };
-exports.printXReadReport = printXReadReport;
+exports.printZReadReport = printZReadReport;

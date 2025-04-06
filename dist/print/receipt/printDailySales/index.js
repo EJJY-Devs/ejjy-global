@@ -14,6 +14,7 @@ const printDailySales = (printDailySalesDetails) => {
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printDailySales_native_1.printDailySalesNative)(printDailySalesDetails);
+        console.log('native');
     }
     console.log('data', data);
     (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
