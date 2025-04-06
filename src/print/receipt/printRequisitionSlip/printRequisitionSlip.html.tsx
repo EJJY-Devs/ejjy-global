@@ -1,21 +1,21 @@
 import dayjs from 'dayjs';
-import { RequisitionSlip, SiteSettings, User } from '../../types';
-import { formatDateTime, formatQuantity, getFullName } from '../../utils';
+import { formatDateTime, formatQuantity, getFullName } from '../../../utils';
 import {
 	appendHtmlElement,
 	getHeader,
 	getPageStyle,
 	print,
-} from '../helper-receipt';
+} from '../../helper-receipt';
+import { PrintRequisitionSlip } from './types';
 
-export const printRequisitionSlip = (
-	requisitionSlip: RequisitionSlip,
-	siteSettings: SiteSettings,
-	user: User,
+export const printRequisitionSlipHtml = ({
+	requisitionSlip,
+	siteSettings,
+	user,
 	isPdf = false,
-) => {
+}: PrintRequisitionSlip) => {
 	const data = `
-		<div className="container" style="${getPageStyle()}">
+        <div className="container" style="${getPageStyle()}">
   ${getHeader(siteSettings, undefined, 'REQUISITION SLIP')}
 
     <br />

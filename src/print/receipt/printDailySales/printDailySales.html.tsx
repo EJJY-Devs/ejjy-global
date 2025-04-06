@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { XReadContent } from '../../components/modals/ViewXReadReportModal/XReadContent';
-import { SiteSettings, User, XReadReport } from '../../types';
+import { DailySalesContent } from '../../../components/modals/ViewDailySalesModal/DailySalesContent';
 import {
 	appendHtmlElement,
 	getPageStyleObject,
 	print,
-} from '../helper-receipt';
+} from '../../helper-receipt';
+import { PrintDailySales } from './types';
 
-export const printXReadReport = (
-	report: XReadReport,
-	siteSettings: SiteSettings,
-	user?: User,
+export const printDailySalesHtml = ({
+	dailySales,
+	siteSettings,
+	user,
 	isPdf = false,
-) => {
+}: PrintDailySales) => {
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<div className="container" style={getPageStyleObject()}>
-			<XReadContent
-				report={report}
+			<DailySalesContent
+				dailySales={dailySales}
 				siteSettings={siteSettings}
 				user={user}
 				isForPrint
@@ -29,5 +29,5 @@ export const printXReadReport = (
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'XRead Report');
+	print(data, 'Daily Sales');
 };

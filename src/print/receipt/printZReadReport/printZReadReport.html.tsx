@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { ZReadContent } from '../../components/modals/ViewZReadReportModal/ZReadContent';
-import { SiteSettings, User, ZReadReport } from '../../types';
+import { ZReadContent } from '../../../components/modals/ViewZReadReportModal/ZReadContent';
+import { PrintZReadReport } from './types';
 import {
 	appendHtmlElement,
 	getPageStyleObject,
 	print,
-} from '../helper-receipt';
+} from '../../helper-receipt';
 
-export const printZReadReport = (
-	report: ZReadReport,
-	siteSettings: SiteSettings,
-	user?: User,
-	isPdf = false,
-) => {
+export const printZReadReportHtml = ({
+	report,
+	siteSettings,
+	user,
+	isPdf,
+}: PrintZReadReport) => {
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<div className="container" style={getPageStyleObject()}>
 			<ZReadContent
