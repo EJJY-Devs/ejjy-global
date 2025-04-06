@@ -14,7 +14,7 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 		pos_accreditation_date: posAccreditationDate,
 		ptu_number: ptuNumber,
 		ptu_date: ptuDate,
-	} = siteSettings;
+	} = siteSettings || {};
 
 	return (
 		<div
