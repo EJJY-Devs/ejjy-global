@@ -98,7 +98,7 @@ const printLeftRight = (leftText, rightText) => {
 const printCenter = (text) => {
     const textLength = text.length;
     const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
-    const spaces = '\u0020'.repeat(Math.max(0, spacesNeeded) / 2);
+    const spaces = '\u0020'.repeat(Math.max(0, Math.floor(spacesNeeded / 2)));
     return spaces + text;
 };
 exports.printCenter = printCenter;

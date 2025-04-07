@@ -39,12 +39,13 @@ export const ViewDailySalesModal = ({
 						h: 600,
 					}
 				: undefined,
-		print: () => printDailySales(dailySales, siteSettings, user, true),
+		print: () =>
+			printDailySales({ dailySales, siteSettings, user, isPdf = true }),
 	});
 
 	// METHODS
 	const handlePrint = () => {
-		printDailySales(dailySales, siteSettings, user);
+		printDailySales({ dailySales, siteSettings, user });
 	};
 
 	const handleCreateTxt = () => {

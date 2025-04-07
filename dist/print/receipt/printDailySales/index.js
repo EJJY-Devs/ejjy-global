@@ -11,12 +11,14 @@ const printDailySales = (printDailySalesDetails) => {
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printDailySales_html_1.printDailySalesHtml)(printDailySalesDetails) || '';
+        (0, helper_receipt_1.print)(data, 'Daily Sales', undefined, printingType);
+        return data; // ✅ return HTML string
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printDailySales_native_1.printDailySalesNative)(printDailySalesDetails);
-        console.log('native');
+        (0, helper_receipt_1.print)(data, 'Daily Sales', undefined, printingType);
+        return undefined;
     }
-    console.log('data', data);
-    (0, helper_receipt_1.print)(data, 'Daily Sales', undefined, printingType);
+    return undefined;
 };
 exports.printDailySales = printDailySales;

@@ -50,7 +50,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(report.opening_fund, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Current Accum. Sales (end)',
@@ -76,7 +76,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(report.charge_invoice_payments, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push((0, helper_escpos_1.printCenter)('Gross Sales Breakdown'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -96,7 +96,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push((0, helper_escpos_1.printCenter)('Payment Received'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -116,7 +116,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(report.total_payment_received, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push((0, helper_escpos_1.printCenter)('Cash on Hand'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -144,7 +144,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(report.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push((0, helper_escpos_1.printCenter)('Transaction Summary'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -162,14 +162,15 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
                 (report.short_over < 0 ? ')' : ''),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
     if (user) {
-        commands.push((0, helper_escpos_1.printRight)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printXReadReportNative = printXReadReportNative;

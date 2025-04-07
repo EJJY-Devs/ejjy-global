@@ -9,7 +9,6 @@ import {
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
-	printRight,
 } from '../../helper-escpos';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
@@ -81,7 +80,7 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -114,7 +113,7 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	commands.push(printCenter('Gross Sales Breakdown'));
 	commands.push(
 		...generateItemBlockCommands([
@@ -137,7 +136,7 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	commands.push(printCenter('Payment Received'));
 	commands.push(
 		...generateItemBlockCommands([
@@ -160,7 +159,7 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	commands.push(printCenter('Cash on Hand'));
 	commands.push(
 		...generateItemBlockCommands([
@@ -191,7 +190,7 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	commands.push(printCenter('Transaction Summary'));
 	commands.push(
 		...generateItemBlockCommands([
@@ -213,9 +212,9 @@ export const printXReadReportNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
 	if (user) {
-		commands.push(printRight(`Printed by: ${getFullName(user)}`));
+		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 	}
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
@@ -224,6 +223,15 @@ export const printXReadReportNative = ({
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
 	commands.push(printCenter('Thank You!'));
+
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
 
 	return commands;
 };
