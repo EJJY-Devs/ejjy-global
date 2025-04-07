@@ -50,7 +50,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printDailySales)({ dailySales, siteSettings, user, isPdf = true }),
+        print: () => (0, print_1.printDailySales)({ dailySales, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {

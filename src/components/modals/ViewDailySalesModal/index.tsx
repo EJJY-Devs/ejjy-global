@@ -40,7 +40,7 @@ export const ViewDailySalesModal = ({
 					}
 				: undefined,
 		print: () =>
-			printDailySales({ dailySales, siteSettings, user, isPdf = true }),
+			printDailySales({ dailySales, siteSettings, user, isPdf: true }),
 	});
 
 	// METHODS
