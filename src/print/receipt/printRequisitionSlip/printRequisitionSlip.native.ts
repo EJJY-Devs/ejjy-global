@@ -35,6 +35,7 @@ export const printRequisitionSlipNative = ({
 	// Date & Time Requested
 	if (requisitionSlip.datetime_created) {
 		commands.push(printCenter('Date & Time Requested'));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			printCenter(formatDateTime(requisitionSlip.datetime_created)),
 		);
@@ -78,6 +79,8 @@ export const printRequisitionSlipNative = ({
 			]),
 		);
 	}
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -88,7 +91,7 @@ export const printRequisitionSlipNative = ({
 		]),
 	);
 
-	commands.push(printRight('------------------------'));
+	commands.push(printRight('---------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Item List (Products)
