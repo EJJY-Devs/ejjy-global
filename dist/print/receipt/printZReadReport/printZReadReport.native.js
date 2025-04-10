@@ -258,6 +258,7 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     // Footer
     commands.push(...(0, helper_escpos_2.generateReceiptFooterCommands)(siteSettings));

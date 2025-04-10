@@ -65,6 +65,7 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

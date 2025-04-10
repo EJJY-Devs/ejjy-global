@@ -107,6 +107,7 @@ export const printRequisitionSlipNative = ({
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));

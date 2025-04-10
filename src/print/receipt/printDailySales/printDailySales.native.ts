@@ -62,6 +62,7 @@ export const printDailySalesNative = ({
 		),
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -318,6 +319,7 @@ export const printDailySalesNative = ({
 
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 

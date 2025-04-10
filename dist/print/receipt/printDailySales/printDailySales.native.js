@@ -29,6 +29,7 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(openDatetime || '')} | ${[openTime, closeTime].filter(Boolean).join(' - ')}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: 'Beg Sales Invoice #:',
@@ -242,6 +243,7 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
