@@ -23,6 +23,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     const session = report.cashiering_session;
     if (session) {
         commands.push((0, helper_escpos_1.printCenter)('Session Datetime'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         const sessionTime = [
             (0, utils_1.formatTime)(session.datetime_started),
             session.datetime_ended ? (0, utils_1.formatTime)(session.datetime_ended) : null,
@@ -32,6 +33,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(session.date)} | ${sessionTime}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)(`Cashier: ${session.user.employee_id} | ${(0, utils_1.getFullName)(session.user)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
@@ -178,6 +180,8 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
     }
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));

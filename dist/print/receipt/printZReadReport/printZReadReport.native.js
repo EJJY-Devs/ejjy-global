@@ -37,6 +37,7 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     const timeRange = [openTime, closeTime].filter(Boolean).join(' - ');
     commands.push((0, helper_escpos_1.printCenter)(`${openDate} | ${timeRange}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: 'Beg Sales Invoice #:',

@@ -46,6 +46,7 @@ export const printXReadReportNative = ({
 	const session = report.cashiering_session;
 	if (session) {
 		commands.push(printCenter('Session Datetime'));
+		commands.push(EscPosCommands.LINE_BREAK);
 		const sessionTime = [
 			formatTime(session.datetime_started),
 			session.datetime_ended ? formatTime(session.datetime_ended) : null,
@@ -59,6 +60,7 @@ export const printXReadReportNative = ({
 				`Cashier: ${session.user.employee_id} | ${getFullName(session.user)}`,
 			),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -239,6 +241,9 @@ export const printXReadReportNative = ({
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 	}
+
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
 	commands.push(EscPosCommands.LINE_BREAK);

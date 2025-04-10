@@ -17,6 +17,8 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
         commands.push((0, helper_escpos_1.printCenter)('Date & Time Requested'));
         commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(requisitionSlip.datetime_created)));
     }
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Requestor Name
     if (requisitionSlip.approved_by) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
@@ -50,7 +52,7 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
             value: 'Quantity',
         },
     ]));
-    commands.push((0, helper_escpos_1.printCenter)('-----------------------------'));
+    commands.push((0, helper_escpos_1.printRight)('------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Item List (Products)
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(requisitionSlip.products.map(({ product, quantity }) => ({

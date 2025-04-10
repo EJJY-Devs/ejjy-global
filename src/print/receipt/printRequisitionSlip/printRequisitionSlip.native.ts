@@ -6,6 +6,7 @@ import {
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
+	printRight,
 } from '../../helper-escpos';
 
 export const printRequisitionSlipNative = ({
@@ -32,6 +33,9 @@ export const printRequisitionSlipNative = ({
 			printCenter(formatDateTime(requisitionSlip.datetime_created)),
 		);
 	}
+
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Requestor Name
 	if (requisitionSlip.approved_by) {
@@ -78,7 +82,7 @@ export const printRequisitionSlipNative = ({
 		]),
 	);
 
-	commands.push(printCenter('-----------------------------'));
+	commands.push(printRight('------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Item List (Products)

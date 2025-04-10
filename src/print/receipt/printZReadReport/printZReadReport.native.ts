@@ -58,6 +58,7 @@ export const printZReadReportNative = ({
 	const timeRange = [openTime, closeTime].filter(Boolean).join(' - ');
 	commands.push(printCenter(`${openDate} | ${timeRange}`));
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
