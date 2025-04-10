@@ -5,7 +5,7 @@ const utils_1 = require("../utils");
 const escpos_enum_1 = require("./utils/escpos.enum");
 const PAPER_CHARACTER_WIDTH = 40;
 const generateReceiptHeaderCommands = ({ branchMachine, siteSettings, title, }) => {
-    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings;
+    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine || {};
     const commands = [];
     if (storeName) {
@@ -42,6 +42,14 @@ const generateReceiptHeaderCommands = ({ branchMachine, siteSettings, title, }) 
         commands.push((0, exports.printCenter)(`SN: ${posTerminal}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
+    if (ptuNumber) {
+        commands.push((0, exports.printCenter)(`PTU No: ${ptuNumber}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }
+    if (ptuDate) {
+        commands.push((0, exports.printCenter)(`Date Issued: ${ptuDate}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, exports.printCenter)(title));
@@ -51,7 +59,7 @@ const generateReceiptHeaderCommands = ({ branchMachine, siteSettings, title, }) 
 };
 exports.generateReceiptHeaderCommands = generateReceiptHeaderCommands;
 const generateReceiptFooterCommands = (siteSettings) => {
-    const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, ptu_number: ptuNumber, ptu_date: ptuDate, } = siteSettings;
+    const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, } = siteSettings;
     const commands = [];
     if (softwareDeveloper) {
         commands.push((0, exports.printCenter)(softwareDeveloper));
@@ -77,14 +85,6 @@ const generateReceiptFooterCommands = (siteSettings) => {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    if (ptuNumber) {
-        commands.push((0, exports.printCenter)(`PTU No: ${ptuNumber}`));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    }
-    if (ptuDate) {
-        commands.push((0, exports.printCenter)(`Date Issued: ${ptuDate}`));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    }
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;

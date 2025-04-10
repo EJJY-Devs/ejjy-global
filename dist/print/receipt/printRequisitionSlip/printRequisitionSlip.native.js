@@ -6,6 +6,7 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_1 = require("../../helper-escpos");
 const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) => {
     const commands = [];
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         siteSettings,

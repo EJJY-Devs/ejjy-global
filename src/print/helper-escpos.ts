@@ -18,6 +18,8 @@ export const generateReceiptHeaderCommands = ({
 		store_name: storeName,
 		tax_type: taxType,
 		tin,
+		ptu_number: ptuNumber,
+		ptu_date: ptuDate,
 	} = siteSettings;
 
 	const {
@@ -73,6 +75,15 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(printCenter(`SN: ${posTerminal}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
+	if (ptuNumber) {
+		commands.push(printCenter(`PTU No: ${ptuNumber}`));
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
+
+	if (ptuDate) {
+		commands.push(printCenter(`Date Issued: ${ptuDate}`));
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
@@ -90,8 +101,6 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 		software_developer_tin: softwareDeveloperTin,
 		pos_accreditation_number: posAccreditationNumber,
 		pos_accreditation_date: posAccreditationDate,
-		ptu_number: ptuNumber,
-		ptu_date: ptuDate,
 	} = siteSettings;
 
 	const commands: string[] = [];
@@ -125,16 +134,6 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
-
-	if (ptuNumber) {
-		commands.push(printCenter(`PTU No: ${ptuNumber}`));
-		commands.push(EscPosCommands.LINE_BREAK);
-	}
-
-	if (ptuDate) {
-		commands.push(printCenter(`Date Issued: ${ptuDate}`));
-		commands.push(EscPosCommands.LINE_BREAK);
-	}
 
 	return commands;
 };

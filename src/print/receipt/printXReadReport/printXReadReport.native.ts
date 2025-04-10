@@ -22,6 +22,12 @@ export const printXReadReportNative = ({
 	const commands: string[] = [];
 
 	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
+
+	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: report.branch_machine,
 			siteSettings,

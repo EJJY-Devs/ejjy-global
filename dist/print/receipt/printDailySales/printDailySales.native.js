@@ -8,6 +8,7 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     var _a, _b;
     const commands = [];
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
     const generationDatetime = dailySales.generation_datetime;
     const openTime = openDatetime ? (0, utils_1.formatTime)(openDatetime) : '';

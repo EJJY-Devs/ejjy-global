@@ -21,6 +21,12 @@ export const printDailySalesNative = ({
 }: PrintDailySales): string[] => {
 	const commands: string[] = [];
 
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
+
 	const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
 	const generationDatetime = dailySales.generation_datetime;
 

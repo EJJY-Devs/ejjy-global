@@ -16,6 +16,12 @@ export const printRequisitionSlipNative = ({
 }: PrintRequisitionSlip): string[] => {
 	const commands: string[] = [];
 
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
+
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({

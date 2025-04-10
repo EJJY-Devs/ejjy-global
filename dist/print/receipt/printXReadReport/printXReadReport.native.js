@@ -8,6 +8,7 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const printXReadReportNative = ({ report, siteSettings, user, }) => {
     var _a, _b;
     const commands = [];
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchMachine: report.branch_machine,
         siteSettings,

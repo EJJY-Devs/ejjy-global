@@ -10,6 +10,7 @@ const globals_1 = require("../../../globals");
 const printZReadReportNative = ({ report, siteSettings, user, }) => {
     var _a, _b, _c, _d;
     const commands = [];
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Header
     commands.push(...(0, helper_escpos_2.generateReceiptHeaderCommands)({
         branchMachine: report.branch_machine,
