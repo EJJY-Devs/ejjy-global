@@ -19,9 +19,12 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     // Generation Datetime
     if (report.generation_datetime) {
         commands.push((0, helper_escpos_1.printCenter)('Report Generation Datetime'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(report.generation_datetime)} - ${(0, utils_1.formatTime)(report.generation_datetime)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push((0, helper_escpos_1.printCenter)('Day Datetime'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     const openTime = report.branch_day_open_datetime
         ? (0, utils_1.formatTime)(report.branch_day_open_datetime)
         : null;
@@ -63,6 +66,7 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Current Accum. Sales (end)',
@@ -78,6 +82,7 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Gross Sales of the Day',
@@ -97,7 +102,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Current Day Payment Received'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         { label: '+Cash', value: (0, utils_1.formatInPeso)(report.cash_payment, helper_receipt_1.PESO_SIGN) },
         { label: '+Check', value: (0, utils_1.formatInPeso)(report.check_payment, helper_receipt_1.PESO_SIGN) },
@@ -111,7 +118,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Current Day Cash on Hand'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Payment Received',
@@ -133,7 +142,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Current Day Transaction Summary'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Cash in Drawer',
@@ -151,7 +162,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Accumulated Sales Breakdown'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: 'VAT Exempt Sales',
@@ -168,7 +181,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         { label: 'Zero Rated Sales', value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN) },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Accumulated Deductions'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Disc. SC',
@@ -198,7 +213,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Accumulated VAT Adjustment'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+Disc. SC',
@@ -220,7 +237,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Accumulated VAT Payable'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: '+VAT Amount (12%)',
@@ -241,7 +260,9 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     // Footer
     commands.push(...(0, helper_escpos_2.generateReceiptFooterCommands)(siteSettings));
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printZReadReportNative = printZReadReportNative;

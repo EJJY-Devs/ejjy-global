@@ -6,7 +6,6 @@ import {
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
-	printRight,
 } from '../../helper-escpos';
 
 export const printRequisitionSlipNative = ({
@@ -26,10 +25,6 @@ export const printRequisitionSlipNative = ({
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Requisition details
-	commands.push(printCenter('REQUISITION SLIP'));
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	// Date & Time Requested
 	if (requisitionSlip.datetime_created) {
 		commands.push(printCenter('Date & Time Requested'));
@@ -40,26 +35,53 @@ export const printRequisitionSlipNative = ({
 
 	// Requestor Name
 	if (requisitionSlip.approved_by) {
-		commands.push(printCenter('Requestor:'));
-		commands.push(printCenter(getFullName(requisitionSlip.approved_by)));
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Requestor',
+					value: getFullName(requisitionSlip.approved_by) || '',
+				},
+			]),
+		);
 	}
 
 	// Branch Name
 	if (requisitionSlip.branch) {
-		commands.push(printCenter('Requesting Branch:'));
-		commands.push(printCenter(requisitionSlip.branch.name));
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Requesting Branch:',
+					value: requisitionSlip.branch.name || '',
+				},
+			]),
+		);
 	}
 
 	// Requisition Slip Reference Number
 	if (requisitionSlip.reference_number) {
-		commands.push(printCenter('Requisition Slip ID:'));
-		commands.push(printCenter(requisitionSlip.reference_number));
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Requisition Slip ID:',
+					value: requisitionSlip.reference_number || '',
+				},
+			]),
+		);
 	}
 
+	commands.push(
+		...generateItemBlockCommands([
+			{
+				label: 'Product Name',
+				value: 'Quantity',
+			},
+		]),
+	);
+
+	commands.push(printCenter('-----------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Item List (Products)
-	commands.push(printCenter('Product List'));
 	commands.push(
 		...generateItemBlockCommands(
 			requisitionSlip.products.map(({ product, quantity }) => ({
@@ -73,7 +95,8 @@ export const printRequisitionSlipNative = ({
 
 	// Footer
 	if (user) {
-		commands.push(printRight(`Printed by: ${getFullName(user)}`));
+		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
@@ -82,7 +105,17 @@ export const printRequisitionSlipNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
+
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
 
 	return commands;
 };

@@ -12,9 +12,6 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
         title: 'REQUISITION SLIP',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Requisition details
-    commands.push((0, helper_escpos_1.printCenter)('REQUISITION SLIP'));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date & Time Requested
     if (requisitionSlip.datetime_created) {
         commands.push((0, helper_escpos_1.printCenter)('Date & Time Requested'));
@@ -22,22 +19,40 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     }
     // Requestor Name
     if (requisitionSlip.approved_by) {
-        commands.push((0, helper_escpos_1.printCenter)('Requestor:'));
-        commands.push((0, helper_escpos_1.printCenter)((0, utils_1.getFullName)(requisitionSlip.approved_by)));
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Requestor',
+                value: (0, utils_1.getFullName)(requisitionSlip.approved_by) || '',
+            },
+        ]));
     }
     // Branch Name
     if (requisitionSlip.branch) {
-        commands.push((0, helper_escpos_1.printCenter)('Requesting Branch:'));
-        commands.push((0, helper_escpos_1.printCenter)(requisitionSlip.branch.name));
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Requesting Branch:',
+                value: requisitionSlip.branch.name || '',
+            },
+        ]));
     }
     // Requisition Slip Reference Number
     if (requisitionSlip.reference_number) {
-        commands.push((0, helper_escpos_1.printCenter)('Requisition Slip ID:'));
-        commands.push((0, helper_escpos_1.printCenter)(requisitionSlip.reference_number));
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Requisition Slip ID:',
+                value: requisitionSlip.reference_number || '',
+            },
+        ]));
     }
+    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+        {
+            label: 'Product Name',
+            value: 'Quantity',
+        },
+    ]));
+    commands.push((0, helper_escpos_1.printCenter)('-----------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Item List (Products)
-    commands.push((0, helper_escpos_1.printCenter)('Product List'));
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(requisitionSlip.products.map(({ product, quantity }) => ({
         label: product.name,
         value: (0, utils_1.formatQuantity)(quantity, product),
@@ -45,12 +60,15 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer
     if (user) {
-        commands.push((0, helper_escpos_1.printRight)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printRequisitionSlipNative = printRequisitionSlipNative;

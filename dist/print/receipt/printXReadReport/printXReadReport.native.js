@@ -16,6 +16,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (report.generation_datetime) {
         commands.push((0, helper_escpos_1.printCenter)('Report Generation Datetime'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(report.generation_datetime)} - ${(0, utils_1.formatTime)(report.generation_datetime)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
@@ -29,6 +30,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
             .filter(Boolean)
             .join(' - ');
         commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(session.date)} | ${sessionTime}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)(`Cashier: ${session.user.employee_id} | ${(0, utils_1.getFullName)(session.user)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
@@ -51,6 +53,7 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Current Accum. Sales (end)',
@@ -77,7 +80,9 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Gross Sales Breakdown'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: 'VAT Exempt Sales',
@@ -97,7 +102,9 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Payment Received'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Cash',
@@ -117,7 +124,9 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Cash on Hand'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Payment Received',
@@ -145,7 +154,9 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Transaction Summary'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Cash in Drawer',
@@ -163,12 +174,14 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;

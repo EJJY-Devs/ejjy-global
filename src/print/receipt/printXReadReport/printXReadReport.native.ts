@@ -33,6 +33,8 @@ export const printXReadReportNative = ({
 
 	if (report.generation_datetime) {
 		commands.push(printCenter('Report Generation Datetime'));
+		commands.push(EscPosCommands.LINE_BREAK);
+
 		commands.push(
 			printCenter(
 				`${formatDate(report.generation_datetime)} - ${formatTime(report.generation_datetime)}`,
@@ -51,6 +53,7 @@ export const printXReadReportNative = ({
 			.filter(Boolean)
 			.join(' - ');
 		commands.push(printCenter(`${formatDate(session.date)} | ${sessionTime}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			printCenter(
 				`Cashier: ${session.user.employee_id} | ${getFullName(session.user)}`,
@@ -81,6 +84,8 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -114,7 +119,11 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(printCenter('Gross Sales Breakdown'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -137,7 +146,11 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(printCenter('Payment Received'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -160,7 +173,11 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(printCenter('Cash on Hand'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -191,7 +208,11 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(printCenter('Transaction Summary'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -213,6 +234,8 @@ export const printXReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 	}
@@ -222,6 +245,7 @@ export const printXReadReportNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
 	commands.push(

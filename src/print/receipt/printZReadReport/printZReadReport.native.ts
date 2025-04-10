@@ -35,14 +35,17 @@ export const printZReadReportNative = ({
 	// Generation Datetime
 	if (report.generation_datetime) {
 		commands.push(printCenter('Report Generation Datetime'));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			printCenter(
 				`${formatDate(report.generation_datetime)} - ${formatTime(report.generation_datetime)}`,
 			),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(printCenter('Day Datetime'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	const openTime = report.branch_day_open_datetime
 		? formatTime(report.branch_day_open_datetime)
 		: null;
@@ -92,6 +95,7 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -111,6 +115,7 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -134,7 +139,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Current Day Payment Received'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -152,7 +159,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Current Day Cash on Hand'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -178,7 +187,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Current Day Transaction Summary'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -201,7 +212,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Accumulated Sales Breakdown'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -222,7 +235,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Accumulated Deductions'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -256,7 +271,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Accumulated VAT Adjustment'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -282,7 +299,9 @@ export const printZReadReportNative = ({
 	);
 
 	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Accumulated VAT Payable'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -312,7 +331,17 @@ export const printZReadReportNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
+
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
 
 	return commands;
 };

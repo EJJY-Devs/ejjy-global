@@ -20,10 +20,12 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (generationDatetime) {
         commands.push((0, helper_escpos_1.printCenter)('Report Generation Datetime'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(generationDatetime)} - ${(0, utils_1.formatTime)(generationDatetime)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push((0, helper_escpos_1.printCenter)('Day Datetime'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)(`${(0, utils_1.formatDate)(openDatetime || '')} | ${[openTime, closeTime].filter(Boolean).join(' - ')}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
@@ -36,7 +38,8 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: ((_b = dailySales.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || '',
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Current Accum. Sales (end)',
@@ -51,8 +54,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.gross_sales, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Sales Breakdown'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: 'VAT Exempt Sales',
@@ -68,8 +73,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
         },
         { label: 'Zero Rated Sales', value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN) },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Deductions'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Disc. SC',
@@ -98,8 +105,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.total_deductions, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('VAT Adjustment'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Disc. SC',
@@ -123,8 +132,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.total_vat_adjusted, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('VAT Payable'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+VAT Amount (12%)',
@@ -139,7 +150,8 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.vat_payable, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Gross Sales of the Day',
@@ -158,8 +170,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.net_sales, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Payment Received'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Cash',
@@ -178,8 +192,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.total_payment_received, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Cash on Hand'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: '+Payment Received',
@@ -203,8 +219,10 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
             value: (0, utils_1.formatInPeso)(dailySales.total_cash_on_hand, helper_receipt_1.PESO_SIGN),
         },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Transaction Summary'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     const shortOverVal = (dailySales.short_over < 0 ? '(' : '') +
         (0, utils_1.formatInPeso)(Math.abs(dailySales.short_over), helper_receipt_1.PESO_SIGN) +
         (dailySales.short_over < 0 ? ')' : '');
@@ -219,14 +237,18 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
         },
         { label: '=(Short)/Over', value: shortOverVal },
     ]));
-    commands.push((0, helper_escpos_1.printRight)('----------------'));
+    commands.push((0, helper_escpos_1.printCenter)('----------------'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (user) {
-        commands.push((0, helper_escpos_1.printRight)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printDailySalesNative = printDailySalesNative;

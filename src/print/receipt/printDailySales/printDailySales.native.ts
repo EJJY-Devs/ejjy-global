@@ -9,7 +9,6 @@ import {
 	generateReceiptFooterCommands,
 	generateItemBlockCommands,
 	printCenter,
-	printRight,
 } from '../../helper-escpos';
 import { PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
@@ -40,6 +39,7 @@ export const printDailySalesNative = ({
 
 	if (generationDatetime) {
 		commands.push(printCenter('Report Generation Datetime'));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			printCenter(
 				`${formatDate(generationDatetime)} - ${formatTime(generationDatetime)}`,
@@ -49,6 +49,7 @@ export const printDailySalesNative = ({
 	}
 
 	commands.push(printCenter('Day Datetime'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(
 		printCenter(
 			`${formatDate(openDatetime || '')} | ${[openTime, closeTime].filter(Boolean).join(' - ')}`,
@@ -69,7 +70,8 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -88,8 +90,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Sales Breakdown'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -109,8 +113,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Deductions'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -143,8 +149,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('VAT Adjustment'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -172,8 +180,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('VAT Payable'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -192,7 +202,9 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -214,8 +226,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Payment Received'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -238,8 +252,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Cash on Hand'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateItemBlockCommands([
@@ -267,8 +283,10 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Transaction Summary'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	const shortOverVal =
 		(dailySales.short_over < 0 ? '(' : '') +
@@ -289,10 +307,12 @@ export const printDailySalesNative = ({
 		]),
 	);
 
-	commands.push(printRight('----------------'));
+	commands.push(printCenter('----------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	if (user) {
-		commands.push(printRight(`Printed by: ${getFullName(user)}`));
+		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
@@ -300,7 +320,17 @@ export const printDailySalesNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
+
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	);
 
 	return commands;
 };
