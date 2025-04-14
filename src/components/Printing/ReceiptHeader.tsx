@@ -29,15 +29,6 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 		permit_to_use,
 	} = branchMachine || {};
 
-	const {
-		store_name,
-		store_address,
-		proprietor,
-		tax_type,
-		tin,
-		contact_number,
-	} = branch || {};
-
 	return (
 		<>
 			{globalStyles}
@@ -48,16 +39,18 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 					flexDirection: 'column',
 				}}
 			>
-				<span style={{ whiteSpace: 'pre-line' }}>{store_name}</span>
-				<span style={{ whiteSpace: 'pre-line' }}>{store_address}</span>
-				<span>{[contact_number, name].filter(Boolean).join(' | ')}</span>
-				<span>{proprietor}</span>
-				<span>{getTaxTypeDescription(tax_type)}</span>
-				<span>{tin}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_name}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_address}</span>
+				<span>
+					{[branch?.contact_number, name].filter(Boolean).join(' | ')}
+				</span>
+				<span>{branch?.proprietor}</span>
+				<span>{getTaxTypeDescription(branch?.tax_type)}</span>
+				<span>{branch?.tin}</span>
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}
-				{permit_to_use} && <span>PTU No: {permit_to_use}</span>
-				{ptuDateIssued} && <span>Date Issued: {ptuDateIssued}</span>
+				{permit_to_use && <span>PTU No: {permit_to_use}</span>}
+				{ptuDateIssued && <span>Date Issued: {ptuDateIssued}</span>}
 				{title ? <br /> : ''}
 				{title}
 			</div>

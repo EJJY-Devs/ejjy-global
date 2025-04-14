@@ -19,49 +19,42 @@ export const generateReceiptHeaderCommands = ({
 		permit_to_use,
 	} = branchMachine || {};
 
-	const {
-		store_name,
-		store_address,
-		proprietor,
-		tax_type,
-		tin,
-		contact_number,
-	} = branch || {};
-
 	const commands: string[] = [];
 
-	if (store_name) {
-		const lines = store_name.split('\n');
+	if (branch?.store_name) {
+		const lines = branch?.store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (store_address) {
-		const lines = store_address.split('\n');
+	if (branch?.store_address) {
+		const lines = branch?.store_address.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (contact_number || store_name) {
+	if (branch?.contact_number || name) {
 		commands.push(
-			printCenter([contact_number, name].filter(Boolean).join(' | ')),
+			printCenter([branch?.contact_number, name].filter(Boolean).join(' | ')),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (proprietor) {
-		commands.push(printCenter(proprietor));
+	if (branch?.proprietor) {
+		commands.push(printCenter(branch?.proprietor));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (tax_type || tin) {
+	if (branch?.tax_type || branch?.tin) {
 		commands.push(
 			printCenter(
-				[getTaxTypeDescription(tax_type), tin].filter(Boolean).join(' | '),
+				[getTaxTypeDescription(branch?.tax_type), branch?.tin]
+					.filter(Boolean)
+					.join(' | '),
 			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);

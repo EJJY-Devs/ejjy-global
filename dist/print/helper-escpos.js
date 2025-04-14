@@ -6,32 +6,33 @@ const escpos_enum_1 = require("./utils/escpos.enum");
 const PAPER_CHARACTER_WIDTH = 40;
 const generateReceiptHeaderCommands = ({ branchMachine, title, }) => {
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
-    const { store_name, store_address, proprietor, tax_type, tin, contact_number, } = branch || {};
     const commands = [];
-    if (store_name) {
-        const lines = store_name.split('\n');
+    if (branch === null || branch === void 0 ? void 0 : branch.store_name) {
+        const lines = branch === null || branch === void 0 ? void 0 : branch.store_name.split('\n');
         for (const line of lines) {
             commands.push((0, exports.printCenter)(line));
             commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
     }
-    if (store_address) {
-        const lines = store_address.split('\n');
+    if (branch === null || branch === void 0 ? void 0 : branch.store_address) {
+        const lines = branch === null || branch === void 0 ? void 0 : branch.store_address.split('\n');
         for (const line of lines) {
             commands.push((0, exports.printCenter)(line));
             commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
     }
-    if (contact_number || store_name) {
-        commands.push((0, exports.printCenter)([contact_number, name].filter(Boolean).join(' | ')));
+    if ((branch === null || branch === void 0 ? void 0 : branch.contact_number) || name) {
+        commands.push((0, exports.printCenter)([branch === null || branch === void 0 ? void 0 : branch.contact_number, name].filter(Boolean).join(' | ')));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    if (proprietor) {
-        commands.push((0, exports.printCenter)(proprietor));
+    if (branch === null || branch === void 0 ? void 0 : branch.proprietor) {
+        commands.push((0, exports.printCenter)(branch === null || branch === void 0 ? void 0 : branch.proprietor));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    if (tax_type || tin) {
-        commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(tax_type), tin].filter(Boolean).join(' | ')));
+    if ((branch === null || branch === void 0 ? void 0 : branch.tax_type) || (branch === null || branch === void 0 ? void 0 : branch.tin)) {
+        commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(branch === null || branch === void 0 ? void 0 : branch.tax_type), branch === null || branch === void 0 ? void 0 : branch.tin]
+            .filter(Boolean)
+            .join(' | ')));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (machineID) {
