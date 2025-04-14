@@ -19,12 +19,6 @@ export declare const useBranchMachineCreate: (options?: UseMutationOptions<Axios
     serverUrl: string;
     type: string;
     storageSerialNumber: string;
-    storeName: string;
-    addressOfTaxPayer: string;
-    proprietor: string;
-    contactNumber: string;
-    taxType: string;
-    tin: string;
     ptuDateIssued: string;
 }, unknown>;
 export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify & {
@@ -37,12 +31,6 @@ export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosRe
     serverUrl: string;
     type: string;
     storageSerialNumber: string;
-    storeName: string;
-    addressOfTaxPayer: string;
-    proprietor: string;
-    contactNumber: string;
-    taxType: string;
-    tin: string;
     ptuDateIssued: string;
     id: number;
 }, unknown>;

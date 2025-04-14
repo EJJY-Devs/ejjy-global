@@ -6,6 +6,12 @@ import { ServiceType } from '../globals/enums';
 interface Modify {
 	name: string;
 	server_url: string;
+	store_name: string;
+	store_address: string;
+	proprietor: string;
+	contact_number: string;
+	tax_type: string;
+	tin: string;
 }
 
 interface Ping {

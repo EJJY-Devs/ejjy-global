@@ -8,4 +8,10 @@ export interface Branch {
 	is_online: boolean;
 	authorization_status: 'unopened' | 'opened' | 'closed';
 	key?: string;
+	store_name?: string;
+	store_address?: string;
+	proprietor?: string;
+	contact_number?: string;
+	tax_type?: string;
+	tin?: string;
 }

@@ -16,12 +16,6 @@ export type Modify = {
     server_url: string;
     type: string;
     storage_serial_number: string;
-    store_name: string;
-    address_of_tax_payer: string;
-    proprietor: string;
-    contact_number: string;
-    tax_type: string;
-    tin: string;
     ptu_date_issued: string;
 };
 declare const service: {

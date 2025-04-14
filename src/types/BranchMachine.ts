@@ -28,11 +28,5 @@ export interface BranchMachine {
 	machine_identification_number?: string;
 	online_id: number;
 	branch: Branch;
-	store_name?: string;
-	address_of_tax_payer?: string;
-	proprietor?: string;
-	tin?: string;
-	contact_number?: string;
 	ptu_date_issued?: string;
-	tax_type?: string;
 }
