@@ -30,6 +30,7 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 	} = branchMachine || {};
 
 	console.log('branch', branch);
+	console.log('branch_machine', branchMachine);
 
 	return (
 		<>

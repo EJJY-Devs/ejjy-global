@@ -21,6 +21,7 @@ const ReceiptHeader = ({ branchMachine, title }) => {
     var _a, _b, _c, _d, _e, _f;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     console.log('branch', branch);
+    console.log('branch_machine', branchMachine);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
         react_1.default.createElement("div", { style: {
