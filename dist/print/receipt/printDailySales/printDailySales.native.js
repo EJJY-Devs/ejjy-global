@@ -15,7 +15,6 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     const closeTime = generationDatetime ? (0, utils_1.formatTime)(generationDatetime) : '';
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchMachine: dailySales.branch_machine,
-        siteSettings,
         title: 'DAILY SALES REPORT',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

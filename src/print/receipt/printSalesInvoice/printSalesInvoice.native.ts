@@ -56,7 +56,6 @@ const generateTransactionContentCommands = (
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: transaction.branch_machine,
-			siteSettings,
 			title,
 		}),
 	);
@@ -222,7 +221,9 @@ const generateTransactionContentCommands = (
 
 	// Final Messages
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
-		commands.push(printCenter(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE));
+		commands.push(
+			printCenter(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE),
+		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 

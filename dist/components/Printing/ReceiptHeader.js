@@ -17,9 +17,9 @@ const globalStyles = react_1.default.createElement('style', {}, [
   }
   `,
 ]);
-const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
-    const { contact_number: contactNumber, address_of_tax_payer: location, proprietor, store_name: storeName, tax_type: taxType, tin, } = siteSettings || {};
-    const { name, machine_identification_number: machineID = '', pos_terminal: posTerminal = '', } = branchMachine || {};
+const ReceiptHeader = ({ branchMachine, title }) => {
+    const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
+    const { store_name, store_address, proprietor, tax_type, tin, contact_number, } = branch || {};
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
         react_1.default.createElement("div", { style: {
@@ -27,11 +27,11 @@ const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
                 display: 'flex',
                 flexDirection: 'column',
             } },
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, storeName),
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, location),
-            react_1.default.createElement("span", null, [contactNumber, name].filter(Boolean).join(' | ')),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, store_name),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, store_address),
+            react_1.default.createElement("span", null, [contact_number, name].filter(Boolean).join(' | ')),
             react_1.default.createElement("span", null, proprietor),
-            react_1.default.createElement("span", null, (0, utils_1.getTaxTypeDescription)(taxType)),
+            react_1.default.createElement("span", null, (0, utils_1.getTaxTypeDescription)(tax_type)),
             react_1.default.createElement("span", null, tin),
             machineID && react_1.default.createElement("span", null,
                 "MIN: ",
@@ -39,6 +39,16 @@ const ReceiptHeader = ({ branchMachine, siteSettings, title, }) => {
             posTerminal && react_1.default.createElement("span", null,
                 "SN: ",
                 posTerminal),
+            permit_to_use,
+            " && ",
+            react_1.default.createElement("span", null,
+                "PTU No: ",
+                permit_to_use),
+            ptuDateIssued,
+            " && ",
+            react_1.default.createElement("span", null,
+                "Date Issued: ",
+                ptuDateIssued),
             title ? react_1.default.createElement("br", null) : '',
             title)));
 };

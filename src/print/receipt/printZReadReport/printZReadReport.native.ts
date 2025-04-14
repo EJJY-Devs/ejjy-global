@@ -32,7 +32,6 @@ export const printZReadReportNative = ({
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: report.branch_machine,
-			siteSettings,
 			title: 'Z-READING REPORT',
 		}),
 		EscPosCommands.LINE_BREAK,

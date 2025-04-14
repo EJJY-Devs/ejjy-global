@@ -8,47 +8,47 @@ const PAPER_CHARACTER_WIDTH = 40;
 
 export const generateReceiptHeaderCommands = ({
 	branchMachine,
-	siteSettings,
 	title,
 }: ReceiptHeaderProps) => {
-	const {
-		contact_number: contactNumber,
-		address_of_tax_payer: location,
-		proprietor,
-		store_name: storeName,
-		tax_type: taxType,
-		tin,
-		ptu_number: ptuNumber,
-		ptu_date: ptuDate,
-	} = siteSettings;
-
 	const {
 		name,
 		machine_identification_number: machineID,
 		pos_terminal: posTerminal,
+		branch,
+		ptu_date_issued: ptuDateIssued,
+		permit_to_use,
 	} = branchMachine || {};
+
+	const {
+		store_name,
+		store_address,
+		proprietor,
+		tax_type,
+		tin,
+		contact_number,
+	} = branch || {};
 
 	const commands: string[] = [];
 
-	if (storeName) {
-		const lines = storeName.split('\n');
+	if (store_name) {
+		const lines = store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (location) {
-		const lines = location.split('\n');
+	if (store_address) {
+		const lines = store_address.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (contactNumber || name) {
+	if (contact_number || store_name) {
 		commands.push(
-			printCenter([contactNumber, name].filter(Boolean).join(' | ')),
+			printCenter([contact_number, name].filter(Boolean).join(' | ')),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
@@ -58,10 +58,10 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (taxType || tin) {
+	if (tax_type || tin) {
 		commands.push(
 			printCenter(
-				[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
+				[getTaxTypeDescription(tax_type), tin].filter(Boolean).join(' | '),
 			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
@@ -75,13 +75,13 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(printCenter(`SN: ${posTerminal}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
-	if (ptuNumber) {
-		commands.push(printCenter(`PTU No: ${ptuNumber}`));
+	if (permit_to_use) {
+		commands.push(printCenter(`PTU No: ${permit_to_use}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (ptuDate) {
-		commands.push(printCenter(`Date Issued: ${ptuDate}`));
+	if (ptuDateIssued) {
+		commands.push(printCenter(`Date Issued: ${ptuDateIssued}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 

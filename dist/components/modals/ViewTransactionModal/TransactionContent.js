@@ -66,7 +66,7 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
     var _a;
     const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, exports.getTransactionData)(transaction);
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: transaction.branch_machine, siteSettings: siteSettings, title: title }),
+        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: transaction.branch_machine, title: title }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("table", { style: { width: '100%' } }, transaction.products.map((item) => (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("tr", null,

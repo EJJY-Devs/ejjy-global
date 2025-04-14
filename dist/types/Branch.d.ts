@@ -1,3 +1,4 @@
+import { TaxType } from './SiteSettings';
 export interface Branch {
     id: number;
     datetime_created: string;
@@ -12,6 +13,7 @@ export interface Branch {
     store_address?: string;
     proprietor?: string;
     contact_number?: string;
-    tax_type?: string;
+    tax_type?: TaxType;
     tin?: string;
+    permit_to_use?: string;
 }

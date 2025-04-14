@@ -27,7 +27,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     const commands = [];
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchMachine: transaction.branch_machine,
-        siteSettings,
         title,
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

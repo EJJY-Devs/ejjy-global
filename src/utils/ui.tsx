@@ -1,9 +1,8 @@
 import { Input, Modal, Space, Typography, message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import _ from 'lodash';
 import React from 'react';
-import { FieldError } from '../components';
 import {
 	EMPTY_CELL,
 	OSDRStatus,

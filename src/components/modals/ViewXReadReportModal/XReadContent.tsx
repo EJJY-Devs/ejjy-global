@@ -38,10 +38,7 @@ export const XReadContent = ({
 				/>
 			)}
 
-			<ReceiptHeader
-				branchMachine={report.branch_machine}
-				siteSettings={siteSettings}
-			/>
+			<ReceiptHeader branchMachine={report.branch_machine} />
 
 			<br />
 

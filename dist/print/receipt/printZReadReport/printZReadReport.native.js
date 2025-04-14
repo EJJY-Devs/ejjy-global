@@ -14,7 +14,6 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     // Header
     commands.push(...(0, helper_escpos_2.generateReceiptHeaderCommands)({
         branchMachine: report.branch_machine,
-        siteSettings,
         title: 'Z-READING REPORT',
     }), escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Generation Datetime

@@ -1,10 +1,9 @@
 import React from 'react';
-import { BranchMachine, SiteSettings } from '../../types';
+import { BranchMachine } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
 export type ReceiptHeaderProps = {
 	branchMachine?: BranchMachine;
-	siteSettings: SiteSettings;
 	title?: string;
 };
 
@@ -20,25 +19,24 @@ const globalStyles = React.createElement('style', {}, [
   `,
 ]);
 
-export const ReceiptHeader = ({
-	branchMachine,
-	siteSettings,
-	title,
-}: ReceiptHeaderProps) => {
-	const {
-		contact_number: contactNumber,
-		address_of_tax_payer: location,
-		proprietor,
-		store_name: storeName,
-		tax_type: taxType,
-		tin,
-	} = siteSettings || {};
-
+export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 	const {
 		name,
-		machine_identification_number: machineID = '',
-		pos_terminal: posTerminal = '',
+		machine_identification_number: machineID,
+		pos_terminal: posTerminal,
+		branch,
+		ptu_date_issued: ptuDateIssued,
+		permit_to_use,
 	} = branchMachine || {};
+
+	const {
+		store_name,
+		store_address,
+		proprietor,
+		tax_type,
+		tin,
+		contact_number,
+	} = branch || {};
 
 	return (
 		<>
@@ -50,15 +48,16 @@ export const ReceiptHeader = ({
 					flexDirection: 'column',
 				}}
 			>
-				<span style={{ whiteSpace: 'pre-line' }}>{storeName}</span>
-				<span style={{ whiteSpace: 'pre-line' }}>{location}</span>
-				<span>{[contactNumber, name].filter(Boolean).join(' | ')}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>{store_name}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>{store_address}</span>
+				<span>{[contact_number, name].filter(Boolean).join(' | ')}</span>
 				<span>{proprietor}</span>
-				<span>{getTaxTypeDescription(taxType)}</span>
+				<span>{getTaxTypeDescription(tax_type)}</span>
 				<span>{tin}</span>
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}
-
+				{permit_to_use} && <span>PTU No: {permit_to_use}</span>
+				{ptuDateIssued} && <span>Date Issued: {ptuDateIssued}</span>
 				{title ? <br /> : ''}
 				{title}
 			</div>

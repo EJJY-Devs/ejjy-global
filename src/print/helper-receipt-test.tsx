@@ -62,11 +62,7 @@ export const getHeader = (
 	title?: string,
 ) =>
 	ReactDOMServer.renderToStaticMarkup(
-		<ReceiptHeader
-			siteSettings={siteSettings}
-			branchMachine={branchMachine}
-			title={title}
-		/>,
+		<ReceiptHeader branchMachine={branchMachine} title={title} />,
 	);
 
 export const getFooter = (siteSettings: SiteSettings) =>

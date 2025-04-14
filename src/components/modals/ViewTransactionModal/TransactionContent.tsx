@@ -106,11 +106,7 @@ export const TransactionContent = ({
 
 	return (
 		<>
-			<ReceiptHeader
-				branchMachine={transaction.branch_machine}
-				siteSettings={siteSettings}
-				title={title}
-			/>
+			<ReceiptHeader branchMachine={transaction.branch_machine} title={title} />
 
 			<br />
 

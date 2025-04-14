@@ -30,10 +30,7 @@ export const DailySalesContent = ({
 			/>
 		)}
 
-		<ReceiptHeader
-			branchMachine={dailySales.branch_machine}
-			siteSettings={siteSettings}
-		/>
+		<ReceiptHeader branchMachine={dailySales.branch_machine} />
 
 		<br />
 

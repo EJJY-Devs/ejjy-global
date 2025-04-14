@@ -30,7 +30,6 @@ export const printXReadReportNative = ({
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: report.branch_machine,
-			siteSettings,
 			title: 'X-READING REPORT',
 		}),
 	);

@@ -24,7 +24,7 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
         description = 'Partial Payment';
     }
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt.branch_machine, siteSettings: siteSettings }),
+        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt.branch_machine }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "[Collection Receipt]"),
         react_1.default.createElement("br", null),

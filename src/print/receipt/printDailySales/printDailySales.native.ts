@@ -36,7 +36,6 @@ export const printDailySalesNative = ({
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: dailySales.branch_machine,
-			siteSettings,
 			title: 'DAILY SALES REPORT',
 		}),
 	);

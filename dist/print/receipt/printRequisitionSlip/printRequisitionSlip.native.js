@@ -9,7 +9,6 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
-        siteSettings,
         title: 'REQUISITION SLIP',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

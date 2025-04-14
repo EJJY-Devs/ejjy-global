@@ -37,10 +37,7 @@ export const CollectionReceiptContent = ({
 
 	return (
 		<>
-			<ReceiptHeader
-				branchMachine={collectionReceipt.branch_machine}
-				siteSettings={siteSettings}
-			/>
+			<ReceiptHeader branchMachine={collectionReceipt.branch_machine} />
 
 			<br />
 

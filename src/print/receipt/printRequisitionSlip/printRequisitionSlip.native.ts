@@ -25,7 +25,6 @@ export const printRequisitionSlipNative = ({
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
-			siteSettings,
 			title: 'REQUISITION SLIP',
 		}),
 	);
