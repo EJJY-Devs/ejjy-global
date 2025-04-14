@@ -54,7 +54,7 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 						.join(' | ')}
 				</span>
 				<span>{branchMachine?.branch?.proprietor}</span>
-				<span>{getTaxTypeDescription(branchMachine?.branch?.tax_type)}</span>
+				<span>{getTaxTypeDescription(branchMachine?.branch?.vat_type)}</span>
 				<span>{branchMachine?.branch?.tin}</span>
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}

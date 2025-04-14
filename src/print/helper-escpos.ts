@@ -49,10 +49,10 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (branch?.tax_type || branch?.tin) {
+	if (branch?.vat_type || branch?.tin) {
 		commands.push(
 			printCenter(
-				[getTaxTypeDescription(branch?.tax_type), branch?.tin]
+				[getTaxTypeDescription(branch?.vat_type), branch?.tin]
 					.filter(Boolean)
 					.join(' | '),
 			),

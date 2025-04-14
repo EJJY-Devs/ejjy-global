@@ -27,7 +27,7 @@ import {
 	PaymentType,
 	Product,
 	RequisitionSlip,
-	TaxType,
+	VatType,
 	UserType,
 } from '../types';
 
@@ -157,7 +157,7 @@ export const getInvoiceType = (invoiceType: string) => {
 	return description;
 };
 
-export const getTaxTypeDescription = (taxType?: TaxType) => {
+export const getTaxTypeDescription = (taxType?: VatType) => {
 	let data = '';
 
 	if (taxType === 'VAT') {

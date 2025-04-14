@@ -29,8 +29,8 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, }) => {
         commands.push((0, exports.printCenter)(branch === null || branch === void 0 ? void 0 : branch.proprietor));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    if ((branch === null || branch === void 0 ? void 0 : branch.tax_type) || (branch === null || branch === void 0 ? void 0 : branch.tin)) {
-        commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(branch === null || branch === void 0 ? void 0 : branch.tax_type), branch === null || branch === void 0 ? void 0 : branch.tin]
+    if ((branch === null || branch === void 0 ? void 0 : branch.vat_type) || (branch === null || branch === void 0 ? void 0 : branch.tin)) {
+        commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(branch === null || branch === void 0 ? void 0 : branch.vat_type), branch === null || branch === void 0 ? void 0 : branch.tin]
             .filter(Boolean)
             .join(' | ')));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
