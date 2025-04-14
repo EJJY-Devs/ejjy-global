@@ -16,5 +16,4 @@ export interface Branch {
 	contact_number?: string;
 	vat_type?: VatType;
 	tin?: string;
-	permit_to_use?: string;
 }
