@@ -29,6 +29,8 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 		permit_to_use,
 	} = branchMachine || {};
 
+	console.log('branch', branch);
+
 	return (
 		<>
 			{globalStyles}
@@ -39,14 +41,20 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 					flexDirection: 'column',
 				}}
 			>
-				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_name}</span>
-				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_address}</span>
-				<span>
-					{[branch?.contact_number, name].filter(Boolean).join(' | ')}
+				<span style={{ whiteSpace: 'pre-line' }}>
+					{branchMachine?.branch?.store_name}
 				</span>
-				<span>{branch?.proprietor}</span>
-				<span>{getTaxTypeDescription(branch?.tax_type)}</span>
-				<span>{branch?.tin}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>
+					{branchMachine?.branch?.store_address}
+				</span>
+				<span>
+					{[branchMachine?.branch?.contact_number, name]
+						.filter(Boolean)
+						.join(' | ')}
+				</span>
+				<span>{branchMachine?.branch?.proprietor}</span>
+				<span>{getTaxTypeDescription(branchMachine?.branch?.tax_type)}</span>
+				<span>{branchMachine?.branch?.tin}</span>
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}
 				{permit_to_use && <span>PTU No: {permit_to_use}</span>}
