@@ -19,6 +19,13 @@ export declare const useBranchMachineCreate: (options?: UseMutationOptions<Axios
     serverUrl: string;
     type: string;
     storageSerialNumber: string;
+    storeName: string;
+    addressOfTaxPayer: string;
+    proprietor: string;
+    contactNumber: string;
+    taxType: string;
+    tin: string;
+    ptuDateIssued: string;
 }, unknown>;
 export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosResponse<BranchMachine>, AxiosErrorResponse, CamelCasedProperties<Modify & {
     id: number;
@@ -30,6 +37,13 @@ export declare const useBranchMachineEdit: (options?: UseMutationOptions<AxiosRe
     serverUrl: string;
     type: string;
     storageSerialNumber: string;
+    storeName: string;
+    addressOfTaxPayer: string;
+    proprietor: string;
+    contactNumber: string;
+    taxType: string;
+    tin: string;
+    ptuDateIssued: string;
     id: number;
 }, unknown>;
 export declare const useBranchMachineDelete: (options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<void>, AxiosErrorResponse<any>, number, unknown>;

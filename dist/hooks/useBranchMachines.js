@@ -26,7 +26,7 @@ const useBranchMachinePing = () => (0, react_query_1.useMutation)(({ onlineBranc
     online_api_url_override: onlineApiUrlOverride,
 }));
 exports.useBranchMachinePing = useBranchMachinePing;
-const useBranchMachineCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ branchId, machineIdentificationNumber, name, permitToUse, serverUrl, storageSerialNumber, type, }) => services_1.BranchMachinesService.create({
+const useBranchMachineCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ branchId, machineIdentificationNumber, name, permitToUse, serverUrl, storageSerialNumber, type, storeName, addressOfTaxPayer, proprietor, contactNumber, taxType, tin, ptuDateIssued, }) => services_1.BranchMachinesService.create({
     branch_id: branchId,
     machine_identification_number: machineIdentificationNumber,
     name,
@@ -34,9 +34,16 @@ const useBranchMachineCreate = (options, baseURL) => (0, react_query_1.useMutati
     server_url: serverUrl,
     storage_serial_number: storageSerialNumber,
     type,
+    store_name: storeName,
+    address_of_tax_payer: addressOfTaxPayer,
+    proprietor,
+    contact_number: contactNumber,
+    tax_type: taxType,
+    tin,
+    ptu_date_issued: ptuDateIssued,
 }, baseURL), options);
 exports.useBranchMachineCreate = useBranchMachineCreate;
-const useBranchMachineEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, branchId, machineIdentificationNumber, name, permitToUse, serverUrl, storageSerialNumber, type, }) => services_1.BranchMachinesService.edit(id, {
+const useBranchMachineEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, branchId, machineIdentificationNumber, name, permitToUse, serverUrl, storageSerialNumber, type, storeName, addressOfTaxPayer, proprietor, contactNumber, taxType, tin, ptuDateIssued, }) => services_1.BranchMachinesService.edit(id, {
     branch_id: branchId,
     machine_identification_number: machineIdentificationNumber,
     name,
@@ -44,6 +51,13 @@ const useBranchMachineEdit = (options, baseURL) => (0, react_query_1.useMutation
     server_url: serverUrl,
     storage_serial_number: storageSerialNumber,
     type,
+    store_name: storeName,
+    address_of_tax_payer: addressOfTaxPayer,
+    proprietor,
+    contact_number: contactNumber,
+    tax_type: taxType,
+    tin,
+    ptu_date_issued: ptuDateIssued,
 }, baseURL), options);
 exports.useBranchMachineEdit = useBranchMachineEdit;
 const useBranchMachineDelete = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.BranchMachinesService.delete(id, baseURL), options);
