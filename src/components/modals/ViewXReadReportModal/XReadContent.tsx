@@ -28,10 +28,6 @@ export const XReadContent = ({
 }: Props) => {
 	const cashieringSession = report.cashiering_session;
 
-	console.log('report_branch', report.branch_machine);
-
-	console.log('report', report);
-
 	return (
 		<>
 			{report.gross_sales === 0 && !isForPrint && (
