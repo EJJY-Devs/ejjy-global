@@ -1,10 +1,11 @@
 import React from 'react';
-import { BranchMachine } from '../../types';
+import { Branch, BranchMachine } from '../../types';
 import { getTaxTypeDescription } from '../../utils';
 
 export type ReceiptHeaderProps = {
 	branchMachine?: BranchMachine;
 	title?: string;
+	branchHeader?: Branch;
 };
 
 const globalStyles = React.createElement('style', {}, [
@@ -19,7 +20,11 @@ const globalStyles = React.createElement('style', {}, [
   `,
 ]);
 
-export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
+export const ReceiptHeader = ({
+	branchMachine,
+	title,
+	branchHeader,
+}: ReceiptHeaderProps) => {
 	const {
 		name,
 		machine_identification_number: machineID,
@@ -39,14 +44,22 @@ export const ReceiptHeader = ({ branchMachine, title }: ReceiptHeaderProps) => {
 					flexDirection: 'column',
 				}}
 			>
-				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_name}</span>
-				<span style={{ whiteSpace: 'pre-line' }}>{branch?.store_address}</span>
-				<span>
-					{[branch?.contact_number, name].filter(Boolean).join(' | ')}
+				{/* BranchHeader is for reports without a branchMachine */}
+				<span style={{ whiteSpace: 'pre-line' }}>
+					{(branch ?? branchHeader)?.store_name}
 				</span>
-				<span>{branch?.proprietor}</span>
-				<span>{getTaxTypeDescription(branch?.vat_type)}</span>
-				<span>{branch?.tin}</span>
+				<span style={{ whiteSpace: 'pre-line' }}>
+					{(branch ?? branchHeader)?.store_address}
+				</span>
+				<span>
+					{[(branch ?? branchHeader)?.contact_number, name]
+						.filter(Boolean)
+						.join(' | ')}
+				</span>
+				<span>{(branch ?? branchHeader)?.proprietor}</span>
+				<span>{getTaxTypeDescription((branch ?? branchHeader)?.vat_type)}</span>
+				<span>{(branch ?? branchHeader)?.tin}</span>
+
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}
 				{permit_to_use && <span>PTU No: {permit_to_use}</span>}

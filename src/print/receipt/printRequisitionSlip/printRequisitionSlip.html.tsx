@@ -16,7 +16,7 @@ export const printRequisitionSlipHtml = ({
 }: PrintRequisitionSlip) => {
 	const data = `
         <div className="container" style="${getPageStyle()}">
-  ${getHeader(siteSettings, undefined, 'REQUISITION SLIP')}
+  ${getHeader(siteSettings, undefined, 'REQUISITION SLIP', requisitionSlip.branch)}
 
     <br />
 

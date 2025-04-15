@@ -3,7 +3,7 @@ import qz from 'qz-tray';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { ReceiptFooter, ReceiptHeader } from '../components';
-import { BranchMachine, SiteSettings } from '../types';
+import { BranchMachine, SiteSettings, Branch } from '../types';
 import { authenticateQZTray, formatInPeso } from '../utils';
 import { printingTypes } from '../globals';
 
@@ -60,9 +60,14 @@ export const getHeader = (
 	siteSettings: SiteSettings,
 	branchMachine?: BranchMachine,
 	title?: string,
+	branch?: Branch,
 ) =>
 	ReactDOMServer.renderToStaticMarkup(
-		<ReceiptHeader branchMachine={branchMachine} title={title} />,
+		<ReceiptHeader
+			branchMachine={branchMachine}
+			title={title}
+			branchHeader={branch}
+		/>,
 	);
 
 export const getFooter = (siteSettings: SiteSettings) =>

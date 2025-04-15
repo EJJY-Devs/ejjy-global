@@ -17,7 +17,8 @@ const globalStyles = react_1.default.createElement('style', {}, [
   }
   `,
 ]);
-const ReceiptHeader = ({ branchMachine, title }) => {
+const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
+    var _a, _b, _c, _d, _e, _f;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
@@ -26,12 +27,14 @@ const ReceiptHeader = ({ branchMachine, title }) => {
                 display: 'flex',
                 flexDirection: 'column',
             } },
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, branch === null || branch === void 0 ? void 0 : branch.store_name),
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, branch === null || branch === void 0 ? void 0 : branch.store_address),
-            react_1.default.createElement("span", null, [branch === null || branch === void 0 ? void 0 : branch.contact_number, name].filter(Boolean).join(' | ')),
-            react_1.default.createElement("span", null, branch === null || branch === void 0 ? void 0 : branch.proprietor),
-            react_1.default.createElement("span", null, (0, utils_1.getTaxTypeDescription)(branch === null || branch === void 0 ? void 0 : branch.vat_type)),
-            react_1.default.createElement("span", null, branch === null || branch === void 0 ? void 0 : branch.tin),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_a = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _a === void 0 ? void 0 : _a.store_name),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_b = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _b === void 0 ? void 0 : _b.store_address),
+            react_1.default.createElement("span", null, [(_c = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _c === void 0 ? void 0 : _c.contact_number, name]
+                .filter(Boolean)
+                .join(' | ')),
+            react_1.default.createElement("span", null, (_d = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _d === void 0 ? void 0 : _d.proprietor),
+            react_1.default.createElement("span", null, (0, utils_1.getTaxTypeDescription)((_e = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _e === void 0 ? void 0 : _e.vat_type)),
+            react_1.default.createElement("span", null, (_f = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _f === void 0 ? void 0 : _f.tin),
             machineID && react_1.default.createElement("span", null,
                 "MIN: ",
                 machineID),

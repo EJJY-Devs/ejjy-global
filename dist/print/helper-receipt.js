@@ -59,7 +59,7 @@ const configurePrinter = (appPrinterName, appPrinterFontSize, appPrinterFontFami
     }
 };
 exports.configurePrinter = configurePrinter;
-const getHeader = (siteSettings, branchMachine, title) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptHeader, { branchMachine: branchMachine, title: title }));
+const getHeader = (siteSettings, branchMachine, title, branch) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptHeader, { branchMachine: branchMachine, title: title, branchHeader: branch }));
 exports.getHeader = getHeader;
 const getFooter = (siteSettings) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptFooter, { siteSettings: siteSettings }));
 exports.getFooter = getFooter;

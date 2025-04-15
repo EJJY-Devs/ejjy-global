@@ -11,7 +11,7 @@ const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf =
     var _a;
     const data = `
         <div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
-  ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP')}
+  ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP', requisitionSlip.branch)}
 
     <br />
 
