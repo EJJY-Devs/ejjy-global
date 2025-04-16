@@ -33,8 +33,12 @@ const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
                 .filter(Boolean)
                 .join(' | ')),
             react_1.default.createElement("span", null, (_d = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _d === void 0 ? void 0 : _d.proprietor),
-            react_1.default.createElement("span", null, (0, utils_1.getTaxTypeDescription)((_e = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _e === void 0 ? void 0 : _e.vat_type)),
-            react_1.default.createElement("span", null, (_f = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _f === void 0 ? void 0 : _f.tin),
+            react_1.default.createElement("span", null, [
+                (0, utils_1.getTaxTypeDescription)((_e = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _e === void 0 ? void 0 : _e.vat_type),
+                (_f = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _f === void 0 ? void 0 : _f.tin,
+            ]
+                .filter(Boolean)
+                .join(' | ')),
             machineID && react_1.default.createElement("span", null,
                 "MIN: ",
                 machineID),

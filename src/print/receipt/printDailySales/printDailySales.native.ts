@@ -21,11 +21,10 @@ export const printDailySalesNative = ({
 }: PrintDailySales): string[] => {
 	const commands: string[] = [];
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
 	const generationDatetime = dailySales.generation_datetime;
@@ -327,17 +326,15 @@ export const printDailySalesNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

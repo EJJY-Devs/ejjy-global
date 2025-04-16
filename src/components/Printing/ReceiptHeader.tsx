@@ -57,9 +57,14 @@ export const ReceiptHeader = ({
 						.join(' | ')}
 				</span>
 				<span>{(branch ?? branchHeader)?.proprietor}</span>
-				<span>{getTaxTypeDescription((branch ?? branchHeader)?.vat_type)}</span>
-				<span>{(branch ?? branchHeader)?.tin}</span>
-
+				<span>
+					{[
+						getTaxTypeDescription((branch ?? branchHeader)?.vat_type),
+						(branch ?? branchHeader)?.tin,
+					]
+						.filter(Boolean)
+						.join(' | ')}
+				</span>
 				{machineID && <span>MIN: {machineID}</span>}
 				{posTerminal && <span>SN: {posTerminal}</span>}
 				{permit_to_use && <span>PTU No: {permit_to_use}</span>}

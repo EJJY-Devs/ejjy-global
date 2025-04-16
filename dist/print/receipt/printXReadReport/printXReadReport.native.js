@@ -8,7 +8,10 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const printXReadReportNative = ({ report, siteSettings, user, }) => {
     var _a, _b;
     const commands = [];
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(' ');
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(' ');
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchMachine: report.branch_machine,
         title: 'X-READING REPORT',
@@ -187,7 +190,11 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(' ');
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(' ');
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printXReadReportNative = printXReadReportNative;

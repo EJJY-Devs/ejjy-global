@@ -143,11 +143,30 @@ const printLeftRight = (leftText: string, rightText: string) => {
 	return leftText + spaces + rightText;
 };
 
-export const printCenter = (text: string) => {
-	const textLength = text.length;
-	const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
-	const spaces = '\u0020'.repeat(Math.max(0, Math.floor(spacesNeeded / 2)));
-	return spaces + text;
+export const printCenter = (text: string): string => {
+	const words = text.split(' ');
+	const lines: string[] = [];
+	let currentLine = '';
+
+	for (const word of words) {
+		if ((currentLine + ' ' + word).trim().length <= PAPER_CHARACTER_WIDTH) {
+			currentLine += (currentLine ? ' ' : '') + word;
+		} else {
+			lines.push(centerLine(currentLine));
+			currentLine = word;
+		}
+	}
+
+	if (currentLine) {
+		lines.push(centerLine(currentLine));
+	}
+
+	return lines.join('\n');
+};
+
+const centerLine = (line: string): string => {
+	const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
+	return '\u0020'.repeat(Math.max(0, padding)) + line;
 };
 
 export const printRight = (text: string) => {
@@ -164,21 +183,33 @@ type ItemBlockItemsCommands = Omit<
 	ItemBlockItems,
 	'labelStyle' | 'contentStyle'
 >;
+
 export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	const commands: string[] = [];
 
 	items.forEach((item) => {
 		let label = item.label;
-		if (item.isIndented) {
-			label = `  ${label}`;
-		}
+		if (item.isIndented) label = `  ${label}`;
 
 		let value = String(item.value);
-		if (item.isParenthesized) {
-			value = `(${value})`;
+		if (item.isParenthesized) value = `(${value})`;
+
+		const spaceBetween = 2;
+		const combinedLength = label.length + value.length + spaceBetween;
+
+		if (combinedLength <= PAPER_CHARACTER_WIDTH) {
+			// Single line: label + value with spacing
+			const space = ' '.repeat(
+				PAPER_CHARACTER_WIDTH - label.length - value.length,
+			);
+			commands.push(label + space + value);
+		} else {
+			// Multi-line: label first, then value right-aligned
+			const valueIndent = ' '.repeat(PAPER_CHARACTER_WIDTH - value.length);
+			commands.push(label);
+			commands.push(valueIndent + value);
 		}
 
-		commands.push(printLeftRight(label, value));
 		commands.push(EscPosCommands.LINE_BREAK);
 	});
 

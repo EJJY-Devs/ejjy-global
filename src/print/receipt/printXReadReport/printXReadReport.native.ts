@@ -21,11 +21,10 @@ export const printXReadReportNative = ({
 }: PrintXReadReport): string[] => {
 	const commands: string[] = [];
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		...generateReceiptHeaderCommands({
@@ -255,17 +254,15 @@ export const printXReadReportNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
+
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

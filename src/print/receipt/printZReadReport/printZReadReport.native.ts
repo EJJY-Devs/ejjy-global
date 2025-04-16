@@ -22,11 +22,10 @@ export const printZReadReportNative = ({
 }: PrintZReadReport): string[] => {
 	const commands: string[] = [];
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Header
 	commands.push(
@@ -341,14 +340,11 @@ export const printZReadReportNative = ({
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(' ');
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };
