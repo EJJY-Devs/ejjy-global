@@ -328,6 +328,7 @@ export const printDailySalesNative = ({
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
 	commands.push(EscPosCommands.LINE_BREAK);
