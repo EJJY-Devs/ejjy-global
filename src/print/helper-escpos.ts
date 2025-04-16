@@ -207,6 +207,7 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 			// Multi-line: label first, then value right-aligned
 			const valueIndent = ' '.repeat(PAPER_CHARACTER_WIDTH - value.length);
 			commands.push(label);
+			commands.push(EscPosCommands.LINE_BREAK);
 			commands.push(valueIndent + value);
 		}
 

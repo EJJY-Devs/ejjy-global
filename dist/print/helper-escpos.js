@@ -146,6 +146,7 @@ const generateItemBlockCommands = (items) => {
             // Multi-line: label first, then value right-aligned
             const valueIndent = ' '.repeat(PAPER_CHARACTER_WIDTH - value.length);
             commands.push(label);
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
             commands.push(valueIndent + value);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
