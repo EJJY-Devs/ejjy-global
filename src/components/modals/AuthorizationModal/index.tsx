@@ -22,6 +22,7 @@ export type Props = {
 	title?: string;
 	description?: string;
 	userTypes?: string[];
+	branchMachineId?: number;
 	onSuccess?: (user: User) => void;
 	onCancel?: () => void;
 };
@@ -30,6 +31,7 @@ export const AuthorizationModal = ({
 	baseURL,
 	title = 'Authorization',
 	description = 'Authorize',
+	branchMachineId,
 	userTypes = [],
 	onSuccess,
 	onCancel,
@@ -67,6 +69,7 @@ export const AuthorizationModal = ({
 					login: '',
 					password: '',
 					description,
+					branchMachineId,
 				}}
 				validationSchema={Yup.object().shape({
 					login: Yup.string().required().label('Username'),

@@ -41,7 +41,7 @@ const hooks_1 = require("../../../hooks");
 const utils_1 = require("../../../utils");
 const elements_1 = require("../../elements");
 const RequestErrors_1 = require("../../RequestErrors");
-const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', userTypes = [], onSuccess, onCancel, }) => {
+const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', branchMachineId, userTypes = [], onSuccess, onCancel, }) => {
     const { mutateAsync: authenticateUser, isLoading: isAuthenticating, error: authenticateUserError, } = (0, hooks_1.useUserAuthenticate)(undefined, baseURL);
     // REFS
     const usernameRef = (0, react_1.useRef)(null);
@@ -59,6 +59,7 @@ const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'A
                 login: '',
                 password: '',
                 description,
+                branchMachineId,
             }, validationSchema: Yup.object().shape({
                 login: Yup.string().required().label('Username'),
                 password: Yup.string().required().label('Password'),

@@ -14,6 +14,7 @@ export interface AuthenticateAnAction {
 	login: string;
 	password: string;
 	description?: string;
+	branch_machine_id?: number;
 }
 
 export interface Modify {
