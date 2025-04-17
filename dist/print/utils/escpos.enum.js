@@ -10,4 +10,5 @@ var EscPosCommands;
     EscPosCommands["TEXT_SMALL"] = "";
     EscPosCommands["TEXT_NORMAL"] = "";
     EscPosCommands["LINE_BREAK"] = "\n";
+    EscPosCommands["CUT_PAPER"] = "\u001DV\0";
 })(EscPosCommands = exports.EscPosCommands || (exports.EscPosCommands = {}));

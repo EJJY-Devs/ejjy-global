@@ -259,6 +259,7 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(' ');
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.CUT_PAPER);
     return commands;
 };
 exports.printDailySalesNative = printDailySalesNative;

@@ -345,5 +345,7 @@ export const printZReadReportNative = ({
 	commands.push(' ');
 	commands.push(EscPosCommands.LINE_BREAK);
 
+	commands.push(EscPosCommands.CUT_PAPER);
+
 	return commands;
 };
