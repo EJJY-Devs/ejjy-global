@@ -255,11 +255,16 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(escpos_enum_1.EscPosCommands.CUT_PAPER);
+    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+        {
+            label: '',
+            value: '',
+        },
+        {
+            label: '',
+            value: '',
+        },
+    ]));
     return commands;
 };
 exports.printDailySalesNative = printDailySalesNative;

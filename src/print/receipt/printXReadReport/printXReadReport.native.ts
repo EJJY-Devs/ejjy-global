@@ -260,12 +260,19 @@ export const printXReadReportNative = ({
 	commands.push(printCenter('Thank You!'));
 
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
 
-	commands.push(EscPosCommands.CUT_PAPER);
+	commands.push(
+		...generateItemBlockCommands([
+			{
+				label: '',
+				value: '',
+			},
+			{
+				label: '',
+				value: '',
+			},
+		]),
+	);
 
 	return commands;
 };
