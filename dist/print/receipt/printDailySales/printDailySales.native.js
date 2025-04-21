@@ -5,7 +5,17 @@ const utils_1 = require("../../../utils");
 const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
-const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
+const printDailySalesNative = ({ dailySales, siteSettings, user, }) => [
+    ...generateDailySalesReportContentCommands(dailySales, siteSettings, user),
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+];
+exports.printDailySalesNative = printDailySalesNative;
+const generateDailySalesReportContentCommands = (dailySales, siteSettings, user) => {
     var _a, _b;
     const commands = [];
     commands.push(' ');
@@ -255,16 +265,5 @@ const printDailySalesNative = ({ dailySales, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        {
-            label: '',
-            value: '',
-        },
-        {
-            label: '',
-            value: '',
-        },
-    ]));
     return commands;
 };
-exports.printDailySalesNative = printDailySalesNative;

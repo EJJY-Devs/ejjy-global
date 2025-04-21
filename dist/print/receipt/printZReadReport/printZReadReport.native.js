@@ -6,20 +6,27 @@ const helper_receipt_1 = require("../../helper-receipt");
 const helper_escpos_1 = require("../../helper-escpos");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_2 = require("../../helper-escpos");
-const globals_1 = require("../../../globals");
-const printZReadReportNative = ({ report, siteSettings, user, }) => {
+const printZReadReportNative = ({ report, siteSettings, user, }) => [
+    ...generateZReadContentCommands(report, siteSettings, user),
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+];
+exports.printZReadReportNative = printZReadReportNative;
+const generateZReadContentCommands = (report, siteSettings, user) => {
     var _a, _b, _c, _d;
     const commands = [];
     commands.push(' ');
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(' ');
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Header
     commands.push(...(0, helper_escpos_2.generateReceiptHeaderCommands)({
         branchMachine: report.branch_machine,
         title: 'Z-READING REPORT',
     }), escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Generation Datetime
     if (report.generation_datetime) {
         commands.push((0, helper_escpos_1.printCenter)('Report Generation Datetime'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -36,7 +43,7 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         : null;
     const openDate = report.branch_day_open_datetime
         ? (0, utils_1.formatDate)(report.branch_day_open_datetime)
-        : globals_1.EMPTY_CELL;
+        : helper_receipt_1.EMPTY_CELL;
     const timeRange = [openTime, closeTime].filter(Boolean).join(' - ');
     commands.push((0, helper_escpos_1.printCenter)(`${openDate} | ${timeRange}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -44,29 +51,29 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         {
             label: 'Beg Sales Invoice #:',
-            value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || globals_1.EMPTY_CELL,
+            value: ((_a = report.beginning_or) === null || _a === void 0 ? void 0 : _a.or_number) || helper_receipt_1.EMPTY_CELL,
         },
         {
             label: 'End Sales Invoice #:',
-            value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || globals_1.EMPTY_CELL,
+            value: ((_b = report.ending_or) === null || _b === void 0 ? void 0 : _b.or_number) || helper_receipt_1.EMPTY_CELL,
         },
         {
             label: 'Beg Void #:',
-            value: ((_c = report.ending_void_or) === null || _c === void 0 ? void 0 : _c.or_number) || globals_1.EMPTY_CELL,
+            value: ((_c = report.ending_void_or) === null || _c === void 0 ? void 0 : _c.or_number) || helper_receipt_1.EMPTY_CELL,
         },
         {
             label: 'End Void #:',
-            value: ((_d = report.ending_void_or) === null || _d === void 0 ? void 0 : _d.or_number) || globals_1.EMPTY_CELL,
+            value: ((_d = report.ending_void_or) === null || _d === void 0 ? void 0 : _d.or_number) || helper_receipt_1.EMPTY_CELL,
         },
-        { label: 'Beg Return #:', value: globals_1.EMPTY_CELL },
-        { label: 'End Return #:', value: globals_1.EMPTY_CELL },
+        { label: 'Beg Return #:', value: helper_receipt_1.EMPTY_CELL },
+        { label: 'End Return #:', value: helper_receipt_1.EMPTY_CELL },
     ]));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
         { label: 'Reset Counter No.:', value: report.reset_counter },
         {
             label: 'Z Counter No.:',
-            value: report.gross_sales === 0 ? globals_1.EMPTY_CELL : report.z_counter,
+            value: report.gross_sales === 0 ? helper_receipt_1.EMPTY_CELL : report.z_counter,
         },
     ]));
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
@@ -256,29 +263,16 @@ const printZReadReportNative = ({ report, siteSettings, user, }) => {
         { label: '=Total', value: (0, utils_1.formatInPeso)(report.vat_payable, helper_receipt_1.PESO_SIGN) },
     ]));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Printed by
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    // Footer
     commands.push(...(0, helper_escpos_2.generateReceiptFooterCommands)(siteSettings));
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(...(0, helper_escpos_2.generateItemBlockCommands)([
-        {
-            label: '',
-            value: '',
-        },
-        {
-            label: '',
-            value: '',
-        },
-    ]));
     return commands;
 };
-exports.printZReadReportNative = printZReadReportNative;

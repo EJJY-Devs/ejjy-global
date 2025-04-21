@@ -18,7 +18,21 @@ export const printXReadReportNative = ({
 	report,
 	siteSettings,
 	user,
-}: PrintXReadReport): string[] => {
+}: PrintXReadReport): string[] => [
+	...generateXReadReportContentCommands(report, siteSettings, user),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
+
+const generateXReadReportContentCommands = (
+	report: PrintXReadReport['report'],
+	siteSettings: PrintXReadReport['siteSettings'],
+	user: PrintXReadReport['user'],
+): string[] => {
 	const commands: string[] = [];
 
 	commands.push(' ');
@@ -38,7 +52,6 @@ export const printXReadReportNative = ({
 	if (report.generation_datetime) {
 		commands.push(printCenter('Report Generation Datetime'));
 		commands.push(EscPosCommands.LINE_BREAK);
-
 		commands.push(
 			printCenter(
 				`${formatDate(report.generation_datetime)} - ${formatTime(report.generation_datetime)}`,
@@ -244,35 +257,20 @@ export const printXReadReportNative = ({
 
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	commands.push(...generateReceiptFooterCommands(siteSettings));
 	commands.push(EscPosCommands.LINE_BREAK);
+
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
-
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
-
 	commands.push(EscPosCommands.LINE_BREAK);
-
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: '',
-				value: '',
-			},
-			{
-				label: '',
-				value: '',
-			},
-		]),
-	);
 
 	return commands;
 };

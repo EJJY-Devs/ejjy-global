@@ -4,7 +4,7 @@ import {
 	formatTime,
 	getFullName,
 } from '../../../utils';
-import { PESO_SIGN } from '../../helper-receipt';
+import { PESO_SIGN, EMPTY_CELL } from '../../helper-receipt';
 import { printCenter } from '../../helper-escpos';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import {
@@ -13,13 +13,26 @@ import {
 	generateReceiptHeaderCommands,
 } from '../../helper-escpos';
 import { PrintZReadReport } from './types';
-import { EMPTY_CELL } from '../../../globals';
 
 export const printZReadReportNative = ({
 	report,
 	siteSettings,
 	user,
-}: PrintZReadReport): string[] => {
+}: PrintZReadReport) => [
+	...generateZReadContentCommands(report, siteSettings, user),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
+
+const generateZReadContentCommands = (
+	report: PrintZReadReport['report'],
+	siteSettings: PrintZReadReport['siteSettings'],
+	user: PrintZReadReport['user'],
+): string[] => {
 	const commands: string[] = [];
 
 	commands.push(' ');
@@ -27,7 +40,6 @@ export const printZReadReportNative = ({
 	commands.push(' ');
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: report.branch_machine,
@@ -36,7 +48,6 @@ export const printZReadReportNative = ({
 		EscPosCommands.LINE_BREAK,
 	);
 
-	// Generation Datetime
 	if (report.generation_datetime) {
 		commands.push(printCenter('Report Generation Datetime'));
 		commands.push(EscPosCommands.LINE_BREAK);
@@ -50,6 +61,7 @@ export const printZReadReportNative = ({
 
 	commands.push(printCenter('Day Datetime'));
 	commands.push(EscPosCommands.LINE_BREAK);
+
 	const openTime = report.branch_day_open_datetime
 		? formatTime(report.branch_day_open_datetime)
 		: null;
@@ -324,37 +336,20 @@ export const printZReadReportNative = ({
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Printed by
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	// Footer
 	commands.push(...generateReceiptFooterCommands(siteSettings));
-
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
-
 	commands.push(EscPosCommands.LINE_BREAK);
-
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: '',
-				value: '',
-			},
-			{
-				label: '',
-				value: '',
-			},
-		]),
-	);
 
 	return commands;
 };

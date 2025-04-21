@@ -13,7 +13,25 @@ export const printRequisitionSlipNative = ({
 	requisitionSlip,
 	siteSettings,
 	user,
-}: PrintRequisitionSlip): string[] => {
+}: PrintRequisitionSlip): string[] => [
+	...generateRequisitionSlipContentCommands(
+		requisitionSlip,
+		siteSettings,
+		user,
+	),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
+
+const generateRequisitionSlipContentCommands = (
+	requisitionSlip: PrintRequisitionSlip['requisitionSlip'],
+	siteSettings: PrintRequisitionSlip['siteSettings'],
+	user: PrintRequisitionSlip['user'],
+): string[] => {
 	const commands: string[] = [];
 
 	commands.push(' ');
@@ -27,7 +45,6 @@ export const printRequisitionSlipNative = ({
 			title: 'REQUISITION SLIP',
 		}),
 	);
-
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Date & Time Requested
@@ -77,9 +94,11 @@ export const printRequisitionSlipNative = ({
 			]),
 		);
 	}
+
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
+	// Table Header
 	commands.push(
 		...generateItemBlockCommands([
 			{
@@ -88,11 +107,10 @@ export const printRequisitionSlipNative = ({
 			},
 		]),
 	);
-
-	commands.push(printRight('---------------------------------------'));
+	commands.push(printRight('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Item List (Products)
+	// Product List
 	commands.push(
 		...generateItemBlockCommands(
 			requisitionSlip.products.map(({ product, quantity }) => ({
@@ -108,12 +126,12 @@ export const printRequisitionSlipNative = ({
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 		commands.push(EscPosCommands.LINE_BREAK);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
+
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
 
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
@@ -122,19 +140,5 @@ export const printRequisitionSlipNative = ({
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: '',
-				value: '',
-			},
-			{
-				label: '',
-				value: '',
-			},
-		]),
-	);
 	return commands;
 };

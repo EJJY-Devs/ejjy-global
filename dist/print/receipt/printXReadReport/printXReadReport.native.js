@@ -5,7 +5,17 @@ const utils_1 = require("../../../utils");
 const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
-const printXReadReportNative = ({ report, siteSettings, user, }) => {
+const printXReadReportNative = ({ report, siteSettings, user, }) => [
+    ...generateXReadReportContentCommands(report, siteSettings, user),
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+];
+exports.printXReadReportNative = printXReadReportNative;
+const generateXReadReportContentCommands = (report, siteSettings, user) => {
     var _a, _b;
     const commands = [];
     commands.push(' ');
@@ -182,8 +192,8 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -192,16 +202,5 @@ const printXReadReportNative = ({ report, siteSettings, user, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        {
-            label: '',
-            value: '',
-        },
-        {
-            label: '',
-            value: '',
-        },
-    ]));
     return commands;
 };
-exports.printXReadReportNative = printXReadReportNative;

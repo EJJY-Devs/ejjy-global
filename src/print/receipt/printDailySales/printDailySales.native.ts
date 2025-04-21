@@ -5,9 +5,9 @@ import {
 	getFullName,
 } from '../../../utils';
 import {
-	generateReceiptHeaderCommands,
-	generateReceiptFooterCommands,
 	generateItemBlockCommands,
+	generateReceiptFooterCommands,
+	generateReceiptHeaderCommands,
 	printCenter,
 } from '../../helper-escpos';
 import { PESO_SIGN } from '../../helper-receipt';
@@ -18,7 +18,21 @@ export const printDailySalesNative = ({
 	dailySales,
 	siteSettings,
 	user,
-}: PrintDailySales): string[] => {
+}: PrintDailySales): string[] => [
+	...generateDailySalesReportContentCommands(dailySales, siteSettings, user),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
+
+const generateDailySalesReportContentCommands = (
+	dailySales: PrintDailySales['dailySales'],
+	siteSettings: PrintDailySales['siteSettings'],
+	user: PrintDailySales['user'],
+): string[] => {
 	const commands: string[] = [];
 
 	commands.push(' ');
@@ -28,7 +42,6 @@ export const printDailySalesNative = ({
 
 	const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
 	const generationDatetime = dailySales.generation_datetime;
-
 	const openTime = openDatetime ? formatTime(openDatetime) : '';
 	const closeTime = generationDatetime ? formatTime(generationDatetime) : '';
 
@@ -326,24 +339,10 @@ export const printDailySalesNative = ({
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
-
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
-
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: '',
-				value: '',
-			},
-			{
-				label: '',
-				value: '',
-			},
-		]),
-	);
 	return commands;
 };
