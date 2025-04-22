@@ -219,9 +219,10 @@ export const CashBreakdownContent = ({
 
 			<div>GDT: {formatDateTime(cashBreakdown.datetime_created)}</div>
 			<PrintDetails user={user} />
-			{cashBreakdown.category === cashBreakdownCategories.CASH_IN && (
-				<div>Remarks: {cashBreakdown.remarks}</div>
-			)}
+			{cashBreakdown.category === cashBreakdownCategories.CASH_IN ||
+				(cashBreakdown.category === cashBreakdownCategories.PRINT_ONLY && (
+					<div>Remarks: {cashBreakdown.remarks}</div>
+				))}
 
 			<br />
 

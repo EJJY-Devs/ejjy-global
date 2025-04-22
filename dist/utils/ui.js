@@ -84,6 +84,9 @@ const getCashBreakdownTypeDescription = (category, type) => {
     else if (category === globals_1.cashBreakdownCategories.CASH_IN) {
         description = 'Petty Cash | Cash In';
     }
+    else if (category === globals_1.cashBreakdownCategories.PRINT_ONLY) {
+        description = 'Cash Breakdown';
+    }
     return description;
 };
 exports.getCashBreakdownTypeDescription = getCashBreakdownTypeDescription;
