@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.getPageStyleObject = exports.getPageStyle = exports.getFooter = exports.getHeader = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const antd_1 = require("antd");
 const qz_tray_1 = __importDefault(require("qz-tray"));
 const react_1 = __importDefault(require("react"));
@@ -101,28 +102,22 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     yield qz_tray_1.default.printers.getStatus();
     // Stop listening after status check
     yield qz_tray_1.default.printers.stopListening();
-    // // Check if printerStatus was not set
-    // if (printerStatus === null) {
-    // 	message.error({
-    // 		key: PRINT_MESSAGE_KEY,
-    // 		content: 'Unable to detect the selected printer.',
-    // 	});
-    // 	return;
-    // }
-    // // Check if the printer is available
-    // if (printerStatus.statusText === 'NOT_AVAILABLE') {
-    // 	message.error({
-    // 		key: PRINT_MESSAGE_KEY,
-    // 		content:
-    // 			'Printer is not available. Make sure the printer is connected to the machine.',
-    // 	});
-    // 	return;
-    // }
-    // // If status is OK, continue with printing
-    // message.success({
-    // 	key: PRINT_MESSAGE_KEY,
-    // 	content: 'Printer is available.',
-    // });
+    // Check if printerStatus was not set
+    if (printerStatus === null) {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Unable to detect the selected printer.',
+        });
+        return;
+    }
+    // Check if the printer is available
+    if (printerStatus.statusText === 'NOT_AVAILABLE') {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Printer is not available. Make sure the printer is connected to the machine.',
+        });
+        return;
+    }
     try {
         console.log('Printing receipt.');
         const config = qz_tray_1.default.configs.create(printerName, Object.assign({}, (type !== globals_1.printingTypes.NATIVE

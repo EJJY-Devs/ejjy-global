@@ -41,18 +41,21 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: `[View] ${type}`, centered: true, closable: true, open: true, onCancel: onClose },
-        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
+        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewCashBreakdownModal = ViewCashBreakdownModal;
-const CashOutDetails = ({ cashBreakdown, }) => {
+const CashOutDetails = ({ cashBreakdown, siteSettings, }) => {
     const cashOut = cashBreakdown.cash_out_metadata;
-    return (react_1.default.createElement(antd_1.Descriptions, { className: "w-100", column: 1, labelStyle: { width: 200 }, bordered: true },
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Datetime" }, (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Payee" }, cashOut.payee),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Particulars" }, cashOut.particulars),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Amount" }, (0, utils_1.formatInPeso)(cashOut.amount)),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Prepared By" }, (0, utils_1.getFullName)(cashOut.prepared_by_user)),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Approved By" }, (0, utils_1.getFullName)(cashOut.approved_by_user)),
-        react_1.default.createElement(antd_1.Descriptions.Item, { label: "Received By" }, cashOut.received_by)));
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: cashBreakdown.branch_machine }),
+        react_1.default.createElement(antd_1.Descriptions, { className: "w-100", column: 1, labelStyle: { width: 200 }, bordered: true },
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Datetime" }, (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Payee" }, cashOut.payee),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Particulars" }, cashOut.particulars),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Amount" }, (0, utils_1.formatInPeso)(cashOut.amount)),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Prepared By" }, (0, utils_1.getFullName)(cashOut.prepared_by_user)),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Approved By" }, (0, utils_1.getFullName)(cashOut.approved_by_user)),
+            react_1.default.createElement(antd_1.Descriptions.Item, { label: "Received By" }, cashOut.received_by)),
+        react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

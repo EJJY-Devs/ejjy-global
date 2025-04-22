@@ -11,7 +11,7 @@ import {
 	getCashBreakdownTypeDescription,
 	getFullName,
 } from '../../../utils';
-import { PdfButtons } from '../../Printing';
+import { PdfButtons, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { CashBreakdownContent } from './CashBreakdownContent';
 
 type Props = {
@@ -86,7 +86,10 @@ export const ViewCashBreakdownModal = ({
 			onCancel={onClose}
 		>
 			{cashBreakdown.category === cashBreakdownCategories.CASH_OUT ? (
-				<CashOutDetails cashBreakdown={cashBreakdown} />
+				<CashOutDetails
+					cashBreakdown={cashBreakdown}
+					siteSettings={siteSettings}
+				/>
 			) : (
 				<CashBreakdownContent
 					cashBreakdown={cashBreakdown}
@@ -104,37 +107,45 @@ export const ViewCashBreakdownModal = ({
 
 const CashOutDetails = ({
 	cashBreakdown,
+	siteSettings,
 }: {
 	cashBreakdown: CashBreakdown;
+	siteSettings: SiteSettings;
 }) => {
 	const cashOut = cashBreakdown.cash_out_metadata;
 
 	return (
-		<Descriptions
-			className="w-100"
-			column={1}
-			labelStyle={{ width: 200 }}
-			bordered
-		>
-			<Descriptions.Item label="Datetime">
-				{formatDateTime(cashBreakdown.datetime_created)}
-			</Descriptions.Item>
-			<Descriptions.Item label="Payee">{cashOut.payee}</Descriptions.Item>
-			<Descriptions.Item label="Particulars">
-				{cashOut.particulars}
-			</Descriptions.Item>
-			<Descriptions.Item label="Amount">
-				{formatInPeso(cashOut.amount)}
-			</Descriptions.Item>
-			<Descriptions.Item label="Prepared By">
-				{getFullName(cashOut.prepared_by_user)}
-			</Descriptions.Item>
-			<Descriptions.Item label="Approved By">
-				{getFullName(cashOut.approved_by_user)}
-			</Descriptions.Item>
-			<Descriptions.Item label="Received By">
-				{cashOut.received_by}
-			</Descriptions.Item>
-		</Descriptions>
+		<>
+			<ReceiptHeader branchMachine={cashBreakdown.branch_machine} />
+
+			<Descriptions
+				className="w-100"
+				column={1}
+				labelStyle={{ width: 200 }}
+				bordered
+			>
+				<Descriptions.Item label="Datetime">
+					{formatDateTime(cashBreakdown.datetime_created)}
+				</Descriptions.Item>
+				<Descriptions.Item label="Payee">{cashOut.payee}</Descriptions.Item>
+				<Descriptions.Item label="Particulars">
+					{cashOut.particulars}
+				</Descriptions.Item>
+				<Descriptions.Item label="Amount">
+					{formatInPeso(cashOut.amount)}
+				</Descriptions.Item>
+				<Descriptions.Item label="Prepared By">
+					{getFullName(cashOut.prepared_by_user)}
+				</Descriptions.Item>
+				<Descriptions.Item label="Approved By">
+					{getFullName(cashOut.approved_by_user)}
+				</Descriptions.Item>
+				<Descriptions.Item label="Received By">
+					{cashOut.received_by}
+				</Descriptions.Item>
+			</Descriptions>
+
+			<ReceiptFooter siteSettings={siteSettings} />
+		</>
 	);
 };

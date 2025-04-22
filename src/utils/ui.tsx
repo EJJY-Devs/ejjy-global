@@ -111,6 +111,8 @@ export const getCashBreakdownTypeDescription = (
 		description = 'Petty Cash | Cash In';
 	} else if (category === cashBreakdownCategories.PRINT_ONLY) {
 		description = 'Cash Breakdown';
+	} else if (category === cashBreakdownCategories.CASH_OUT) {
+		description = 'Disbursement Voucher';
 	}
 
 	return description;

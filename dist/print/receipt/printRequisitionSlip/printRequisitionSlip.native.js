@@ -9,9 +9,6 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
 ];
 exports.printRequisitionSlipNative = printRequisitionSlipNative;
 const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, user) => {

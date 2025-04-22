@@ -22,9 +22,6 @@ export const printRequisitionSlipNative = ({
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
 ];
 
 const generateRequisitionSlipContentCommands = (

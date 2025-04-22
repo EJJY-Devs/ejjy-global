@@ -133,7 +133,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     // Teller ID
     commands.push(((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || helper_receipt_1.EMPTY_CELL);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Previous and New Invoice Numbers
     if (previousTransactionOrNumber) {
         commands.push('Prev Invoice #: ' + previousTransactionOrNumber);
@@ -151,7 +150,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     // Footer
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Final Messages
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
         commands.push((0, helper_escpos_1.printCenter)(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE));

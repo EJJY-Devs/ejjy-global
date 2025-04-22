@@ -87,6 +87,9 @@ const getCashBreakdownTypeDescription = (category, type) => {
     else if (category === globals_1.cashBreakdownCategories.PRINT_ONLY) {
         description = 'Cash Breakdown';
     }
+    else if (category === globals_1.cashBreakdownCategories.CASH_OUT) {
+        description = 'Disbursement Voucher';
+    }
     return description;
 };
 exports.getCashBreakdownTypeDescription = getCashBreakdownTypeDescription;
