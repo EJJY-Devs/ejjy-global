@@ -42,9 +42,7 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: `[View] ${type}`, centered: true, closable: true, open: true, onCancel: onClose },
         cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
-        react_1.default.createElement("div", { 
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewCashBreakdownModal = ViewCashBreakdownModal;
 const CashOutDetails = ({ cashBreakdown, }) => {

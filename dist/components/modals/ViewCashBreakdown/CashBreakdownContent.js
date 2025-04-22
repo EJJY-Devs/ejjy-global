@@ -11,6 +11,7 @@ const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const PrintDetails_1 = require("../../Printing/PrintDetails");
 const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
+    react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: cashBreakdown.branch_machine });
     const breakdownCoins = [
         {
             label: '0.25',

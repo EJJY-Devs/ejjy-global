@@ -7,7 +7,7 @@ import {
 	formatInPeso,
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
-import { ReceiptFooter } from '../../Printing';
+import { ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
 type Props = {
@@ -21,6 +21,7 @@ export const CashBreakdownContent = ({
 	siteSettings,
 	user,
 }: Props) => {
+	<ReceiptHeader branchMachine={cashBreakdown.branch_machine} />;
 	const breakdownCoins = [
 		{
 			label: '0.25',
