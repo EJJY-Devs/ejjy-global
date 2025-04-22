@@ -157,10 +157,10 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
             "GDT: ",
             (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
         react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
-        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN ||
-            (cashBreakdown.category === globals_1.cashBreakdownCategories.PRINT_ONLY && (react_1.default.createElement("div", null,
-                "Remarks: ",
-                cashBreakdown.remarks))),
+        (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN ||
+            cashBreakdown.category === globals_1.cashBreakdownCategories.PRINT_ONLY) && (react_1.default.createElement("div", null,
+            "Remarks: ",
+            cashBreakdown.remarks)),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };
