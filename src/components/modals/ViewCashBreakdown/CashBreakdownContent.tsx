@@ -137,6 +137,10 @@ export const CashBreakdownContent = ({
 		</div>
 	));
 
+	console.log(quantityBills, amountBills);
+
+	console.log('breakdown', cashBreakdown);
+
 	return (
 		<>
 			<div
@@ -146,17 +150,10 @@ export const CashBreakdownContent = ({
 					flexDirection: 'column',
 				}}
 			>
-				<span style={{ whiteSpace: 'pre-line' }}>
-					{siteSettings.store_name}
-				</span>
-				<span style={{ whiteSpace: 'pre-line' }}>
-					{siteSettings.address_of_tax_payer}
-				</span>
-				<span>{cashBreakdown.branch_machine.name}</span>
+				<ReceiptHeader branchMachine={cashBreakdown.branch_machine} />
 
 				<br />
 
-				<span>[CASH BREAKDOWN]</span>
 				<span>
 					{getCashBreakdownTypeDescription(
 						cashBreakdown.category,

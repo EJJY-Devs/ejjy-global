@@ -101,17 +101,16 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
         } },
         react_1.default.createElement("span", null, "P "),
         react_1.default.createElement("span", null, amount))));
+    console.log(quantityBills, amountBills);
+    console.log('breakdown', cashBreakdown);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { style: {
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
             } },
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, siteSettings.store_name),
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, siteSettings.address_of_tax_payer),
-            react_1.default.createElement("span", null, cashBreakdown.branch_machine.name),
+            react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: cashBreakdown.branch_machine }),
             react_1.default.createElement("br", null),
-            react_1.default.createElement("span", null, "[CASH BREAKDOWN]"),
             react_1.default.createElement("span", null, (0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type))),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { display: 'flex' } },
