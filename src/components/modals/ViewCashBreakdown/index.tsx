@@ -121,6 +121,7 @@ const CashOutDetails = ({
 	return (
 		<>
 			<ReceiptHeader branchMachine={cashBreakdown.branch_machine} />
+			<br />
 
 			<Descriptions
 				className="w-100"
@@ -151,6 +152,8 @@ const CashOutDetails = ({
 
 			<div>GDT: {formatDateTime(cashBreakdown.datetime_created)}</div>
 			<PrintDetails user={user} />
+
+			<br />
 
 			<ReceiptFooter siteSettings={siteSettings} />
 		</>

@@ -50,6 +50,7 @@ const CashOutDetails = ({ cashBreakdown, siteSettings, user, }) => {
     const cashOut = cashBreakdown.cash_out_metadata;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: cashBreakdown.branch_machine }),
+        react_1.default.createElement("br", null),
         react_1.default.createElement(antd_1.Descriptions, { className: "w-100", column: 1, labelStyle: { width: 200 }, bordered: true },
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Datetime" }, (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Payee" }, cashOut.payee),
@@ -62,5 +63,6 @@ const CashOutDetails = ({ cashBreakdown, siteSettings, user, }) => {
             "GDT: ",
             (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
         react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
+        react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };
