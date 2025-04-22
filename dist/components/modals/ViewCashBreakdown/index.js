@@ -13,6 +13,7 @@ const print_1 = require("../../../print");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const CashBreakdownContent_1 = require("./CashBreakdownContent");
+const PrintDetails_1 = require("../../Printing/PrintDetails");
 const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, }) => {
     // VARIABLES
     const type = (0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type);
@@ -41,11 +42,11 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: `[View] ${type}`, centered: true, closable: true, open: true, onCancel: onClose },
-        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
+        cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewCashBreakdownModal = ViewCashBreakdownModal;
-const CashOutDetails = ({ cashBreakdown, siteSettings, }) => {
+const CashOutDetails = ({ cashBreakdown, siteSettings, user, }) => {
     const cashOut = cashBreakdown.cash_out_metadata;
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: cashBreakdown.branch_machine }),
@@ -57,5 +58,9 @@ const CashOutDetails = ({ cashBreakdown, siteSettings, }) => {
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Prepared By" }, (0, utils_1.getFullName)(cashOut.prepared_by_user)),
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Approved By" }, (0, utils_1.getFullName)(cashOut.approved_by_user)),
             react_1.default.createElement(antd_1.Descriptions.Item, { label: "Received By" }, cashOut.received_by)),
+        react_1.default.createElement("div", null,
+            "GDT: ",
+            (0, utils_1.formatDateTime)(cashBreakdown.datetime_created)),
+        react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
 };

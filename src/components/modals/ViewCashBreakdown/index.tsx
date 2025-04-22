@@ -13,6 +13,7 @@ import {
 } from '../../../utils';
 import { PdfButtons, ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { CashBreakdownContent } from './CashBreakdownContent';
+import { PrintDetails } from '../../Printing/PrintDetails';
 
 type Props = {
 	cashBreakdown: CashBreakdown;
@@ -89,6 +90,7 @@ export const ViewCashBreakdownModal = ({
 				<CashOutDetails
 					cashBreakdown={cashBreakdown}
 					siteSettings={siteSettings}
+					user={user}
 				/>
 			) : (
 				<CashBreakdownContent
@@ -108,9 +110,11 @@ export const ViewCashBreakdownModal = ({
 const CashOutDetails = ({
 	cashBreakdown,
 	siteSettings,
+	user,
 }: {
 	cashBreakdown: CashBreakdown;
 	siteSettings: SiteSettings;
+	user?: User;
 }) => {
 	const cashOut = cashBreakdown.cash_out_metadata;
 
@@ -144,6 +148,9 @@ const CashOutDetails = ({
 					{cashOut.received_by}
 				</Descriptions.Item>
 			</Descriptions>
+
+			<div>GDT: {formatDateTime(cashBreakdown.datetime_created)}</div>
+			<PrintDetails user={user} />
 
 			<ReceiptFooter siteSettings={siteSettings} />
 		</>
