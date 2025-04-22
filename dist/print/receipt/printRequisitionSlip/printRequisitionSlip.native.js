@@ -16,10 +16,6 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
 exports.printRequisitionSlipNative = printRequisitionSlipNative;
 const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, user) => {
     const commands = [];
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         title: 'REQUISITION SLIP',
@@ -86,7 +82,6 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     return commands;

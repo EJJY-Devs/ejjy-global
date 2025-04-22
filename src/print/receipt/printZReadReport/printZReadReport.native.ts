@@ -35,11 +35,6 @@ const generateZReadContentCommands = (
 ): string[] => {
 	const commands: string[] = [];
 
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	commands.push(
 		...generateReceiptHeaderCommands({
 			branchMachine: report.branch_machine,
@@ -346,7 +341,6 @@ const generateZReadContentCommands = (
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 	commands.push(EscPosCommands.LINE_BREAK);

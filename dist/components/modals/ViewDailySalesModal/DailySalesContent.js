@@ -258,6 +258,8 @@ const DailySalesContent = ({ dailySales, siteSettings, user, isForPrint, }) => {
         react_1.default.createElement(Printing_1.Divider, null),
         react_1.default.createElement(PrintDetails_1.PrintDetails, { user: user }),
         react_1.default.createElement("br", null),
-        react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings })));
+        react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),
+        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Thank You!")));
 };
 exports.DailySalesContent = DailySalesContent;

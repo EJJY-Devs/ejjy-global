@@ -34,11 +34,6 @@ const generateRequisitionSlipContentCommands = (
 ): string[] => {
 	const commands: string[] = [];
 
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
@@ -136,7 +131,6 @@ const generateRequisitionSlipContentCommands = (
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 

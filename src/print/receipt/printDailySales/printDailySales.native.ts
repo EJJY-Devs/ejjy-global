@@ -35,11 +35,6 @@ const generateDailySalesReportContentCommands = (
 ): string[] => {
 	const commands: string[] = [];
 
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(' ');
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
 	const generationDatetime = dailySales.generation_datetime;
 	const openTime = openDatetime ? formatTime(openDatetime) : '';
@@ -339,7 +334,6 @@ const generateDailySalesReportContentCommands = (
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
 	);
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Thank You!'));
 	commands.push(EscPosCommands.LINE_BREAK);

@@ -18,10 +18,6 @@ exports.printDailySalesNative = printDailySalesNative;
 const generateDailySalesReportContentCommands = (dailySales, siteSettings, user) => {
     var _a, _b;
     const commands = [];
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(' ');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     const openDatetime = dailySales.daily_sales_data.branch_day_open_datetime;
     const generationDatetime = dailySales.generation_datetime;
     const openTime = openDatetime ? (0, utils_1.formatTime)(openDatetime) : '';
@@ -261,7 +257,6 @@ const generateDailySalesReportContentCommands = (dailySales, siteSettings, user)
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
