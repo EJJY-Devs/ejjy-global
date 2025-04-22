@@ -51,6 +51,7 @@ export const cashBreakdownCategories = {
 	CASH_BREAKDOWN: 'cash_breakdown' as CashBreakdownCategory,
 	CASH_IN: 'cash_in' as CashBreakdownCategory,
 	CASH_OUT: 'cash_out' as CashBreakdownCategory,
+	PRINT_ONLY: 'print_only' as CashBreakdownCategory,
 };
 
 export const branchProductStatuses = {

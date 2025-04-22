@@ -37,6 +37,7 @@ exports.cashBreakdownCategories = {
     CASH_BREAKDOWN: 'cash_breakdown',
     CASH_IN: 'cash_in',
     CASH_OUT: 'cash_out',
+    PRINT_ONLY: 'print_only',
 };
 exports.branchProductStatuses = {
     AVAILABLE: 'available',

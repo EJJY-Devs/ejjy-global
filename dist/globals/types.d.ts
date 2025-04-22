@@ -34,6 +34,7 @@ export declare const cashBreakdownCategories: {
     CASH_BREAKDOWN: CashBreakdownCategory;
     CASH_IN: CashBreakdownCategory;
     CASH_OUT: CashBreakdownCategory;
+    PRINT_ONLY: CashBreakdownCategory;
 };
 export declare const branchProductStatuses: {
     AVAILABLE: string;
