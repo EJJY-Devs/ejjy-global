@@ -238,6 +238,8 @@ const generateTransactionContentCommands = (
 	}
 
 	commands.push(printCenter(`${siteSettings?.thank_you_message}`));
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

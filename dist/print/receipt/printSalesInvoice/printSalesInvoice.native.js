@@ -165,5 +165,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push((0, helper_escpos_1.printCenter)(`${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.thank_you_message}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
