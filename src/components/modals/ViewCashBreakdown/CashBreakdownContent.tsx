@@ -137,10 +137,6 @@ export const CashBreakdownContent = ({
 		</div>
 	));
 
-	console.log(quantityBills, amountBills);
-
-	console.log('breakdown', cashBreakdown);
-
 	return (
 		<>
 			<div

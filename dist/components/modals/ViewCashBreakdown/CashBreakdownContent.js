@@ -101,8 +101,6 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
         } },
         react_1.default.createElement("span", null, "P "),
         react_1.default.createElement("span", null, amount))));
-    console.log(quantityBills, amountBills);
-    console.log('breakdown', cashBreakdown);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { style: {
                 textAlign: 'center',

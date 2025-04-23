@@ -74,10 +74,9 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Thank You!'));

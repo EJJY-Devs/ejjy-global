@@ -12,8 +12,6 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 		software_developer_tin: softwareDeveloperTin,
 		pos_accreditation_number: posAccreditationNumber,
 		pos_accreditation_date: posAccreditationDate,
-		ptu_number: ptuNumber,
-		ptu_date: ptuDate,
 	} = siteSettings || {};
 
 	return (
@@ -29,9 +27,6 @@ export const ReceiptFooter = ({ siteSettings }: Props) => {
 			<span>{softwareDeveloperTin}</span>
 			<span>Acc No: {posAccreditationNumber}</span>
 			<span>Date Issued: {posAccreditationDate}</span>
-			<br />
-			<span>PTU No: {ptuNumber}</span>
-			<span>Date Issued: {ptuDate}</span>
 		</div>
 	);
 };

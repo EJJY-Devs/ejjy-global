@@ -253,11 +253,10 @@ const generateXReadReportContentCommands = (
 	if (user) {
 		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
 		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(...generateReceiptFooterCommands(siteSettings));
-	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
 		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
