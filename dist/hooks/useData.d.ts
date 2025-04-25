@@ -6,6 +6,7 @@ import { AxiosErrorResponse } from '../services/interfaces';
 export declare const REFETCH_SYNC_INTERVAL_MS = 60000;
 export declare const useUploadData: (options?: UseMutationOptions<AxiosResponse<boolean>, AxiosErrorResponse, CamelCasedProperties<Upload>>) => import("react-query").UseMutationResult<AxiosResponse<boolean>, AxiosErrorResponse<any>, {
     branchMachineId?: number | undefined;
+    branchId?: number | undefined;
     isBackOffice: boolean;
 }, unknown>;
 interface InitializeDataQuery<T, TParams> {
