@@ -63,12 +63,8 @@ const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf =
 
     <table style="width: 100%;">
       <tr>
-        <td>Date & Time Printed:</td>
-        <td style="text-align: right">${(0, dayjs_1.default)().format('MM/DD/YYYY h:mmA')}</td>
-      </tr>
-      <tr>
-        <td>Printed By:</td>
-        <td style="text-align: right">${(0, utils_1.getFullName)(user)}</td>
+        <td>Print Details:</td>
+        <td style="text-align: right">${(0, dayjs_1.default)().format('MM/DD/YYYY h:mmA')} ${user === null || user === void 0 ? void 0 : user.employee_id}</td>
       </tr>
     </table>
   </div>

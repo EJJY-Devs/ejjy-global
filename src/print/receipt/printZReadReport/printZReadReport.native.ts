@@ -2,7 +2,7 @@ import {
 	formatDate,
 	formatInPeso,
 	formatTime,
-	getFullName,
+	formatDateTime,
 } from '../../../utils';
 import { PESO_SIGN, EMPTY_CELL } from '../../helper-receipt';
 import { printCenter } from '../../helper-escpos';
@@ -13,6 +13,7 @@ import {
 	generateReceiptHeaderCommands,
 } from '../../helper-escpos';
 import { PrintZReadReport } from './types';
+import dayjs from 'dayjs';
 
 export const printZReadReportNative = ({
 	report,
@@ -332,7 +333,11 @@ const generateZReadContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	if (user) {
-		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(
+			printCenter(
+				`Print Details: ${formatDateTime(dayjs(), false)} ${user.employee_id}`,
+			),
+		);
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}

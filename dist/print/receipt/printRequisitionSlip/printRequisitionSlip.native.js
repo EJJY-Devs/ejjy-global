@@ -1,9 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printRequisitionSlipNative = void 0;
 const utils_1 = require("../../../utils");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_1 = require("../../helper-escpos");
+const dayjs_1 = __importDefault(require("dayjs"));
 const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) => [
     ...generateRequisitionSlipContentCommands(requisitionSlip, siteSettings, user),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -72,13 +76,9 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer
     if (user) {
-        commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user.employee_id}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
-    commands.push((0, helper_escpos_1.printCenter)('This Document Is Not Valid For Claim Of Input Tax'));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push((0, helper_escpos_1.printCenter)('Thank You!'));
     return commands;
 };

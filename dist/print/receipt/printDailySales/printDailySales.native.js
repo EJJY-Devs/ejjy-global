@@ -1,10 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printDailySalesNative = void 0;
 const utils_1 = require("../../../utils");
 const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
+const dayjs_1 = __importDefault(require("dayjs"));
 const printDailySalesNative = ({ dailySales, siteSettings, user, }) => [
     ...generateDailySalesReportContentCommands(dailySales, siteSettings, user),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -250,7 +254,7 @@ const generateDailySalesReportContentCommands = (dailySales, siteSettings, user)
     commands.push((0, helper_escpos_1.printCenter)('----------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (user) {
-        commands.push((0, helper_escpos_1.printCenter)(`Printed by: ${(0, utils_1.getFullName)(user)}`));
+        commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user.employee_id}`));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }

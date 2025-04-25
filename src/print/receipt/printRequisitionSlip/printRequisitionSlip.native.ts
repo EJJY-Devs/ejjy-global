@@ -3,11 +3,11 @@ import { EscPosCommands } from '../../utils/escpos.enum';
 import { PrintRequisitionSlip } from './types';
 import {
 	generateItemBlockCommands,
-	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
+import dayjs from 'dayjs';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
@@ -116,18 +116,14 @@ const generateRequisitionSlipContentCommands = (
 
 	// Footer
 	if (user) {
-		commands.push(printCenter(`Printed by: ${getFullName(user)}`));
+		commands.push(
+			printCenter(
+				`Print Details: ${formatDateTime(dayjs(), false)} ${user.employee_id}`,
+			),
+		);
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
-
-	commands.push(...generateReceiptFooterCommands(siteSettings));
-
-	commands.push(
-		printCenter('This Document Is Not Valid For Claim Of Input Tax'),
-	);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(printCenter('Thank You!'));
 
 	return commands;
 };

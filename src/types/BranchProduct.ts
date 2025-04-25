@@ -35,4 +35,6 @@ export interface BranchProduct {
 	latest_requisition_slip: RequisitionSlip;
 	price_markdown: PriceMarkdown;
 	branch_id: number;
+	wholesale_price: number;
+	special_price: number;
 }

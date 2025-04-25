@@ -9,6 +9,7 @@ type Props = {
 
 export const PrintDetails = ({ user }: Props) => (
 	<div>
-		PDT: {user && `${formatDateTime(dayjs(), false)} ${user?.employee_id}`}
+		Print Details:{' '}
+		{user && `${formatDateTime(dayjs(), false)} ${user?.employee_id}`}
 	</div>
 );
