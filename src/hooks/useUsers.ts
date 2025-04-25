@@ -92,13 +92,14 @@ export const useUserAuthenticate = (
 		AxiosErrorResponse,
 		CamelCasedProperties<AuthenticateAnAction>
 	>(
-		({ login, password, description, branchMachineId }) =>
+		({ login, password, description, branchMachineId, branchId }) =>
 			UsersService.authenticateAnAction(
 				{
 					login,
 					password,
 					description,
 					branch_machine_id: branchMachineId,
+					branch_id: branchId,
 				},
 				baseURL,
 			),

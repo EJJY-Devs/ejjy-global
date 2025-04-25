@@ -12,6 +12,7 @@ export interface AuthenticateAnAction {
     password: string;
     description?: string;
     branch_machine_id?: number;
+    branch_id?: number;
 }
 export interface Modify {
     branch_id?: number;

@@ -12,6 +12,7 @@ export declare const useUserAuthenticate: (options?: UseMutationOptions<AxiosRes
     password: string;
     description?: string | undefined;
     branchMachineId?: number | undefined;
+    branchId?: number | undefined;
 }, unknown>;
 export declare const useUserCreate: (options?: UseMutationOptions<AxiosResponse<User>, AxiosErrorResponse, CamelCasedProperties<Modify>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<User>, AxiosErrorResponse<any>, {
     branchId?: number | undefined;
