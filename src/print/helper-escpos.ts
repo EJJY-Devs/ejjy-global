@@ -9,6 +9,7 @@ const PAPER_CHARACTER_WIDTH = 40;
 export const generateReceiptHeaderCommands = ({
 	branchMachine,
 	title,
+	branchHeader,
 }: ReceiptHeaderProps) => {
 	const {
 		name,
@@ -19,40 +20,44 @@ export const generateReceiptHeaderCommands = ({
 		permit_to_use,
 	} = branchMachine || {};
 
+	const branchInfo = branch ?? branchHeader; // <-- fallback if branch is undefined
+
 	const commands: string[] = [];
 
-	if (branch?.store_name) {
-		const lines = branch?.store_name.split('\n');
+	if (branchInfo?.store_name) {
+		const lines = branchInfo.store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (branch?.store_address) {
-		const lines = branch?.store_address.split('\n');
+	if (branchInfo?.store_address) {
+		const lines = branchInfo.store_address.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
-	if (branch?.contact_number || name) {
+	if (branchInfo?.contact_number || name) {
 		commands.push(
-			printCenter([branch?.contact_number, name].filter(Boolean).join(' | ')),
+			printCenter(
+				[branchInfo?.contact_number, name].filter(Boolean).join(' | '),
+			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (branch?.proprietor) {
-		commands.push(printCenter(branch?.proprietor));
+	if (branchInfo?.proprietor) {
+		commands.push(printCenter(branchInfo.proprietor));
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	if (branch?.vat_type || branch?.tin) {
+	if (branchInfo?.vat_type || branchInfo?.tin) {
 		commands.push(
 			printCenter(
-				[getTaxTypeDescription(branch?.vat_type), branch?.tin]
+				[getTaxTypeDescription(branchInfo?.vat_type), branchInfo?.tin]
 					.filter(Boolean)
 					.join(' | '),
 			),

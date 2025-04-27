@@ -13,12 +13,16 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) =>
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
+    escpos_enum_1.EscPosCommands.LINE_BREAK,
 ];
 exports.printRequisitionSlipNative = printRequisitionSlipNative;
 const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, user) => {
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
+        branchHeader: requisitionSlip.branch,
         title: 'REQUISITION SLIP',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -77,7 +81,6 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     // Footer
     if (user) {
         commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user.employee_id}`));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     return commands;

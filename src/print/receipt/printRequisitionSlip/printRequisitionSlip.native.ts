@@ -22,6 +22,9 @@ export const printRequisitionSlipNative = ({
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
 ];
 
 const generateRequisitionSlipContentCommands = (
@@ -34,6 +37,7 @@ const generateRequisitionSlipContentCommands = (
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
+			branchHeader: requisitionSlip.branch,
 			title: 'REQUISITION SLIP',
 		}),
 	);
@@ -121,7 +125,6 @@ const generateRequisitionSlipContentCommands = (
 				`Print Details: ${formatDateTime(dayjs(), false)} ${user.employee_id}`,
 			),
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
