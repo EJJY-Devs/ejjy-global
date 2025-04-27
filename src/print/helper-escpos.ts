@@ -22,6 +22,11 @@ export const generateReceiptHeaderCommands = ({
 
 	const branchInfo = branch ?? branchHeader; // <-- fallback if branch is undefined
 
+	console.log('branchInfo', branchInfo);
+	console.log('branchHeader', branchHeader);
+	console.log('branchMachine', branchMachine);
+	console.log('branch', branch);
+
 	const commands: string[] = [];
 
 	if (branchInfo?.store_name) {
