@@ -7,10 +7,6 @@ const PAPER_CHARACTER_WIDTH = 40;
 const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) => {
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader; // <-- fallback if branch is undefined
-    console.log('branchInfo', branchInfo);
-    console.log('branchHeader', branchHeader);
-    console.log('branchMachine', branchMachine);
-    console.log('branch', branch);
     const commands = [];
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         const lines = branchInfo.store_name.split('\n');
