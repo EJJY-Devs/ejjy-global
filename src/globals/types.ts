@@ -71,6 +71,7 @@ export const transactionStatuses = {
 	QUEUE: 'hold',
 	VOID_EDITED: 'void_edited',
 	VOID_CANCELLED: 'void_cancelled',
+	CANCELLED: 'cancelled',
 };
 
 export const reportTypes = {

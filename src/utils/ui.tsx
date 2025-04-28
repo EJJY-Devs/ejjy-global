@@ -185,10 +185,13 @@ export const getTransactionStatusDescription = (status: string) => {
 			return 'Hold';
 		}
 		case transactionStatuses.VOID_CANCELLED: {
-			return 'Cancelled';
+			return 'Void Cancelled';
 		}
 		case transactionStatuses.VOID_EDITED: {
 			return 'Edited';
+		}
+		case transactionStatuses.CANCELLED: {
+			return 'Cancelled';
 		}
 		default: {
 			return EMPTY_CELL;

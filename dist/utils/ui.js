@@ -155,10 +155,13 @@ const getTransactionStatusDescription = (status) => {
             return 'Hold';
         }
         case globals_1.transactionStatuses.VOID_CANCELLED: {
-            return 'Cancelled';
+            return 'Void Cancelled';
         }
         case globals_1.transactionStatuses.VOID_EDITED: {
             return 'Edited';
+        }
+        case globals_1.transactionStatuses.CANCELLED: {
+            return 'Cancelled';
         }
         default: {
             return globals_1.EMPTY_CELL;

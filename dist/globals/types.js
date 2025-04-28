@@ -54,6 +54,7 @@ exports.transactionStatuses = {
     QUEUE: 'hold',
     VOID_EDITED: 'void_edited',
     VOID_CANCELLED: 'void_cancelled',
+    CANCELLED: 'cancelled',
 };
 exports.reportTypes = {
     DAILY_SALES: 'DAILY_SALES',

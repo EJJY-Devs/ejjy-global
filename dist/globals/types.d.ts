@@ -51,6 +51,7 @@ export declare const transactionStatuses: {
     QUEUE: string;
     VOID_EDITED: string;
     VOID_CANCELLED: string;
+    CANCELLED: string;
 };
 export declare const reportTypes: {
     DAILY_SALES: string;
