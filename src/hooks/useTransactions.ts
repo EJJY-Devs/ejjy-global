@@ -128,7 +128,6 @@ export const useTransactionCreate = () =>
 			customerAccountId,
 			overallDiscount = 0,
 			previousVoidedTransactionId,
-			products,
 			status,
 			tellerId,
 			invoiceType,
@@ -139,7 +138,6 @@ export const useTransactionCreate = () =>
 				customer_account_id: customerAccountId,
 				overall_discount: standardRound(Number(overallDiscount)),
 				previous_voided_transaction_id: previousVoidedTransactionId,
-				products,
 				status,
 				teller_id: tellerId,
 				invoice_type: invoiceType,
@@ -164,6 +162,7 @@ export const useTransactionPay = () =>
 			discountOptionId,
 			transactionId,
 			mode,
+			products,
 		}) =>
 			TransactionsService.pay({
 				amount_tendered: amountTendered,
@@ -178,6 +177,7 @@ export const useTransactionPay = () =>
 				discount_option_id: discountOptionId,
 				transaction_id: transactionId,
 				mode: mode,
+				products: products,
 			}),
 	);
 

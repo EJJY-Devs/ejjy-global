@@ -51,6 +51,7 @@ export interface Pay {
 	discount_option_id?: string;
 	transaction_id: number;
 	mode: string;
+	products: TransactionProduct[];
 }
 
 export interface TransactionProduct {
@@ -69,7 +70,6 @@ export interface Create {
 	customer_account_id?: number;
 	overall_discount?: string;
 	previous_voided_transaction_id?: number;
-	products: TransactionProduct[];
 	status?: string;
 	teller_id: number;
 	invoice_type: string;

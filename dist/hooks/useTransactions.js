@@ -55,19 +55,18 @@ const useTransactionComputeDiscount = () => (0, react_query_1.useMutation)(({ br
     discount_option_id: discountOptionId,
 }));
 exports.useTransactionComputeDiscount = useTransactionComputeDiscount;
-const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount = 0, previousVoidedTransactionId, products, status, tellerId, invoiceType, }) => services_1.TransactionsService.create({
+const useTransactionCreate = () => (0, react_query_1.useMutation)(({ branchMachineId, client, customerAccountId, overallDiscount = 0, previousVoidedTransactionId, status, tellerId, invoiceType, }) => services_1.TransactionsService.create({
     branch_machine_id: branchMachineId,
     client,
     customer_account_id: customerAccountId,
     overall_discount: (0, utils_1.standardRound)(Number(overallDiscount)),
     previous_voided_transaction_id: previousVoidedTransactionId,
-    products,
     status,
     teller_id: tellerId,
     invoice_type: invoiceType,
 }));
 exports.useTransactionCreate = useTransactionCreate;
-const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered, branchMachineId, cashierUserId, creditPaymentAuthorizerId, creditorAccountId, discountAuthorizerId, discountAmount, discountOptionAdditionalFieldsValues, discountOptionId, transactionId, mode, }) => services_1.TransactionsService.pay({
+const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered, branchMachineId, cashierUserId, creditPaymentAuthorizerId, creditorAccountId, discountAuthorizerId, discountAmount, discountOptionAdditionalFieldsValues, discountOptionId, transactionId, mode, products, }) => services_1.TransactionsService.pay({
     amount_tendered: amountTendered,
     branch_machine_id: branchMachineId,
     cashier_user_id: cashierUserId,
@@ -79,6 +78,7 @@ const useTransactionPay = () => (0, react_query_1.useMutation)(({ amountTendered
     discount_option_id: discountOptionId,
     transaction_id: transactionId,
     mode: mode,
+    products: products,
 }));
 exports.useTransactionPay = useTransactionPay;
 const useTransactionEdit = () => (0, react_query_1.useMutation)(({ id, products, overallDiscount, status }) => services_1.TransactionsService.update({
