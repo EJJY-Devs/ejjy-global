@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { PaymentType, Transaction } from '../types';
+import {
+	PaymentType,
+	Transaction,
+	CashieringTransactionProduct,
+} from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
 export interface Params extends ListQueryParams {
@@ -51,7 +55,7 @@ export interface Pay {
 	discount_option_id?: string;
 	transaction_id: number;
 	mode: string;
-	products: TransactionProduct[];
+	products: CashieringTransactionProduct[];
 }
 
 export interface TransactionProduct {
