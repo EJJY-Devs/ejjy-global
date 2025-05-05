@@ -42,3 +42,4 @@ export declare const AUTOMATIC_GENERATED_REPORT_USER_NAME = "Auto";
 export declare const INVOICE_LAST_MESSAGE = "This Serves As Your Official Receipt";
 export declare const REPRINT_ONLY_MESSAGE = "REPRINT ONLY";
 export declare const APP_PRINTING_TYPE = "EJJY_PRINTING_TYPE";
+export declare const APP_AUTOMATIC_FULL_SCREEN = "EJJY_AUTOMATIC_FULL_SCREEN";
