@@ -57,14 +57,14 @@ export interface CreateDeliveryReceipt {
 	encoded_by_id: number;
 }
 
-export type ReceivingVoucherProduct = {
+export type ReceivingReportProduct = {
 	id: number;
 	cost_per_piece: number;
 	quantity: number;
 	product: Product;
 };
 
-export type ReceivingVoucher = {
+export type ReceivingReport = {
 	id: number;
 	datetime_created: string;
 	supplier_name: string;
@@ -72,6 +72,7 @@ export type ReceivingVoucher = {
 	supplier_tin: string;
 	encoded_by: User;
 	checked_by: User;
-	products: ReceivingVoucherProduct[];
+	products: ReceivingReportProduct[];
 	amount_paid: number;
+	branch: Branch;
 };
