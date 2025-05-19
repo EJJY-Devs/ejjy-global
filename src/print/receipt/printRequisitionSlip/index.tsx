@@ -16,10 +16,7 @@ export const printRequisitionSlip = (
 		data = printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printRequisitionSlipNative(printRequisitionSlipDetails);
-		console.log('native');
 	}
-
-	console.log('data', data);
 
 	print(data, 'Requisition Slip', undefined, printingType);
 };

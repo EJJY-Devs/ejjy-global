@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { CamelCasedProperties } from 'type-fest';
-import { Params } from '../services/BackOrdersService';
+import { Params } from '../services/DeliveryReceiptService';
 import { AxiosErrorResponse, QueryResponse } from '../services/interfaces';
-import { BackOrder } from '../types';
+import { DeliveryReceipt } from '../types';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
-declare const useBackOrders: (data?: UseListQuery<BackOrder, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<BackOrder>, Error>;
-export declare const useBackOrderRetrieve: (data: UseRetrieveQuery<BackOrder>) => import("react-query").UseQueryResult<BackOrder, unknown>;
-export declare const useBackOrdersCreate: () => import("react-query").UseMutationResult<AxiosResponse<BackOrder>, AxiosErrorResponse<any>, {
+declare const useDeliveryReceipt: (data?: UseListQuery<DeliveryReceipt, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<DeliveryReceipt>, Error>;
+export declare const useDeliveryReceiptRetrieve: (data: UseRetrieveQuery<DeliveryReceipt>) => import("react-query").UseQueryResult<DeliveryReceipt, unknown>;
+export declare const useDeliveryReceiptCreate: () => import("react-query").UseMutationResult<AxiosResponse<DeliveryReceipt>, AxiosErrorResponse<any>, {
     senderId: number;
     encodedById: number;
     transactionId: number;
@@ -16,4 +16,4 @@ export declare const useBackOrdersCreate: () => import("react-query").UseMutatio
     }[];
     type: string;
 }, unknown>;
-export default useBackOrders;
+export default useDeliveryReceipt;

@@ -2,27 +2,31 @@ import { AxiosResponse } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../globals';
-import { BackOrdersService } from '../services';
-import { Create, Params } from '../services/BackOrdersService';
+import { DeliveryReceiptService } from '../services';
+import { Create, Params } from '../services/DeliveryReceiptService';
 import {
 	AxiosErrorResponse,
 	ListResponseData,
 	QueryResponse,
 } from '../services/interfaces';
-import { BackOrder } from '../types';
+import { DeliveryReceipt } from '../types';
 import { wrapServiceWithCatch } from './helper';
 import { UseListQuery, UseRetrieveQuery } from './inteface';
 
-const useBackOrders = (
-	data: UseListQuery<BackOrder, CamelCasedProperties<Params>> = {},
+const useDeliveryReceipt = (
+	data: UseListQuery<DeliveryReceipt, CamelCasedProperties<Params>> = {},
 ) => {
 	const { params, options } = data;
 
-	return useQuery<ListResponseData<BackOrder>, Error, QueryResponse<BackOrder>>(
-		['useBackOrders', params],
+	return useQuery<
+		ListResponseData<DeliveryReceipt>,
+		Error,
+		QueryResponse<DeliveryReceipt>
+	>(
+		['useDeliveryReceipt', params],
 		() =>
 			wrapServiceWithCatch(
-				BackOrdersService.list({
+				DeliveryReceiptService.list({
 					page: params?.page || DEFAULT_PAGE,
 					page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
 					transaction_id: params?.transactionId,
@@ -43,14 +47,16 @@ const useBackOrders = (
 	);
 };
 
-export const useBackOrderRetrieve = (data: UseRetrieveQuery<BackOrder>) => {
+export const useDeliveryReceiptRetrieve = (
+	data: UseRetrieveQuery<DeliveryReceipt>,
+) => {
 	const { id, options, serviceOptions } = data;
 
-	return useQuery<BackOrder>(
-		['useBackOrderRetrieve', id],
+	return useQuery<DeliveryReceipt>(
+		['useDeliveryReceiptRetrieve', id],
 		() =>
 			wrapServiceWithCatch(
-				BackOrdersService.retrieve(id, serviceOptions?.baseURL),
+				DeliveryReceiptService.retrieve(id, serviceOptions?.baseURL),
 			),
 		{
 			enabled: typeof id === 'number',
@@ -59,13 +65,13 @@ export const useBackOrderRetrieve = (data: UseRetrieveQuery<BackOrder>) => {
 	);
 };
 
-export const useBackOrdersCreate = () =>
+export const useDeliveryReceiptCreate = () =>
 	useMutation<
-		AxiosResponse<BackOrder>,
+		AxiosResponse<DeliveryReceipt>,
 		AxiosErrorResponse,
 		CamelCasedProperties<Create>
 	>(({ senderId, encodedById, transactionId, products, type }) =>
-		BackOrdersService.create({
+		DeliveryReceiptService.create({
 			sender_id: senderId,
 			encoded_by_id: encodedById,
 			transaction_id: transactionId,
@@ -74,4 +80,4 @@ export const useBackOrdersCreate = () =>
 		}),
 	);
 
-export default useBackOrders;
+export default useDeliveryReceipt;

@@ -14,9 +14,7 @@ const printRequisitionSlip = (printRequisitionSlipDetails) => {
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printRequisitionSlip_native_1.printRequisitionSlipNative)(printRequisitionSlipDetails);
-        console.log('native');
     }
-    console.log('data', data);
     (0, helper_receipt_1.print)(data, 'Requisition Slip', undefined, printingType);
 };
 exports.printRequisitionSlip = printRequisitionSlip;

@@ -3,15 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZReadReportsService = exports.XReadReportsService = exports.UsersService = exports.UserLogsService = exports.TransactionsService = exports.SiteSettingsService = exports.ScaleService = exports.SalesTrackerService = exports.ResetLogsService = exports.ReportsService = exports.ProductCategoriesService = exports.OrderOfPaymentsService = exports.DiscountOptionsService = exports.DataService = exports.DailySalesService = exports.CreditRegistrationsService = exports.ConnectivityLogsService = exports.CollectionReceiptsService = exports.CashieringSessionsService = exports.CashBreakdownsService = exports.BranchProductsService = exports.BranchMachinesService = exports.BranchesService = exports.BranchDaysService = exports.BranchDayAuthorizationsService = exports.BirReportsService = exports.BackOrdersService = exports.AuthService = exports.AttendanceLogsService = exports.AccountsService = void 0;
+exports.ZReadReportsService = exports.XReadReportsService = exports.UsersService = exports.UserLogsService = exports.TransactionsService = exports.SiteSettingsService = exports.ScaleService = exports.SalesTrackerService = exports.ResetLogsService = exports.ReportsService = exports.ProductCategoriesService = exports.OrderOfPaymentsService = exports.DiscountOptionsService = exports.DataService = exports.DailySalesService = exports.CreditRegistrationsService = exports.ConnectivityLogsService = exports.CollectionReceiptsService = exports.CashieringSessionsService = exports.CashBreakdownsService = exports.BranchProductsService = exports.BranchMachinesService = exports.BranchesService = exports.BranchDaysService = exports.BranchDayAuthorizationsService = exports.BirReportsService = exports.DeliveryReceiptService = exports.AuthService = exports.AttendanceLogsService = exports.AccountsService = void 0;
 var AccountsService_1 = require("./AccountsService");
 Object.defineProperty(exports, "AccountsService", { enumerable: true, get: function () { return __importDefault(AccountsService_1).default; } });
 var AttendanceLogsService_1 = require("./AttendanceLogsService");
 Object.defineProperty(exports, "AttendanceLogsService", { enumerable: true, get: function () { return __importDefault(AttendanceLogsService_1).default; } });
 var AuthService_1 = require("./AuthService");
 Object.defineProperty(exports, "AuthService", { enumerable: true, get: function () { return __importDefault(AuthService_1).default; } });
-var BackOrdersService_1 = require("./BackOrdersService");
-Object.defineProperty(exports, "BackOrdersService", { enumerable: true, get: function () { return __importDefault(BackOrdersService_1).default; } });
+var DeliveryReceiptService_1 = require("./DeliveryReceiptService");
+Object.defineProperty(exports, "DeliveryReceiptService", { enumerable: true, get: function () { return __importDefault(DeliveryReceiptService_1).default; } });
 var BirReportsService_1 = require("./BirReportsService");
 Object.defineProperty(exports, "BirReportsService", { enumerable: true, get: function () { return __importDefault(BirReportsService_1).default; } });
 var BranchDayAuthorizationsService_1 = require("./BranchDayAuthorizationsService");

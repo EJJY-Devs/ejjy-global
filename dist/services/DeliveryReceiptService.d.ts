@@ -1,3 +1,4 @@
+import { DeliveryReceipt } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Params extends ListQueryParams {
     transaction_id?: number;
@@ -15,8 +16,8 @@ export interface Create {
     type: string;
 }
 declare const service: {
-    list: (params: Params, baseURL?: string) => Promise<ListResponseData<BackOrder>>;
-    retrieve: (id: number, baseURL?: string) => Promise<BackOrder>;
-    create: (body: Create) => Promise<import("axios").AxiosResponse<BackOrder>>;
+    list: (params: Params, baseURL?: string) => Promise<ListResponseData<DeliveryReceipt>>;
+    retrieve: (id: number, baseURL?: string) => Promise<DeliveryReceipt>;
+    create: (body: Create) => Promise<import("axios").AxiosResponse<DeliveryReceipt>>;
 };
 export default service;

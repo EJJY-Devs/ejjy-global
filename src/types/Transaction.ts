@@ -3,7 +3,7 @@ import { BranchMachine } from './BranchMachine';
 import { BranchProduct } from './BranchProduct';
 import { DiscountOption } from './DiscountOption';
 import { User } from './User';
-import { BackOrder } from './BackOrder';
+import { DeliveryReceipt } from './DeliveryReceipt';
 
 export interface Client {
 	id: number;
@@ -70,7 +70,7 @@ interface VoidedTransaction {
 export interface AdjustmentRemark {
 	previous_voided_transaction: VoidedTransaction;
 	new_updated_transaction: VoidedTransaction;
-	back_order: BackOrder;
+	back_order: DeliveryReceipt;
 	discount_option: DiscountOption;
 }
 

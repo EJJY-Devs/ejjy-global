@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Account"), exports);
 __exportStar(require("./AttendanceLog"), exports);
 __exportStar(require("./AttendanceSchedule"), exports);
-__exportStar(require("./BackOrder"), exports);
+__exportStar(require("./DeliveryReceipt"), exports);
 __exportStar(require("./BirReport"), exports);
 __exportStar(require("./Branch"), exports);
 __exportStar(require("./BranchAssignment"), exports);

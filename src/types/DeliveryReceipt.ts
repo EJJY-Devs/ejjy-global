@@ -1,14 +1,15 @@
 import { Product } from './Product';
 import { Transaction } from './Transaction';
 import { User } from './User';
+import { Branch } from './Branch';
 
-export type BackOrderUser = Pick<
+export type DeliveryReceiptUser = Pick<
 	User,
 	'id' | 'user_type' | 'first_name' | 'last_name' | 'employee_id'
 >;
 
-export type BackOrderType = 'for_return' | 'damaged';
-export interface BackOrderProduct {
+export type DeliveryReceiptType = 'for_return' | 'damaged';
+export interface DeliveryReceiptProduct {
 	id: number;
 	quantity_returned: string;
 	quantity_received?: string;
@@ -18,37 +19,38 @@ export interface BackOrderProduct {
 	current_price_per_piece: string;
 }
 
-export interface BackOrder {
+export interface DeliveryReceipt {
 	id: number;
 	datetime_created: string;
 	datetime_sent?: string;
 	datetime_received?: string;
-	sender: BackOrderUser;
-	receiver: BackOrderUser;
-	products: BackOrderProduct[];
+	sender: DeliveryReceiptUser;
+	receiver: DeliveryReceiptUser;
+	products: DeliveryReceiptProduct[];
 	status: string;
 	overall_remarks?: string;
-	type: BackOrderType;
+	type: DeliveryReceiptType;
 	transaction: Transaction;
 	customer_name?: string;
 	customer_address?: string;
 	customer_tin?: string;
-	encoded_by: BackOrderUser;
+	encoded_by: DeliveryReceiptUser;
+	branch?: Branch;
 }
 
-type CreateBackOrderProduct = {
+type CreateDeliveryReceiptProduct = {
 	quantity_returned: string;
 	product_id: number;
 	price_per_piece: string;
 	remarks: string;
 };
 
-export interface CreateBackOrder {
+export interface CreateDeliveryReceipt {
 	sender_id: number;
-	products: CreateBackOrderProduct[];
+	products: CreateDeliveryReceiptProduct[];
 	transaction_id: number;
 	overall_remarks: string;
-	type: BackOrderType;
+	type: DeliveryReceiptType;
 	supplier_name?: string;
 	supplier_address?: string;
 	supplier_tin?: string;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BackOrder } from '../types';
+import { DeliveryReceipt } from '../types';
 import { ListQueryParams, ListResponseData } from './interfaces';
 
 export interface Params extends ListQueryParams {
@@ -22,7 +22,7 @@ export interface Create {
 
 const service = {
 	list: async (params: Params, baseURL?: string) => {
-		const response = await axios.get<ListResponseData<BackOrder>>(
+		const response = await axios.get<ListResponseData<DeliveryReceipt>>(
 			'/back-orders/',
 			{
 				baseURL,
@@ -34,14 +34,15 @@ const service = {
 	},
 
 	retrieve: async (id: number, baseURL?: string) => {
-		const response = await axios.get<BackOrder>(`/back-orders/${id}/`, {
+		const response = await axios.get<DeliveryReceipt>(`/back-orders/${id}/`, {
 			baseURL,
 		});
 
 		return response.data;
 	},
 
-	create: async (body: Create) => axios.post<BackOrder>('/back-orders/', body),
+	create: async (body: Create) =>
+		axios.post<DeliveryReceipt>('/back-orders/', body),
 };
 
 export default service;
