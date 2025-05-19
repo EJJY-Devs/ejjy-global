@@ -44,7 +44,7 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt, user) => {
     if (deliveryReceipt.customer_name) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Customer',
+                label: 'Customer:',
                 value: deliveryReceipt.customer_name,
             },
         ]));
@@ -53,7 +53,7 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt, user) => {
     if (deliveryReceipt.encoded_by) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Encoder',
+                label: 'Encoder:',
                 value: (0, utils_1.getFullName)(deliveryReceipt.encoded_by) || '',
             },
         ]));
@@ -78,7 +78,7 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt, user) => {
     if (deliveryReceipt.overall_remarks) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Remarks',
+                label: 'Remarks:',
                 value: deliveryReceipt.overall_remarks,
             },
         ]));

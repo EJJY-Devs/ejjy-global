@@ -44,7 +44,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     if (requisitionSlip.approved_by) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Requestor',
+                label: 'Requestor:',
                 value: (0, utils_1.getFullName)(requisitionSlip.approved_by) || '',
             },
         ]));

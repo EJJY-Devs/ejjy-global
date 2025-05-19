@@ -59,7 +59,7 @@ const generateReceivingReportContentCommands = (receivingReport, user) => {
     if (receivingReport.supplier_name) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Vendor',
+                label: 'Vendor:',
                 value: receivingReport.supplier_name,
             },
         ]));
@@ -68,7 +68,7 @@ const generateReceivingReportContentCommands = (receivingReport, user) => {
     if (receivingReport.encoded_by) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Encoder',
+                label: 'Encoder:',
                 value: (0, utils_1.getFullName)(receivingReport.encoded_by),
             },
         ]));
@@ -77,7 +77,7 @@ const generateReceivingReportContentCommands = (receivingReport, user) => {
     if (receivingReport.checked_by) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Inspector',
+                label: 'Inspector:',
                 value: (0, utils_1.getFullName)(receivingReport.checked_by),
             },
         ]));

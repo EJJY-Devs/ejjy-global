@@ -88,7 +88,7 @@ const generateReceivingReportContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Vendor',
+					label: 'Vendor:',
 					value: receivingReport.supplier_name,
 				},
 			]),
@@ -100,7 +100,7 @@ const generateReceivingReportContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Encoder',
+					label: 'Encoder:',
 					value: getFullName(receivingReport.encoded_by),
 				},
 			]),
@@ -112,7 +112,7 @@ const generateReceivingReportContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Inspector',
+					label: 'Inspector:',
 					value: getFullName(receivingReport.checked_by),
 				},
 			]),

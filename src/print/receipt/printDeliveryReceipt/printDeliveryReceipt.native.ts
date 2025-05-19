@@ -64,7 +64,7 @@ const generateDeliveryReceiptContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Customer',
+					label: 'Customer:',
 					value: deliveryReceipt.customer_name,
 				},
 			]),
@@ -76,7 +76,7 @@ const generateDeliveryReceiptContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Encoder',
+					label: 'Encoder:',
 					value: getFullName(deliveryReceipt.encoded_by) || '',
 				},
 			]),
@@ -114,7 +114,7 @@ const generateDeliveryReceiptContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Remarks',
+					label: 'Remarks:',
 					value: deliveryReceipt.overall_remarks,
 				},
 			]),

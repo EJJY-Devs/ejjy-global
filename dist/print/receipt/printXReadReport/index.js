@@ -11,13 +11,14 @@ const printXReadReport = (printXReadReportDetails) => {
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printXReadReport_html_1.printXReadReportHtml)(printXReadReportDetails) || '';
+        (0, helper_receipt_1.print)(data, 'XRead Report', undefined, printingType);
+        return data; // ✅ return HTML string
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printXReadReport_native_1.printXReadReportNative)(printXReadReportDetails);
+        (0, helper_receipt_1.print)(data, 'XRead Report', undefined, printingType);
+        // native printers don’t need to return anything
+        return undefined;
     }
-    if (!printXReadReportDetails.isPdf) {
-        (0, helper_receipt_1.print)(data, 'XRead REport', undefined, printingType);
-    }
-    return data;
 };
 exports.printXReadReport = printXReadReport;

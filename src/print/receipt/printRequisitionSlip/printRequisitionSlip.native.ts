@@ -70,7 +70,7 @@ const generateRequisitionSlipContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Requestor',
+					label: 'Requestor:',
 					value: getFullName(requisitionSlip.approved_by) || '',
 				},
 			]),
