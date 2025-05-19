@@ -1,2 +1,2 @@
 import { PrintReceivingReport } from './types';
-export declare const printReceivingReport: (printReceivingReportDetails: PrintReceivingReport) => void;
+export declare const printReceivingReport: (printReceivingReportDetails: PrintReceivingReport) => string | string[];

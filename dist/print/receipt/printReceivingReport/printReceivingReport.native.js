@@ -20,6 +20,7 @@ const printReceivingReportNative = ({ receivingReport, user, isPdf, }) => {
         escpos_enum_1.EscPosCommands.LINE_BREAK,
     ];
     if (isPdf) {
+        console.log('commands', commands.join(''));
         return (0, helper_receipt_1.appendHtmlElement)(commands.join(''));
     }
     return commands;

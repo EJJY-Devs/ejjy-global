@@ -18,5 +18,11 @@ export const printReceivingReport = (
 		data = printReceivingReportNative(printReceivingReportDetails);
 	}
 
-	print(data, 'Receiving Report', undefined, printingType);
+	// Only call print if NOT generating PDF
+	if (!printReceivingReportDetails.isPdf) {
+		print(data, 'Receiving Report', undefined, printingType);
+	}
+
+	// Return data for PDF generation or other uses
+	return data;
 };

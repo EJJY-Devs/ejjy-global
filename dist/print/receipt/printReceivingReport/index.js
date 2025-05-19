@@ -15,6 +15,11 @@ const printReceivingReport = (printReceivingReportDetails) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printReceivingReport_native_1.printReceivingReportNative)(printReceivingReportDetails);
     }
-    (0, helper_receipt_1.print)(data, 'Receiving Report', undefined, printingType);
+    // Only call print if NOT generating PDF
+    if (!printReceivingReportDetails.isPdf) {
+        (0, helper_receipt_1.print)(data, 'Receiving Report', undefined, printingType);
+    }
+    // Return data for PDF generation or other uses
+    return data;
 };
 exports.printReceivingReport = printReceivingReport;

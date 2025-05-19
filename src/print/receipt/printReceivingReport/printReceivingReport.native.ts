@@ -26,6 +26,7 @@ export const printReceivingReportNative = ({
 	];
 
 	if (isPdf) {
+		console.log('commands', commands.join(''));
 		return appendHtmlElement(commands.join(''));
 	}
 
