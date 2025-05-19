@@ -14,13 +14,13 @@ export * from './receipt/printProductPriceTag';
 export * from './receipt/printReceivingReport';
 export * from './receipt/printRequisitionSlip';
 export * from './receipt/printSalesInvoice';
-export * from './receipt/printDeliveryReceipt';
 export * from './receipt/printXReadReport';
 export * from './receipt/printZReadReport';
 export * from './txt/createDailySalesTxt';
 export * from './txt/createSalesInvoiceTxt';
 export * from './txt/createXReadTxt';
 export * from './txt/createZReadTxt';
+export * from './receipt/printDeliveryReceipt';
 export * from './utils/cashier';
 
 export * from './receipt/printSalesInvoice/printSalesInvoice.native';
