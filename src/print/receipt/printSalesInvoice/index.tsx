@@ -22,4 +22,6 @@ export const printSalesInvoice = (
 	if (!printSalesInvoiceDetails.isPdf) {
 		print(data, 'Sales Invoice', undefined, printingType);
 	}
+
+	return data;
 };

@@ -1,2 +1,2 @@
 import { PrintRequisitionSlip } from './types';
-export declare const printRequisitionSlip: (printRequisitionSlipDetails: PrintRequisitionSlip) => void;
+export declare const printRequisitionSlip: (printRequisitionSlipDetails: PrintRequisitionSlip) => string | string[];

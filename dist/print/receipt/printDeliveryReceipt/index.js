@@ -19,5 +19,6 @@ const printDeliveryReceipt = (printDeliveryReceiptDetails) => {
     if (!printDeliveryReceiptDetails.isPdf) {
         (0, helper_receipt_1.print)(data, 'Delivery Receipt', undefined, printingType);
     }
+    return data;
 };
 exports.printDeliveryReceipt = printDeliveryReceipt;

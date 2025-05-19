@@ -4,19 +4,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printRequisitionSlipNative = void 0;
+const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../../utils");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_1 = require("../../helper-escpos");
-const dayjs_1 = __importDefault(require("dayjs"));
-const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, }) => [
-    ...generateRequisitionSlipContentCommands(requisitionSlip, siteSettings, user),
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-];
+const helper_receipt_1 = require("../../helper-receipt");
+const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, isPdf, }) => {
+    const commands = [
+        ...generateRequisitionSlipContentCommands(requisitionSlip, siteSettings, user),
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+    ];
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(commands.join(''));
+    }
+    return commands;
+};
 exports.printRequisitionSlipNative = printRequisitionSlipNative;
 const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, user) => {
     const commands = [];
@@ -24,15 +31,14 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchHeader: requisitionSlip.branch,
         title: 'REQUISITION SLIP',
-    }));
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }), escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date & Time Requested
     if (requisitionSlip.datetime_created) {
         commands.push((0, helper_escpos_1.printCenter)('Date & Time Requested'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(requisitionSlip.datetime_created)));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Requestor Name
     if (requisitionSlip.approved_by) {

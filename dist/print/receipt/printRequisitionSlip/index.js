@@ -19,5 +19,6 @@ const printRequisitionSlip = (printRequisitionSlipDetails) => {
     if (!printRequisitionSlipDetails.isPdf) {
         (0, helper_receipt_1.print)(data, 'Requisition Slip', undefined, printingType);
     }
+    return data;
 };
 exports.printRequisitionSlip = printRequisitionSlip;

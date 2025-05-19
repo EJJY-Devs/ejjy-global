@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { formatDateTime, formatQuantity, getFullName } from '../../../utils';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import { PrintRequisitionSlip } from './types';
@@ -7,25 +8,34 @@ import {
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
-import dayjs from 'dayjs';
+import { appendHtmlElement } from '../../helper-receipt';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
 	siteSettings,
 	user,
-}: PrintRequisitionSlip): string[] => [
-	...generateRequisitionSlipContentCommands(
-		requisitionSlip,
-		siteSettings,
-		user,
-	),
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-];
+	isPdf,
+}: PrintRequisitionSlip): string[] | string => {
+	const commands = [
+		...generateRequisitionSlipContentCommands(
+			requisitionSlip,
+			siteSettings,
+			user,
+		),
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	];
+
+	if (isPdf) {
+		return appendHtmlElement(commands.join(''));
+	}
+
+	return commands;
+};
 
 const generateRequisitionSlipContentCommands = (
 	requisitionSlip: PrintRequisitionSlip['requisitionSlip'],
@@ -40,8 +50,8 @@ const generateRequisitionSlipContentCommands = (
 			branchHeader: requisitionSlip.branch,
 			title: 'REQUISITION SLIP',
 		}),
+		EscPosCommands.LINE_BREAK,
 	);
-	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Date & Time Requested
 	if (requisitionSlip.datetime_created) {
@@ -50,9 +60,9 @@ const generateRequisitionSlipContentCommands = (
 		commands.push(
 			printCenter(formatDateTime(requisitionSlip.datetime_created)),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Requestor Name

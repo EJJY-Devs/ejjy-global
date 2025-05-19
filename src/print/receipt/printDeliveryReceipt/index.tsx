@@ -22,4 +22,6 @@ export const printDeliveryReceipt = (
 	if (!printDeliveryReceiptDetails.isPdf) {
 		print(data, 'Delivery Receipt', undefined, printingType);
 	}
+
+	return data;
 };

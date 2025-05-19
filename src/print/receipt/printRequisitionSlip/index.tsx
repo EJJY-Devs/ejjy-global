@@ -22,4 +22,6 @@ export const printRequisitionSlip = (
 	if (!printRequisitionSlipDetails.isPdf) {
 		print(data, 'Requisition Slip', undefined, printingType);
 	}
+
+	return data;
 };

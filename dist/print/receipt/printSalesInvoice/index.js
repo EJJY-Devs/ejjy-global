@@ -19,5 +19,6 @@ const printSalesInvoice = (printSalesInvoiceDetails) => {
     if (!printSalesInvoiceDetails.isPdf) {
         (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
     }
+    return data;
 };
 exports.printSalesInvoice = printSalesInvoice;
