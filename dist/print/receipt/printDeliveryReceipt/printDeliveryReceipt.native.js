@@ -8,15 +8,22 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../../utils");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_1 = require("../../helper-escpos");
-const printDeliveryReceiptNative = ({ deliveryReceipt, user, }) => [
-    ...generateDeliveryReceiptContentCommands(deliveryReceipt, user),
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-    escpos_enum_1.EscPosCommands.LINE_BREAK,
-];
+const helper_receipt_1 = require("../../helper-receipt");
+const printDeliveryReceiptNative = ({ deliveryReceipt, user, isPdf, }) => {
+    const commands = [
+        ...generateDeliveryReceiptContentCommands(deliveryReceipt, user),
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+        escpos_enum_1.EscPosCommands.LINE_BREAK,
+    ];
+    if (isPdf) {
+        return (0, helper_receipt_1.appendHtmlElement)(commands.join(''));
+    }
+    return commands;
+};
 exports.printDeliveryReceiptNative = printDeliveryReceiptNative;
 const generateDeliveryReceiptContentCommands = (deliveryReceipt, user) => {
     const commands = [];

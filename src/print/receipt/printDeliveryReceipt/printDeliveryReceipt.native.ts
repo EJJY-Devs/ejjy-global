@@ -7,20 +7,30 @@ import {
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
+import { appendHtmlElement } from '../../helper-receipt';
 import { PrintDeliveryReceipt } from './types';
 
 export const printDeliveryReceiptNative = ({
 	deliveryReceipt,
 	user,
-}: PrintDeliveryReceipt): string[] => [
-	...generateDeliveryReceiptContentCommands(deliveryReceipt, user),
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-];
+	isPdf,
+}: PrintDeliveryReceipt): string[] | string => {
+	const commands = [
+		...generateDeliveryReceiptContentCommands(deliveryReceipt, user),
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+	];
+
+	if (isPdf) {
+		return appendHtmlElement(commands.join(''));
+	}
+
+	return commands;
+};
 
 const generateDeliveryReceiptContentCommands = (
 	deliveryReceipt: PrintDeliveryReceipt['deliveryReceipt'],
