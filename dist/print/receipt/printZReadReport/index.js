@@ -19,7 +19,5 @@ const printZReadReport = (printZReadReportDetails) => {
         (0, helper_receipt_1.print)(data, 'ZRead Report', undefined, printingType);
         return undefined; // ✅ Native printing doesn't need to return anything
     }
-    // fallback just in case
-    return undefined;
 };
 exports.printZReadReport = printZReadReport;

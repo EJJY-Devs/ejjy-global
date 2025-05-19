@@ -18,5 +18,8 @@ export const printRequisitionSlip = (
 		data = printRequisitionSlipNative(printRequisitionSlipDetails);
 	}
 
-	print(data, 'Requisition Slip', undefined, printingType);
+	// Only call print if NOT generating PDF
+	if (!printRequisitionSlipDetails.isPdf) {
+		print(data, 'Requisition Slip', undefined, printingType);
+	}
 };

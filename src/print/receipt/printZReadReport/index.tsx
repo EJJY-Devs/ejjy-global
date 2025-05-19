@@ -21,7 +21,4 @@ export const printZReadReport = (
 		print(data, 'ZRead Report', undefined, printingType);
 		return undefined; // ✅ Native printing doesn't need to return anything
 	}
-
-	// fallback just in case
-	return undefined;
 };

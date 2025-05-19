@@ -15,6 +15,9 @@ const printDeliveryReceipt = (printDeliveryReceiptDetails) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printDeliveryReceipt_native_1.printDeliveryReceiptNative)(printDeliveryReceiptDetails);
     }
-    (0, helper_receipt_1.print)(data, 'Delivery Receipt', undefined, printingType);
+    // Only call print if NOT generating PDF
+    if (!printDeliveryReceiptDetails.isPdf) {
+        (0, helper_receipt_1.print)(data, 'Delivery Receipt', undefined, printingType);
+    }
 };
 exports.printDeliveryReceipt = printDeliveryReceipt;

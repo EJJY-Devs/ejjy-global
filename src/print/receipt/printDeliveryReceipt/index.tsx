@@ -18,5 +18,8 @@ export const printDeliveryReceipt = (
 		data = printDeliveryReceiptNative(printDeliveryReceiptDetails);
 	}
 
-	print(data, 'Delivery Receipt', undefined, printingType);
+	// Only call print if NOT generating PDF
+	if (!printDeliveryReceiptDetails.isPdf) {
+		print(data, 'Delivery Receipt', undefined, printingType);
+	}
 };
