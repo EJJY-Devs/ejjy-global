@@ -6,6 +6,7 @@ export * from './receipt/printCashBreakdown';
 export * from './receipt/printCashOut';
 export * from './receipt/printCollectionReceipt';
 export * from './receipt/printDailySales';
+export * from './receipt/printDeliveryReceipt';
 export * from './receipt/printDtr';
 export * from './receipt/printEmployeeCode';
 export * from './receipt/printOrderOfPayment';
@@ -20,7 +21,6 @@ export * from './txt/createDailySalesTxt';
 export * from './txt/createSalesInvoiceTxt';
 export * from './txt/createXReadTxt';
 export * from './txt/createZReadTxt';
-export * from './receipt/printDeliveryReceipt';
 export * from './utils/cashier';
 
 export * from './receipt/printSalesInvoice/printSalesInvoice.native';
