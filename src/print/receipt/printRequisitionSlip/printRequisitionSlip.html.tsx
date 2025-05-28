@@ -32,12 +32,16 @@ export const printRequisitionSlipHtml = ({
         <td style="text-align: right">${getFullName(requisitionSlip?.approved_by)}</td>
       </tr>
       <tr>
-        <td>Requesting Branch:</td>
+        <td>Customer:</td>
         <td style="text-align: right">${requisitionSlip?.branch?.name}</td>
       </tr>
       <tr>
         <td>ID:</td>
         <td style="text-align: right">${requisitionSlip?.reference_number}</td>
+      </tr>
+      <tr>
+        <td>Vendor:</td>
+        <td style="text-align: right">${requisitionSlip?.vendor?.name}</td>
       </tr>
     
     </table>

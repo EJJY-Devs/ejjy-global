@@ -60,4 +60,5 @@ export type RequisitionSlip = {
 	progress: RequisitionSlipProgress;
 	reference_number: string;
 	branch: Branch;
+	vendor: Branch;
 };

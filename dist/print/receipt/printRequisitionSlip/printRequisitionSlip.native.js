@@ -53,7 +53,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     if (requisitionSlip.branch) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
-                label: 'Requesting Branch:',
+                label: 'Customer:',
                 value: requisitionSlip.branch.name || '',
             },
         ]));
@@ -64,6 +64,14 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
             {
                 label: 'Requisition Slip ID:',
                 value: requisitionSlip.reference_number || '',
+            },
+        ]));
+    }
+    if (requisitionSlip.vendor) {
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Vendor:',
+                value: requisitionSlip.vendor.name || '',
             },
         ]));
     }

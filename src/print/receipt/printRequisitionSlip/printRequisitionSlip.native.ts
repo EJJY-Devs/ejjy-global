@@ -82,7 +82,7 @@ const generateRequisitionSlipContentCommands = (
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'Requesting Branch:',
+					label: 'Customer:',
 					value: requisitionSlip.branch.name || '',
 				},
 			]),
@@ -96,6 +96,17 @@ const generateRequisitionSlipContentCommands = (
 				{
 					label: 'Requisition Slip ID:',
 					value: requisitionSlip.reference_number || '',
+				},
+			]),
+		);
+	}
+
+	if (requisitionSlip.vendor) {
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Vendor:',
+					value: requisitionSlip.vendor.name || '',
 				},
 			]),
 		);

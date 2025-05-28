@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../helper-receipt");
 const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf = false, }) => {
-    var _a;
+    var _a, _b;
     const data = `
         <div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
   ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP', requisitionSlip.branch)}
@@ -25,12 +25,16 @@ const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf =
         <td style="text-align: right">${(0, utils_1.getFullName)(requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.approved_by)}</td>
       </tr>
       <tr>
-        <td>Requesting Branch:</td>
+        <td>Customer:</td>
         <td style="text-align: right">${(_a = requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.branch) === null || _a === void 0 ? void 0 : _a.name}</td>
       </tr>
       <tr>
         <td>ID:</td>
         <td style="text-align: right">${requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.reference_number}</td>
+      </tr>
+      <tr>
+        <td>Vendor:</td>
+        <td style="text-align: right">${(_b = requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.vendor) === null || _b === void 0 ? void 0 : _b.name}</td>
       </tr>
     
     </table>
