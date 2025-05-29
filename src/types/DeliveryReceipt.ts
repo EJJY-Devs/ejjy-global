@@ -72,7 +72,7 @@ export type ReceivingReport = {
 	supplier_tin: string;
 	encoded_by: User;
 	checked_by: User;
-	products: ReceivingReportProduct[];
+	receiving_voucher_products: ReceivingReportProduct[];
 	amount_paid: number;
 	branch: Branch;
 };

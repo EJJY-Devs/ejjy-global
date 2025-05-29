@@ -74,10 +74,12 @@ const generateReceivingReportContentCommands = (
 	// Product List
 	commands.push(
 		...generateItemBlockCommands(
-			receivingReport.products.map(({ product, quantity }) => ({
-				label: product.name,
-				value: formatQuantity(quantity, product),
-			})),
+			receivingReport.receiving_voucher_products.map(
+				({ product, quantity }) => ({
+					label: product.name,
+					value: formatQuantity(quantity, product),
+				}),
+			),
 		),
 	);
 

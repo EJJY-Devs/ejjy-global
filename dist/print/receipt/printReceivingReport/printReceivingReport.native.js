@@ -50,7 +50,7 @@ const generateReceivingReportContentCommands = (receivingReport, user) => {
     commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(receivingReport.products.map(({ product, quantity }) => ({
+    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(receivingReport.receiving_voucher_products.map(({ product, quantity }) => ({
         label: product.name,
         value: (0, utils_1.formatQuantity)(quantity, product),
     }))));

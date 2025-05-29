@@ -14,7 +14,7 @@ export const printReceivingReportHtml = ({
 	siteSettings,
 	isPdf = false,
 }: PrintReceivingReport) => {
-	const products = receivingReport?.products;
+	const products = receivingReport?.receiving_voucher_products;
 
 	const data = `
 	<div className="container" style="${getPageStyle()}">

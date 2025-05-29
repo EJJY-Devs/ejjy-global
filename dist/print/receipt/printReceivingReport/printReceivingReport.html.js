@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../helper-receipt");
 const printReceivingReportHtml = ({ receivingReport, siteSettings, isPdf = false, }) => {
-    const products = receivingReport === null || receivingReport === void 0 ? void 0 : receivingReport.products;
+    const products = receivingReport === null || receivingReport === void 0 ? void 0 : receivingReport.receiving_voucher_products;
     const data = `
 	<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'RECEIVING REPORT', receivingReport.branch)}
