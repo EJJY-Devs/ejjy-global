@@ -55,6 +55,8 @@ const generateReceivingReportContentCommands = (
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	// Reference Number
 	if (receivingReport.reference_number) {
 		commands.push(

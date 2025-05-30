@@ -40,6 +40,7 @@ const generateReceivingReportContentCommands = (receivingReport) => {
         commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(receivingReport.datetime_created)));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Reference Number
     if (receivingReport.reference_number) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
