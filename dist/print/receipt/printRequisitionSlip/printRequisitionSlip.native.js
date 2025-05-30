@@ -34,7 +34,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     }), escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date & Time Requested
     if (requisitionSlip.datetime_created) {
-        commands.push((0, helper_escpos_1.printCenter)('Datetime Generated:'));
+        commands.push((0, helper_escpos_1.printCenter)('Datetime Requested:'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(requisitionSlip.datetime_created)));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

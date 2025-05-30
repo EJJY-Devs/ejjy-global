@@ -5,6 +5,7 @@ import {
 	generateItemBlockCommands,
 	generateReceiptHeaderCommandsV2,
 	printCenter,
+	printRight,
 } from '../../helper-escpos';
 import { appendHtmlElement, EMPTY_CELL } from '../../helper-receipt';
 import { PrintDeliveryReceipt } from './types';
@@ -45,15 +46,14 @@ const generateDeliveryReceiptContentCommands = (
 	);
 
 	// Datetime Generated
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: 'Datetime Generated:',
-				value: formatDateTime(deliveryReceipt.datetime_created),
-			},
-		]),
-	);
-	commands.push(EscPosCommands.LINE_BREAK);
+	if (deliveryReceipt.datetime_created) {
+		commands.push(printCenter('Datetime Generated:'));
+		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(
+			printCenter(formatDateTime(deliveryReceipt.datetime_created)),
+		);
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
 
 	// Receipt Info
 	commands.push(
@@ -78,6 +78,14 @@ const generateDeliveryReceiptContentCommands = (
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
 
+	// Table Header (still done with generateItemBlockCommands)
+	commands.push(
+		...generateItemBlockCommands([
+			{ label: 'Product Name', value: 'Quantity' },
+		]),
+	);
+	commands.push(printRight('----------------------------------------'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	// Product list
 	commands.push(
 		...generateItemBlockCommands(

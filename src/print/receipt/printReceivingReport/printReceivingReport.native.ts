@@ -5,6 +5,7 @@ import {
 	generateItemBlockCommands,
 	generateReceiptHeaderCommandsV2,
 	printCenter,
+	printRight,
 } from '../../helper-escpos';
 import { appendHtmlElement } from '../../helper-receipt';
 import { PrintReceivingReport } from './types';
@@ -46,16 +47,14 @@ const generateReceivingReportContentCommands = (
 
 	// Datetime created
 	if (receivingReport.datetime_created) {
+		commands.push(printCenter('Datetime Generated:'));
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: 'Datetime Generated:',
-					value: formatDateTime(receivingReport.datetime_created),
-				},
-			]),
+			printCenter(formatDateTime(receivingReport.datetime_created)),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
+
 	// Reference Number
 	if (receivingReport.reference_number) {
 		commands.push(
@@ -101,6 +100,7 @@ const generateReceivingReportContentCommands = (
 					value: getFullName(receivingReport.encoded_by),
 				},
 			]),
+			EscPosCommands.LINE_BREAK,
 		);
 	}
 
@@ -110,6 +110,7 @@ const generateReceivingReportContentCommands = (
 			{ label: 'Product Name', value: 'Quantity' },
 		]),
 	);
+	commands.push(printRight('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Product List

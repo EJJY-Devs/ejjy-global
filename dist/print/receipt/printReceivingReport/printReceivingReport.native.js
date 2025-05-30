@@ -35,12 +35,9 @@ const generateReceivingReportContentCommands = (receivingReport) => {
     }), escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Datetime created
     if (receivingReport.datetime_created) {
-        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-            {
-                label: 'Datetime Generated:',
-                value: (0, utils_1.formatDateTime)(receivingReport.datetime_created),
-            },
-        ]));
+        commands.push((0, helper_escpos_1.printCenter)('Datetime Generated:'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(receivingReport.datetime_created)));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     // Reference Number
@@ -77,12 +74,13 @@ const generateReceivingReportContentCommands = (receivingReport) => {
                 label: 'Encoder:',
                 value: (0, utils_1.getFullName)(receivingReport.encoded_by),
             },
-        ]));
+        ]), escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     // Table Header (still done with generateItemBlockCommands)
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         { label: 'Product Name', value: 'Quantity' },
     ]));
+    commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(receivingReport.receiving_voucher_products.map(({ product, quantity }) => ({
