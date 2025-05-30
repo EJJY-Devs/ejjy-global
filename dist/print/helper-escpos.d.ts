@@ -1,6 +1,7 @@
 import { ReceiptHeaderProps } from '../components';
 import { ItemBlockItems } from '../components/Printing/ItemBlock';
 import { SiteSettings } from '../types';
+export declare const generateReceiptHeaderCommandsV2: ({ branchMachine, title, branchHeader, }: ReceiptHeaderProps) => string[];
 export declare const generateReceiptHeaderCommands: ({ branchMachine, title, branchHeader, }: ReceiptHeaderProps) => string[];
 export declare const generateReceiptFooterCommands: (siteSettings: SiteSettings) => string[];
 export declare const printCenter: (text: string) => string;

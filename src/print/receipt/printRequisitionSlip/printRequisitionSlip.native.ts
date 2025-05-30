@@ -4,7 +4,7 @@ import { EscPosCommands } from '../../utils/escpos.enum';
 import { PrintRequisitionSlip } from './types';
 import {
 	generateItemBlockCommands,
-	generateReceiptHeaderCommands,
+	generateReceiptHeaderCommandsV2,
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
@@ -46,7 +46,7 @@ const generateRequisitionSlipContentCommands = (
 
 	// Header
 	commands.push(
-		...generateReceiptHeaderCommands({
+		...generateReceiptHeaderCommandsV2({
 			branchHeader: requisitionSlip.branch,
 			title: 'REQUISITION SLIP',
 		}),
@@ -55,7 +55,7 @@ const generateRequisitionSlipContentCommands = (
 
 	// Date & Time Requested
 	if (requisitionSlip.datetime_created) {
-		commands.push(printCenter('Date & Time Requested'));
+		commands.push(printCenter('Datetime Generated:'));
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			printCenter(formatDateTime(requisitionSlip.datetime_created)),
@@ -65,63 +65,51 @@ const generateRequisitionSlipContentCommands = (
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Requestor Name
-	if (requisitionSlip.approved_by) {
-		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: 'Requestor:',
-					value: getFullName(requisitionSlip.approved_by) || '',
-				},
-			]),
-		);
-	}
-
-	// Branch Name
-	if (requisitionSlip.branch) {
-		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: 'Customer:',
-					value: requisitionSlip.branch.name || '',
-				},
-			]),
-		);
-	}
-
-	// Requisition Slip Reference Number
+	// Reference Number
 	if (requisitionSlip.reference_number) {
 		commands.push(
 			...generateItemBlockCommands([
-				{
-					label: 'Requisition Slip ID:',
-					value: requisitionSlip.reference_number || '',
-				},
+				{ label: 'Reference #:', value: requisitionSlip.reference_number },
 			]),
 		);
 	}
 
+	// Vendor
 	if (requisitionSlip.vendor) {
 		commands.push(
 			...generateItemBlockCommands([
+				{ label: 'Vendor:', value: requisitionSlip.vendor.name || '' },
+			]),
+		);
+	}
+
+	// Customer (Branch Name)
+	if (requisitionSlip.branch) {
+		commands.push(
+			...generateItemBlockCommands([
+				{ label: 'Customer:', value: requisitionSlip.branch.name || '' },
+			]),
+		);
+	}
+
+	// Encoder (Prepared By)
+	if (requisitionSlip.prepared_by) {
+		commands.push(
+			...generateItemBlockCommands([
 				{
-					label: 'Vendor:',
-					value: requisitionSlip.vendor.name || '',
+					label: 'Encoder:',
+					value: getFullName(requisitionSlip.prepared_by) || '',
 				},
 			]),
 		);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Table Header
 	commands.push(
 		...generateItemBlockCommands([
-			{
-				label: 'Product Name',
-				value: 'Quantity',
-			},
+			{ label: 'Product Name', value: 'Quantity' },
 		]),
 	);
 	commands.push(printRight('----------------------------------------'));
@@ -139,7 +127,7 @@ const generateRequisitionSlipContentCommands = (
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Footer
+	// Footer - Print Details
 	if (user) {
 		commands.push(
 			printCenter(

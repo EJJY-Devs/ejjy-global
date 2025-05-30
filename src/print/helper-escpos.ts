@@ -6,6 +6,34 @@ import { EscPosCommands } from './utils/escpos.enum';
 
 const PAPER_CHARACTER_WIDTH = 40;
 
+export const generateReceiptHeaderCommandsV2 = ({
+	branchMachine,
+	title,
+	branchHeader,
+}: ReceiptHeaderProps) => {
+	const { branch } = branchMachine || {};
+
+	const branchInfo = branch ?? branchHeader; // <-- fallback if branch is undefined
+
+	const commands: string[] = [];
+
+	if (branchInfo?.store_name) {
+		const lines = branchInfo.store_name.split('\n');
+		for (const line of lines) {
+			commands.push(printCenter(line));
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+	}
+
+	if (title) {
+		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(printCenter(title));
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
+
+	return commands;
+};
+
 export const generateReceiptHeaderCommands = ({
 	branchMachine,
 	title,

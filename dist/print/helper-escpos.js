@@ -1,9 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = void 0;
+exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = exports.generateReceiptHeaderCommandsV2 = void 0;
 const utils_1 = require("../utils");
 const escpos_enum_1 = require("./utils/escpos.enum");
 const PAPER_CHARACTER_WIDTH = 40;
+const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }) => {
+    const { branch } = branchMachine || {};
+    const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader; // <-- fallback if branch is undefined
+    const commands = [];
+    if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
+        const lines = branchInfo.store_name.split('\n');
+        for (const line of lines) {
+            commands.push((0, exports.printCenter)(line));
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        }
+    }
+    if (title) {
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push((0, exports.printCenter)(title));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }
+    return commands;
+};
+exports.generateReceiptHeaderCommandsV2 = generateReceiptHeaderCommandsV2;
 const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) => {
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader; // <-- fallback if branch is undefined
