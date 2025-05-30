@@ -1,2 +1,2 @@
 import { PrintDeliveryReceipt } from './types';
-export declare const printDeliveryReceiptNative: ({ deliveryReceipt, user, isPdf, }: PrintDeliveryReceipt) => string[] | string;
+export declare const printDeliveryReceiptNative: ({ deliveryReceipt, isPdf, }: PrintDeliveryReceipt) => string[] | string;

@@ -36,6 +36,7 @@ export interface DeliveryReceipt {
 	customer_tin?: string;
 	encoded_by: DeliveryReceiptUser;
 	branch?: Branch;
+	reference_number?: string;
 }
 
 type CreateDeliveryReceiptProduct = {
@@ -75,4 +76,5 @@ export type ReceivingReport = {
 	receiving_voucher_products: ReceivingReportProduct[];
 	amount_paid: number;
 	branch: Branch;
+	reference_number: string;
 };

@@ -12,16 +12,10 @@ import { appendHtmlElement } from '../../helper-receipt';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
-	siteSettings,
-	user,
 	isPdf,
 }: PrintRequisitionSlip): string[] | string => {
 	const commands = [
-		...generateRequisitionSlipContentCommands(
-			requisitionSlip,
-			siteSettings,
-			user,
-		),
+		...generateRequisitionSlipContentCommands(requisitionSlip),
 		EscPosCommands.LINE_BREAK,
 		EscPosCommands.LINE_BREAK,
 		EscPosCommands.LINE_BREAK,
@@ -39,8 +33,6 @@ export const printRequisitionSlipNative = ({
 
 const generateRequisitionSlipContentCommands = (
 	requisitionSlip: PrintRequisitionSlip['requisitionSlip'],
-	siteSettings: PrintRequisitionSlip['siteSettings'],
-	user: PrintRequisitionSlip['user'],
 ): string[] => {
 	const commands: string[] = [];
 
@@ -128,14 +120,10 @@ const generateRequisitionSlipContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Footer - Print Details
-	if (user) {
-		commands.push(
-			printCenter(
-				`Print Details: ${formatDateTime(dayjs(), false)} ${user.employee_id}`,
-			),
-		);
-		commands.push(EscPosCommands.LINE_BREAK);
-	}
+	commands.push(
+		printCenter(`Print Details: ${formatDateTime(dayjs(), false)}`),
+	);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

@@ -3,20 +3,18 @@ import { formatDateTime, formatQuantity, getFullName } from '../../../utils';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import {
 	generateItemBlockCommands,
-	generateReceiptHeaderCommands,
+	generateReceiptHeaderCommandsV2,
 	printCenter,
-	printRight,
 } from '../../helper-escpos';
 import { appendHtmlElement } from '../../helper-receipt';
 import { PrintReceivingReport } from './types';
 
 export const printReceivingReportNative = ({
 	receivingReport,
-	user,
 	isPdf,
 }: PrintReceivingReport): string[] | string => {
 	const commands = [
-		...generateReceivingReportContentCommands(receivingReport, user),
+		...generateReceivingReportContentCommands(receivingReport),
 		EscPosCommands.LINE_BREAK,
 		EscPosCommands.LINE_BREAK,
 		EscPosCommands.LINE_BREAK,
@@ -34,13 +32,12 @@ export const printReceivingReportNative = ({
 
 const generateReceivingReportContentCommands = (
 	receivingReport: PrintReceivingReport['receivingReport'],
-	user: PrintReceivingReport['user'],
 ): string[] => {
 	const commands: string[] = [];
 
 	// Header
 	commands.push(
-		...generateReceiptHeaderCommands({
+		...generateReceiptHeaderCommandsV2({
 			branchHeader: receivingReport.branch,
 			title: 'RECEIVING REPORT',
 		}),
@@ -49,41 +46,27 @@ const generateReceivingReportContentCommands = (
 
 	// Datetime created
 	if (receivingReport.datetime_created) {
-		commands.push(printCenter('Date & Time Generated'));
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
-			printCenter(formatDateTime(receivingReport.datetime_created)),
+			...generateItemBlockCommands([
+				{
+					label: 'Datetime Generated:',
+					value: formatDateTime(receivingReport.datetime_created),
+				},
+			]),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
-
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Table Header
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: 'Product Name',
-				value: 'Quantity',
-			},
-		]),
-	);
-	commands.push(printRight('----------------------------------------'));
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Product List
-	commands.push(
-		...generateItemBlockCommands(
-			receivingReport.receiving_voucher_products.map(
-				({ product, quantity }) => ({
-					label: product.name,
-					value: formatQuantity(quantity, product),
-				}),
-			),
-		),
-	);
-
-	commands.push(EscPosCommands.LINE_BREAK);
+	// Reference Number
+	if (receivingReport.reference_number) {
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Reference #:',
+					value: receivingReport.reference_number,
+				},
+			]),
+		);
+	}
 
 	// Vendor
 	if (receivingReport.supplier_name) {
@@ -92,6 +75,18 @@ const generateReceivingReportContentCommands = (
 				{
 					label: 'Vendor:',
 					value: receivingReport.supplier_name,
+				},
+			]),
+		);
+	}
+
+	// Customer
+	if (receivingReport.branch?.name) {
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'Customer:',
+					value: receivingReport.branch?.name,
 				},
 			]),
 		);
@@ -109,29 +104,31 @@ const generateReceivingReportContentCommands = (
 		);
 	}
 
-	// Inspector
-	if (receivingReport.checked_by) {
-		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: 'Inspector:',
-					value: getFullName(receivingReport.checked_by),
-				},
-			]),
-		);
-	}
-
+	// Table Header (still done with generateItemBlockCommands)
+	commands.push(
+		...generateItemBlockCommands([
+			{ label: 'Product Name', value: 'Quantity' },
+		]),
+	);
 	commands.push(EscPosCommands.LINE_BREAK);
 
-	// Footer
-	if (user) {
-		commands.push(
-			printCenter(
-				`Print Details: ${formatDateTime(dayjs(), false)} ${user.employee_id}`,
+	// Product List
+	commands.push(
+		...generateItemBlockCommands(
+			receivingReport.receiving_voucher_products.map(
+				({ product, quantity }) => ({
+					label: product.name,
+					value: formatQuantity(quantity, product),
+				}),
 			),
-			EscPosCommands.LINE_BREAK,
-		);
-	}
+		),
+	);
+	commands.push(EscPosCommands.LINE_BREAK);
+
+	// Print details (footer)
+	commands.push(
+		printCenter(`Print Details: ${formatDateTime(dayjs(), false)}`),
+	);
 
 	return commands;
 };

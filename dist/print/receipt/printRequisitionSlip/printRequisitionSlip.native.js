@@ -9,9 +9,9 @@ const utils_1 = require("../../../utils");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
-const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, isPdf, }) => {
+const printRequisitionSlipNative = ({ requisitionSlip, isPdf, }) => {
     const commands = [
-        ...generateRequisitionSlipContentCommands(requisitionSlip, siteSettings, user),
+        ...generateRequisitionSlipContentCommands(requisitionSlip),
         escpos_enum_1.EscPosCommands.LINE_BREAK,
         escpos_enum_1.EscPosCommands.LINE_BREAK,
         escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -25,7 +25,7 @@ const printRequisitionSlipNative = ({ requisitionSlip, siteSettings, user, isPdf
     return commands;
 };
 exports.printRequisitionSlipNative = printRequisitionSlipNative;
-const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, user) => {
+const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommandsV2)({
@@ -81,9 +81,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip, siteSettings, u
     }))));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer - Print Details
-    if (user) {
-        commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)} ${user.employee_id}`));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    }
+    commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
