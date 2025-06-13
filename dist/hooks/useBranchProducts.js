@@ -18,6 +18,7 @@ const useBranchProducts = (data = {}) => {
         search: params === null || params === void 0 ? void 0 : params.search,
         unit_of_measurement: params === null || params === void 0 ? void 0 : params.unitOfMeasurement,
         barcode: params === null || params === void 0 ? void 0 : params.barcode,
+        search_by: params === null || params === void 0 ? void 0 : params.searchBy,
     }, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.type)), Object.assign({ placeholderData: {
             results: [],
             count: 0,

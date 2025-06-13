@@ -33,6 +33,7 @@ export const useBranchProducts = (
 						search: params?.search,
 						unit_of_measurement: params?.unitOfMeasurement,
 						barcode: params?.barcode,
+						search_by: params?.searchBy,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,
