@@ -75,5 +75,8 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Print details
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push((0, helper_escpos_1.printCenter)(`Remarks ${deliveryReceipt.overall_remarks || ''}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };

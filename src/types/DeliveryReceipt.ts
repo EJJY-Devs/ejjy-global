@@ -77,4 +77,5 @@ export type ReceivingReport = {
 	amount_paid: number;
 	branch: Branch;
 	reference_number: string;
+	overall_remarks?: string;
 };

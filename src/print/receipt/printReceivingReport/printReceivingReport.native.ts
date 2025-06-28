@@ -133,5 +133,13 @@ const generateReceivingReportContentCommands = (
 		printCenter(`Print Details: ${formatDateTime(dayjs(), false)}`),
 	);
 
+	commands.push(EscPosCommands.LINE_BREAK);
+
+	commands.push(
+		printCenter(`Remarks ${receivingReport?.overall_remarks || ''}`),
+	);
+
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	return commands;
 };
