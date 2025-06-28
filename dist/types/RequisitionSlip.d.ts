@@ -33,5 +33,6 @@ export type RequisitionSlip = {
     reference_number: string;
     branch: Branch;
     vendor: Branch;
+    overall_remarks: string;
 };
 export {};

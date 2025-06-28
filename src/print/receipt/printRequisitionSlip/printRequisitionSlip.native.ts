@@ -124,6 +124,10 @@ const generateRequisitionSlipContentCommands = (
 		printCenter(`Print Details: ${formatDateTime(dayjs(), false)}`),
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(
+		printCenter(`Remarks: ${requisitionSlip?.overall_remarks || ''}`),
+	);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

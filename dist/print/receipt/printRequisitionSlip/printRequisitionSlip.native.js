@@ -83,5 +83,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     // Footer - Print Details
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push((0, helper_escpos_1.printCenter)(`Remarks: ${(requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.overall_remarks) || ''}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
