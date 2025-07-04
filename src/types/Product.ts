@@ -8,6 +8,7 @@ export interface Product {
 	barcode?: string;
 	selling_barcode?: string;
 	packing_barcode?: string;
+	scale_code?: string;
 	textcode?: string;
 	name: string;
 	type: 'wet' | 'dry';
