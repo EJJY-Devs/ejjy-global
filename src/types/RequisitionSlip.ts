@@ -27,6 +27,7 @@ type RequisitionSlipProduct = {
 	product: Product;
 	is_out_of_stock: boolean;
 	quantity: number;
+	unit: string;
 	status: 'added_to_os' | 'not_added_to_os';
 };
 

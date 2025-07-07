@@ -70,15 +70,18 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Table Header
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        { label: 'Product Name', value: 'Quantity' },
+        { label: 'Product Name', value: 'Unit' },
+        { label: '', value: 'Quantity' },
     ]));
     commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(requisitionSlip.products.map(({ product, quantity }) => ({
-        label: product.name,
-        value: (0, utils_1.formatQuantity)(quantity, product),
-    }))));
+    requisitionSlip.products.forEach(({ product, quantity, unit }) => {
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            { label: product.name, value: unit || '' },
+            { label: '', value: (0, utils_1.formatQuantity)(quantity, product) },
+        ]));
+    });
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer - Print Details
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));

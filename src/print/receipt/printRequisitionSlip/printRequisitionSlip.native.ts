@@ -101,21 +101,22 @@ const generateRequisitionSlipContentCommands = (
 	// Table Header
 	commands.push(
 		...generateItemBlockCommands([
-			{ label: 'Product Name', value: 'Quantity' },
+			{ label: 'Product Name', value: 'Unit' },
+			{ label: '', value: 'Quantity' },
 		]),
 	);
 	commands.push(printRight('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Product List
-	commands.push(
-		...generateItemBlockCommands(
-			requisitionSlip.products.map(({ product, quantity }) => ({
-				label: product.name,
-				value: formatQuantity(quantity, product),
-			})),
-		),
-	);
+	requisitionSlip.products.forEach(({ product, quantity, unit }) => {
+		commands.push(
+			...generateItemBlockCommands([
+				{ label: product.name, value: unit || '' },
+				{ label: '', value: formatQuantity(quantity, product) },
+			]),
+		);
+	});
 
 	commands.push(EscPosCommands.LINE_BREAK);
 
