@@ -45,17 +45,19 @@ const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf =
       <thead>
         <tr>
           <th style="text-align: left">Product Name</th>
+          <th style="text-align: center">Unit</th>
           <th style="text-align: center">Quantity</th>
         </tr>
         <tr>
-          <td colspan="2" style="border-bottom: 1px solid black;"></td>
+          <td colspan="3" style="border-bottom: 1px solid black;"></td>
         </tr>
       </thead>
       <tbody>
         ${requisitionSlip.products
-        .map(({ quantity, product }) => `
+        .map(({ quantity, product, unit }) => `
         <tr>
           <td>${product.name}</td>
+          <td style="text-align: center">${unit || ''}</td>
           <td style="text-align: center">${(0, utils_1.formatQuantity)(quantity, product)}</td>
         </tr>
         `)
