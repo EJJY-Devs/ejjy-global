@@ -34,8 +34,6 @@ export const ReceiptHeader = ({
 		permit_to_use,
 	} = branchMachine || {};
 
-	console.log('branchHeader', branchHeader);
-
 	return (
 		<>
 			{globalStyles}
@@ -48,7 +46,7 @@ export const ReceiptHeader = ({
 			>
 				{/* BranchHeader is for reports without a branchMachine */}
 				<span style={{ whiteSpace: 'pre-line' }}>
-					{(branch ?? branchHeader)?.store_name}
+					{branch?.name ?? branchHeader?.store_name}
 				</span>
 				<span style={{ whiteSpace: 'pre-line' }}>
 					{(branch ?? branchHeader)?.store_address}

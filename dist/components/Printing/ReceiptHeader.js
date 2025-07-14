@@ -20,7 +20,6 @@ const globalStyles = react_1.default.createElement('style', {}, [
 const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
     var _a, _b, _c, _d, _e, _f;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
-    console.log('branchHeader', branchHeader);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
         react_1.default.createElement("div", { style: {
@@ -28,7 +27,7 @@ const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
                 display: 'flex',
                 flexDirection: 'column',
             } },
-            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_a = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _a === void 0 ? void 0 : _a.store_name),
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_a = branch === null || branch === void 0 ? void 0 : branch.name) !== null && _a !== void 0 ? _a : branchHeader === null || branchHeader === void 0 ? void 0 : branchHeader.store_name),
             react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_b = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _b === void 0 ? void 0 : _b.store_address),
             react_1.default.createElement("span", null, [(_c = (branch !== null && branch !== void 0 ? branch : branchHeader)) === null || _c === void 0 ? void 0 : _c.contact_number, name]
                 .filter(Boolean)
