@@ -3,21 +3,22 @@ import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import React from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
-import { SiteSettings, User } from '../../../types';
-import { formatDate, formatTime } from '../../../utils';
-import { ReceiptFooter, ReceiptHeader } from '../../Printing';
+import { Branch, BranchMachine, User } from '../../../types';
+import { ReceiptHeader } from '../../Printing';
 import { DailyItemSoldSummary } from './index';
 
 type Props = {
 	dailyItemSoldSummary: DailyItemSoldSummary[];
-	siteSettings: SiteSettings;
+	branch: Branch;
+	branchMachine?: BranchMachine;
 	user?: User;
 	isForPrint?: boolean;
 };
 
 export const DailyItemSoldContent = ({
 	dailyItemSoldSummary,
-	siteSettings,
+	branch,
+	branchMachine,
 	isForPrint,
 }: Props) => {
 	const columns: ColumnsType<DailyItemSoldSummary> = [
@@ -32,12 +33,13 @@ export const DailyItemSoldContent = ({
 			dataIndex: 'quantity',
 			key: 'quantity',
 			width: '30%',
-			align: 'right',
+			align: 'center',
 			render: (quantity: number) => quantity.toLocaleString(),
 		},
 	];
 
 	const currentDate = dayjs();
+	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A [PDT]');
 
 	return (
 		<>
@@ -50,10 +52,10 @@ export const DailyItemSoldContent = ({
 			)}
 
 			<div className="relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4">
-				<ReceiptHeader />
+				<ReceiptHeader branchMachine={branchMachine} branchHeader={branch} />
 
 				<br />
-				<span className="font-bold">DAILY ITEM SOLD SUMMARY</span>
+				<strong>DAILY ITEM SOLD</strong>
 				<br />
 				<br />
 
@@ -73,13 +75,9 @@ export const DailyItemSoldContent = ({
 				)}
 
 				<br />
-				<span>Date: {formatDate(currentDate)}</span>
-				<br />
-				<span>Time: {formatTime(currentDate)}</span>
+				<span>PDT: {currentDateTime}</span>
 				<br />
 				<br />
-
-				<ReceiptFooter siteSettings={siteSettings} />
 			</div>
 		</>
 	);

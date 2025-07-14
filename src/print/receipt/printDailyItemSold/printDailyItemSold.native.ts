@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
-import { formatDate, formatTime } from '../../../utils';
-import { SiteSettings } from '../../../types';
+import { BranchMachine } from '../../../types';
 import { DailyItemSoldSummary } from '../../../components/modals/ViewDailyItemSoldModal';
 import {
-	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
 } from '../../helper-escpos';
@@ -12,9 +10,9 @@ import { PrintDailyItemSold } from './types';
 
 export const printDailyItemSoldNative = ({
 	dailyItemSoldSummary,
-	siteSettings,
+	branchMachine,
 }: PrintDailyItemSold): string[] => [
-	...generateDailyItemSoldContentCommands(dailyItemSoldSummary, siteSettings),
+	...generateDailyItemSoldContentCommands(dailyItemSoldSummary, branchMachine),
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
@@ -25,15 +23,17 @@ export const printDailyItemSoldNative = ({
 
 const generateDailyItemSoldContentCommands = (
 	dailyItemSoldSummary: DailyItemSoldSummary[],
-	siteSettings: SiteSettings,
+	branchMachine: BranchMachine | undefined,
 ): string[] => {
 	const currentDate = dayjs();
+	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A [PDT]');
 	const commands: string[] = [];
 
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
-			title: 'DAILY ITEM SOLD',
+			branchMachine,
+			title: 'DAILY ITEM SOLD SUMMARY',
 		}),
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
@@ -61,14 +61,9 @@ const generateDailyItemSoldContentCommands = (
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(`Date: ${formatDate(currentDate)}`);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(`Time: ${formatTime(currentDate)}`);
+	commands.push(`PDT: ${currentDateTime}`);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Footer
-	commands.push(...generateReceiptFooterCommands(siteSettings));
 
 	return commands;
 };

@@ -1,8 +1,9 @@
-import { SiteSettings, User } from '../../../types';
+import { Branch, BranchMachine, User } from '../../../types';
 import { DailyItemSoldSummary } from '../../../components/modals/ViewDailyItemSoldModal';
 export type PrintDailyItemSold = {
     dailyItemSoldSummary: DailyItemSoldSummary[];
-    siteSettings: SiteSettings;
+    branch: Branch;
+    branchMachine?: BranchMachine;
     user?: User;
     isPdf?: boolean;
 };

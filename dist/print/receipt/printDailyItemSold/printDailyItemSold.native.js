@@ -5,11 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.printDailyItemSoldNative = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
-const utils_1 = require("../../../utils");
 const helper_escpos_1 = require("../../helper-escpos");
 const escpos_enum_1 = require("../../utils/escpos.enum");
-const printDailyItemSoldNative = ({ dailyItemSoldSummary, siteSettings, }) => [
-    ...generateDailyItemSoldContentCommands(dailyItemSoldSummary, siteSettings),
+const printDailyItemSoldNative = ({ dailyItemSoldSummary, branchMachine, }) => [
+    ...generateDailyItemSoldContentCommands(dailyItemSoldSummary, branchMachine),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -18,12 +17,14 @@ const printDailyItemSoldNative = ({ dailyItemSoldSummary, siteSettings, }) => [
     escpos_enum_1.EscPosCommands.LINE_BREAK,
 ];
 exports.printDailyItemSoldNative = printDailyItemSoldNative;
-const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, siteSettings) => {
+const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branchMachine) => {
     const currentDate = (0, dayjs_1.default)();
+    const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A [PDT]');
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
-        title: 'DAILY ITEM SOLD',
+        branchMachine,
+        title: 'DAILY ITEM SOLD SUMMARY',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -47,12 +48,8 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, siteSettings
         });
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(`Date: ${(0, utils_1.formatDate)(currentDate)}`);
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(`Time: ${(0, utils_1.formatTime)(currentDate)}`);
+    commands.push(`PDT: ${currentDateTime}`);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Footer
-    commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     return commands;
 };

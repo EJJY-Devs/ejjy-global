@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
 import { printDailyItemSold } from '../../../print';
-import { SiteSettings, User } from '../../../types';
+import { Branch, BranchMachine, User } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DailyItemSoldContent } from './DailyItemSoldContent';
 
@@ -17,7 +17,8 @@ export interface DailyItemSoldSummary {
 
 type Props = {
 	dailyItemSoldSummary: DailyItemSoldSummary[];
-	siteSettings: SiteSettings;
+	branch: Branch;
+	branchMachine?: BranchMachine;
 	user?: User;
 	isForPrint?: boolean;
 	onClose: () => void;
@@ -25,7 +26,8 @@ type Props = {
 
 export const ViewDailyItemSoldModal = ({
 	dailyItemSoldSummary,
-	siteSettings,
+	branch,
+	branchMachine,
 	user,
 	isForPrint,
 	onClose,
@@ -49,7 +51,8 @@ export const ViewDailyItemSoldModal = ({
 		print: () =>
 			printDailyItemSold({
 				dailyItemSoldSummary,
-				siteSettings,
+				branch,
+				branchMachine,
 				user,
 				isPdf: true,
 			}),
@@ -57,7 +60,12 @@ export const ViewDailyItemSoldModal = ({
 
 	// METHODS
 	const handlePrint = () => {
-		printDailyItemSold({ dailyItemSoldSummary, siteSettings, user });
+		printDailyItemSold({
+			dailyItemSoldSummary,
+			branch,
+			branchMachine,
+			user,
+		});
 	};
 
 	const handleCreateTxt = () => {
@@ -65,7 +73,8 @@ export const ViewDailyItemSoldModal = ({
 		// TODO: Implement createDailyItemSoldTxt when TXT printing is needed
 		console.log('Create daily item sold TXT:', {
 			dailyItemSoldSummary,
-			siteSettings,
+			branch,
+			branchMachine,
 			user,
 		});
 		setIsCreatingTxt(false);
@@ -101,7 +110,7 @@ export const ViewDailyItemSoldModal = ({
 					Create TXT
 				</Button>,
 			]}
-			title="Daily Item Sold Summary"
+			title="Daily Item Sold"
 			width={425}
 			centered
 			closable
@@ -110,7 +119,8 @@ export const ViewDailyItemSoldModal = ({
 		>
 			<DailyItemSoldContent
 				dailyItemSoldSummary={dailyItemSoldSummary}
-				siteSettings={siteSettings}
+				branch={branch}
+				branchMachine={branchMachine}
 				user={user}
 				isForPrint={isForPrint}
 			/>

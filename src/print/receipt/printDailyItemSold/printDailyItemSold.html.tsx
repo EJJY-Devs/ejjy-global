@@ -10,7 +10,8 @@ import { PrintDailyItemSold } from './types';
 
 export const printDailyItemSoldHtml = ({
 	dailyItemSoldSummary,
-	siteSettings,
+	branch,
+	branchMachine,
 	user,
 	isPdf = false,
 }: PrintDailyItemSold) => {
@@ -18,7 +19,8 @@ export const printDailyItemSoldHtml = ({
 		<div className="container" style={getPageStyleObject()}>
 			<DailyItemSoldContent
 				dailyItemSoldSummary={dailyItemSoldSummary}
-				siteSettings={siteSettings}
+				branch={branch}
+				branchMachine={branchMachine}
 				user={user}
 				isForPrint
 			/>

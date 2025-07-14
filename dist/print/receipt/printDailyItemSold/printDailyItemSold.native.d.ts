@@ -1,2 +1,2 @@
 import { PrintDailyItemSold } from './types';
-export declare const printDailyItemSoldNative: ({ dailyItemSoldSummary, siteSettings, }: PrintDailyItemSold) => string[];
+export declare const printDailyItemSoldNative: ({ dailyItemSoldSummary, branchMachine, }: PrintDailyItemSold) => string[];

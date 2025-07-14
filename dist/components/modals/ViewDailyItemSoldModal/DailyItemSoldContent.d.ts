@@ -1,11 +1,12 @@
 import React from 'react';
-import { SiteSettings, User } from '../../../types';
+import { Branch, BranchMachine, User } from '../../../types';
 import { DailyItemSoldSummary } from './index';
 type Props = {
     dailyItemSoldSummary: DailyItemSoldSummary[];
-    siteSettings: SiteSettings;
+    branch: Branch;
+    branchMachine?: BranchMachine;
     user?: User;
     isForPrint?: boolean;
 };
-export declare const DailyItemSoldContent: ({ dailyItemSoldSummary, siteSettings, isForPrint, }: Props) => React.JSX.Element;
+export declare const DailyItemSoldContent: ({ dailyItemSoldSummary, branch, branchMachine, isForPrint, }: Props) => React.JSX.Element;
 export {};

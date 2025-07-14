@@ -1,5 +1,5 @@
 import React from 'react';
-import { SiteSettings, User } from '../../../types';
+import { Branch, BranchMachine, User } from '../../../types';
 export interface DailyItemSoldSummary {
     id?: number;
     name: string;
@@ -8,10 +8,11 @@ export interface DailyItemSoldSummary {
 }
 type Props = {
     dailyItemSoldSummary: DailyItemSoldSummary[];
-    siteSettings: SiteSettings;
+    branch: Branch;
+    branchMachine?: BranchMachine;
     user?: User;
     isForPrint?: boolean;
     onClose: () => void;
 };
-export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, siteSettings, user, isForPrint, onClose, }: Props) => React.JSX.Element;
+export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, onClose, }: Props) => React.JSX.Element;
 export {};
