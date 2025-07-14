@@ -8,6 +8,7 @@ interface List extends ListQueryParams {
 	or_number?: boolean;
 	statuses?: string;
 	time_range?: string;
+	branch_id?: number | string;
 }
 
 const service = {

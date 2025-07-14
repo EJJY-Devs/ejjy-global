@@ -6,6 +6,7 @@ interface List extends ListQueryParams {
     or_number?: boolean;
     statuses?: string;
     time_range?: string;
+    branch_id?: number | string;
 }
 declare const service: {
     list: (params: List, baseURL?: string, serviceType?: ServiceType) => Promise<ListResponseData<TransactionProduct>>;

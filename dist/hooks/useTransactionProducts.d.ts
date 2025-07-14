@@ -9,6 +9,7 @@ interface TransactionProductParams {
     pageSize?: number;
     statuses?: string;
     timeRange?: string;
+    branchId?: number | string;
 }
 export declare const useTransactionProducts: (data?: UseListQuery<TransactionProduct, CamelCasedProperties<TransactionProductParams>>) => import("react-query").UseQueryResult<QueryResponse<TransactionProduct>, Error>;
 export default useTransactionProducts;

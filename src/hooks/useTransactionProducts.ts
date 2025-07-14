@@ -14,6 +14,7 @@ interface TransactionProductParams {
 	pageSize?: number;
 	statuses?: string;
 	timeRange?: string;
+	branchId?: number | string;
 }
 
 export const useTransactionProducts = (
@@ -37,6 +38,7 @@ export const useTransactionProducts = (
 			params?.pageSize,
 			params?.statuses,
 			params?.timeRange,
+			params?.branchId,
 		],
 		() =>
 			wrapServiceWithCatch(
@@ -48,6 +50,7 @@ export const useTransactionProducts = (
 						page: params?.page || DEFAULT_PAGE,
 						statuses: params?.statuses,
 						time_range: params?.timeRange || timeRangeTypes.DAILY,
+						branch_id: params?.branchId,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,
