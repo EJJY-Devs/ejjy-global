@@ -46,7 +46,7 @@ export const ReceiptHeader = ({
 			>
 				{/* BranchHeader is for reports without a branchMachine */}
 				<span style={{ whiteSpace: 'pre-line' }}>
-					{branch?.name ?? branchHeader?.store_name}
+					{branch?.store_name ?? branchHeader?.name}
 				</span>
 				<span style={{ whiteSpace: 'pre-line' }}>
 					{(branch ?? branchHeader)?.store_address}
