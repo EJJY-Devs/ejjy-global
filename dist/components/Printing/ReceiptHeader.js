@@ -20,6 +20,7 @@ const globalStyles = react_1.default.createElement('style', {}, [
 const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
     var _a, _b, _c, _d, _e, _f;
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
+    console.log('branchHeader', branchHeader);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
         react_1.default.createElement("div", { style: {

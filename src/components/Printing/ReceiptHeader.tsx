@@ -34,6 +34,8 @@ export const ReceiptHeader = ({
 		permit_to_use,
 	} = branchMachine || {};
 
+	console.log('branchHeader', branchHeader);
+
 	return (
 		<>
 			{globalStyles}
