@@ -23,6 +23,7 @@ export { default as ResetLogsService } from './ResetLogsService';
 export { default as SalesTrackerService } from './SalesTrackerService';
 export { default as ScaleService } from './ScaleService';
 export { default as SiteSettingsService } from './SiteSettingsService';
+export { default as TransactionProductsService } from './TransactionProductsService';
 export { default as TransactionsService } from './TransactionsService';
 export { default as UserLogsService } from './UserLogsService';
 export { default as UsersService } from './UsersService';

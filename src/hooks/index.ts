@@ -44,6 +44,8 @@ export * from './useSalesTrackers';
 export { default as useSalesTrackers } from './useSalesTrackers';
 export * from './useSiteSettings';
 export { default as useSiteSettings } from './useSiteSettings';
+export * from './useTransactionProducts';
+export { default as useTransactionProducts } from './useTransactionProducts';
 export * from './useTransactions';
 export { default as useTransactions } from './useTransactions';
 export * from './useUserLogs';

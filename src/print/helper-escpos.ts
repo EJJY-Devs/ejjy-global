@@ -12,23 +12,22 @@ export const generateReceiptHeaderCommandsV2 = ({
 	branchHeader,
 }: ReceiptHeaderProps) => {
 	const { branch } = branchMachine || {};
-
-	const branchInfo = branch ?? branchHeader; // <-- fallback if branch is undefined
+	const branchInfo = branch ?? branchHeader;
 
 	const commands: string[] = [];
+
+	commands.push('\x1B\x40'); // ESC @ - Initialize printer
 
 	if (branchInfo?.store_name) {
 		const lines = branchInfo.store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
-			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
 	if (title) {
-		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push('\x0A'); // extra line
 		commands.push(printCenter(title));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	return commands;
@@ -48,23 +47,20 @@ export const generateReceiptHeaderCommands = ({
 		permit_to_use,
 	} = branchMachine || {};
 
-	const branchInfo = branch ?? branchHeader; // <-- fallback if branch is undefined
-
+	const branchInfo = branch ?? branchHeader;
 	const commands: string[] = [];
 
+	commands.push('\x1B\x40'); // ESC @ - Initialize printer
+
 	if (branchInfo?.store_name) {
-		const lines = branchInfo.store_name.split('\n');
-		for (const line of lines) {
+		for (const line of branchInfo.store_name.split('\n')) {
 			commands.push(printCenter(line));
-			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
 	if (branchInfo?.store_address) {
-		const lines = branchInfo.store_address.split('\n');
-		for (const line of lines) {
+		for (const line of branchInfo.store_address.split('\n')) {
 			commands.push(printCenter(line));
-			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
@@ -74,12 +70,10 @@ export const generateReceiptHeaderCommands = ({
 				[branchInfo?.contact_number, name].filter(Boolean).join(' | '),
 			),
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.proprietor) {
 		commands.push(printCenter(branchInfo.proprietor));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.vat_type || branchInfo?.tin) {
@@ -90,31 +84,24 @@ export const generateReceiptHeaderCommands = ({
 					.join(' | '),
 			),
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (machineID) {
 		commands.push(printCenter(`MIN: ${machineID}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (posTerminal) {
 		commands.push(printCenter(`SN: ${posTerminal}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (permit_to_use) {
 		commands.push(printCenter(`PTU No: ${permit_to_use}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
-
 	if (ptuDateIssued) {
 		commands.push(printCenter(`Date Issued: ${ptuDateIssued}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (title) {
-		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push('\x0A');
 		commands.push(printCenter(title));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	return commands;
@@ -133,47 +120,31 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 
 	if (softwareDeveloper) {
 		commands.push(printCenter(softwareDeveloper));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperAddress) {
 		const lines = softwareDeveloperAddress.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
-			commands.push(EscPosCommands.LINE_BREAK);
 		}
 	}
 
 	if (softwareDeveloperTin) {
 		commands.push(printCenter(softwareDeveloperTin));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationNumber) {
 		commands.push(printCenter(`Acc No: ${posAccreditationNumber}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationDate) {
 		commands.push(printCenter(`Date Issued: ${posAccreditationDate}`));
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
+	// Feed extra lines at the end
+	commands.push('\x1B\x64\x02'); // ESC d 2 — feed 2 lines
 
 	return commands;
-};
-
-const printLeftRight = (leftText: string, rightText: string) => {
-	const leftTextLength = leftText.length;
-	const rightTextLength = rightText.length;
-
-	const spacesNeeded =
-		PAPER_CHARACTER_WIDTH - (leftTextLength + rightTextLength);
-
-	const spaces = ' '.repeat(Math.max(0, spacesNeeded));
-
-	return leftText + spaces + rightText;
 };
 
 export const printCenter = (text: string): string => {
@@ -185,21 +156,22 @@ export const printCenter = (text: string): string => {
 		if ((currentLine + ' ' + word).trim().length <= PAPER_CHARACTER_WIDTH) {
 			currentLine += (currentLine ? ' ' : '') + word;
 		} else {
-			lines.push(centerLine(currentLine));
+			lines.push(currentLine.trim());
 			currentLine = word;
 		}
 	}
 
 	if (currentLine) {
-		lines.push(centerLine(currentLine));
+		lines.push(currentLine.trim());
 	}
 
-	return lines.join('\n');
-};
+	// Add ESC a 1 before each line and ESC a 0 to reset alignment after
+	const ESC_ALIGN_CENTER = '\x1B\x61\x01';
+	const ESC_ALIGN_LEFT = '\x1B\x61\x00';
 
-const centerLine = (line: string): string => {
-	const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
-	return '\u0020'.repeat(Math.max(0, padding)) + line;
+	return lines
+		.map((line) => `${ESC_ALIGN_CENTER}${line}${ESC_ALIGN_LEFT}`)
+		.join('\n');
 };
 
 export const printRight = (text: string) => {
