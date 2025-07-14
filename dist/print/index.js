@@ -23,6 +23,7 @@ __exportStar(require("./receipt/printCancelledTransactions"), exports);
 __exportStar(require("./receipt/printCashBreakdown"), exports);
 __exportStar(require("./receipt/printCashOut"), exports);
 __exportStar(require("./receipt/printCollectionReceipt"), exports);
+__exportStar(require("./receipt/printDailyItemSold"), exports);
 __exportStar(require("./receipt/printDailySales"), exports);
 __exportStar(require("./receipt/printDeliveryReceipt"), exports);
 __exportStar(require("./receipt/printDtr"), exports);

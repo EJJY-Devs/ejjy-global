@@ -17,11 +17,18 @@ interface TransactionProductParams {
 }
 
 export const useTransactionProducts = (
-	data: UseListQuery<TransactionProduct, CamelCasedProperties<TransactionProductParams>> = {},
+	data: UseListQuery<
+		TransactionProduct,
+		CamelCasedProperties<TransactionProductParams>
+	> = {},
 ) => {
 	const { params, options, serviceOptions } = data;
 
-	return useQuery<ListResponseData<TransactionProduct>, Error, QueryResponse<TransactionProduct>>(
+	return useQuery<
+		ListResponseData<TransactionProduct>,
+		Error,
+		QueryResponse<TransactionProduct>
+	>(
 		[
 			'useTransactionProducts',
 			params?.isVatExempted,

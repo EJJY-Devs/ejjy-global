@@ -5,6 +5,7 @@ export * from './receipt/printCancelledTransactions';
 export * from './receipt/printCashBreakdown';
 export * from './receipt/printCashOut';
 export * from './receipt/printCollectionReceipt';
+export * from './receipt/printDailyItemSold';
 export * from './receipt/printDailySales';
 export * from './receipt/printDeliveryReceipt';
 export * from './receipt/printDtr';

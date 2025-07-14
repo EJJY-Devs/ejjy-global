@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./AuthorizationModal"), exports);
 __exportStar(require("./ViewCashBreakdown"), exports);
 __exportStar(require("./ViewCollectionReceiptModal"), exports);
+__exportStar(require("./ViewDailyItemSoldModal"), exports);
 __exportStar(require("./ViewDailySalesModal"), exports);
 __exportStar(require("./ViewTransactionModal"), exports);
 __exportStar(require("./ViewXReadReportModal"), exports);
