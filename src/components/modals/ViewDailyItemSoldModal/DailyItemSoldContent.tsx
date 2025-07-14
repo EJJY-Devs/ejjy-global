@@ -39,7 +39,7 @@ export const DailyItemSoldContent = ({
 	];
 
 	const currentDate = dayjs();
-	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A [PDT]');
+	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
 
 	return (
 		<>
