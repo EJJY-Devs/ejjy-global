@@ -155,9 +155,9 @@ const generateItemBlockCommands = (items) => {
 exports.generateItemBlockCommands = generateItemBlockCommands;
 const generateThreeColumnLine = (leftText, centerText, rightText) => {
     const totalWidth = PAPER_CHARACTER_WIDTH;
-    // Reserve space for center and right columns
-    const rightWidth = Math.max(rightText.length, 8); // minimum 8 chars for quantity
-    const centerWidth = Math.max(centerText.length, 4); // minimum 4 chars for unit
+    // Reserve space for center and right columns (swapped: quantity center, unit right)
+    const rightWidth = Math.max(rightText.length, 4); // minimum 4 chars for unit
+    const centerWidth = Math.max(centerText.length, 8); // minimum 8 chars for quantity
     const leftWidth = totalWidth - rightWidth - centerWidth - 2; // 2 spaces for padding
     // Truncate left text if it's too long
     const truncatedLeft = leftText.length > leftWidth

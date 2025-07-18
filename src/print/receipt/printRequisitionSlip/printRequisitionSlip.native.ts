@@ -117,6 +117,7 @@ const generateRequisitionSlipContentCommands = (
 	});
 
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Footer - Print Details
 	commands.push(
