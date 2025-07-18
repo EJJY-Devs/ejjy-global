@@ -114,6 +114,7 @@ const generateRequisitionSlipContentCommands = (
 				unit || EMPTY_CELL,
 			),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 	});
 
 	commands.push(EscPosCommands.LINE_BREAK);
