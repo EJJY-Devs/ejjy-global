@@ -75,7 +75,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
     requisitionSlip.products.forEach(({ product, quantity, unit }) => {
-        commands.push((0, helper_escpos_1.generateThreeColumnLine)(product.name, (0, utils_1.formatQuantity)(quantity, product), unit || helper_receipt_1.EMPTY_CELL));
+        commands.push((0, helper_escpos_1.generateThreeColumnLine)(product.name, (0, utils_1.formatQuantity)(quantity, product), unit || '-'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     });
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

@@ -8,7 +8,7 @@ import {
 	generateThreeColumnLine,
 	printCenter,
 } from '../../helper-escpos';
-import { appendHtmlElement, EMPTY_CELL } from '../../helper-receipt';
+import { appendHtmlElement } from '../../helper-receipt';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
@@ -111,7 +111,7 @@ const generateRequisitionSlipContentCommands = (
 			generateThreeColumnLine(
 				product.name,
 				formatQuantity(quantity, product),
-				unit || EMPTY_CELL,
+				unit || '-',
 			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
