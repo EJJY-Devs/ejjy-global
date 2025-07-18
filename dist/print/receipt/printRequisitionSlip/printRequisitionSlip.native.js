@@ -31,7 +31,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommandsV2)({
         branchHeader: requisitionSlip.branch,
         title: 'REQUISITION SLIP',
-    }), escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }), escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date & Time Requested
     if (requisitionSlip.datetime_created) {
         commands.push((0, helper_escpos_1.printCenter)('Datetime Requested:'));
@@ -69,18 +69,12 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Table Header
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        { label: 'Product Name', value: 'Unit' },
-        { label: '', value: 'Quantity' },
-    ]));
+    commands.push((0, helper_escpos_1.generateThreeColumnLine)('Product Name', 'Unit', 'Quantity'));
     commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
     requisitionSlip.products.forEach(({ product, quantity, unit }) => {
-        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-            { label: product.name, value: unit || '' },
-            { label: '', value: (0, utils_1.formatQuantity)(quantity, product) },
-        ]));
+        commands.push((0, helper_escpos_1.generateThreeColumnLine)(product.name, (0, utils_1.formatQuantity)(quantity, product), unit || ''));
     });
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer - Print Details

@@ -8,4 +8,5 @@ export declare const printCenter: (text: string) => string;
 export declare const printRight: (text: string) => string;
 type ItemBlockItemsCommands = Omit<ItemBlockItems, 'labelStyle' | 'contentStyle'>;
 export declare const generateItemBlockCommands: (items: ItemBlockItemsCommands[]) => string[];
+export declare const generateThreeColumnLine: (leftText: string, centerText: string, rightText: string) => string;
 export {};

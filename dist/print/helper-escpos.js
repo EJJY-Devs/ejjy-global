@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = exports.generateReceiptHeaderCommandsV2 = void 0;
+exports.generateThreeColumnLine = exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = exports.generateReceiptHeaderCommandsV2 = void 0;
 const utils_1 = require("../utils");
 const escpos_enum_1 = require("./utils/escpos.enum");
 const PAPER_CHARACTER_WIDTH = 40;
@@ -16,7 +16,8 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
         }
     }
     if (title) {
-        commands.push('\x0A'); // extra line
+        commands.push('\x0A');
+        commands.push('\x0A');
         commands.push((0, exports.printCenter)(title));
     }
     return commands;
@@ -152,3 +153,20 @@ const generateItemBlockCommands = (items) => {
     return commands;
 };
 exports.generateItemBlockCommands = generateItemBlockCommands;
+const generateThreeColumnLine = (leftText, centerText, rightText) => {
+    const totalWidth = PAPER_CHARACTER_WIDTH;
+    // Reserve space for center and right columns
+    const rightWidth = Math.max(rightText.length, 8); // minimum 8 chars for quantity
+    const centerWidth = Math.max(centerText.length, 4); // minimum 4 chars for unit
+    const leftWidth = totalWidth - rightWidth - centerWidth - 2; // 2 spaces for padding
+    // Truncate left text if it's too long
+    const truncatedLeft = leftText.length > leftWidth
+        ? leftText.substring(0, leftWidth - 1) + ''
+        : leftText;
+    // Pad the columns
+    const leftPadded = truncatedLeft.padEnd(leftWidth);
+    const centerPadded = centerText.padEnd(centerWidth);
+    const rightPadded = rightText.padStart(rightWidth);
+    return leftPadded + centerPadded + rightPadded;
+};
+exports.generateThreeColumnLine = generateThreeColumnLine;

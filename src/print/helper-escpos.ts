@@ -26,7 +26,8 @@ export const generateReceiptHeaderCommandsV2 = ({
 	}
 
 	if (title) {
-		commands.push('\x0A'); // extra line
+		commands.push('\x0A');
+		commands.push('\x0A');
 		commands.push(printCenter(title));
 	}
 
@@ -220,4 +221,30 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 	});
 
 	return commands;
+};
+
+export const generateThreeColumnLine = (
+	leftText: string,
+	centerText: string,
+	rightText: string,
+): string => {
+	const totalWidth = PAPER_CHARACTER_WIDTH;
+
+	// Reserve space for center and right columns
+	const rightWidth = Math.max(rightText.length, 8); // minimum 8 chars for quantity
+	const centerWidth = Math.max(centerText.length, 4); // minimum 4 chars for unit
+	const leftWidth = totalWidth - rightWidth - centerWidth - 2; // 2 spaces for padding
+
+	// Truncate left text if it's too long
+	const truncatedLeft =
+		leftText.length > leftWidth
+			? leftText.substring(0, leftWidth - 1) + ''
+			: leftText;
+
+	// Pad the columns
+	const leftPadded = truncatedLeft.padEnd(leftWidth);
+	const centerPadded = centerText.padEnd(centerWidth);
+	const rightPadded = rightText.padStart(rightWidth);
+
+	return leftPadded + centerPadded + rightPadded;
 };

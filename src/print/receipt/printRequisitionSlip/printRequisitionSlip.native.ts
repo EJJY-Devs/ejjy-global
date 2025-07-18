@@ -5,6 +5,7 @@ import { PrintRequisitionSlip } from './types';
 import {
 	generateItemBlockCommands,
 	generateReceiptHeaderCommandsV2,
+	generateThreeColumnLine,
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
@@ -42,6 +43,7 @@ const generateRequisitionSlipContentCommands = (
 			branchHeader: requisitionSlip.branch,
 			title: 'REQUISITION SLIP',
 		}),
+		EscPosCommands.LINE_BREAK,
 		EscPosCommands.LINE_BREAK,
 	);
 
@@ -99,22 +101,18 @@ const generateRequisitionSlipContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Table Header
-	commands.push(
-		...generateItemBlockCommands([
-			{ label: 'Product Name', value: 'Unit' },
-			{ label: '', value: 'Quantity' },
-		]),
-	);
+	commands.push(generateThreeColumnLine('Product Name', 'Unit', 'Quantity'));
 	commands.push(printRight('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Product List
 	requisitionSlip.products.forEach(({ product, quantity, unit }) => {
 		commands.push(
-			...generateItemBlockCommands([
-				{ label: product.name, value: unit || '' },
-				{ label: '', value: formatQuantity(quantity, product) },
-			]),
+			generateThreeColumnLine(
+				product.name,
+				formatQuantity(quantity, product),
+				unit || '',
+			),
 		);
 	});
 
