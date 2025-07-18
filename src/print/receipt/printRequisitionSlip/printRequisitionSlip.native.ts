@@ -7,9 +7,8 @@ import {
 	generateReceiptHeaderCommandsV2,
 	generateThreeColumnLine,
 	printCenter,
-	printRight,
 } from '../../helper-escpos';
-import { appendHtmlElement } from '../../helper-receipt';
+import { appendHtmlElement, EMPTY_CELL } from '../../helper-receipt';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
@@ -101,8 +100,9 @@ const generateRequisitionSlipContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Table Header
-	commands.push(generateThreeColumnLine('Product Name', 'Unit', 'Quantity'));
-	commands.push(printRight('----------------------------------------'));
+	commands.push(generateThreeColumnLine('Product Name', 'Quantity', 'Unit'));
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(printCenter('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Product List
@@ -111,7 +111,7 @@ const generateRequisitionSlipContentCommands = (
 			generateThreeColumnLine(
 				product.name,
 				formatQuantity(quantity, product),
-				unit || '',
+				unit || EMPTY_CELL,
 			),
 		);
 	});

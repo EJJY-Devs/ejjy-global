@@ -69,12 +69,13 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Table Header
-    commands.push((0, helper_escpos_1.generateThreeColumnLine)('Product Name', 'Unit', 'Quantity'));
-    commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
+    commands.push((0, helper_escpos_1.generateThreeColumnLine)('Product Name', 'Quantity', 'Unit'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push((0, helper_escpos_1.printCenter)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
     requisitionSlip.products.forEach(({ product, quantity, unit }) => {
-        commands.push((0, helper_escpos_1.generateThreeColumnLine)(product.name, (0, utils_1.formatQuantity)(quantity, product), unit || ''));
+        commands.push((0, helper_escpos_1.generateThreeColumnLine)(product.name, (0, utils_1.formatQuantity)(quantity, product), unit || helper_receipt_1.EMPTY_CELL));
     });
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer - Print Details
