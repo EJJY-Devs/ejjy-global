@@ -16,13 +16,12 @@ export const generateReceiptHeaderCommandsV2 = ({
 
 	const commands: string[] = [];
 
-	commands.push('\x1B\x40'); // ESC @ - Initialize printer
-
 	if (branchInfo?.store_name) {
 		const lines = branchInfo.store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
 		}
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (title) {
@@ -51,18 +50,18 @@ export const generateReceiptHeaderCommands = ({
 	const branchInfo = branch ?? branchHeader;
 	const commands: string[] = [];
 
-	commands.push('\x1B\x40'); // ESC @ - Initialize printer
-
 	if (branchInfo?.store_name) {
 		for (const line of branchInfo.store_name.split('\n')) {
 			commands.push(printCenter(line));
 		}
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.store_address) {
 		for (const line of branchInfo.store_address.split('\n')) {
 			commands.push(printCenter(line));
 		}
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.contact_number || name) {
@@ -71,10 +70,12 @@ export const generateReceiptHeaderCommands = ({
 				[branchInfo?.contact_number, name].filter(Boolean).join(' | '),
 			),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.proprietor) {
 		commands.push(printCenter(branchInfo.proprietor));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.vat_type || branchInfo?.tin) {
@@ -85,23 +86,28 @@ export const generateReceiptHeaderCommands = ({
 					.join(' | '),
 			),
 		);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (machineID) {
 		commands.push(printCenter(`MIN: ${machineID}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (posTerminal) {
 		commands.push(printCenter(`SN: ${posTerminal}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (permit_to_use) {
 		commands.push(printCenter(`PTU No: ${permit_to_use}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (ptuDateIssued) {
 		commands.push(printCenter(`Date Issued: ${ptuDateIssued}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (title) {
-		commands.push('\x0A');
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(printCenter(title));
 	}
 
@@ -166,13 +172,7 @@ export const printCenter = (text: string): string => {
 		lines.push(currentLine.trim());
 	}
 
-	// Add ESC a 1 before each line and ESC a 0 to reset alignment after
-	const ESC_ALIGN_CENTER = '\x1B\x61\x01';
-	const ESC_ALIGN_LEFT = '\x1B\x61\x00';
-
-	return lines
-		.map((line) => `${ESC_ALIGN_CENTER}${line}${ESC_ALIGN_LEFT}`)
-		.join('\n');
+	return lines.join('\n');
 };
 
 export const printRight = (text: string) => {

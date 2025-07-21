@@ -8,12 +8,12 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
     const { branch } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
     const commands = [];
-    commands.push('\x1B\x40'); // ESC @ - Initialize printer
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         const lines = branchInfo.store_name.split('\n');
         for (const line of lines) {
             commands.push((0, exports.printCenter)(line));
         }
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (title) {
         commands.push('\x0A');
@@ -27,42 +27,50 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
     const commands = [];
-    commands.push('\x1B\x40'); // ESC @ - Initialize printer
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         for (const line of branchInfo.store_name.split('\n')) {
             commands.push((0, exports.printCenter)(line));
         }
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_address) {
         for (const line of branchInfo.store_address.split('\n')) {
             commands.push((0, exports.printCenter)(line));
         }
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ((branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number) || name) {
         commands.push((0, exports.printCenter)([branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number, name].filter(Boolean).join(' | ')));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.proprietor) {
         commands.push((0, exports.printCenter)(branchInfo.proprietor));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ((branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.vat_type) || (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.tin)) {
         commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.vat_type), branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.tin]
             .filter(Boolean)
             .join(' | ')));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (machineID) {
         commands.push((0, exports.printCenter)(`MIN: ${machineID}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posTerminal) {
         commands.push((0, exports.printCenter)(`SN: ${posTerminal}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (permit_to_use) {
         commands.push((0, exports.printCenter)(`PTU No: ${permit_to_use}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (ptuDateIssued) {
         commands.push((0, exports.printCenter)(`Date Issued: ${ptuDateIssued}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (title) {
-        commands.push('\x0A');
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, exports.printCenter)(title));
     }
     return commands;
@@ -110,12 +118,7 @@ const printCenter = (text) => {
     if (currentLine) {
         lines.push(currentLine.trim());
     }
-    // Add ESC a 1 before each line and ESC a 0 to reset alignment after
-    const ESC_ALIGN_CENTER = '\x1B\x61\x01';
-    const ESC_ALIGN_LEFT = '\x1B\x61\x00';
-    return lines
-        .map((line) => `${ESC_ALIGN_CENTER}${line}${ESC_ALIGN_LEFT}`)
-        .join('\n');
+    return lines.join('\n');
 };
 exports.printCenter = printCenter;
 const printRight = (text) => {

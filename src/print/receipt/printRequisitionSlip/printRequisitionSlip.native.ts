@@ -111,7 +111,7 @@ const generateRequisitionSlipContentCommands = (
 			generateThreeColumnLine(
 				product.name,
 				formatQuantity(quantity, product),
-				unit || '-',
+				unit != null ? unit : '-', // Explicitly check for null or undefined
 			),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
