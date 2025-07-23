@@ -19,8 +19,8 @@ const useTransactionProducts = (data = {}) => {
     ], () => (0, helper_1.wrapServiceWithCatch)(services_1.TransactionProductsService.list({
         is_vat_exempted: params === null || params === void 0 ? void 0 : params.isVatExempted,
         or_number: params === null || params === void 0 ? void 0 : params.orNumber,
-        page_size: (params === null || params === void 0 ? void 0 : params.pageSize) || globals_1.DEFAULT_PAGE_SIZE,
-        page: (params === null || params === void 0 ? void 0 : params.page) || globals_1.DEFAULT_PAGE,
+        page_size: params === null || params === void 0 ? void 0 : params.pageSize,
+        page: params === null || params === void 0 ? void 0 : params.page,
         statuses: params === null || params === void 0 ? void 0 : params.statuses,
         time_range: (params === null || params === void 0 ? void 0 : params.timeRange) || globals_1.timeRangeTypes.DAILY,
         branch_id: params === null || params === void 0 ? void 0 : params.branchId,

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, timeRangeTypes } from '../globals';
+import { timeRangeTypes } from '../globals';
 import { TransactionProductsService } from '../services';
 import { ListResponseData, QueryResponse } from '../services/interfaces';
 import { TransactionProduct } from '../types';
@@ -46,8 +46,8 @@ export const useTransactionProducts = (
 					{
 						is_vat_exempted: params?.isVatExempted,
 						or_number: params?.orNumber,
-						page_size: params?.pageSize || DEFAULT_PAGE_SIZE,
-						page: params?.page || DEFAULT_PAGE,
+						page_size: params?.pageSize,
+						page: params?.page,
 						statuses: params?.statuses,
 						time_range: params?.timeRange || timeRangeTypes.DAILY,
 						branch_id: params?.branchId,
