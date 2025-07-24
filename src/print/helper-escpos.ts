@@ -25,8 +25,8 @@ export const generateReceiptHeaderCommandsV2 = ({
 	}
 
 	if (title) {
-		commands.push('\x0A');
-		commands.push('\x0A');
+		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(printCenter(title));
 	}
 
