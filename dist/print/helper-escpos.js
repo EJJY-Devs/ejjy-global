@@ -120,7 +120,13 @@ const printCenter = (text) => {
         lines.push(currentLine.trim());
     }
     console.log('Formatted lines:', lines); // Log output
-    return lines.join('\n');
+    // Manually center the text using spaces
+    return lines
+        .map((line) => {
+        const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
+        return ' '.repeat(padding) + line;
+    })
+        .join('\n');
 };
 exports.printCenter = printCenter;
 const printRight = (text) => {
