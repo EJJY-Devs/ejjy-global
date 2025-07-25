@@ -118,7 +118,12 @@ const printCenter = (text) => {
     if (currentLine) {
         lines.push(currentLine.trim());
     }
-    return lines.join('\n');
+    // Add ESC/POS commands for center alignment
+    const ESC_ALIGN_CENTER = '\x1B\x61\x01'; // ESC a 1 - Center alignment
+    const ESC_ALIGN_LEFT = '\x1B\x61\x00'; // ESC a 0 - Left alignment
+    return lines
+        .map((line) => `${ESC_ALIGN_CENTER}${line}${ESC_ALIGN_LEFT}`)
+        .join('\n');
 };
 exports.printCenter = printCenter;
 const printRight = (text) => {
