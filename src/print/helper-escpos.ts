@@ -155,6 +155,7 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 };
 
 export const printCenter = (text: string): string => {
+	console.log('Input text:', text); // Log input
 	const words = text.split(' ');
 	const lines: string[] = [];
 	let currentLine = '';
@@ -172,13 +173,8 @@ export const printCenter = (text: string): string => {
 		lines.push(currentLine.trim());
 	}
 
-	// Add ESC/POS commands for center alignment
-	const ESC_ALIGN_CENTER = '\x1B\x61\x01'; // ESC a 1 - Center alignment
-	const ESC_ALIGN_LEFT = '\x1B\x61\x00'; // ESC a 0 - Left alignment
-
-	return lines
-		.map((line) => `${ESC_ALIGN_CENTER}${line}${ESC_ALIGN_LEFT}`)
-		.join('\n');
+	console.log('Formatted lines:', lines); // Log output
+	return lines.join('\n');
 };
 
 export const printRight = (text: string) => {
