@@ -48,12 +48,15 @@ const generateRequisitionSlipContentCommands = (
 
 	// Date & Time Requested
 	if (requisitionSlip.datetime_created) {
-		commands.push(printCenter('Datetime Requested:'));
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
-			printCenter(formatDateTime(requisitionSlip.datetime_created)),
+			...generateItemBlockCommands([
+				{
+					label: 'Datetime Requested:',
+					value: formatDateTime(requisitionSlip.datetime_created),
+				},
+			]),
+			EscPosCommands.LINE_BREAK,
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
@@ -128,6 +131,7 @@ const generateRequisitionSlipContentCommands = (
 	commands.push(
 		printCenter(`Remarks: ${requisitionSlip?.overall_remarks || ''}`),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;

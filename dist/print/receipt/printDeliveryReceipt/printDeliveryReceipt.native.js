@@ -35,10 +35,12 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt) => {
     }), escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Datetime Generated
     if (deliveryReceipt.datetime_created) {
-        commands.push((0, helper_escpos_1.printCenter)('Datetime Generated:'));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(deliveryReceipt.datetime_created)));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Datetime Generated:',
+                value: (0, utils_1.formatDateTime)(deliveryReceipt.datetime_created),
+            },
+        ]), escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Receipt Info
@@ -77,6 +79,7 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt) => {
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)(`Remarks ${deliveryReceipt.overall_remarks || ''}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };

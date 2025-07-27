@@ -47,12 +47,14 @@ const generateReceivingReportContentCommands = (
 
 	// Datetime created
 	if (receivingReport.datetime_created) {
-		commands.push(printCenter('Datetime Generated:'));
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
-			printCenter(formatDateTime(receivingReport.datetime_created)),
+			...generateItemBlockCommands([
+				{
+					label: 'Datetime Generated:',
+					value: formatDateTime(receivingReport.datetime_created),
+				},
+			]),
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
@@ -139,6 +141,7 @@ const generateReceivingReportContentCommands = (
 		printCenter(`Remarks ${receivingReport?.overall_remarks || ''}`),
 	);
 
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;

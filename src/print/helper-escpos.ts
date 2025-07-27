@@ -26,7 +26,6 @@ export const generateReceiptHeaderCommandsV2 = ({
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(printCenter(title));
 	}
 
@@ -127,6 +126,7 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 
 	if (softwareDeveloper) {
 		commands.push(printCenter(softwareDeveloper));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperAddress) {
@@ -134,22 +134,26 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 		for (const line of lines) {
 			commands.push(printCenter(line));
 		}
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperTin) {
 		commands.push(printCenter(softwareDeveloperTin));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationNumber) {
 		commands.push(printCenter(`Acc No: ${posAccreditationNumber}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationDate) {
 		commands.push(printCenter(`Date Issued: ${posAccreditationDate}`));
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	// Feed extra lines at the end
-	commands.push('\x1B\x64\x02'); // ESC d 2 — feed 2 lines
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

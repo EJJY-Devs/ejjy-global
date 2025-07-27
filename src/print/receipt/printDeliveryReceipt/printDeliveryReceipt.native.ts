@@ -47,12 +47,15 @@ const generateDeliveryReceiptContentCommands = (
 
 	// Datetime Generated
 	if (deliveryReceipt.datetime_created) {
-		commands.push(printCenter('Datetime Generated:'));
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
-			printCenter(formatDateTime(deliveryReceipt.datetime_created)),
+			...generateItemBlockCommands([
+				{
+					label: 'Datetime Generated:',
+					value: formatDateTime(deliveryReceipt.datetime_created),
+				},
+			]),
+			EscPosCommands.LINE_BREAK,
 		);
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
@@ -110,6 +113,7 @@ const generateDeliveryReceiptContentCommands = (
 		printCenter(`Remarks ${deliveryReceipt.overall_remarks || ''}`),
 	);
 
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;

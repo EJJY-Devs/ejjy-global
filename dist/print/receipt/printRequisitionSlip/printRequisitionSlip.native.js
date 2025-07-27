@@ -34,10 +34,12 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     }), escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date & Time Requested
     if (requisitionSlip.datetime_created) {
-        commands.push((0, helper_escpos_1.printCenter)('Datetime Requested:'));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(requisitionSlip.datetime_created)));
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'Datetime Requested:',
+                value: (0, utils_1.formatDateTime)(requisitionSlip.datetime_created),
+            },
+        ]), escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Reference Number
@@ -84,6 +86,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)(`Remarks: ${(requisitionSlip === null || requisitionSlip === void 0 ? void 0 : requisitionSlip.overall_remarks) || ''}`));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };

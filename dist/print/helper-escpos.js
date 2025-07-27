@@ -17,7 +17,6 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
     }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, exports.printCenter)(title));
     }
     return commands;
@@ -81,24 +80,29 @@ const generateReceiptFooterCommands = (siteSettings) => {
     const commands = [];
     if (softwareDeveloper) {
         commands.push((0, exports.printCenter)(softwareDeveloper));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperAddress) {
         const lines = softwareDeveloperAddress.split('\n');
         for (const line of lines) {
             commands.push((0, exports.printCenter)(line));
         }
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperTin) {
         commands.push((0, exports.printCenter)(softwareDeveloperTin));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posAccreditationNumber) {
         commands.push((0, exports.printCenter)(`Acc No: ${posAccreditationNumber}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posAccreditationDate) {
         commands.push((0, exports.printCenter)(`Date Issued: ${posAccreditationDate}`));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    // Feed extra lines at the end
-    commands.push('\x1B\x64\x02'); // ESC d 2 — feed 2 lines
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;
