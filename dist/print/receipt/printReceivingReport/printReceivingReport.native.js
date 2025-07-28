@@ -32,7 +32,7 @@ const generateReceivingReportContentCommands = (receivingReport) => {
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommandsV2)({
         branchHeader: receivingReport.branch,
         title: 'RECEIVING REPORT',
-    }), escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }), escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Datetime created
     if (receivingReport.datetime_created) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
@@ -42,7 +42,6 @@ const generateReceivingReportContentCommands = (receivingReport) => {
             },
         ]));
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Reference Number
     if (receivingReport.reference_number) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([

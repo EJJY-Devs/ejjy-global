@@ -43,6 +43,7 @@ const generateReceivingReportContentCommands = (
 			title: 'RECEIVING REPORT',
 		}),
 		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
 	);
 
 	// Datetime created
@@ -56,8 +57,6 @@ const generateReceivingReportContentCommands = (
 			]),
 		);
 	}
-
-	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Reference Number
 	if (receivingReport.reference_number) {

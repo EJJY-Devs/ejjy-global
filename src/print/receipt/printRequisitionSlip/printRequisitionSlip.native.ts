@@ -55,7 +55,6 @@ const generateRequisitionSlipContentCommands = (
 					value: formatDateTime(requisitionSlip.datetime_created),
 				},
 			]),
-			EscPosCommands.LINE_BREAK,
 		);
 	}
 

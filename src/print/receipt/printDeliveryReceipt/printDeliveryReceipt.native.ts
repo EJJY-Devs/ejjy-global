@@ -43,6 +43,7 @@ const generateDeliveryReceiptContentCommands = (
 			title: 'DELIVERY RECEIPT',
 		}),
 		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
 	);
 
 	// Datetime Generated
@@ -54,7 +55,6 @@ const generateDeliveryReceiptContentCommands = (
 					value: formatDateTime(deliveryReceipt.datetime_created),
 				},
 			]),
-			EscPosCommands.LINE_BREAK,
 		);
 	}
 

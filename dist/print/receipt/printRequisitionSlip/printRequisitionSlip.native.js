@@ -39,7 +39,7 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
                 label: 'Datetime Requested:',
                 value: (0, utils_1.formatDateTime)(requisitionSlip.datetime_created),
             },
-        ]), escpos_enum_1.EscPosCommands.LINE_BREAK);
+        ]));
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Reference Number
