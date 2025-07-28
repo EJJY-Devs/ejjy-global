@@ -58,8 +58,6 @@ const generateRequisitionSlipContentCommands = (
 		);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	// Reference Number
 	if (requisitionSlip.reference_number) {
 		commands.push(

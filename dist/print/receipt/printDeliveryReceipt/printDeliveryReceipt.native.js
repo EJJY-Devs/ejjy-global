@@ -42,7 +42,6 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt) => {
             },
         ]));
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Receipt Info
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {

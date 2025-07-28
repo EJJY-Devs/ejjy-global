@@ -41,7 +41,6 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
             },
         ]));
     }
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Reference Number
     if (requisitionSlip.reference_number) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([

@@ -58,8 +58,6 @@ const generateDeliveryReceiptContentCommands = (
 		);
 	}
 
-	commands.push(EscPosCommands.LINE_BREAK);
-
 	// Receipt Info
 	commands.push(
 		...generateItemBlockCommands([
