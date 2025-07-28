@@ -137,7 +137,7 @@ const generateReceivingReportContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
-		printCenter(`Remarks ${receivingReport?.overall_remarks || ''}`),
+		printCenter(`Remarks: ${receivingReport?.overall_remarks || ''}`),
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);

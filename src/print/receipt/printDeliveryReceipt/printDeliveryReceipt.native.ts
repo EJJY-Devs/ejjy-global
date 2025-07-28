@@ -108,7 +108,7 @@ const generateDeliveryReceiptContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(
-		printCenter(`Remarks ${deliveryReceipt.overall_remarks || ''}`),
+		printCenter(`Remarks: ${deliveryReceipt.overall_remarks || ''}`),
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);

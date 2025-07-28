@@ -93,7 +93,7 @@ const generateReceivingReportContentCommands = (receivingReport) => {
     // Print details (footer)
     commands.push((0, helper_escpos_1.printCenter)(`Print Details: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push((0, helper_escpos_1.printCenter)(`Remarks ${(receivingReport === null || receivingReport === void 0 ? void 0 : receivingReport.overall_remarks) || ''}`));
+    commands.push((0, helper_escpos_1.printCenter)(`Remarks: ${(receivingReport === null || receivingReport === void 0 ? void 0 : receivingReport.overall_remarks) || ''}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
