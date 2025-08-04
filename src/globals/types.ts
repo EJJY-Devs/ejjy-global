@@ -32,6 +32,7 @@ export const printerStatuses = {
 	OK: 'OK',
 	PRINTING: 'PRINTING',
 	NOT_AVAILABLE: 'NOT_AVAILABLE',
+	OFFLINE: 'OFFLINE',
 };
 
 export const userTypes = {

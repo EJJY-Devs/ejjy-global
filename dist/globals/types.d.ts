@@ -18,6 +18,7 @@ export declare const printerStatuses: {
     OK: string;
     PRINTING: string;
     NOT_AVAILABLE: string;
+    OFFLINE: string;
 };
 export declare const userTypes: {
     ADMIN: string;

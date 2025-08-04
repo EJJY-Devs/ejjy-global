@@ -21,6 +21,7 @@ exports.printerStatuses = {
     OK: 'OK',
     PRINTING: 'PRINTING',
     NOT_AVAILABLE: 'NOT_AVAILABLE',
+    OFFLINE: 'OFFLINE',
 };
 exports.userTypes = {
     ADMIN: 'admin',
