@@ -27,4 +27,5 @@ export interface Account {
     email_address?: string;
     biodata_image?: string;
     age: number;
+    outstanding_balance?: string | number;
 }
