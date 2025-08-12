@@ -118,6 +118,13 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
         });
         return;
     }
+    if (printerStatus.statusText === 'OFFLINE') {
+        antd_1.message.error({
+            key: exports.PRINT_MESSAGE_KEY,
+            content: 'Printer is offline.',
+        });
+        return;
+    }
     try {
         console.log('Printing receipt.');
         const config = qz_tray_1.default.configs.create(printerName, Object.assign({}, (type !== globals_1.printingTypes.NATIVE
