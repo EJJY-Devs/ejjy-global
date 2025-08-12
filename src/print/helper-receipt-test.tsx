@@ -147,6 +147,14 @@ export const print = async (
 		return;
 	}
 
+	if (printerStatus.statusText === 'OFFLINE') {
+		message.error({
+			key: PRINT_MESSAGE_KEY,
+			content: 'Printer is offline.',
+		});
+		return;
+	}
+
 	try {
 		console.log('Printing receipt.');
 		const config = qz.configs.create(printerName, {
