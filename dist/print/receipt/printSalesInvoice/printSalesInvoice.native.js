@@ -33,7 +33,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     // Products
     transaction.products.forEach((item) => {
         const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}`;
-        const quantityAndPrice = `   ${item.original_quantity} @ ${(0, utils_1.formatInPeso)(item.price_per_piece, helper_receipt_1.PESO_SIGN)}`;
+        const quantityAndPrice = `   ${item.quantity} @ ${(0, utils_1.formatInPeso)(item.price_per_piece, helper_receipt_1.PESO_SIGN)}`;
         const totalAmount = (0, utils_1.formatInPeso)(Number(item.quantity) * Number(item.price_per_piece), helper_receipt_1.PESO_SIGN);
         commands.push(productDetails);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

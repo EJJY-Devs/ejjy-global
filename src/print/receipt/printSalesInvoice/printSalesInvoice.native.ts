@@ -65,7 +65,7 @@ const generateTransactionContentCommands = (
 	// Products
 	transaction.products.forEach((item) => {
 		const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE}`;
-		const quantityAndPrice = `   ${item.original_quantity} @ ${formatInPeso(item.price_per_piece, PESO_SIGN)}`;
+		const quantityAndPrice = `   ${item.quantity} @ ${formatInPeso(item.price_per_piece, PESO_SIGN)}`;
 		const totalAmount = formatInPeso(
 			Number(item.quantity) * Number(item.price_per_piece),
 			PESO_SIGN,
