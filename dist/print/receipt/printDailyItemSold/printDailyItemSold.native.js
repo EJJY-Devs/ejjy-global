@@ -7,8 +7,8 @@ exports.printDailyItemSoldNative = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const helper_escpos_1 = require("../../helper-escpos");
 const escpos_enum_1 = require("../../utils/escpos.enum");
-const printDailyItemSoldNative = ({ dailyItemSoldSummary, branchMachine, }) => [
-    ...generateDailyItemSoldContentCommands(dailyItemSoldSummary, branchMachine),
+const printDailyItemSoldNative = ({ dailyItemSoldSummary, branch, branchMachine, }) => [
+    ...generateDailyItemSoldContentCommands(dailyItemSoldSummary, branch, branchMachine),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -17,14 +17,15 @@ const printDailyItemSoldNative = ({ dailyItemSoldSummary, branchMachine, }) => [
     escpos_enum_1.EscPosCommands.LINE_BREAK,
 ];
 exports.printDailyItemSoldNative = printDailyItemSoldNative;
-const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branchMachine) => {
+const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, branchMachine) => {
     const currentDate = (0, dayjs_1.default)();
-    const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A [PDT]');
+    const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
         branchMachine,
-        title: 'DAILY ITEM SOLD SUMMARY',
+        branchHeader: branch,
+        title: 'DAILY ITEM SOLD',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -32,13 +33,22 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branchMachin
         commands.push(...(0, helper_escpos_1.printCenter)('No items sold today'));
     }
     else {
+        // Table Header
+        const nameHeader = 'Name';
+        const quantityHeader = 'Quantity';
+        const maxNameLength = 25;
+        const paddedNameHeader = nameHeader.padEnd(maxNameLength);
+        const headerLine = `${paddedNameHeader} ${quantityHeader.padStart(8)}`;
+        commands.push(headerLine);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         // Item list
         dailyItemSoldSummary.forEach((item) => {
             var _a;
             const name = item.name || '';
             const quantity = ((_a = item.quantity) === null || _a === void 0 ? void 0 : _a.toLocaleString()) || '0';
             // Format: "Name                     Qty"
-            const maxNameLength = 25;
             const paddedName = name.length > maxNameLength
                 ? name.substring(0, maxNameLength - 3) + '...'
                 : name.padEnd(maxNameLength);
@@ -48,7 +58,7 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branchMachin
         });
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(`PDT: ${currentDateTime}`);
+    commands.push((0, helper_escpos_1.printCenter)(`PDT: ${currentDateTime}`));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;

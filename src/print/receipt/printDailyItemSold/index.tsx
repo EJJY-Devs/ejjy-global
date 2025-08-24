@@ -14,11 +14,11 @@ export const printDailyItemSold = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printDailyItemSoldHtml(printDailyItemSoldDetails) || '';
-		print(data, 'Daily Item Sold Summary', undefined, printingType);
+		print(data, 'Daily Item Sold', undefined, printingType);
 		return data; // ✅ return HTML string
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printDailyItemSoldNative(printDailyItemSoldDetails);
-		print(data, 'Daily Item Sold Summary', undefined, printingType);
+		print(data, 'Daily Item Sold', undefined, printingType);
 		return undefined;
 	}
 
