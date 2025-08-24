@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { Branch, BranchMachine } from '../../../types';
 import { DailyItemSoldSummary } from '../../../components/modals/ViewDailyItemSoldModal';
 import {
+	generateItemBlockCommands,
 	generateReceiptHeaderCommands,
 	printCenter,
 	printRight,
@@ -51,13 +52,9 @@ const generateDailyItemSoldContentCommands = (
 		commands.push(...printCenter('No items sold today'));
 	} else {
 		// Table Header
-		const nameHeader = 'Name';
-		const quantityHeader = 'Quantity';
-		const maxNameLength = 25;
-		const paddedNameHeader = nameHeader.padEnd(maxNameLength);
-		const headerLine = `${paddedNameHeader} ${quantityHeader.padStart(8)}`;
-		commands.push(headerLine);
-		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(
+			...generateItemBlockCommands([{ label: 'Name', value: 'Quantity' }]),
+		);
 		commands.push(printRight('----------------------------------------'));
 		commands.push(EscPosCommands.LINE_BREAK);
 
@@ -66,15 +63,9 @@ const generateDailyItemSoldContentCommands = (
 			const name = item.name || '';
 			const quantity = item.quantity?.toLocaleString() || '0';
 
-			// Format: "Name                     Qty"
-			const paddedName =
-				name.length > maxNameLength
-					? name.substring(0, maxNameLength - 3) + '...'
-					: name.padEnd(maxNameLength);
-
-			const line = `${paddedName} ${quantity.padStart(8)}`;
-			commands.push(line);
-			commands.push(EscPosCommands.LINE_BREAK);
+			commands.push(
+				...generateItemBlockCommands([{ label: name, value: quantity }]),
+			);
 		});
 	}
 

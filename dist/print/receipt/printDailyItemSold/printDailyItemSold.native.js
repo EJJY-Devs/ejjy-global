@@ -34,13 +34,7 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, bran
     }
     else {
         // Table Header
-        const nameHeader = 'Name';
-        const quantityHeader = 'Quantity';
-        const maxNameLength = 25;
-        const paddedNameHeader = nameHeader.padEnd(maxNameLength);
-        const headerLine = `${paddedNameHeader} ${quantityHeader.padStart(8)}`;
-        commands.push(headerLine);
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([{ label: 'Name', value: 'Quantity' }]));
         commands.push((0, helper_escpos_1.printRight)('----------------------------------------'));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         // Item list
@@ -48,13 +42,7 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, bran
             var _a;
             const name = item.name || '';
             const quantity = ((_a = item.quantity) === null || _a === void 0 ? void 0 : _a.toLocaleString()) || '0';
-            // Format: "Name                     Qty"
-            const paddedName = name.length > maxNameLength
-                ? name.substring(0, maxNameLength - 3) + '...'
-                : name.padEnd(maxNameLength);
-            const line = `${paddedName} ${quantity.padStart(8)}`;
-            commands.push(line);
-            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+            commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([{ label: name, value: quantity }]));
         });
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
