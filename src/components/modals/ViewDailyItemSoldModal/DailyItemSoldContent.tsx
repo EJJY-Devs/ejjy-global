@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { Branch, BranchMachine, User } from '../../../types';
-import { ReceiptHeader } from '../../Printing';
+import { ReceiptHeaderV2 } from '../../Printing';
 import { DailyItemSoldSummary } from './index';
 
 type Props = {
@@ -52,7 +52,7 @@ export const DailyItemSoldContent = ({
 			)}
 
 			<div className="relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4">
-				<ReceiptHeader branchMachine={branchMachine} branchHeader={branch} />
+				<ReceiptHeaderV2 branchMachine={branchMachine} branchHeader={branch} />
 
 				<br />
 				<strong>DAILY ITEM SOLD</strong>
