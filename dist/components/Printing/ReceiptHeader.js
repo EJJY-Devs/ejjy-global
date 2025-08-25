@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReceiptHeader = void 0;
+exports.ReceiptHeaderV2 = exports.ReceiptHeader = void 0;
 const react_1 = __importDefault(require("react"));
 const utils_1 = require("../../utils");
 const globalStyles = react_1.default.createElement('style', {}, [
@@ -55,3 +55,19 @@ const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
             title)));
 };
 exports.ReceiptHeader = ReceiptHeader;
+const ReceiptHeaderV2 = ({ branchMachine, title, branchHeader, }) => {
+    var _a, _b;
+    const { branch } = branchMachine || {};
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        globalStyles,
+        react_1.default.createElement("div", { style: {
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+            } },
+            react_1.default.createElement("span", { style: { whiteSpace: 'pre-line' } }, (_a = branch === null || branch === void 0 ? void 0 : branch.store_name) !== null && _a !== void 0 ? _a : branchHeader === null || branchHeader === void 0 ? void 0 : branchHeader.store_name),
+            react_1.default.createElement("span", null, (_b = branch === null || branch === void 0 ? void 0 : branch.name) !== null && _b !== void 0 ? _b : branchHeader === null || branchHeader === void 0 ? void 0 : branchHeader.name),
+            title ? react_1.default.createElement("br", null) : '',
+            title)));
+};
+exports.ReceiptHeaderV2 = ReceiptHeaderV2;

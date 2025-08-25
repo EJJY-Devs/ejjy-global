@@ -24,6 +24,11 @@ export const generateReceiptHeaderCommandsV2 = ({
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
+	if (branchInfo?.name) {
+		commands.push(printCenter(branchInfo.name));
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
+
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(printCenter(title));

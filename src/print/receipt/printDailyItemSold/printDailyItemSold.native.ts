@@ -3,7 +3,7 @@ import { Branch, BranchMachine } from '../../../types';
 import { DailyItemSoldSummary } from '../../../components/modals/ViewDailyItemSoldModal';
 import {
 	generateItemBlockCommands,
-	generateReceiptHeaderCommands,
+	generateReceiptHeaderCommandsV2,
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
@@ -39,7 +39,7 @@ const generateDailyItemSoldContentCommands = (
 
 	// Header
 	commands.push(
-		...generateReceiptHeaderCommands({
+		...generateReceiptHeaderCommandsV2({
 			branchMachine,
 			branchHeader: branch,
 			title: 'DAILY ITEM SOLD',

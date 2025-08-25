@@ -75,3 +75,31 @@ export const ReceiptHeader = ({
 		</>
 	);
 };
+
+export const ReceiptHeaderV2 = ({
+	branchMachine,
+	title,
+	branchHeader,
+}: ReceiptHeaderProps) => {
+	const { branch } = branchMachine || {};
+
+	return (
+		<>
+			{globalStyles}
+			<div
+				style={{
+					textAlign: 'center',
+					display: 'flex',
+					flexDirection: 'column',
+				}}
+			>
+				<span style={{ whiteSpace: 'pre-line' }}>
+					{branch?.store_name ?? branchHeader?.store_name}
+				</span>
+				<span>{branch?.name ?? branchHeader?.name}</span>
+				{title ? <br /> : ''}
+				{title}
+			</div>
+		</>
+	);
+};

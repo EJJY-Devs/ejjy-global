@@ -15,6 +15,10 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
+    if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.name) {
+        commands.push((0, exports.printCenter)(branchInfo.name));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push((0, exports.printCenter)(title));

@@ -4,7 +4,7 @@ import { EMPTY_CELL } from '../../../globals';
 import { PESO_SIGN } from '../../../print/helper-receipt';
 import { DailySales, SiteSettings, User } from '../../../types';
 import { formatDate, formatInPeso, formatTime } from '../../../utils';
-import { Divider, ReceiptFooter, ReceiptHeader } from '../../Printing';
+import { Divider, ReceiptFooter, ReceiptHeaderV2 } from '../../Printing';
 import { ItemBlock } from '../../Printing/ItemBlock';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
@@ -30,7 +30,7 @@ export const DailySalesContent = ({
 			/>
 		)}
 
-		<ReceiptHeader branchMachine={dailySales.branch_machine} />
+		<ReceiptHeaderV2 branchMachine={dailySales.branch_machine} />
 
 		<br />
 

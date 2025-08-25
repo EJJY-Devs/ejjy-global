@@ -22,7 +22,7 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, bran
     const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
     const commands = [];
     // Header
-    commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
+    commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommandsV2)({
         branchMachine,
         branchHeader: branch,
         title: 'DAILY ITEM SOLD',
