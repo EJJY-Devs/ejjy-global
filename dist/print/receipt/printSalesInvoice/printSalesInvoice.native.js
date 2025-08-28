@@ -14,7 +14,6 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
     console.log('[NATIVE-PRINT] Starting print job for transaction:', transaction.id);
     const commands = [
-        escpos_enum_1.EscPosCommands.INITIALIZE,
         escpos_enum_1.EscPosCommands.LINE_BREAK, // Add buffer space before content
     ];
     // Add small delay command if available, or use line break as separator
@@ -164,6 +163,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     // Footer
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
     // Final Messages
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
         commands.push(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE);

@@ -34,7 +34,6 @@ export const printSalesInvoiceNative = ({
 	);
 
 	const commands: string[] = [
-		EscPosCommands.INITIALIZE, // Initialize printer first
 		EscPosCommands.LINE_BREAK, // Add buffer space before content
 	];
 
@@ -255,6 +254,8 @@ const generateTransactionContentCommands = (
 	// Footer
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(...generateReceiptFooterCommands(siteSettings));
+
+	commands.push(EscPosCommands.ALIGN_CENTER);
 
 	// Final Messages
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
