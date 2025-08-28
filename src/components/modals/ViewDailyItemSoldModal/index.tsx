@@ -1,5 +1,5 @@
 import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Spin } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
@@ -21,6 +21,7 @@ type Props = {
 	branchMachine?: BranchMachine;
 	user?: User;
 	isForPrint?: boolean;
+	loading?: boolean; // Added loading prop
 	onClose: () => void;
 };
 
@@ -30,6 +31,7 @@ export const ViewDailyItemSoldModal = ({
 	branchMachine,
 	user,
 	isForPrint,
+	loading = false, // Default to false
 	onClose,
 }: Props) => {
 	// STATES
@@ -39,7 +41,7 @@ export const ViewDailyItemSoldModal = ({
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `DailyItemSoldSummary_${new Date().toISOString().split('T')[0]}`,
 		image:
-			dailyItemSoldSummary.length === 0
+			dailyItemSoldSummary.length === 0 && !loading
 				? {
 						src: imgNoTransaction,
 						x: 50,
@@ -85,7 +87,7 @@ export const ViewDailyItemSoldModal = ({
 			footer={[
 				<Button
 					key="print"
-					disabled={isLoadingPdf || isCreatingTxt}
+					disabled={isLoadingPdf || isCreatingTxt || loading}
 					icon={<PrinterOutlined />}
 					type="primary"
 					onClick={handlePrint}
@@ -95,13 +97,13 @@ export const ViewDailyItemSoldModal = ({
 				<PdfButtons
 					key="pdf"
 					downloadPdf={downloadPdf}
-					isDisabled={isLoadingPdf}
+					isDisabled={isLoadingPdf || loading}
 					isLoading={isLoadingPdf}
 					previewPdf={previewPdf}
 				/>,
 				<Button
 					key="txt"
-					disabled={isLoadingPdf || isCreatingTxt}
+					disabled={isLoadingPdf || isCreatingTxt || loading}
 					icon={<FileTextOutlined />}
 					loading={isCreatingTxt}
 					type="primary"
@@ -117,13 +119,15 @@ export const ViewDailyItemSoldModal = ({
 			open
 			onCancel={onClose}
 		>
-			<DailyItemSoldContent
-				dailyItemSoldSummary={dailyItemSoldSummary}
-				branch={branch}
-				branchMachine={branchMachine}
-				user={user}
-				isForPrint={isForPrint}
-			/>
+			<Spin spinning={loading} tip="Loading products...">
+				<DailyItemSoldContent
+					dailyItemSoldSummary={dailyItemSoldSummary}
+					branch={branch}
+					branchMachine={branchMachine}
+					user={user}
+					isForPrint={isForPrint}
+				/>
+			</Spin>
 
 			<div
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}

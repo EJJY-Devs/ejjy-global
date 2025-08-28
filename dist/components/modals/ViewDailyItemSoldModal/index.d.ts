@@ -12,7 +12,8 @@ type Props = {
     branchMachine?: BranchMachine;
     user?: User;
     isForPrint?: boolean;
+    loading?: boolean;
     onClose: () => void;
 };
-export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, onClose, }: Props) => React.JSX.Element;
+export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, loading, onClose, }: Props) => React.JSX.Element;
 export {};

@@ -35,13 +35,14 @@ const hooks_1 = require("../../../hooks");
 const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const DailyItemSoldContent_1 = require("./DailyItemSoldContent");
-const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, onClose, }) => {
+const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, loading = false, // Default to false
+onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `DailyItemSoldSummary_${new Date().toISOString().split('T')[0]}`,
-        image: dailyItemSoldSummary.length === 0
+        image: dailyItemSoldSummary.length === 0 && !loading
             ? {
                 src: no_transaction_png_1.default,
                 x: 50,
@@ -79,11 +80,12 @@ const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, u
         setIsCreatingTxt(false);
     };
     return (react_1.default.createElement(antd_1.Modal, { footer: [
-            react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
-            react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
-            react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
+            react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf || isCreatingTxt || loading, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
+            react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf || loading, isLoading: isLoadingPdf, previewPdf: previewPdf }),
+            react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt || loading, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Daily Item Sold", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
-        react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user, isForPrint: isForPrint }),
+        react_1.default.createElement(antd_1.Spin, { spinning: loading, tip: "Loading products..." },
+            react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user, isForPrint: isForPrint })),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewDailyItemSoldModal = ViewDailyItemSoldModal;
