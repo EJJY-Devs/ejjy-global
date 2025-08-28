@@ -12,7 +12,9 @@ const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
-    const commands = [];
+    const commands = [
+        escpos_enum_1.EscPosCommands.INITIALIZE, // Reset printer to known state
+    ];
     try {
         // Generate content with error handling
         const contentCommands = generateTransactionContentCommands(transaction, siteSettings, isReprint);
@@ -26,6 +28,7 @@ const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false,
         console.error('Error generating sales invoice commands:', error);
         // Return minimal commands to prevent complete failure
         return [
+            escpos_enum_1.EscPosCommands.INITIALIZE,
             'Error generating invoice content',
             escpos_enum_1.EscPosCommands.LINE_BREAK,
             escpos_enum_1.EscPosCommands.LINE_BREAK,

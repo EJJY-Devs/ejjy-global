@@ -28,7 +28,9 @@ export const printSalesInvoiceNative = ({
 	siteSettings,
 	isReprint = false,
 }: PrintSalesInvoice) => {
-	const commands: string[] = [];
+	const commands: string[] = [
+		EscPosCommands.INITIALIZE, // Reset printer to known state
+	];
 
 	try {
 		// Generate content with error handling
@@ -53,6 +55,7 @@ export const printSalesInvoiceNative = ({
 		console.error('Error generating sales invoice commands:', error);
 		// Return minimal commands to prevent complete failure
 		return [
+			EscPosCommands.INITIALIZE, // Reset printer even on error
 			'Error generating invoice content',
 			EscPosCommands.LINE_BREAK,
 			EscPosCommands.LINE_BREAK,
