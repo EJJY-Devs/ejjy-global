@@ -149,19 +149,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
             if (commandString.length > maxChunkSize) {
                 console.log('Large receipt detected, sending in chunks to ensure all bytes are transmitted');
                 console.log(`Total bytes to send: ${commandString.length}`);
-                // Send initialization first
-                yield qz_tray_1.default.print(config, [
-                    {
-                        type: 'raw',
-                        format: 'command',
-                        flavor: 'plain',
-                        data: '\x1B\x40',
-                        options: { language: 'ESCPOS', dotDensity: 'single' },
-                    },
-                ]);
-                // Wait a moment for initialization
-                yield new Promise((resolve) => setTimeout(resolve, 200));
-                // Send content in chunks with status verification
+                // Send content in chunks with status verification - no separate initialization
                 let totalBytesSent = 0;
                 for (let i = 0; i < commandString.length; i += maxChunkSize) {
                     const chunk = commandString.substring(i, i + maxChunkSize);
@@ -188,19 +176,6 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                     }
                 }
                 console.log(`All ${totalBytesSent} bytes sent successfully`);
-                // Send final paper feed to ensure completion
-                yield new Promise((resolve) => setTimeout(resolve, 500)); // Longer wait before final feed
-                console.log('Sending final paper feed...');
-                yield qz_tray_1.default.print(config, [
-                    {
-                        type: 'raw',
-                        format: 'command',
-                        flavor: 'plain',
-                        data: '\x1B\x64\x05\n\n',
-                        options: { language: 'ESCPOS', dotDensity: 'single' },
-                    },
-                ]);
-                console.log('Final paper feed sent');
             }
             else {
                 // For smaller receipts, send all at once with verification

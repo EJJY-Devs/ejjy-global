@@ -12,27 +12,20 @@ const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
-    const commands = [
-        escpos_enum_1.EscPosCommands.INITIALIZE,
-        escpos_enum_1.EscPosCommands.TEXT_NORMAL,
-        escpos_enum_1.EscPosCommands.TEXT_NORMAL_SIZE,
-    ];
+    const commands = [];
     try {
         // Generate content with error handling
         const contentCommands = generateTransactionContentCommands(transaction, siteSettings, isReprint);
         // Add spacing before content to prevent buffer overflow
         commands.push(...contentCommands);
-        // Simple ending - let helper handle the final feed
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
+        // Simple ending with paper feed
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.FEED_LINES);
         return commands;
     }
     catch (error) {
         console.error('Error generating sales invoice commands:', error);
         // Return minimal commands to prevent complete failure
         return [
-            escpos_enum_1.EscPosCommands.INITIALIZE,
-            escpos_enum_1.EscPosCommands.TEXT_NORMAL,
-            escpos_enum_1.EscPosCommands.TEXT_NORMAL_SIZE,
             'Error generating invoice content',
             escpos_enum_1.EscPosCommands.LINE_BREAK,
             escpos_enum_1.EscPosCommands.LINE_BREAK,

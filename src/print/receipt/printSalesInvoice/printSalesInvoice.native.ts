@@ -28,11 +28,7 @@ export const printSalesInvoiceNative = ({
 	siteSettings,
 	isReprint = false,
 }: PrintSalesInvoice) => {
-	const commands: string[] = [
-		EscPosCommands.INITIALIZE,
-		EscPosCommands.TEXT_NORMAL,
-		EscPosCommands.TEXT_NORMAL_SIZE,
-	];
+	const commands: string[] = [];
 
 	try {
 		// Generate content with error handling
@@ -45,17 +41,18 @@ export const printSalesInvoiceNative = ({
 		// Add spacing before content to prevent buffer overflow
 		commands.push(...contentCommands);
 
-		// Simple ending - let helper handle the final feed
-		commands.push(EscPosCommands.LINE_BREAK, EscPosCommands.LINE_BREAK);
+		// Simple ending with paper feed
+		commands.push(
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.FEED_LINES, // Ensure paper feeds out
+		);
 
 		return commands;
 	} catch (error) {
 		console.error('Error generating sales invoice commands:', error);
 		// Return minimal commands to prevent complete failure
 		return [
-			EscPosCommands.INITIALIZE,
-			EscPosCommands.TEXT_NORMAL,
-			EscPosCommands.TEXT_NORMAL_SIZE,
 			'Error generating invoice content',
 			EscPosCommands.LINE_BREAK,
 			EscPosCommands.LINE_BREAK,

@@ -196,21 +196,7 @@ export const print = async (
 				);
 				console.log(`Total bytes to send: ${commandString.length}`);
 
-				// Send initialization first
-				await qz.print(config, [
-					{
-						type: 'raw',
-						format: 'command',
-						flavor: 'plain',
-						data: '\x1B\x40', // INITIALIZE command
-						options: { language: 'ESCPOS', dotDensity: 'single' },
-					},
-				]);
-
-				// Wait a moment for initialization
-				await new Promise((resolve) => setTimeout(resolve, 200));
-
-				// Send content in chunks with status verification
+				// Send content in chunks with status verification - no separate initialization
 				let totalBytesSent = 0;
 				for (let i = 0; i < commandString.length; i += maxChunkSize) {
 					const chunk = commandString.substring(i, i + maxChunkSize);
@@ -245,20 +231,6 @@ export const print = async (
 				}
 
 				console.log(`All ${totalBytesSent} bytes sent successfully`);
-
-				// Send final paper feed to ensure completion
-				await new Promise((resolve) => setTimeout(resolve, 500)); // Longer wait before final feed
-				console.log('Sending final paper feed...');
-				await qz.print(config, [
-					{
-						type: 'raw',
-						format: 'command',
-						flavor: 'plain',
-						data: '\x1B\x64\x05\n\n', // FEED_LINES + extra line breaks
-						options: { language: 'ESCPOS', dotDensity: 'single' },
-					},
-				]);
-				console.log('Final paper feed sent');
 			} else {
 				// For smaller receipts, send all at once with verification
 				console.log(`Sending complete receipt: ${commandString.length} bytes`);
