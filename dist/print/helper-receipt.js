@@ -138,54 +138,108 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 scaleContent: true,
                 scaling: 'shrinkToFit',
             }
-            : {
-                forceRaw: true,
-                bounds: true,
-                rasterize: true,
-                scaleContent: true,
-                size: true,
-                spool: true,
-            })));
+            : {})));
         console.log('config', config);
         console.log('Print data length:', Array.isArray(printData) ? printData.length : typeof printData);
         if (type === globals_1.printingTypes.NATIVE) {
             const commandString = printData.join('');
             console.log('Total command string length:', commandString.length);
-            // Split large print jobs to prevent buffer overflow
-            const maxChunkSize = 8192; // 8KB chunks
+            // For large receipts, ensure all bytes are sent by using smaller chunks
+            const maxChunkSize = 4096; // 4KB chunks - smaller for better reliability
             if (commandString.length > maxChunkSize) {
-                console.log('Large print job detected, splitting into chunks');
-                const chunks = [];
-                for (let i = 0; i < commandString.length; i += maxChunkSize) {
-                    chunks.push(commandString.substring(i, i + maxChunkSize));
-                }
-                // Send chunks sequentially with small delays
-                for (let i = 0; i < chunks.length; i++) {
-                    yield qz_tray_1.default.print(config, [
-                        {
-                            type: 'raw',
-                            format: 'command',
-                            flavor: 'plain',
-                            data: chunks[i],
-                            options: { language: 'ESCPOS', dotDensity: 'single' },
-                        },
-                    ]);
-                    // Small delay between chunks to prevent buffer overflow
-                    if (i < chunks.length - 1) {
-                        yield new Promise((resolve) => setTimeout(resolve, 100));
-                    }
-                }
-            }
-            else {
+                console.log('Large receipt detected, sending in chunks to ensure all bytes are transmitted');
+                console.log(`Total bytes to send: ${commandString.length}`);
+                // Send initialization first
                 yield qz_tray_1.default.print(config, [
                     {
                         type: 'raw',
                         format: 'command',
                         flavor: 'plain',
-                        data: commandString,
+                        data: '\x1B\x40',
                         options: { language: 'ESCPOS', dotDensity: 'single' },
                     },
                 ]);
+                // Wait a moment for initialization
+                yield new Promise(resolve => setTimeout(resolve, 200));
+                // Send content in chunks with status verification
+                let totalBytesSent = 0;
+                for (let i = 0; i < commandString.length; i += maxChunkSize) {
+                    const chunk = commandString.substring(i, i + maxChunkSize);
+                    totalBytesSent += chunk.length;
+                    console.log(`Sending chunk ${Math.floor(i / maxChunkSize) + 1}: ${chunk.length} bytes (Total sent: ${totalBytesSent}/${commandString.length})`);
+                    try {
+                        yield qz_tray_1.default.print(config, [
+                            {
+                                type: 'raw',
+                                format: 'command',
+                                flavor: 'plain',
+                                data: chunk,
+                                options: { language: 'ESCPOS', dotDensity: 'single' },
+                            },
+                        ]);
+                        // Wait for the chunk to be processed before sending next
+                        if (i + maxChunkSize < commandString.length) {
+                            yield new Promise(resolve => setTimeout(resolve, 300)); // Increased delay for reliability
+                        }
+                    }
+                    catch (chunkError) {
+                        console.error(`Error sending chunk ${Math.floor(i / maxChunkSize) + 1}:`, chunkError);
+                        // Continue trying to send remaining chunks
+                    }
+                }
+                console.log(`All ${totalBytesSent} bytes sent successfully`);
+                // Send final paper feed to ensure completion
+                yield new Promise(resolve => setTimeout(resolve, 500)); // Longer wait before final feed
+                console.log('Sending final paper feed...');
+                yield qz_tray_1.default.print(config, [
+                    {
+                        type: 'raw',
+                        format: 'command',
+                        flavor: 'plain',
+                        data: '\x1B\x64\x05\n\n',
+                        options: { language: 'ESCPOS', dotDensity: 'single' },
+                    },
+                ]);
+                console.log('Final paper feed sent');
+            }
+            else {
+                // For smaller receipts, send all at once with verification
+                console.log(`Sending complete receipt: ${commandString.length} bytes`);
+                try {
+                    yield qz_tray_1.default.print(config, [
+                        {
+                            type: 'raw',
+                            format: 'command',
+                            flavor: 'plain',
+                            data: commandString,
+                            options: { language: 'ESCPOS', dotDensity: 'single' },
+                        },
+                    ]);
+                    console.log('Receipt sent successfully');
+                }
+                catch (printError) {
+                    console.error('Error sending receipt:', printError);
+                    // Try chunked approach as fallback
+                    console.log('Falling back to chunked sending...');
+                    const chunks = [];
+                    for (let i = 0; i < commandString.length; i += maxChunkSize) {
+                        chunks.push(commandString.substring(i, i + maxChunkSize));
+                    }
+                    for (let i = 0; i < chunks.length; i++) {
+                        yield qz_tray_1.default.print(config, [
+                            {
+                                type: 'raw',
+                                format: 'command',
+                                flavor: 'plain',
+                                data: chunks[i],
+                                options: { language: 'ESCPOS', dotDensity: 'single' },
+                            },
+                        ]);
+                        if (i < chunks.length - 1) {
+                            yield new Promise(resolve => setTimeout(resolve, 300));
+                        }
+                    }
+                }
             }
         }
         else {

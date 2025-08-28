@@ -31,7 +31,7 @@ export const printSalesInvoiceNative = ({
 	const commands: string[] = [
 		EscPosCommands.INITIALIZE,
 		EscPosCommands.TEXT_NORMAL,
-		EscPosCommands.LINE_BREAK, // Add buffer space before content
+		EscPosCommands.TEXT_NORMAL_SIZE,
 	];
 
 	try {
@@ -43,20 +43,10 @@ export const printSalesInvoiceNative = ({
 		);
 
 		// Add spacing before content to prevent buffer overflow
-		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(...contentCommands);
 
-		// Add spacing after content
-		commands.push(EscPosCommands.LINE_BREAK);
-
-		// Add proper ending sequence with paper feed
-		commands.push(
-			EscPosCommands.LINE_BREAK,
-			EscPosCommands.LINE_BREAK,
-			EscPosCommands.LINE_BREAK,
-			EscPosCommands.LINE_BREAK, // Extra line break for spacing
-			EscPosCommands.FEED_LINES, // Feed paper to ensure complete printing
-		);
+		// Simple ending - let helper handle the final feed
+		commands.push(EscPosCommands.LINE_BREAK, EscPosCommands.LINE_BREAK);
 
 		return commands;
 	} catch (error) {
@@ -65,6 +55,7 @@ export const printSalesInvoiceNative = ({
 		return [
 			EscPosCommands.INITIALIZE,
 			EscPosCommands.TEXT_NORMAL,
+			EscPosCommands.TEXT_NORMAL_SIZE,
 			'Error generating invoice content',
 			EscPosCommands.LINE_BREAK,
 			EscPosCommands.LINE_BREAK,
@@ -101,7 +92,7 @@ const generateTransactionContentCommands = (
 		commands.push(EscPosCommands.ALIGN_LEFT);
 
 		// Products - Process in smaller chunks to prevent buffer overflow
-		transaction.products.forEach((item, index) => {
+		transaction.products.forEach((item) => {
 			const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE}`;
 			const quantityAndPrice = `   ${item.quantity} @ ${formatInPeso(item.price_per_piece, PESO_SIGN)}`;
 			const totalAmount = formatInPeso(
@@ -121,11 +112,6 @@ const generateTransactionContentCommands = (
 					},
 				]),
 			);
-
-			// Add a small buffer space every few items to prevent overflow
-			if ((index + 1) % 5 === 0) {
-				commands.push(EscPosCommands.LINE_BREAK);
-			}
 		});
 
 		// Divider
@@ -290,7 +276,6 @@ const generateTransactionContentCommands = (
 		return [
 			EscPosCommands.ALIGN_LEFT,
 			'Error generating transaction content',
-			EscPosCommands.LINE_BREAK,
 			EscPosCommands.LINE_BREAK,
 		];
 	}

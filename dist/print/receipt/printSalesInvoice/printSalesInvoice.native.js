@@ -15,19 +15,15 @@ const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false,
     const commands = [
         escpos_enum_1.EscPosCommands.INITIALIZE,
         escpos_enum_1.EscPosCommands.TEXT_NORMAL,
-        escpos_enum_1.EscPosCommands.LINE_BREAK, // Add buffer space before content
+        escpos_enum_1.EscPosCommands.TEXT_NORMAL_SIZE,
     ];
     try {
         // Generate content with error handling
         const contentCommands = generateTransactionContentCommands(transaction, siteSettings, isReprint);
         // Add spacing before content to prevent buffer overflow
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(...contentCommands);
-        // Add spacing after content
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        // Add proper ending sequence with paper feed
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, // Extra line break for spacing
-        escpos_enum_1.EscPosCommands.FEED_LINES);
+        // Simple ending - let helper handle the final feed
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
         return commands;
     }
     catch (error) {
@@ -36,6 +32,7 @@ const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false,
         return [
             escpos_enum_1.EscPosCommands.INITIALIZE,
             escpos_enum_1.EscPosCommands.TEXT_NORMAL,
+            escpos_enum_1.EscPosCommands.TEXT_NORMAL_SIZE,
             'Error generating invoice content',
             escpos_enum_1.EscPosCommands.LINE_BREAK,
             escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -56,7 +53,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         // Reset to left alignment for transaction details
         commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
         // Products - Process in smaller chunks to prevent buffer overflow
-        transaction.products.forEach((item, index) => {
+        transaction.products.forEach((item) => {
             const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}`;
             const quantityAndPrice = `   ${item.quantity} @ ${(0, utils_1.formatInPeso)(item.price_per_piece, helper_receipt_1.PESO_SIGN)}`;
             const totalAmount = (0, utils_1.formatInPeso)(Number(item.quantity) * Number(item.price_per_piece), helper_receipt_1.PESO_SIGN);
@@ -69,10 +66,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
                     isIndented: true,
                 },
             ]));
-            // Add a small buffer space every few items to prevent overflow
-            if ((index + 1) % 5 === 0) {
-                commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-            }
         });
         // Divider
         commands.push((0, helper_escpos_1.printRight)('----------------'));
@@ -203,7 +196,6 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         return [
             escpos_enum_1.EscPosCommands.ALIGN_LEFT,
             'Error generating transaction content',
-            escpos_enum_1.EscPosCommands.LINE_BREAK,
             escpos_enum_1.EscPosCommands.LINE_BREAK,
         ];
     }
