@@ -30,6 +30,7 @@ export const printSalesInvoiceNative = ({
 }: PrintSalesInvoice) => {
 	const commands: string[] = [
 		EscPosCommands.INITIALIZE, // Reset printer to known state
+		'\n', // Small buffer after initialize
 	];
 
 	try {

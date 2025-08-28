@@ -187,8 +187,11 @@ export const print = async (
 			const commandString = (printData as string[]).join('');
 			console.log('Total command string length:', commandString.length);
 
+			// Add delay before printing to ensure printer is ready
+			await new Promise((resolve) => setTimeout(resolve, 500));
+
 			// For large receipts, ensure all bytes are sent by using smaller chunks
-			const maxChunkSize = 4096; // 4KB chunks - smaller for better reliability
+			const maxChunkSize = 2048; // Reduced to 2KB for better reliability on temperamental printers
 
 			if (commandString.length > maxChunkSize) {
 				console.log(
@@ -217,60 +220,103 @@ export const print = async (
 							},
 						]);
 
-						// Wait for the chunk to be processed before sending next
+						// Increased delay between chunks for temperamental printers
 						if (i + maxChunkSize < commandString.length) {
-							await new Promise((resolve) => setTimeout(resolve, 300)); // Increased delay for reliability
+							await new Promise((resolve) => setTimeout(resolve, 500));
 						}
 					} catch (chunkError) {
 						console.error(
 							`Error sending chunk ${Math.floor(i / maxChunkSize) + 1}:`,
 							chunkError,
 						);
-						// Continue trying to send remaining chunks
+
+						// Retry failed chunk once with longer delay
+						console.log(
+							`Retrying chunk ${Math.floor(i / maxChunkSize) + 1}...`,
+						);
+						await new Promise((resolve) => setTimeout(resolve, 1000));
+
+						try {
+							await qz.print(config, [
+								{
+									type: 'raw',
+									format: 'command',
+									flavor: 'plain',
+									data: chunk,
+									options: { language: 'ESCPOS', dotDensity: 'single' },
+								},
+							]);
+							console.log(
+								`Chunk ${Math.floor(i / maxChunkSize) + 1} retry successful`,
+							);
+						} catch (retryError) {
+							console.error(
+								`Chunk ${Math.floor(i / maxChunkSize) + 1} retry failed:`,
+								retryError,
+							);
+							// Continue with next chunk
+						}
 					}
 				}
 
 				console.log(`All ${totalBytesSent} bytes sent successfully`);
 			} else {
-				// For smaller receipts, send all at once with verification
+				// For smaller receipts, send all at once with verification and retry
 				console.log(`Sending complete receipt: ${commandString.length} bytes`);
 
-				try {
-					await qz.print(config, [
-						{
-							type: 'raw',
-							format: 'command',
-							flavor: 'plain',
-							data: commandString,
-							options: { language: 'ESCPOS', dotDensity: 'single' },
-						},
-					]);
-					console.log('Receipt sent successfully');
-				} catch (printError) {
-					console.error('Error sending receipt:', printError);
-					// Try chunked approach as fallback
-					console.log('Falling back to chunked sending...');
-					const chunks = [];
-					for (let i = 0; i < commandString.length; i += maxChunkSize) {
-						chunks.push(commandString.substring(i, i + maxChunkSize));
-					}
-
-					for (let i = 0; i < chunks.length; i++) {
+				const sendSingleReceipt = async (retryCount = 0): Promise<void> => {
+					try {
 						await qz.print(config, [
 							{
 								type: 'raw',
 								format: 'command',
 								flavor: 'plain',
-								data: chunks[i],
+								data: commandString,
 								options: { language: 'ESCPOS', dotDensity: 'single' },
 							},
 						]);
+						console.log('Receipt sent successfully');
+					} catch (printError) {
+						if (retryCount < 2) {
+							console.error(
+								`Error sending receipt (attempt ${retryCount + 1}):`,
+								printError,
+							);
+							console.log(`Retrying in ${(retryCount + 1) * 1000}ms...`);
+							await new Promise((resolve) =>
+								setTimeout(resolve, (retryCount + 1) * 1000),
+							);
+							return sendSingleReceipt(retryCount + 1);
+						} else {
+							console.error(
+								'Max retries reached, falling back to chunked sending...',
+							);
+							// Try chunked approach as final fallback
+							const chunks = [];
+							for (let i = 0; i < commandString.length; i += maxChunkSize) {
+								chunks.push(commandString.substring(i, i + maxChunkSize));
+							}
 
-						if (i < chunks.length - 1) {
-							await new Promise((resolve) => setTimeout(resolve, 300));
+							for (let i = 0; i < chunks.length; i++) {
+								await qz.print(config, [
+									{
+										type: 'raw',
+										format: 'command',
+										flavor: 'plain',
+										data: chunks[i],
+										options: { language: 'ESCPOS', dotDensity: 'single' },
+									},
+								]);
+
+								if (i < chunks.length - 1) {
+									await new Promise((resolve) => setTimeout(resolve, 500));
+								}
+							}
 						}
 					}
-				}
+				};
+
+				await sendSingleReceipt();
 			}
 		} else {
 			await qz.print(config, [

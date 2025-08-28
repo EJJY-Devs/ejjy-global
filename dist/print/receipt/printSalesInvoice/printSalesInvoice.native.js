@@ -13,7 +13,8 @@ const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
     const commands = [
-        escpos_enum_1.EscPosCommands.INITIALIZE, // Reset printer to known state
+        escpos_enum_1.EscPosCommands.INITIALIZE,
+        '\n', // Small buffer after initialize
     ];
     try {
         // Generate content with error handling
