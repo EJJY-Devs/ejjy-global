@@ -186,14 +186,16 @@ export const print = async (
 		if (type === printingTypes.NATIVE) {
 			const commandString = (printData as string[]).join('');
 			console.log('Total command string length:', commandString.length);
-			
+
 			// For large receipts, ensure all bytes are sent by using smaller chunks
 			const maxChunkSize = 4096; // 4KB chunks - smaller for better reliability
-			
+
 			if (commandString.length > maxChunkSize) {
-				console.log('Large receipt detected, sending in chunks to ensure all bytes are transmitted');
+				console.log(
+					'Large receipt detected, sending in chunks to ensure all bytes are transmitted',
+				);
 				console.log(`Total bytes to send: ${commandString.length}`);
-				
+
 				// Send initialization first
 				await qz.print(config, [
 					{
@@ -204,18 +206,20 @@ export const print = async (
 						options: { language: 'ESCPOS', dotDensity: 'single' },
 					},
 				]);
-				
+
 				// Wait a moment for initialization
-				await new Promise(resolve => setTimeout(resolve, 200));
-				
+				await new Promise((resolve) => setTimeout(resolve, 200));
+
 				// Send content in chunks with status verification
 				let totalBytesSent = 0;
 				for (let i = 0; i < commandString.length; i += maxChunkSize) {
 					const chunk = commandString.substring(i, i + maxChunkSize);
 					totalBytesSent += chunk.length;
-					
-					console.log(`Sending chunk ${Math.floor(i / maxChunkSize) + 1}: ${chunk.length} bytes (Total sent: ${totalBytesSent}/${commandString.length})`);
-					
+
+					console.log(
+						`Sending chunk ${Math.floor(i / maxChunkSize) + 1}: ${chunk.length} bytes (Total sent: ${totalBytesSent}/${commandString.length})`,
+					);
+
 					try {
 						await qz.print(config, [
 							{
@@ -226,21 +230,24 @@ export const print = async (
 								options: { language: 'ESCPOS', dotDensity: 'single' },
 							},
 						]);
-						
+
 						// Wait for the chunk to be processed before sending next
 						if (i + maxChunkSize < commandString.length) {
-							await new Promise(resolve => setTimeout(resolve, 300)); // Increased delay for reliability
+							await new Promise((resolve) => setTimeout(resolve, 300)); // Increased delay for reliability
 						}
 					} catch (chunkError) {
-						console.error(`Error sending chunk ${Math.floor(i / maxChunkSize) + 1}:`, chunkError);
+						console.error(
+							`Error sending chunk ${Math.floor(i / maxChunkSize) + 1}:`,
+							chunkError,
+						);
 						// Continue trying to send remaining chunks
 					}
 				}
-				
+
 				console.log(`All ${totalBytesSent} bytes sent successfully`);
-				
+
 				// Send final paper feed to ensure completion
-				await new Promise(resolve => setTimeout(resolve, 500)); // Longer wait before final feed
+				await new Promise((resolve) => setTimeout(resolve, 500)); // Longer wait before final feed
 				console.log('Sending final paper feed...');
 				await qz.print(config, [
 					{
@@ -255,7 +262,7 @@ export const print = async (
 			} else {
 				// For smaller receipts, send all at once with verification
 				console.log(`Sending complete receipt: ${commandString.length} bytes`);
-				
+
 				try {
 					await qz.print(config, [
 						{
@@ -275,7 +282,7 @@ export const print = async (
 					for (let i = 0; i < commandString.length; i += maxChunkSize) {
 						chunks.push(commandString.substring(i, i + maxChunkSize));
 					}
-					
+
 					for (let i = 0; i < chunks.length; i++) {
 						await qz.print(config, [
 							{
@@ -286,9 +293,9 @@ export const print = async (
 								options: { language: 'ESCPOS', dotDensity: 'single' },
 							},
 						]);
-						
+
 						if (i < chunks.length - 1) {
-							await new Promise(resolve => setTimeout(resolve, 300));
+							await new Promise((resolve) => setTimeout(resolve, 300));
 						}
 					}
 				}

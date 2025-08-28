@@ -160,7 +160,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                     },
                 ]);
                 // Wait a moment for initialization
-                yield new Promise(resolve => setTimeout(resolve, 200));
+                yield new Promise((resolve) => setTimeout(resolve, 200));
                 // Send content in chunks with status verification
                 let totalBytesSent = 0;
                 for (let i = 0; i < commandString.length; i += maxChunkSize) {
@@ -179,7 +179,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                         ]);
                         // Wait for the chunk to be processed before sending next
                         if (i + maxChunkSize < commandString.length) {
-                            yield new Promise(resolve => setTimeout(resolve, 300)); // Increased delay for reliability
+                            yield new Promise((resolve) => setTimeout(resolve, 300)); // Increased delay for reliability
                         }
                     }
                     catch (chunkError) {
@@ -189,7 +189,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 }
                 console.log(`All ${totalBytesSent} bytes sent successfully`);
                 // Send final paper feed to ensure completion
-                yield new Promise(resolve => setTimeout(resolve, 500)); // Longer wait before final feed
+                yield new Promise((resolve) => setTimeout(resolve, 500)); // Longer wait before final feed
                 console.log('Sending final paper feed...');
                 yield qz_tray_1.default.print(config, [
                     {
@@ -236,7 +236,7 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                             },
                         ]);
                         if (i < chunks.length - 1) {
-                            yield new Promise(resolve => setTimeout(resolve, 300));
+                            yield new Promise((resolve) => setTimeout(resolve, 300));
                         }
                     }
                 }
