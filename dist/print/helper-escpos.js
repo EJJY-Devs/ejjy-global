@@ -27,13 +27,20 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
 };
 exports.generateReceiptHeaderCommandsV2 = generateReceiptHeaderCommandsV2;
 const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) => {
+    console.log('[ESCPOS] Generating header commands...');
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
     const commands = [];
+    // Initialize and set center alignment for header
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
+    console.log('[ESCPOS] Added center alignment');
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
+        console.log('[ESCPOS] Adding store name:', branchInfo.store_name);
+        commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         for (const line of branchInfo.store_name.split('\n')) {
             commands.push((0, exports.printCenter)(line));
         }
+        commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_address) {
@@ -74,14 +81,20 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         commands.push((0, exports.printCenter)(title));
+        commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
     }
+    // Reset to left alignment for content
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     return commands;
 };
 exports.generateReceiptHeaderCommands = generateReceiptHeaderCommands;
 const generateReceiptFooterCommands = (siteSettings) => {
     const { software_developer: softwareDeveloper, software_developer_address: softwareDeveloperAddress, software_developer_tin: softwareDeveloperTin, pos_accreditation_number: posAccreditationNumber, pos_accreditation_date: posAccreditationDate, } = siteSettings;
     const commands = [];
+    // Set center alignment for footer
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
     if (softwareDeveloper) {
         commands.push((0, exports.printCenter)(softwareDeveloper));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -107,11 +120,12 @@ const generateReceiptFooterCommands = (siteSettings) => {
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    // Reset to left alignment
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;
 const printCenter = (text) => {
-    console.log('Input text:', text); // Log input
     const words = text.split(' ');
     const lines = [];
     let currentLine = '';
@@ -127,14 +141,14 @@ const printCenter = (text) => {
     if (currentLine) {
         lines.push(currentLine.trim());
     }
-    console.log('Formatted lines:', lines); // Log output
     // Manually center the text using spaces
-    return lines
+    const result = lines
         .map((line) => {
         const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
         return ' '.repeat(padding) + line;
     })
         .join('\n');
+    return result;
 };
 exports.printCenter = printCenter;
 const printRight = (text) => {

@@ -42,6 +42,7 @@ export const generateReceiptHeaderCommands = ({
 	title,
 	branchHeader,
 }: ReceiptHeaderProps) => {
+	console.log('[ESCPOS] Generating header commands...');
 	const {
 		name,
 		machine_identification_number: machineID,
@@ -54,10 +55,17 @@ export const generateReceiptHeaderCommands = ({
 	const branchInfo = branch ?? branchHeader;
 	const commands: string[] = [];
 
+	// Initialize and set center alignment for header
+	commands.push(EscPosCommands.ALIGN_CENTER);
+	console.log('[ESCPOS] Added center alignment');
+
 	if (branchInfo?.store_name) {
+		console.log('[ESCPOS] Adding store name:', branchInfo.store_name);
+		commands.push(EscPosCommands.BOLD_ON);
 		for (const line of branchInfo.store_name.split('\n')) {
 			commands.push(printCenter(line));
 		}
+		commands.push(EscPosCommands.BOLD_OFF);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -112,8 +120,13 @@ export const generateReceiptHeaderCommands = ({
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(EscPosCommands.BOLD_ON);
 		commands.push(printCenter(title));
+		commands.push(EscPosCommands.BOLD_OFF);
 	}
+
+	// Reset to left alignment for content
+	commands.push(EscPosCommands.ALIGN_LEFT);
 
 	return commands;
 };
@@ -128,6 +141,9 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	} = siteSettings;
 
 	const commands: string[] = [];
+
+	// Set center alignment for footer
+	commands.push(EscPosCommands.ALIGN_CENTER);
 
 	if (softwareDeveloper) {
 		commands.push(printCenter(softwareDeveloper));
@@ -160,11 +176,13 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 
+	// Reset to left alignment
+	commands.push(EscPosCommands.ALIGN_LEFT);
+
 	return commands;
 };
 
 export const printCenter = (text: string): string => {
-	console.log('Input text:', text); // Log input
 	const words = text.split(' ');
 	const lines: string[] = [];
 	let currentLine = '';
@@ -182,15 +200,15 @@ export const printCenter = (text: string): string => {
 		lines.push(currentLine.trim());
 	}
 
-	console.log('Formatted lines:', lines); // Log output
-
 	// Manually center the text using spaces
-	return lines
+	const result = lines
 		.map((line) => {
 			const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
 			return ' '.repeat(padding) + line;
 		})
 		.join('\n');
+
+	return result;
 };
 
 export const printRight = (text: string) => {

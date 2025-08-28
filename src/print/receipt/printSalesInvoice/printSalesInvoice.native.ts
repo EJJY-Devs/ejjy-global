@@ -28,15 +28,55 @@ export const printSalesInvoiceNative = ({
 	transaction,
 	siteSettings,
 	isReprint = false,
-}: PrintSalesInvoice) => [
-	...generateTransactionContentCommands(transaction, siteSettings, isReprint),
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-	EscPosCommands.LINE_BREAK,
-];
+}: PrintSalesInvoice) => {
+	console.log(
+		'[NATIVE-PRINT] Starting print job for transaction:',
+		transaction.id,
+	);
+
+	const commands: string[] = [
+		EscPosCommands.INITIALIZE, // Initialize printer first
+		EscPosCommands.TEXT_NORMAL, // Set normal text
+		EscPosCommands.ALIGN_LEFT, // Ensure left alignment
+		EscPosCommands.LINE_BREAK, // Add buffer space before content
+	];
+
+	// Add small delay command if available, or use line break as separator
+	commands.push(EscPosCommands.LINE_BREAK);
+
+	// Generate content with logging
+	const contentCommands = generateTransactionContentCommands(
+		transaction,
+		siteSettings,
+		isReprint,
+	);
+	console.log(
+		'[NATIVE-PRINT] Generated',
+		contentCommands.length,
+		'content commands',
+	);
+
+	// Add spacing before content to prevent buffer overflow
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(...contentCommands);
+
+	// Add spacing after content
+	commands.push(EscPosCommands.LINE_BREAK);
+
+	// Add proper ending sequence
+	commands.push(
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.LINE_BREAK,
+		EscPosCommands.CUT_PARTIAL, // Cut paper if printer supports it
+	);
+
+	console.log('[NATIVE-PRINT] Total commands generated:', commands.length);
+	return commands;
+};
 
 const generateTransactionContentCommands = (
 	transaction: Transaction,
