@@ -34,27 +34,42 @@ export const printSalesInvoiceNative = ({
 		EscPosCommands.LINE_BREAK, // Add buffer space before content
 	];
 
-	// Generate content with logging
-	const contentCommands = generateTransactionContentCommands(
-		transaction,
-		siteSettings,
-		isReprint,
-	);
+	try {
+		// Generate content with error handling
+		const contentCommands = generateTransactionContentCommands(
+			transaction,
+			siteSettings,
+			isReprint,
+		);
 
-	// Add spacing before content to prevent buffer overflow
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(...contentCommands);
+		// Add spacing before content to prevent buffer overflow
+		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(...contentCommands);
 
-	// Add spacing after content
-	commands.push(EscPosCommands.LINE_BREAK);
+		// Add spacing after content
+		commands.push(EscPosCommands.LINE_BREAK);
 
-	// Add proper ending sequence
-	commands.push(
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	);
-	return commands;
+		// Add proper ending sequence with paper feed
+		commands.push(
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK, // Extra line break for spacing
+			EscPosCommands.FEED_LINES, // Feed paper to ensure complete printing
+		);
+
+		return commands;
+	} catch (error) {
+		console.error('Error generating sales invoice commands:', error);
+		// Return minimal commands to prevent complete failure
+		return [
+			EscPosCommands.INITIALIZE,
+			EscPosCommands.TEXT_NORMAL,
+			'Error generating invoice content',
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK,
+		];
+	}
 };
 
 const generateTransactionContentCommands = (
@@ -72,193 +87,211 @@ const generateTransactionContentCommands = (
 
 	const commands: string[] = [];
 
-	commands.push(
-		...generateReceiptHeaderCommands({
-			branchMachine: transaction.branch_machine,
-			title,
-		}),
-	);
-
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Reset to left alignment for transaction details
-	commands.push(EscPosCommands.ALIGN_LEFT);
-
-	// Products
-	transaction.products.forEach((item) => {
-		const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE}`;
-		const quantityAndPrice = `   ${item.quantity} @ ${formatInPeso(item.price_per_piece, PESO_SIGN)}`;
-		const totalAmount = formatInPeso(
-			Number(item.quantity) * Number(item.price_per_piece),
-			PESO_SIGN,
+	try {
+		commands.push(
+			...generateReceiptHeaderCommands({
+				branchMachine: transaction.branch_machine,
+				title,
+			}),
 		);
 
-		commands.push(productDetails);
 		commands.push(EscPosCommands.LINE_BREAK);
 
-		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: quantityAndPrice,
-					value: totalAmount,
-					isIndented: true,
-				},
-			]),
-		);
-	});
+		// Reset to left alignment for transaction details
+		commands.push(EscPosCommands.ALIGN_LEFT);
 
-	// Divider
-	commands.push(printRight('----------------'));
-	commands.push(EscPosCommands.LINE_BREAK);
+		// Products - Process in smaller chunks to prevent buffer overflow
+		transaction.products.forEach((item, index) => {
+			const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? vatTypes.VAT_EMPTY : vatTypes.VATABLE}`;
+			const quantityAndPrice = `   ${item.quantity} @ ${formatInPeso(item.price_per_piece, PESO_SIGN)}`;
+			const totalAmount = formatInPeso(
+				Number(item.quantity) * Number(item.price_per_piece),
+				PESO_SIGN,
+			);
 
-	// Discounts and Total
-	if (transaction.discount_option) {
-		commands.push(
-			...generateItemBlockCommands([
-				{
-					label: 'GROSS AMOUNT',
-					value: formatInPeso(transaction.gross_amount, PESO_SIGN),
-				},
-				{
-					label: `DISCOUNT | ${transaction.discount_option.code}`,
-					value: formatInPeso(getComputedDiscount(transaction), PESO_SIGN),
-					isParenthesized: true,
-				},
-			]),
-		);
+			commands.push(productDetails);
+			commands.push(EscPosCommands.LINE_BREAK);
 
-		if (transaction.discount_option.is_special_discount) {
 			commands.push(
 				...generateItemBlockCommands([
 					{
-						label: 'ADJ. ON VAT',
-						value: formatInPeso(transaction.invoice.vat_amount, PESO_SIGN),
+						label: quantityAndPrice,
+						value: totalAmount,
+						isIndented: true,
+					},
+				]),
+			);
+
+			// Add a small buffer space every few items to prevent overflow
+			if ((index + 1) % 5 === 0) {
+				commands.push(EscPosCommands.LINE_BREAK);
+			}
+		});
+
+		// Divider
+		commands.push(printRight('----------------'));
+		commands.push(EscPosCommands.LINE_BREAK);
+
+		// Discounts and Total
+		if (transaction.discount_option) {
+			commands.push(
+				...generateItemBlockCommands([
+					{
+						label: 'GROSS AMOUNT',
+						value: formatInPeso(transaction.gross_amount, PESO_SIGN),
+					},
+					{
+						label: `DISCOUNT | ${transaction.discount_option.code}`,
+						value: formatInPeso(getComputedDiscount(transaction), PESO_SIGN),
 						isParenthesized: true,
+					},
+				]),
+			);
+
+			if (transaction.discount_option.is_special_discount) {
+				commands.push(
+					...generateItemBlockCommands([
+						{
+							label: 'ADJ. ON VAT',
+							value: formatInPeso(transaction.invoice.vat_amount, PESO_SIGN),
+							isParenthesized: true,
+						},
+					]),
+				);
+			}
+
+			commands.push(printRight('----------------'));
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'TOTAL AMOUNT',
+					value: formatInPeso(transaction.total_amount, PESO_SIGN),
+				},
+			]),
+		);
+
+		// Payment Details
+		if (transaction.payment.mode === saleTypes.CASH) {
+			commands.push(EscPosCommands.LINE_BREAK);
+			commands.push(
+				...generateItemBlockCommands([
+					{
+						label: 'AMOUNT RECEIVED',
+						value: formatInPeso(transaction.payment.amount_tendered, PESO_SIGN),
+					},
+					{
+						label: 'AMOUNT DUE',
+						value: formatInPeso(transaction.total_amount, PESO_SIGN),
+					},
+					{
+						label: 'CHANGE',
+						value: formatInPeso(change, PESO_SIGN),
 					},
 				]),
 			);
 		}
 
-		commands.push(printRight('----------------'));
-		commands.push(EscPosCommands.LINE_BREAK);
-	}
-
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: 'TOTAL AMOUNT',
-				value: formatInPeso(transaction.total_amount, PESO_SIGN),
-			},
-		]),
-	);
-
-	// Payment Details
-	if (transaction.payment.mode === saleTypes.CASH) {
+		// VAT Details
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(
 			...generateItemBlockCommands([
 				{
-					label: 'AMOUNT RECEIVED',
-					value: formatInPeso(transaction.payment.amount_tendered, PESO_SIGN),
+					label: 'VAT Exempt',
+					value: formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN),
 				},
 				{
-					label: 'AMOUNT DUE',
-					value: formatInPeso(transaction.total_amount, PESO_SIGN),
+					label: 'VATable Sales',
+					value: formatInPeso(transaction.invoice.vat_sales, PESO_SIGN),
 				},
 				{
-					label: 'CHANGE',
-					value: formatInPeso(change, PESO_SIGN),
+					label: 'VAT Amount (12%)',
+					value: formatInPeso(transaction.invoice.vat_amount, PESO_SIGN),
+				},
+				{
+					label: 'ZERO Rated',
+					value: formatInPeso(0, PESO_SIGN),
 				},
 			]),
 		);
-	}
 
-	// VAT Details
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: 'VAT Exempt',
-				value: formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN),
-			},
-			{
-				label: 'VATable Sales',
-				value: formatInPeso(transaction.invoice.vat_sales, PESO_SIGN),
-			},
-			{
-				label: 'VAT Amount (12%)',
-				value: formatInPeso(transaction.invoice.vat_amount, PESO_SIGN),
-			},
-			{
-				label: 'ZERO Rated',
-				value: formatInPeso(0, PESO_SIGN),
-			},
-		]),
-	);
-
-	// Add GDT and PDT
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push('GDT: ' + formatDateTime(transaction.invoice.datetime_created));
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push('PDT: ' + formatDateTime(dayjs(), false));
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	// OR Number and Item Count
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: transaction.invoice.or_number,
-				value: `${transaction.products.length} item(s)`,
-			},
-		]),
-	);
-
-	// Teller ID
-	commands.push(transaction?.teller?.employee_id || EMPTY_CELL);
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Previous and New Invoice Numbers
-	if (previousTransactionOrNumber) {
-		commands.push('Prev Invoice #: ' + previousTransactionOrNumber);
+		// Add GDT and PDT
 		commands.push(EscPosCommands.LINE_BREAK);
-	}
-
-	if (newTransactionOrNumber) {
-		commands.push('New Invoice #: ' + newTransactionOrNumber);
+		commands.push(
+			'GDT: ' + formatDateTime(transaction.invoice.datetime_created),
+		);
 		commands.push(EscPosCommands.LINE_BREAK);
-	}
-
-	// Additional Fields
-	fields?.forEach(({ key, value }) => {
-		commands.push(`${key}: ${value}`);
+		commands.push('PDT: ' + formatDateTime(dayjs(), false));
 		commands.push(EscPosCommands.LINE_BREAK);
-	});
 
-	// Footer
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(...generateReceiptFooterCommands(siteSettings));
+		// OR Number and Item Count
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: transaction.invoice.or_number,
+					value: `${transaction.products.length} item(s)`,
+				},
+			]),
+		);
 
-	commands.push(EscPosCommands.ALIGN_CENTER);
-
-	// Final Messages
-	if (transaction.status === transactionStatuses.FULLY_PAID) {
-		commands.push(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE);
+		// Teller ID
+		commands.push(transaction?.teller?.employee_id || EMPTY_CELL);
 		commands.push(EscPosCommands.LINE_BREAK);
-	}
 
-	if (
-		[
-			transactionStatuses.VOID_EDITED,
-			transactionStatuses.VOID_CANCELLED,
-		].includes(transaction.status)
-	) {
-		commands.push('VOIDED TRANSACTION');
+		// Previous and New Invoice Numbers
+		if (previousTransactionOrNumber) {
+			commands.push('Prev Invoice #: ' + previousTransactionOrNumber);
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+
+		if (newTransactionOrNumber) {
+			commands.push('New Invoice #: ' + newTransactionOrNumber);
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+
+		// Additional Fields
+		fields?.forEach(({ key, value }) => {
+			commands.push(`${key}: ${value}`);
+			commands.push(EscPosCommands.LINE_BREAK);
+		});
+
+		// Footer
 		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(...generateReceiptFooterCommands(siteSettings));
+
+		commands.push(EscPosCommands.ALIGN_CENTER);
+
+		// Final Messages
+		if (transaction.status === transactionStatuses.FULLY_PAID) {
+			commands.push(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE);
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+
+		if (
+			[
+				transactionStatuses.VOID_EDITED,
+				transactionStatuses.VOID_CANCELLED,
+			].includes(transaction.status)
+		) {
+			commands.push('VOIDED TRANSACTION');
+			commands.push(EscPosCommands.LINE_BREAK);
+		}
+
+		commands.push(`${siteSettings?.thank_you_message}`);
+		commands.push(EscPosCommands.LINE_BREAK);
+		commands.push(EscPosCommands.LINE_BREAK);
+
+		return commands;
+	} catch (error) {
+		console.error('Error generating transaction content:', error);
+		// Return minimal commands to prevent complete failure
+		return [
+			EscPosCommands.ALIGN_LEFT,
+			'Error generating transaction content',
+			EscPosCommands.LINE_BREAK,
+			EscPosCommands.LINE_BREAK,
+		];
 	}
-
-	commands.push(`${siteSettings?.thank_you_message}`);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-
-	return commands;
 };

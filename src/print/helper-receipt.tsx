@@ -174,13 +174,63 @@ export const print = async (
 						scaleContent: true,
 						scaling: 'shrinkToFit',
 					}
-				: {}),
+				: {
+						forceRaw: true,
+						bounds: true,
+						rasterize: true,
+						scaleContent: true,
+						size: true,
+						spool: true,
+					}),
 		});
 
 		console.log('config', config);
+		console.log(
+			'Print data length:',
+			Array.isArray(printData) ? printData.length : typeof printData,
+		);
 
 		if (type === printingTypes.NATIVE) {
-			await qz.print(config, printData);
+			const commandString = (printData as string[]).join('');
+			console.log('Total command string length:', commandString.length);
+
+			// Split large print jobs to prevent buffer overflow
+			const maxChunkSize = 8192; // 8KB chunks
+			if (commandString.length > maxChunkSize) {
+				console.log('Large print job detected, splitting into chunks');
+				const chunks = [];
+				for (let i = 0; i < commandString.length; i += maxChunkSize) {
+					chunks.push(commandString.substring(i, i + maxChunkSize));
+				}
+
+				// Send chunks sequentially with small delays
+				for (let i = 0; i < chunks.length; i++) {
+					await qz.print(config, [
+						{
+							type: 'raw',
+							format: 'command',
+							flavor: 'plain',
+							data: chunks[i],
+							options: { language: 'ESCPOS', dotDensity: 'single' },
+						},
+					]);
+
+					// Small delay between chunks to prevent buffer overflow
+					if (i < chunks.length - 1) {
+						await new Promise((resolve) => setTimeout(resolve, 100));
+					}
+				}
+			} else {
+				await qz.print(config, [
+					{
+						type: 'raw',
+						format: 'command',
+						flavor: 'plain',
+						data: commandString,
+						options: { language: 'ESCPOS', dotDensity: 'single' },
+					},
+				]);
+			}
 		} else {
 			await qz.print(config, [
 				{
