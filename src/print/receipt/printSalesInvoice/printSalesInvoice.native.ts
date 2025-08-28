@@ -37,7 +37,7 @@ export const printSalesInvoiceNative = ({
 	const commands: string[] = [
 		EscPosCommands.INITIALIZE, // Initialize printer first
 		EscPosCommands.TEXT_NORMAL, // Set normal text
-		EscPosCommands.ALIGN_LEFT, // Ensure left alignment
+		// Don't set alignment here - let each section control its own alignment
 		EscPosCommands.LINE_BREAK, // Add buffer space before content
 	];
 
@@ -101,6 +101,9 @@ const generateTransactionContentCommands = (
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);
+
+	// Reset to left alignment for transaction details
+	commands.push(EscPosCommands.ALIGN_LEFT);
 
 	// Products
 	transaction.products.forEach((item) => {

@@ -22,7 +22,6 @@ export const printDailyItemSoldHtml = ({
 				branch={branch}
 				branchMachine={branchMachine}
 				user={user}
-				isForPrint
 			/>
 		</div>,
 	);

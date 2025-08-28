@@ -16,7 +16,7 @@ const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false,
     const commands = [
         escpos_enum_1.EscPosCommands.INITIALIZE,
         escpos_enum_1.EscPosCommands.TEXT_NORMAL,
-        escpos_enum_1.EscPosCommands.ALIGN_LEFT,
+        // Don't set alignment here - let each section control its own alignment
         escpos_enum_1.EscPosCommands.LINE_BREAK, // Add buffer space before content
     ];
     // Add small delay command if available, or use line break as separator
@@ -44,6 +44,8 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         title,
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    // Reset to left alignment for transaction details
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     // Products
     transaction.products.forEach((item) => {
         const productDetails = `${item.branch_product.product.print_details} - ${item.branch_product.product.is_vat_exempted ? globals_1.vatTypes.VAT_EMPTY : globals_1.vatTypes.VATABLE}`;

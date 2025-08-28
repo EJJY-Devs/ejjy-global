@@ -27,25 +27,22 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
 };
 exports.generateReceiptHeaderCommandsV2 = generateReceiptHeaderCommandsV2;
 const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) => {
-    console.log('[ESCPOS] Generating header commands...');
     const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
     const commands = [];
     // Initialize and set center alignment for header
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
-    console.log('[ESCPOS] Added center alignment');
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
-        console.log('[ESCPOS] Adding store name:', branchInfo.store_name);
         commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         for (const line of branchInfo.store_name.split('\n')) {
-            commands.push((0, exports.printCenter)(line));
+            commands.push(line); // Let ESC/POS center alignment handle it
         }
         commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_address) {
         for (const line of branchInfo.store_address.split('\n')) {
-            commands.push((0, exports.printCenter)(line));
+            commands.push(line); // Let ESC/POS center alignment handle it
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
@@ -54,35 +51,35 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.proprietor) {
-        commands.push((0, exports.printCenter)(branchInfo.proprietor));
+        commands.push(branchInfo.proprietor); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ((branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.vat_type) || (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.tin)) {
-        commands.push((0, exports.printCenter)([(0, utils_1.getTaxTypeDescription)(branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.vat_type), branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.tin]
+        commands.push([(0, utils_1.getTaxTypeDescription)(branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.vat_type), branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.tin]
             .filter(Boolean)
-            .join(' | ')));
+            .join(' | '));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (machineID) {
-        commands.push((0, exports.printCenter)(`MIN: ${machineID}`));
+        commands.push(`MIN: ${machineID}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posTerminal) {
-        commands.push((0, exports.printCenter)(`SN: ${posTerminal}`));
+        commands.push(`SN: ${posTerminal}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (permit_to_use) {
-        commands.push((0, exports.printCenter)(`PTU No: ${permit_to_use}`));
+        commands.push(`PTU No: ${permit_to_use}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (ptuDateIssued) {
-        commands.push((0, exports.printCenter)(`Date Issued: ${ptuDateIssued}`));
+        commands.push(`Date Issued: ${ptuDateIssued}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
-        commands.push((0, exports.printCenter)(title));
+        commands.push(title); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
     }
     // Reset to left alignment for content

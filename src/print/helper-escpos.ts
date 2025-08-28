@@ -42,7 +42,6 @@ export const generateReceiptHeaderCommands = ({
 	title,
 	branchHeader,
 }: ReceiptHeaderProps) => {
-	console.log('[ESCPOS] Generating header commands...');
 	const {
 		name,
 		machine_identification_number: machineID,
@@ -57,13 +56,11 @@ export const generateReceiptHeaderCommands = ({
 
 	// Initialize and set center alignment for header
 	commands.push(EscPosCommands.ALIGN_CENTER);
-	console.log('[ESCPOS] Added center alignment');
 
 	if (branchInfo?.store_name) {
-		console.log('[ESCPOS] Adding store name:', branchInfo.store_name);
 		commands.push(EscPosCommands.BOLD_ON);
 		for (const line of branchInfo.store_name.split('\n')) {
-			commands.push(printCenter(line));
+			commands.push(line); // Let ESC/POS center alignment handle it
 		}
 		commands.push(EscPosCommands.BOLD_OFF);
 		commands.push(EscPosCommands.LINE_BREAK);
@@ -71,7 +68,7 @@ export const generateReceiptHeaderCommands = ({
 
 	if (branchInfo?.store_address) {
 		for (const line of branchInfo.store_address.split('\n')) {
-			commands.push(printCenter(line));
+			commands.push(line); // Let ESC/POS center alignment handle it
 		}
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
@@ -86,42 +83,40 @@ export const generateReceiptHeaderCommands = ({
 	}
 
 	if (branchInfo?.proprietor) {
-		commands.push(printCenter(branchInfo.proprietor));
+		commands.push(branchInfo.proprietor); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.vat_type || branchInfo?.tin) {
 		commands.push(
-			printCenter(
-				[getTaxTypeDescription(branchInfo?.vat_type), branchInfo?.tin]
-					.filter(Boolean)
-					.join(' | '),
-			),
+			[getTaxTypeDescription(branchInfo?.vat_type), branchInfo?.tin]
+				.filter(Boolean)
+				.join(' | '), // Let ESC/POS center alignment handle it
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (machineID) {
-		commands.push(printCenter(`MIN: ${machineID}`));
+		commands.push(`MIN: ${machineID}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (posTerminal) {
-		commands.push(printCenter(`SN: ${posTerminal}`));
+		commands.push(`SN: ${posTerminal}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (permit_to_use) {
-		commands.push(printCenter(`PTU No: ${permit_to_use}`));
+		commands.push(`PTU No: ${permit_to_use}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (ptuDateIssued) {
-		commands.push(printCenter(`Date Issued: ${ptuDateIssued}`));
+		commands.push(`Date Issued: ${ptuDateIssued}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
 		commands.push(EscPosCommands.BOLD_ON);
-		commands.push(printCenter(title));
+		commands.push(title); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.BOLD_OFF);
 	}
 

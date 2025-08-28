@@ -10,7 +10,7 @@ const DailyItemSoldContent_1 = require("../../../components/modals/ViewDailyItem
 const helper_receipt_1 = require("../../helper-receipt");
 const printDailyItemSoldHtml = ({ dailyItemSoldSummary, branch, branchMachine, user, isPdf = false, }) => {
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-        react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user, isForPrint: true })));
+        react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user })));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
