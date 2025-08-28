@@ -17,7 +17,6 @@ import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
 	generateReceiptHeaderCommands,
-	printCenter,
 	printRight,
 } from '../../helper-escpos';
 import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
@@ -130,7 +129,7 @@ const generateTransactionContentCommands = (
 	});
 
 	// Divider
-	commands.push('----------------');
+	commands.push(printRight('----------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Discounts and Total
@@ -262,9 +261,7 @@ const generateTransactionContentCommands = (
 
 	// Final Messages
 	if (transaction.status === transactionStatuses.FULLY_PAID) {
-		commands.push(
-			printCenter(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE),
-		);
+		commands.push(isReprint ? REPRINT_ONLY_MESSAGE : INVOICE_LAST_MESSAGE);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 

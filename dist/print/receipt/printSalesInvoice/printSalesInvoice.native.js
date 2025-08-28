@@ -63,7 +63,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
         ]));
     });
     // Divider
-    commands.push('----------------');
+    commands.push((0, helper_escpos_1.printRight)('----------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Discounts and Total
     if (transaction.discount_option) {
@@ -169,7 +169,7 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
     commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     // Final Messages
     if (transaction.status === globals_1.transactionStatuses.FULLY_PAID) {
-        commands.push((0, helper_escpos_1.printCenter)(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE));
+        commands.push(isReprint ? globals_1.REPRINT_ONLY_MESSAGE : globals_1.INVOICE_LAST_MESSAGE);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ([
