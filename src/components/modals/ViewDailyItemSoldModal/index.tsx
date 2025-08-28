@@ -30,7 +30,6 @@ export const ViewDailyItemSoldModal = ({
 	branch,
 	branchMachine,
 	user,
-	isForPrint,
 	loading = false, // Default to false
 	onClose,
 }: Props) => {
@@ -125,7 +124,6 @@ export const ViewDailyItemSoldModal = ({
 					branch={branch}
 					branchMachine={branchMachine}
 					user={user}
-					isForPrint={isForPrint}
 				/>
 			</Spin>
 

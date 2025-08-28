@@ -7,9 +7,8 @@ exports.DailyItemSoldContent = void 0;
 const antd_1 = require("antd");
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
-const no_transaction_png_1 = __importDefault(require("../../../../public/no-transaction.png"));
 const Printing_1 = require("../../Printing");
-const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, isForPrint, }) => {
+const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, }) => {
     const columns = [
         {
             title: 'Name',
@@ -29,7 +28,6 @@ const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, isF
     const currentDate = (0, dayjs_1.default)();
     const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement("div", { className: "relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4" },
             react_1.default.createElement(Printing_1.ReceiptHeaderV2, { branchMachine: branchMachine, branchHeader: branch }),
             react_1.default.createElement("br", null),

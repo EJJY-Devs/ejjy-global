@@ -15,5 +15,5 @@ type Props = {
     loading?: boolean;
     onClose: () => void;
 };
-export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, branch, branchMachine, user, isForPrint, loading, onClose, }: Props) => React.JSX.Element;
+export declare const ViewDailyItemSoldModal: ({ dailyItemSoldSummary, branch, branchMachine, user, loading, onClose, }: Props) => React.JSX.Element;
 export {};

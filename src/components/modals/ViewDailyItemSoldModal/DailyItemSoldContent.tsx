@@ -2,7 +2,6 @@ import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import React from 'react';
-import imgNoTransaction from '../../../../public/no-transaction.png';
 import { Branch, BranchMachine, User } from '../../../types';
 import { ReceiptHeaderV2 } from '../../Printing';
 import { DailyItemSoldSummary } from './index';
@@ -12,14 +11,12 @@ type Props = {
 	branch: Branch;
 	branchMachine?: BranchMachine;
 	user?: User;
-	isForPrint?: boolean;
 };
 
 export const DailyItemSoldContent = ({
 	dailyItemSoldSummary,
 	branch,
 	branchMachine,
-	isForPrint,
 }: Props) => {
 	const columns: ColumnsType<DailyItemSoldSummary> = [
 		{
@@ -43,14 +40,6 @@ export const DailyItemSoldContent = ({
 
 	return (
 		<>
-			{!isForPrint && (
-				<img
-					alt="no transaction"
-					className="pointer-events-none absolute left-0 top-0 w-full"
-					src={imgNoTransaction}
-				/>
-			)}
-
 			<div className="relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4">
 				<ReceiptHeaderV2 branchMachine={branchMachine} branchHeader={branch} />
 
