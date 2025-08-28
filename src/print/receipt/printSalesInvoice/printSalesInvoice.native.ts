@@ -36,7 +36,7 @@ export const printSalesInvoiceNative = ({
 
 	const commands: string[] = [
 		EscPosCommands.INITIALIZE, // Initialize printer first
-		EscPosCommands.TEXT_NORMAL, // Set normal text
+		EscPosCommands.TEXT_SMALL, // Set small text (original font)
 		// Don't set alignment here - let each section control its own alignment
 		EscPosCommands.LINE_BREAK, // Add buffer space before content
 	];
@@ -104,6 +104,7 @@ const generateTransactionContentCommands = (
 
 	// Reset to left alignment for transaction details
 	commands.push(EscPosCommands.ALIGN_LEFT);
+	commands.push(EscPosCommands.TEXT_SMALL); // Ensure small font is maintained
 
 	// Products
 	transaction.products.forEach((item) => {
@@ -129,7 +130,7 @@ const generateTransactionContentCommands = (
 	});
 
 	// Divider
-	commands.push(printRight('----------------'));
+	commands.push('----------------');
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Discounts and Total
@@ -273,11 +274,11 @@ const generateTransactionContentCommands = (
 			transactionStatuses.VOID_CANCELLED,
 		].includes(transaction.status)
 	) {
-		commands.push(printCenter('VOIDED TRANSACTION'));
+		commands.push('VOIDED TRANSACTION');
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	commands.push(printCenter(`${siteSettings?.thank_you_message}`));
+	commands.push(`${siteSettings?.thank_you_message}`);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 

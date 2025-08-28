@@ -56,6 +56,7 @@ export const generateReceiptHeaderCommands = ({
 
 	// Initialize and set center alignment for header
 	commands.push(EscPosCommands.ALIGN_CENTER);
+	commands.push(EscPosCommands.TEXT_SMALL); // Ensure small font for header
 
 	if (branchInfo?.store_name) {
 		commands.push(EscPosCommands.BOLD_ON);
@@ -75,9 +76,7 @@ export const generateReceiptHeaderCommands = ({
 
 	if (branchInfo?.contact_number || name) {
 		commands.push(
-			printCenter(
-				[branchInfo?.contact_number, name].filter(Boolean).join(' | '),
-			),
+			[branchInfo?.contact_number, name].filter(Boolean).join(' | '),
 		);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
@@ -118,6 +117,7 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(EscPosCommands.BOLD_ON);
 		commands.push(title); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.BOLD_OFF);
+		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	// Reset to left alignment for content
@@ -141,30 +141,30 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	commands.push(EscPosCommands.ALIGN_CENTER);
 
 	if (softwareDeveloper) {
-		commands.push(printCenter(softwareDeveloper));
+		commands.push(softwareDeveloper);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperAddress) {
 		const lines = softwareDeveloperAddress.split('\n');
 		for (const line of lines) {
-			commands.push(printCenter(line));
+			commands.push(line);
 		}
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (softwareDeveloperTin) {
-		commands.push(printCenter(softwareDeveloperTin));
+		commands.push(softwareDeveloperTin);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationNumber) {
-		commands.push(printCenter(`Acc No: ${posAccreditationNumber}`));
+		commands.push(`Acc No: ${posAccreditationNumber}`);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (posAccreditationDate) {
-		commands.push(printCenter(`Date Issued: ${posAccreditationDate}`));
+		commands.push(`Date Issued: ${posAccreditationDate}`);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -231,20 +231,23 @@ export const generateItemBlockCommands = (items: ItemBlockItemsCommands[]) => {
 		let value = String(item.value);
 		if (item.isParenthesized) value = `(${value})`;
 
-		const spaceBetween = 2;
-		const combinedLength = label.length + value.length + spaceBetween;
+		// Ensure minimum spacing between label and value
+		const minSpacing = 3;
+		const maxLabelLength = PAPER_CHARACTER_WIDTH - value.length - minSpacing;
 
-		if (combinedLength <= PAPER_CHARACTER_WIDTH) {
-			// Single line: label + value with spacing
-			const space = ' '.repeat(
-				PAPER_CHARACTER_WIDTH - label.length - value.length,
-			);
-			commands.push(label + space + value);
+		if (label.length <= maxLabelLength) {
+			// Single line: label + spaces + value (right-aligned)
+			const spacesNeeded = PAPER_CHARACTER_WIDTH - label.length - value.length;
+			const space = ' '.repeat(Math.max(minSpacing, spacesNeeded));
+			const line = label + space + value;
+			commands.push(line);
 		} else {
 			// Multi-line: label first, then value right-aligned
-			const valueIndent = ' '.repeat(PAPER_CHARACTER_WIDTH - value.length);
 			commands.push(label);
 			commands.push(EscPosCommands.LINE_BREAK);
+			const valueIndent = ' '.repeat(
+				Math.max(0, PAPER_CHARACTER_WIDTH - value.length),
+			);
 			commands.push(valueIndent + value);
 		}
 

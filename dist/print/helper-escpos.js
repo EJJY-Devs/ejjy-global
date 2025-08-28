@@ -32,6 +32,7 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     const commands = [];
     // Initialize and set center alignment for header
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
+    commands.push(escpos_enum_1.EscPosCommands.TEXT_SMALL); // Ensure small font for header
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         for (const line of branchInfo.store_name.split('\n')) {
@@ -47,7 +48,7 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ((branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number) || name) {
-        commands.push((0, exports.printCenter)([branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number, name].filter(Boolean).join(' | ')));
+        commands.push([branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number, name].filter(Boolean).join(' | '));
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.proprietor) {
@@ -81,6 +82,7 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
         commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         commands.push(title); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     // Reset to left alignment for content
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
@@ -93,26 +95,26 @@ const generateReceiptFooterCommands = (siteSettings) => {
     // Set center alignment for footer
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
     if (softwareDeveloper) {
-        commands.push((0, exports.printCenter)(softwareDeveloper));
+        commands.push(softwareDeveloper);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperAddress) {
         const lines = softwareDeveloperAddress.split('\n');
         for (const line of lines) {
-            commands.push((0, exports.printCenter)(line));
+            commands.push(line);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperTin) {
-        commands.push((0, exports.printCenter)(softwareDeveloperTin));
+        commands.push(softwareDeveloperTin);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posAccreditationNumber) {
-        commands.push((0, exports.printCenter)(`Acc No: ${posAccreditationNumber}`));
+        commands.push(`Acc No: ${posAccreditationNumber}`);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (posAccreditationDate) {
-        commands.push((0, exports.printCenter)(`Date Issued: ${posAccreditationDate}`));
+        commands.push(`Date Issued: ${posAccreditationDate}`);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -164,18 +166,21 @@ const generateItemBlockCommands = (items) => {
         let value = String(item.value);
         if (item.isParenthesized)
             value = `(${value})`;
-        const spaceBetween = 2;
-        const combinedLength = label.length + value.length + spaceBetween;
-        if (combinedLength <= PAPER_CHARACTER_WIDTH) {
-            // Single line: label + value with spacing
-            const space = ' '.repeat(PAPER_CHARACTER_WIDTH - label.length - value.length);
-            commands.push(label + space + value);
+        // Ensure minimum spacing between label and value
+        const minSpacing = 3;
+        const maxLabelLength = PAPER_CHARACTER_WIDTH - value.length - minSpacing;
+        if (label.length <= maxLabelLength) {
+            // Single line: label + spaces + value (right-aligned)
+            const spacesNeeded = PAPER_CHARACTER_WIDTH - label.length - value.length;
+            const space = ' '.repeat(Math.max(minSpacing, spacesNeeded));
+            const line = label + space + value;
+            commands.push(line);
         }
         else {
             // Multi-line: label first, then value right-aligned
-            const valueIndent = ' '.repeat(PAPER_CHARACTER_WIDTH - value.length);
             commands.push(label);
             commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+            const valueIndent = ' '.repeat(Math.max(0, PAPER_CHARACTER_WIDTH - value.length));
             commands.push(valueIndent + value);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
