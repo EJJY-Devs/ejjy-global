@@ -29,7 +29,7 @@ const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, isF
     const currentDate = (0, dayjs_1.default)();
     const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        dailyItemSoldSummary.length === 0 && !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
+        !isForPrint && (react_1.default.createElement("img", { alt: "no transaction", className: "pointer-events-none absolute left-0 top-0 w-full", src: no_transaction_png_1.default })),
         react_1.default.createElement("div", { className: "relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4" },
             react_1.default.createElement(Printing_1.ReceiptHeaderV2, { branchMachine: branchMachine, branchHeader: branch }),
             react_1.default.createElement("br", null),

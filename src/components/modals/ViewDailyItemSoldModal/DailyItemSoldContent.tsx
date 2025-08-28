@@ -43,7 +43,7 @@ export const DailyItemSoldContent = ({
 
 	return (
 		<>
-			{dailyItemSoldSummary.length === 0 && !isForPrint && (
+			{!isForPrint && (
 				<img
 					alt="no transaction"
 					className="pointer-events-none absolute left-0 top-0 w-full"
