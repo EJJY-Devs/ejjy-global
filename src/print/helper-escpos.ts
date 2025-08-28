@@ -56,7 +56,6 @@ export const generateReceiptHeaderCommands = ({
 
 	// Initialize and set center alignment for header
 	commands.push(EscPosCommands.ALIGN_CENTER);
-	commands.push(EscPosCommands.TEXT_SMALL); // Ensure small font for header
 
 	if (branchInfo?.store_name) {
 		commands.push(EscPosCommands.BOLD_ON);

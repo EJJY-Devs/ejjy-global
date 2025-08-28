@@ -32,7 +32,6 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     const commands = [];
     // Initialize and set center alignment for header
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
-    commands.push(escpos_enum_1.EscPosCommands.TEXT_SMALL); // Ensure small font for header
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         for (const line of branchInfo.store_name.split('\n')) {
