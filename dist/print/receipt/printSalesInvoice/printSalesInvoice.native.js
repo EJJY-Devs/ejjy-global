@@ -12,23 +12,18 @@ const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
-    console.log('[NATIVE-PRINT] Starting print job for transaction:', transaction.id);
     const commands = [
         escpos_enum_1.EscPosCommands.LINE_BREAK, // Add buffer space before content
     ];
-    // Add small delay command if available, or use line break as separator
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Generate content with logging
     const contentCommands = generateTransactionContentCommands(transaction, siteSettings, isReprint);
-    console.log('[NATIVE-PRINT] Generated', contentCommands.length, 'content commands');
     // Add spacing before content to prevent buffer overflow
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(...contentCommands);
     // Add spacing after content
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Add proper ending sequence
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.CUT_PARTIAL);
-    console.log('[NATIVE-PRINT] Total commands generated:', commands.length);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK, escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printSalesInvoiceNative = printSalesInvoiceNative;

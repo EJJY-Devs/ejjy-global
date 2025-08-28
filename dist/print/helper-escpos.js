@@ -33,11 +33,9 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     // Initialize and set center alignment for header
     commands.push(escpos_enum_1.EscPosCommands.ALIGN_CENTER);
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
-        commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         for (const line of branchInfo.store_name.split('\n')) {
             commands.push(line); // Let ESC/POS center alignment handle it
         }
-        commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_address) {
@@ -78,9 +76,7 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     }
     if (title) {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push(escpos_enum_1.EscPosCommands.BOLD_ON);
         commands.push(title); // Let ESC/POS center alignment handle it
-        commands.push(escpos_enum_1.EscPosCommands.BOLD_OFF);
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     // Reset to left alignment for content

@@ -58,11 +58,9 @@ export const generateReceiptHeaderCommands = ({
 	commands.push(EscPosCommands.ALIGN_CENTER);
 
 	if (branchInfo?.store_name) {
-		commands.push(EscPosCommands.BOLD_ON);
 		for (const line of branchInfo.store_name.split('\n')) {
 			commands.push(line); // Let ESC/POS center alignment handle it
 		}
-		commands.push(EscPosCommands.BOLD_OFF);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
@@ -113,9 +111,7 @@ export const generateReceiptHeaderCommands = ({
 
 	if (title) {
 		commands.push(EscPosCommands.LINE_BREAK);
-		commands.push(EscPosCommands.BOLD_ON);
 		commands.push(title); // Let ESC/POS center alignment handle it
-		commands.push(EscPosCommands.BOLD_OFF);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
