@@ -29,6 +29,9 @@ export const printSalesInvoiceNative = ({
 	isReprint = false,
 }: PrintSalesInvoice) => {
 	const commands: string[] = [
+		EscPosCommands.INITIALIZE,
+		EscPosCommands.TEXT_NORMAL, // Font A (A11/A12 base)
+		'\x1B\x21\x10', // Double height (A12)
 		EscPosCommands.LINE_BREAK, // Add buffer space before content
 	];
 

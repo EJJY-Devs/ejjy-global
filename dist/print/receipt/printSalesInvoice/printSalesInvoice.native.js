@@ -13,6 +13,9 @@ const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false, }) => {
     const commands = [
+        escpos_enum_1.EscPosCommands.INITIALIZE,
+        escpos_enum_1.EscPosCommands.TEXT_NORMAL,
+        '\x1B\x21\x10',
         escpos_enum_1.EscPosCommands.LINE_BREAK, // Add buffer space before content
     ];
     // Generate content with logging
