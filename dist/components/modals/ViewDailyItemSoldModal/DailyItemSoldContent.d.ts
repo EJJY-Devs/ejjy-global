@@ -6,6 +6,7 @@ type Props = {
     branch: Branch;
     branchMachine?: BranchMachine;
     user?: User;
+    reportDate?: string;
 };
-export declare const DailyItemSoldContent: ({ dailyItemSoldSummary, branch, branchMachine, }: Props) => React.JSX.Element;
+export declare const DailyItemSoldContent: ({ dailyItemSoldSummary, branch, branchMachine, reportDate, }: Props) => React.JSX.Element;
 export {};

@@ -36,7 +36,7 @@ const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const DailyItemSoldContent_1 = require("./DailyItemSoldContent");
 const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, user, loading = false, // Default to false
-onClose, }) => {
+reportDate, onClose, }) => {
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
@@ -57,6 +57,7 @@ onClose, }) => {
             branchMachine,
             user,
             isPdf: true,
+            reportDate,
         }),
     });
     // METHODS
@@ -66,6 +67,7 @@ onClose, }) => {
             branch,
             branchMachine,
             user,
+            reportDate,
         });
     };
     const handleCreateTxt = () => {
@@ -85,7 +87,7 @@ onClose, }) => {
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt || loading, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "Daily Item Sold", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: loading, tip: "Loading products..." },
-            react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user })),
+            react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user, reportDate: reportDate })),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
 };
 exports.ViewDailyItemSoldModal = ViewDailyItemSoldModal;

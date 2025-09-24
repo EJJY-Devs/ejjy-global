@@ -8,7 +8,7 @@ const antd_1 = require("antd");
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const Printing_1 = require("../../Printing");
-const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, }) => {
+const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, reportDate, }) => {
     const columns = [
         {
             title: 'Name',
@@ -27,11 +27,17 @@ const DailyItemSoldContent = ({ dailyItemSoldSummary, branch, branchMachine, }) 
     ];
     const currentDate = (0, dayjs_1.default)();
     const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
+    // Use provided reportDate or current date
+    const displayDate = reportDate
+        ? (0, dayjs_1.default)(reportDate).format('MM/DD/YYYY')
+        : currentDate.format('MM/DD/YYYY');
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4" },
             react_1.default.createElement(Printing_1.ReceiptHeaderV2, { branchMachine: branchMachine, branchHeader: branch }),
             react_1.default.createElement("br", null),
             react_1.default.createElement("strong", null, "DAILY ITEM SOLD"),
+            react_1.default.createElement("br", null),
+            react_1.default.createElement("span", null, displayDate),
             react_1.default.createElement("br", null),
             react_1.default.createElement("br", null),
             dailyItemSoldSummary.length === 0 ? (react_1.default.createElement("div", { className: "py-8 text-center" },
