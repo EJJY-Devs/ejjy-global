@@ -40,11 +40,6 @@ export const DailyItemSoldContent = ({
 	const currentDate = dayjs();
 	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
 
-	// Use provided reportDate or current date
-	const displayDate = reportDate
-		? dayjs(reportDate).format('MM/DD/YYYY')
-		: currentDate.format('MM/DD/YYYY');
-
 	return (
 		<>
 			<div className="relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4">
@@ -53,7 +48,7 @@ export const DailyItemSoldContent = ({
 				<br />
 				<strong>DAILY ITEM SOLD</strong>
 				<br />
-				<span>{displayDate}</span>
+				<span>{reportDate}</span>
 				<br />
 				<br />
 
