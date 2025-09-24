@@ -14,11 +14,13 @@ export const printDailyItemSoldNative = ({
 	dailyItemSoldSummary,
 	branch,
 	branchMachine,
+	reportDate,
 }: PrintDailyItemSold): string[] => [
 	...generateDailyItemSoldContentCommands(
 		dailyItemSoldSummary,
 		branch,
 		branchMachine,
+		reportDate,
 	),
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
@@ -32,9 +34,16 @@ const generateDailyItemSoldContentCommands = (
 	dailyItemSoldSummary: DailyItemSoldSummary[],
 	branch: Branch | undefined,
 	branchMachine: BranchMachine | undefined,
+	reportDate?: string,
 ): string[] => {
 	const currentDate = dayjs();
 	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
+
+	// Use provided reportDate or current date
+	const displayDate = reportDate
+		? dayjs(reportDate).format('MM/DD/YYYY')
+		: currentDate.format('MM/DD/YYYY');
+
 	const commands: string[] = [];
 
 	// Header
@@ -45,6 +54,8 @@ const generateDailyItemSoldContentCommands = (
 			title: 'DAILY ITEM SOLD',
 		}),
 	);
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(printCenter(displayDate));
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 

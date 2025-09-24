@@ -22,6 +22,7 @@ type Props = {
 	user?: User;
 	isForPrint?: boolean;
 	loading?: boolean; // Added loading prop
+	reportDate?: string; // Optional date for the report
 	onClose: () => void;
 };
 
@@ -31,6 +32,7 @@ export const ViewDailyItemSoldModal = ({
 	branchMachine,
 	user,
 	loading = false, // Default to false
+	reportDate,
 	onClose,
 }: Props) => {
 	// STATES
@@ -56,6 +58,7 @@ export const ViewDailyItemSoldModal = ({
 				branchMachine,
 				user,
 				isPdf: true,
+				reportDate,
 			}),
 	});
 
@@ -66,6 +69,7 @@ export const ViewDailyItemSoldModal = ({
 			branch,
 			branchMachine,
 			user,
+			reportDate,
 		});
 	};
 
@@ -124,6 +128,7 @@ export const ViewDailyItemSoldModal = ({
 					branch={branch}
 					branchMachine={branchMachine}
 					user={user}
+					reportDate={reportDate}
 				/>
 			</Spin>
 

@@ -7,4 +7,5 @@ export type PrintDailyItemSold = {
 	branchMachine?: BranchMachine;
 	user?: User;
 	isPdf?: boolean;
+	reportDate?: string;
 };

@@ -11,12 +11,14 @@ type Props = {
 	branch: Branch;
 	branchMachine?: BranchMachine;
 	user?: User;
+	reportDate?: string;
 };
 
 export const DailyItemSoldContent = ({
 	dailyItemSoldSummary,
 	branch,
 	branchMachine,
+	reportDate,
 }: Props) => {
 	const columns: ColumnsType<DailyItemSoldSummary> = [
 		{
@@ -38,6 +40,11 @@ export const DailyItemSoldContent = ({
 	const currentDate = dayjs();
 	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
 
+	// Use provided reportDate or current date
+	const displayDate = reportDate
+		? dayjs(reportDate).format('MM/DD/YYYY')
+		: currentDate.format('MM/DD/YYYY');
+
 	return (
 		<>
 			<div className="relative bg-white px-2 pt-2 text-center font-mono text-sm leading-4">
@@ -45,6 +52,8 @@ export const DailyItemSoldContent = ({
 
 				<br />
 				<strong>DAILY ITEM SOLD</strong>
+				<br />
+				<span>{displayDate}</span>
 				<br />
 				<br />
 

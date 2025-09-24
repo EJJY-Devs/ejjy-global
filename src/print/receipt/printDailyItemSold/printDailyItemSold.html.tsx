@@ -14,6 +14,7 @@ export const printDailyItemSoldHtml = ({
 	branchMachine,
 	user,
 	isPdf = false,
+	reportDate,
 }: PrintDailyItemSold) => {
 	const data = ReactDOMServer.renderToStaticMarkup(
 		<div className="container" style={getPageStyleObject()}>
@@ -22,6 +23,7 @@ export const printDailyItemSoldHtml = ({
 				branch={branch}
 				branchMachine={branchMachine}
 				user={user}
+				reportDate={reportDate}
 			/>
 		</div>,
 	);
