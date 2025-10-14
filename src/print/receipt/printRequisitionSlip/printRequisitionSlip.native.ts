@@ -109,7 +109,7 @@ const generateRequisitionSlipContentCommands = (
 	requisitionSlip.products.forEach(({ product, quantity, unit }) => {
 		commands.push(
 			generateThreeColumnLine(
-				product.name,
+				product.print_details || '',
 				formatQuantity(quantity, product),
 				unit != null ? unit : '-', // Explicitly check for null or undefined
 			),

@@ -70,7 +70,7 @@ const generateDeliveryReceiptContentCommands = (deliveryReceipt) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product list
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(deliveryReceipt.products.map((item) => ({
-        label: item.product.name,
+        label: item.product.print_details || '',
         value: (0, utils_1.formatQuantity)(Number(item.quantity_returned), item.product),
     }))));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

@@ -93,7 +93,7 @@ const generateDeliveryReceiptContentCommands = (
 	commands.push(
 		...generateItemBlockCommands(
 			deliveryReceipt.products.map((item) => ({
-				label: item.product.name,
+				label: item.product.print_details || '',
 				value: formatQuantity(Number(item.quantity_returned), item.product),
 			})),
 		),

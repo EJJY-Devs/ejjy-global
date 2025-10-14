@@ -20,10 +20,6 @@ exports.printDailyItemSoldNative = printDailyItemSoldNative;
 const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, branchMachine, reportDate) => {
     const currentDate = (0, dayjs_1.default)();
     const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
-    // Use provided reportDate or current date
-    const displayDate = reportDate
-        ? (0, dayjs_1.default)(reportDate).format('MM/DD/YYYY')
-        : currentDate.format('MM/DD/YYYY');
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommandsV2)({
@@ -32,7 +28,7 @@ const generateDailyItemSoldContentCommands = (dailyItemSoldSummary, branch, bran
         title: 'DAILY ITEM SOLD',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push((0, helper_escpos_1.printCenter)(displayDate));
+    commands.push((0, helper_escpos_1.printCenter)(reportDate || currentDate.format('MM/DD/YYYY')));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     if (dailyItemSoldSummary.length === 0) {

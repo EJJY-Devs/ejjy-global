@@ -39,11 +39,6 @@ const generateDailyItemSoldContentCommands = (
 	const currentDate = dayjs();
 	const currentDateTime = currentDate.format('MM/DD/YYYY hh:mm A');
 
-	// Use provided reportDate or current date
-	const displayDate = reportDate
-		? dayjs(reportDate).format('MM/DD/YYYY')
-		: currentDate.format('MM/DD/YYYY');
-
 	const commands: string[] = [];
 
 	// Header
@@ -55,7 +50,7 @@ const generateDailyItemSoldContentCommands = (
 		}),
 	);
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(printCenter(displayDate));
+	commands.push(printCenter(reportDate || currentDate.format('MM/DD/YYYY')));
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 

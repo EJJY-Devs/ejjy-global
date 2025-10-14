@@ -86,7 +86,7 @@ const generateReceivingReportContentCommands = (receivingReport) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Product List
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)(receivingReport.receiving_voucher_products.map(({ product, quantity }) => ({
-        label: product.name,
+        label: product.print_details || '',
         value: (0, utils_1.formatQuantity)(quantity, product),
     }))));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
