@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.printProductPriceTag = void 0;
+exports.printProductPriceTag = exports.printProductPriceTagHtml = void 0;
 const utils_1 = require("../../utils");
 const helper_receipt_1 = require("../helper-receipt");
-const printProductPriceTag = (product, siteSettings, paperSettings) => {
+const helper_receipt_2 = require("../helper-receipt");
+const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     var _a;
     const name = ((_a = (product.name || product.price_tag_print_details)) === null || _a === void 0 ? void 0 : _a.replace('\n', '<br/>')) ||
         helper_receipt_1.EMPTY_CELL;
@@ -27,5 +28,12 @@ const printProductPriceTag = (product, siteSettings, paperSettings) => {
     <div style="margin-top: auto; font-size: 0.46em; text-align: center; line-height: 100%;">${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.store_name}</div>
 	</div>
 	`;
+};
+exports.printProductPriceTagHtml = printProductPriceTagHtml;
+const printProductPriceTag = (product, siteSettings, paperSettings, onComplete) => {
+    const htmlData = (0, exports.printProductPriceTagHtml)(product, siteSettings, paperSettings);
+    // Print the HTML data
+    (0, helper_receipt_2.print)(htmlData, 'Product Price Tag', onComplete, 'HTML');
+    return htmlData;
 };
 exports.printProductPriceTag = printProductPriceTag;

@@ -1,6 +1,7 @@
 import { Product, SiteSettings } from '../../types';
 import { formatInPeso } from '../../utils';
 import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
+import { print } from '../helper-receipt';
 
 type PaperSettings = {
 	paperWidth: number;
@@ -9,7 +10,7 @@ type PaperSettings = {
 	fontFamily: string;
 };
 
-export const printProductPriceTag = (
+export const printProductPriceTagHtml = (
 	product: Product,
 	siteSettings: SiteSettings,
 	paperSettings: PaperSettings,
@@ -38,4 +39,22 @@ export const printProductPriceTag = (
     <div style="margin-top: auto; font-size: 0.46em; text-align: center; line-height: 100%;">${siteSettings?.store_name}</div>
 	</div>
 	`;
+};
+
+export const printProductPriceTag = (
+	product: Product,
+	siteSettings: SiteSettings,
+	paperSettings: PaperSettings,
+	onComplete?: () => void,
+) => {
+	const htmlData = printProductPriceTagHtml(
+		product,
+		siteSettings,
+		paperSettings,
+	);
+
+	// Print the HTML data
+	print(htmlData, 'Product Price Tag', onComplete, 'HTML');
+
+	return htmlData;
 };
