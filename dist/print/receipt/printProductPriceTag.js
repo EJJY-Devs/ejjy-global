@@ -23,7 +23,7 @@ const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     overflow:hidden;
   ">
     <div style="height: 2.2em; overflow: hidden; font-size: 1em; line-height: 1.1em;">${name}</div>
-    <div style="font-size: 1.53em">${price}</div>
+    <div style="font-size: 1.53em; text-align: right;">${price}</div>
 	</div>
 	`;
 };
