@@ -6,8 +6,7 @@ const helper_receipt_1 = require("../helper-receipt");
 const helper_receipt_2 = require("../helper-receipt");
 const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     var _a;
-    const name = ((_a = (product.name || product.price_tag_print_details)) === null || _a === void 0 ? void 0 : _a.replace('\n', '<br/>')) ||
-        helper_receipt_1.EMPTY_CELL;
+    const name = ((_a = product.price_tag_print_details) === null || _a === void 0 ? void 0 : _a.replace('\n', '<br/>')) || helper_receipt_1.EMPTY_CELL;
     const price = (0, utils_1.formatInPeso)(product.price_per_piece, helper_receipt_1.PESO_SIGN);
     return `
 	<div style="

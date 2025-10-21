@@ -16,8 +16,7 @@ export const printProductPriceTagHtml = (
 	paperSettings: PaperSettings,
 ) => {
 	const name =
-		(product.name || product.price_tag_print_details)?.replace('\n', '<br/>') ||
-		EMPTY_CELL;
+		product.price_tag_print_details?.replace('\n', '<br/>') || EMPTY_CELL;
 	const price = formatInPeso(product.price_per_piece, PESO_SIGN);
 
 	return `
