@@ -23,9 +23,7 @@ const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     overflow:hidden;
   ">
     <div style="height: 2.2em; overflow: hidden; font-size: 1em; line-height: 1.1em;">${name}</div>
-    <div style="width: 100%; margin: 4px 0; border-bottom: 0.25px solid black;"></div>
-    <div style="font-size: 1.23em; text-align: right;">${price}</div>
-    <div style="margin-top: auto; font-size: 0.46em; text-align: center; line-height: 100%;">${siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.store_name}</div>
+    <div style="font-size: 1.53em; text-align: right;">${price}</div>
 	</div>
 	`;
 };
