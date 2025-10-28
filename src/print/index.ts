@@ -7,6 +7,7 @@ export * from './receipt/printCashOut';
 export * from './receipt/printCollectionReceipt';
 export * from './receipt/printDailyItemSold';
 export * from './receipt/printDailySales';
+export * from './receipt/printUnsoldItem';
 export * from './receipt/printDeliveryReceipt';
 export * from './receipt/printDtr';
 export * from './receipt/printEmployeeCode';
