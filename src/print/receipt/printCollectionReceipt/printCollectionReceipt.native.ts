@@ -41,7 +41,7 @@ const generateCollectionReceiptContentCommands = (
 
 	console.log('collectionReceipt', collectionReceipt);
 	console.log('orderOfPayment', orderOfPayment);
-	const { payor, amount } = orderOfPayment;
+	const { amount } = orderOfPayment;
 
 	let description = orderOfPayment.extra_description;
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
@@ -70,18 +70,18 @@ const generateCollectionReceiptContentCommands = (
 	// Customer details
 	commands.push(
 		...generateItemBlockCommands([
-			{
-				label: 'Name',
-				value: getFullName(payor),
-			},
-			{
-				label: 'Address',
-				value: payor.home_address || EMPTY_CELL,
-			},
-			{
-				label: 'Tin',
-				value: payor.tin || EMPTY_CELL,
-			},
+			// {
+			// 	label: 'Name',
+			// 	value: getFullName(payor),
+			// },
+			// {
+			// 	label: 'Address',
+			// 	value: payor.home_address || EMPTY_CELL,
+			// },
+			// {
+			// 	label: 'Tin',
+			// 	value: payor.tin || EMPTY_CELL,
+			// },
 			{
 				label: 'the sum of',
 				value: formatInPeso(amount, PESO_SIGN),

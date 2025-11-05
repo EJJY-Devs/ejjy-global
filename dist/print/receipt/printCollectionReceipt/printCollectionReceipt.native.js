@@ -27,7 +27,7 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
     console.log('collectionReceipt', collectionReceipt);
     console.log('orderOfPayment', orderOfPayment);
-    const { payor, amount } = orderOfPayment;
+    const { amount } = orderOfPayment;
     let description = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
@@ -48,18 +48,18 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Customer details
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        {
-            label: 'Name',
-            value: (0, utils_1.getFullName)(payor),
-        },
-        {
-            label: 'Address',
-            value: payor.home_address || globals_1.EMPTY_CELL,
-        },
-        {
-            label: 'Tin',
-            value: payor.tin || globals_1.EMPTY_CELL,
-        },
+        // {
+        // 	label: 'Name',
+        // 	value: getFullName(payor),
+        // },
+        // {
+        // 	label: 'Address',
+        // 	value: payor.home_address || EMPTY_CELL,
+        // },
+        // {
+        // 	label: 'Tin',
+        // 	value: payor.tin || EMPTY_CELL,
+        // },
         {
             label: 'the sum of',
             value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
