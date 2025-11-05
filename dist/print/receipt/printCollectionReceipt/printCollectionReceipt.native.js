@@ -24,7 +24,9 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     var _a, _b, _c;
     const commands = [];
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
-    const orderOfPayment = collectionReceipt.order_of_payment;
+    const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
+    console.log('collectionReceipt', collectionReceipt);
+    console.log('orderOfPayment', orderOfPayment);
     const { payor, amount } = orderOfPayment;
     let description = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {

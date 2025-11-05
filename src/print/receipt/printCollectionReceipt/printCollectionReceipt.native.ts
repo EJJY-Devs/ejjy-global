@@ -37,7 +37,10 @@ const generateCollectionReceiptContentCommands = (
 
 	const invoice =
 		collectionReceipt.order_of_payment?.charge_sales_transaction?.invoice;
-	const orderOfPayment = collectionReceipt.order_of_payment;
+	const orderOfPayment = collectionReceipt?.order_of_payment;
+
+	console.log('collectionReceipt', collectionReceipt);
+	console.log('orderOfPayment', orderOfPayment);
 	const { payor, amount } = orderOfPayment;
 
 	let description = orderOfPayment.extra_description;
