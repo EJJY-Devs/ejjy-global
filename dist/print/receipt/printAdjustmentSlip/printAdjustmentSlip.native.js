@@ -28,7 +28,9 @@ const generateAdjustmentSlipContentCommands = (adjustmentSlip) => {
         title: 'ADJUSTMENT SLIP',
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('Datetime Requested:'));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)((0, utils_1.formatDateTime)(adjustmentSlip.datetime_created)));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Details

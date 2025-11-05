@@ -35,7 +35,9 @@ const generateAdjustmentSlipContentCommands = (
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('Datetime Requested:'));
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter(formatDateTime(adjustmentSlip.datetime_created)));
 	commands.push(EscPosCommands.LINE_BREAK);
 
