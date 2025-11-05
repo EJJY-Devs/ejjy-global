@@ -38,12 +38,10 @@ const generateCollectionReceiptContentCommands = (
 	const invoice =
 		collectionReceipt.order_of_payment?.charge_sales_transaction?.invoice;
 	const orderOfPayment = collectionReceipt?.order_of_payment;
+	const amount = orderOfPayment?.amount || 0;
+	const payor = orderOfPayment?.payor;
 
-	console.log('collectionReceipt', collectionReceipt);
-	console.log('orderOfPayment', orderOfPayment);
-	// const { amount } = orderOfPayment;
-
-	let description = orderOfPayment.extra_description;
+	let description = orderOfPayment?.extra_description;
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		description = 'Full Payment';
 	} else if (
@@ -70,22 +68,22 @@ const generateCollectionReceiptContentCommands = (
 	// Customer details
 	commands.push(
 		...generateItemBlockCommands([
-			// {
-			// 	label: 'Name',
-			// 	value: getFullName(payor),
-			// },
-			// {
-			// 	label: 'Address',
-			// 	value: payor.home_address || EMPTY_CELL,
-			// },
-			// {
-			// 	label: 'Tin',
-			// 	value: payor.tin || EMPTY_CELL,
-			// },
-			// {
-			// 	label: 'the sum of',
-			// 	value: formatInPeso(amount, PESO_SIGN),
-			// },
+			{
+				label: 'Name',
+				value: getFullName(payor),
+			},
+			{
+				label: 'Address',
+				value: payor.home_address || EMPTY_CELL,
+			},
+			{
+				label: 'Tin',
+				value: payor.tin || EMPTY_CELL,
+			},
+			{
+				label: 'the sum of',
+				value: formatInPeso(amount, PESO_SIGN),
+			},
 			{
 				label: 'Description',
 				value: description || EMPTY_CELL,

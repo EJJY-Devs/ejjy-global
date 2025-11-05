@@ -7,6 +7,7 @@ exports.CollectionReceiptContent = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
+const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
@@ -14,10 +15,9 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     var _a, _b, _c;
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
     const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
-    // const { amount } = orderOfPayment;
-    console.log('collectionReceipt', collectionReceipt);
-    console.log('orderOfPayment', orderOfPayment);
-    let description = '';
+    const amount = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.amount) || 0;
+    const payor = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor;
+    let description = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.extra_description) || '';
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
     }
@@ -31,26 +31,26 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Received payment from"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                // {
-                // 	label: 'Name',
-                // 	value: getFullName(payor),
-                // 	contentStyle: { textAlign: 'left' },
-                // },
-                // {
-                // 	label: 'Address',
-                // 	value: payor.home_address || EMPTY_CELL,
-                // 	contentStyle: { textAlign: 'left' },
-                // },
-                // {
-                // 	label: 'Tin',
-                // 	value: payor.tin || EMPTY_CELL,
-                // 	contentStyle: { textAlign: 'left' },
-                // },
-                // {
-                // 	label: 'the sum of',
-                // 	value: formatInPeso(amount, PESO_SIGN),
-                // 	contentStyle: { textAlign: 'left' },
-                // },
+                {
+                    label: 'Name',
+                    value: (0, utils_1.getFullName)(payor),
+                    contentStyle: { textAlign: 'left' },
+                },
+                {
+                    label: 'Address',
+                    value: payor.home_address || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
+                },
+                {
+                    label: 'Tin',
+                    value: payor.tin || globals_1.EMPTY_CELL,
+                    contentStyle: { textAlign: 'left' },
+                },
+                {
+                    label: 'the sum of',
+                    value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
+                    contentStyle: { textAlign: 'left' },
+                },
                 {
                     label: 'Description',
                     value: description || globals_1.EMPTY_CELL,

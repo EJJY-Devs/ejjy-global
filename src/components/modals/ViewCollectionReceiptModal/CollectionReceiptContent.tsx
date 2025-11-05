@@ -24,12 +24,10 @@ export const CollectionReceiptContent = ({
 	const invoice =
 		collectionReceipt.order_of_payment?.charge_sales_transaction?.invoice;
 	const orderOfPayment = collectionReceipt?.order_of_payment;
-	// const { amount } = orderOfPayment;
+	const amount = orderOfPayment?.amount || 0;
+	const payor = orderOfPayment?.payor;
 
-	console.log('collectionReceipt', collectionReceipt);
-	console.log('orderOfPayment', orderOfPayment);
-
-	let description = '';
+	let description = orderOfPayment?.extra_description || '';
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		description = 'Full Payment';
 	} else if (
@@ -52,26 +50,26 @@ export const CollectionReceiptContent = ({
 
 			<ItemBlock
 				items={[
-					// {
-					// 	label: 'Name',
-					// 	value: getFullName(payor),
-					// 	contentStyle: { textAlign: 'left' },
-					// },
-					// {
-					// 	label: 'Address',
-					// 	value: payor.home_address || EMPTY_CELL,
-					// 	contentStyle: { textAlign: 'left' },
-					// },
-					// {
-					// 	label: 'Tin',
-					// 	value: payor.tin || EMPTY_CELL,
-					// 	contentStyle: { textAlign: 'left' },
-					// },
-					// {
-					// 	label: 'the sum of',
-					// 	value: formatInPeso(amount, PESO_SIGN),
-					// 	contentStyle: { textAlign: 'left' },
-					// },
+					{
+						label: 'Name',
+						value: getFullName(payor),
+						contentStyle: { textAlign: 'left' },
+					},
+					{
+						label: 'Address',
+						value: payor.home_address || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
+					},
+					{
+						label: 'Tin',
+						value: payor.tin || EMPTY_CELL,
+						contentStyle: { textAlign: 'left' },
+					},
+					{
+						label: 'the sum of',
+						value: formatInPeso(amount, PESO_SIGN),
+						contentStyle: { textAlign: 'left' },
+					},
 					{
 						label: 'Description',
 						value: description || EMPTY_CELL,

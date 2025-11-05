@@ -7,6 +7,7 @@ exports.printCollectionReceiptNative = void 0;
 const utils_1 = require("../../../utils");
 const globals_1 = require("../../../globals");
 const helper_escpos_1 = require("../../helper-escpos");
+const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const dayjs_1 = __importDefault(require("dayjs"));
 const printCollectionReceiptNative = ({ collectionReceipt, siteSettings, }) => [
@@ -24,10 +25,9 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     const commands = [];
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
     const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
-    console.log('collectionReceipt', collectionReceipt);
-    console.log('orderOfPayment', orderOfPayment);
-    // const { amount } = orderOfPayment;
-    let description = orderOfPayment.extra_description;
+    const amount = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.amount) || 0;
+    const payor = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor;
+    let description = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
     }
@@ -47,22 +47,22 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Customer details
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        // {
-        // 	label: 'Name',
-        // 	value: getFullName(payor),
-        // },
-        // {
-        // 	label: 'Address',
-        // 	value: payor.home_address || EMPTY_CELL,
-        // },
-        // {
-        // 	label: 'Tin',
-        // 	value: payor.tin || EMPTY_CELL,
-        // },
-        // {
-        // 	label: 'the sum of',
-        // 	value: formatInPeso(amount, PESO_SIGN),
-        // },
+        {
+            label: 'Name',
+            value: (0, utils_1.getFullName)(payor),
+        },
+        {
+            label: 'Address',
+            value: payor.home_address || globals_1.EMPTY_CELL,
+        },
+        {
+            label: 'Tin',
+            value: payor.tin || globals_1.EMPTY_CELL,
+        },
+        {
+            label: 'the sum of',
+            value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
+        },
         {
             label: 'Description',
             value: description || globals_1.EMPTY_CELL,
