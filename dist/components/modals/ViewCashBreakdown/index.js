@@ -26,7 +26,12 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT) {
                 return (0, print_1.printCashOut)(cashBreakdown, siteSettings, true);
             }
-            return (0, print_1.printCashBreakdown)(cashBreakdown, siteSettings, user, true);
+            return (0, print_1.printCashBreakdown)({
+                cashBreakdown,
+                siteSettings,
+                user,
+                isPdf: true,
+            });
         },
     });
     // METHODS
@@ -35,7 +40,11 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             (0, print_1.printCashOut)(cashBreakdown, siteSettings);
         }
         else {
-            (0, print_1.printCashBreakdown)(cashBreakdown, siteSettings);
+            (0, print_1.printCashBreakdown)({
+                cashBreakdown,
+                siteSettings,
+                user,
+            });
         }
     };
     return (react_1.default.createElement(antd_1.Modal, { className: "Modal__hasFooter", footer: [

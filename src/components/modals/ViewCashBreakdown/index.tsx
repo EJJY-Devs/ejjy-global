@@ -46,7 +46,12 @@ export const ViewCashBreakdownModal = ({
 				return printCashOut(cashBreakdown, siteSettings, true);
 			}
 
-			return printCashBreakdown(cashBreakdown, siteSettings, user, true);
+			return printCashBreakdown({
+				cashBreakdown,
+				siteSettings,
+				user,
+				isPdf: true,
+			});
 		},
 	});
 
@@ -55,7 +60,11 @@ export const ViewCashBreakdownModal = ({
 		if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
 			printCashOut(cashBreakdown, siteSettings);
 		} else {
-			printCashBreakdown(cashBreakdown, siteSettings);
+			printCashBreakdown({
+				cashBreakdown,
+				siteSettings,
+				user,
+			});
 		}
 	};
 
