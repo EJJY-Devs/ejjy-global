@@ -38,6 +38,7 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
         branchMachine: collectionReceipt.branch_machine,
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('[Collection Receipt]'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

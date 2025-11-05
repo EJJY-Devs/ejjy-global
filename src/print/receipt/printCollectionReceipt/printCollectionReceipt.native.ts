@@ -57,6 +57,7 @@ const generateCollectionReceiptContentCommands = (
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(printCenter('[Collection Receipt]'));
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
