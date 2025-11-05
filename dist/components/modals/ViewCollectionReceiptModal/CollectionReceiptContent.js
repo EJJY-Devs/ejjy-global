@@ -7,15 +7,14 @@ exports.CollectionReceiptContent = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
-const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const ItemBlock_1 = require("../../Printing/ItemBlock");
 const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     var _a, _b, _c;
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
-    const orderOfPayment = collectionReceipt.order_of_payment;
-    const { amount } = orderOfPayment;
+    const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
+    // const { amount } = orderOfPayment;
     let description = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
@@ -45,11 +44,11 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
                 // 	value: payor.tin || EMPTY_CELL,
                 // 	contentStyle: { textAlign: 'left' },
                 // },
-                {
-                    label: 'the sum of',
-                    value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
-                    contentStyle: { textAlign: 'left' },
-                },
+                // {
+                // 	label: 'the sum of',
+                // 	value: formatInPeso(amount, PESO_SIGN),
+                // 	contentStyle: { textAlign: 'left' },
+                // },
                 {
                     label: 'Description',
                     value: description || globals_1.EMPTY_CELL,

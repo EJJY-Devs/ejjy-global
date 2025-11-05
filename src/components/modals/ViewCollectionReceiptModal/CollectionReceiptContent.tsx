@@ -23,8 +23,8 @@ export const CollectionReceiptContent = ({
 }: Props) => {
 	const invoice =
 		collectionReceipt.order_of_payment?.charge_sales_transaction?.invoice;
-	const orderOfPayment = collectionReceipt.order_of_payment;
-	const { amount } = orderOfPayment;
+	const orderOfPayment = collectionReceipt?.order_of_payment;
+	// const { amount } = orderOfPayment;
 
 	let description = orderOfPayment.extra_description;
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
@@ -64,11 +64,11 @@ export const CollectionReceiptContent = ({
 					// 	value: payor.tin || EMPTY_CELL,
 					// 	contentStyle: { textAlign: 'left' },
 					// },
-					{
-						label: 'the sum of',
-						value: formatInPeso(amount, PESO_SIGN),
-						contentStyle: { textAlign: 'left' },
-					},
+					// {
+					// 	label: 'the sum of',
+					// 	value: formatInPeso(amount, PESO_SIGN),
+					// 	contentStyle: { textAlign: 'left' },
+					// },
 					{
 						label: 'Description',
 						value: description || EMPTY_CELL,

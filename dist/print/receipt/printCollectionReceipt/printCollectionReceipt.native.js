@@ -7,7 +7,6 @@ exports.printCollectionReceiptNative = void 0;
 const utils_1 = require("../../../utils");
 const globals_1 = require("../../../globals");
 const helper_escpos_1 = require("../../helper-escpos");
-const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const dayjs_1 = __importDefault(require("dayjs"));
 const printCollectionReceiptNative = ({ collectionReceipt, siteSettings, }) => [
@@ -27,7 +26,7 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
     console.log('collectionReceipt', collectionReceipt);
     console.log('orderOfPayment', orderOfPayment);
-    const { amount } = orderOfPayment;
+    // const { amount } = orderOfPayment;
     let description = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
@@ -60,10 +59,10 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
         // 	label: 'Tin',
         // 	value: payor.tin || EMPTY_CELL,
         // },
-        {
-            label: 'the sum of',
-            value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
-        },
+        // {
+        // 	label: 'the sum of',
+        // 	value: formatInPeso(amount, PESO_SIGN),
+        // },
         {
             label: 'Description',
             value: description || globals_1.EMPTY_CELL,
