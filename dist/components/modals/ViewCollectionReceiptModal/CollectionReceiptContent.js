@@ -15,7 +15,7 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     var _a, _b, _c;
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
     const orderOfPayment = collectionReceipt.order_of_payment;
-    const { payor, amount } = orderOfPayment;
+    const { amount } = orderOfPayment;
     let description = orderOfPayment.extra_description;
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
@@ -30,21 +30,21 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Received payment from"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
-                {
-                    label: 'Name',
-                    value: (0, utils_1.getFullName)(payor),
-                    contentStyle: { textAlign: 'left' },
-                },
-                {
-                    label: 'Address',
-                    value: payor.home_address || globals_1.EMPTY_CELL,
-                    contentStyle: { textAlign: 'left' },
-                },
-                {
-                    label: 'Tin',
-                    value: payor.tin || globals_1.EMPTY_CELL,
-                    contentStyle: { textAlign: 'left' },
-                },
+                // {
+                // 	label: 'Name',
+                // 	value: getFullName(payor),
+                // 	contentStyle: { textAlign: 'left' },
+                // },
+                // {
+                // 	label: 'Address',
+                // 	value: payor.home_address || EMPTY_CELL,
+                // 	contentStyle: { textAlign: 'left' },
+                // },
+                // {
+                // 	label: 'Tin',
+                // 	value: payor.tin || EMPTY_CELL,
+                // 	contentStyle: { textAlign: 'left' },
+                // },
                 {
                     label: 'the sum of',
                     value: (0, utils_1.formatInPeso)(amount, helper_receipt_1.PESO_SIGN),
