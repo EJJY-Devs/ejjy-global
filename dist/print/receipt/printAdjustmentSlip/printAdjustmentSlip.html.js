@@ -40,14 +40,18 @@ const printAdjustmentSlipHtml = ({ adjustmentSlip, isPdf = false, }) => {
             return (react_1.default.createElement("div", { key: product.id, style: { marginBottom: '12px' } },
                 react_1.default.createElement("div", { style: { fontWeight: 'bold' } }, (_a = product === null || product === void 0 ? void 0 : product.branch_product) === null || _a === void 0 ? void 0 :
                     _a.product.name,
-                    ((_c = (_b = product === null || product === void 0 ? void 0 : product.branch_product) === null || _b === void 0 ? void 0 : _b.product) === null || _c === void 0 ? void 0 : _c.is_vat_exempted) ? ' - VE' : ' - V'),
+                    ((_c = (_b = product === null || product === void 0 ? void 0 : product.branch_product) === null || _b === void 0 ? void 0 : _b.product) === null || _c === void 0 ? void 0 : _c.is_vat_exempted)
+                        ? ' - VE'
+                        : ' - V'),
                 react_1.default.createElement("div", { style: { marginLeft: '20px' } },
                     product.adjusted_value >= 0 ? '+' : '',
-                    " ",
+                    ' ',
                     (0, utils_1.formatQuantity)(product.adjusted_value, (_d = product === null || product === void 0 ? void 0 : product.branch_product) === null || _d === void 0 ? void 0 : _d.product),
                     product.error_remarks !== 'N/A' && product.error_remarks ? (react_1.default.createElement("span", null,
                         " Error - ",
-                        product.error_remarks)) : (react_1.default.createElement("span", { style: { marginLeft: '16px' } }, product.remarks && product.remarks !== 'N/A' ? product.remarks : 'Spoilage'))),
+                        product.error_remarks)) : (react_1.default.createElement("span", { style: { marginLeft: '16px' } }, product.remarks && product.remarks !== 'N/A'
+                        ? product.remarks
+                        : 'Spoilage'))),
                 index < adjustmentSlip.products.length - 1 && react_1.default.createElement("br", null)));
         })),
         react_1.default.createElement("br", null),

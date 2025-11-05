@@ -4,10 +4,7 @@ import { ReceiptHeaderV2 } from '../../../components/Printing';
 import { formatDateTime, formatQuantity, getFullName } from '../../../utils';
 import { EMPTY_CELL } from '../../../globals';
 import dayjs from 'dayjs';
-import {
-	appendHtmlElement,
-	getPageStyleObject,
-} from '../../helper-receipt';
+import { appendHtmlElement, getPageStyleObject } from '../../helper-receipt';
 import { PrintAdjustmentSlip } from './types';
 
 export const printAdjustmentSlipHtml = ({
@@ -21,14 +18,14 @@ export const printAdjustmentSlipHtml = ({
 					branchHeader={adjustmentSlip.branch}
 					title="ADJUSTMENT SLIP"
 				/>
-				
+
 				<br />
 				<div>Datetime Requested:</div>
 				<div>{formatDateTime(adjustmentSlip.datetime_created)}</div>
 			</div>
-			
+
 			<br />
-			
+
 			<table style={{ width: '100%', fontSize: '12px' }}>
 				<tbody>
 					<tr>
@@ -57,26 +54,31 @@ export const printAdjustmentSlipHtml = ({
 					</tr>
 				</tbody>
 			</table>
-			
+
 			<hr />
-			
+
 			<div style={{ marginTop: '16px' }}>
 				{adjustmentSlip.products?.map((product, index) => (
 					<div key={product.id} style={{ marginBottom: '12px' }}>
 						<div style={{ fontWeight: 'bold' }}>
 							{product?.branch_product?.product.name}
-							{product?.branch_product?.product?.is_vat_exempted ? ' - VE' : ' - V'}
+							{product?.branch_product?.product?.is_vat_exempted
+								? ' - VE'
+								: ' - V'}
 						</div>
 						<div style={{ marginLeft: '20px' }}>
-							{product.adjusted_value >= 0 ? '+' : ''} {formatQuantity(
+							{product.adjusted_value >= 0 ? '+' : ''}{' '}
+							{formatQuantity(
 								product.adjusted_value,
-								product?.branch_product?.product
+								product?.branch_product?.product,
 							)}
 							{product.error_remarks !== 'N/A' && product.error_remarks ? (
 								<span> Error - {product.error_remarks}</span>
 							) : (
 								<span style={{ marginLeft: '16px' }}>
-									{product.remarks && product.remarks !== 'N/A' ? product.remarks : 'Spoilage'}
+									{product.remarks && product.remarks !== 'N/A'
+										? product.remarks
+										: 'Spoilage'}
 								</span>
 							)}
 						</div>
@@ -84,13 +86,13 @@ export const printAdjustmentSlipHtml = ({
 					</div>
 				))}
 			</div>
-			
+
 			<br />
-			
+
 			<div style={{ textAlign: 'center' }}>
 				<div>Print Details: {dayjs().format('MM/DD/YYYY h:mmA')}</div>
 			</div>
-			
+
 			{adjustmentSlip.remarks && (
 				<div style={{ textAlign: 'center', marginTop: '8px' }}>
 					<div>Overall Remarks: {adjustmentSlip.remarks}</div>
