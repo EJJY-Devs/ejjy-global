@@ -26,7 +26,10 @@ export const CollectionReceiptContent = ({
 	const orderOfPayment = collectionReceipt?.order_of_payment;
 	// const { amount } = orderOfPayment;
 
-	let description = orderOfPayment.extra_description;
+	console.log('collectionReceipt', collectionReceipt);
+	console.log('orderOfPayment', orderOfPayment);
+
+	let description = '';
 	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		description = 'Full Payment';
 	} else if (

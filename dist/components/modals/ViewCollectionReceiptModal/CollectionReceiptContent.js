@@ -15,7 +15,9 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     const invoice = (_b = (_a = collectionReceipt.order_of_payment) === null || _a === void 0 ? void 0 : _a.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice;
     const orderOfPayment = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.order_of_payment;
     // const { amount } = orderOfPayment;
-    let description = orderOfPayment.extra_description;
+    console.log('collectionReceipt', collectionReceipt);
+    console.log('orderOfPayment', orderOfPayment);
+    let description = '';
     if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
     }
