@@ -18,14 +18,14 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     const amount = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.amount) || 0;
     const payor = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor;
     let description = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.extra_description) || '';
-    if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
+    if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
     }
-    else if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
+    else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
         description = 'Partial Payment';
     }
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt.branch_machine }),
+        react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.branch_machine }),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: { textAlign: 'center' } }, "[Collection Receipt]"),
         react_1.default.createElement("br", null),
@@ -38,12 +38,12 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
                 },
                 {
                     label: 'Address',
-                    value: payor.home_address || globals_1.EMPTY_CELL,
+                    value: (payor === null || payor === void 0 ? void 0 : payor.home_address) || globals_1.EMPTY_CELL,
                     contentStyle: { textAlign: 'left' },
                 },
                 {
                     label: 'Tin',
-                    value: payor.tin || globals_1.EMPTY_CELL,
+                    value: (payor === null || payor === void 0 ? void 0 : payor.tin) || globals_1.EMPTY_CELL,
                     contentStyle: { textAlign: 'left' },
                 },
                 {
@@ -68,20 +68,20 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
             react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                     {
                         label: 'Bank',
-                        value: collectionReceipt.bank_name || globals_1.EMPTY_CELL,
+                        value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.bank_name) || globals_1.EMPTY_CELL,
                     },
                     {
                         label: 'Branch',
-                        value: collectionReceipt.bank_branch || globals_1.EMPTY_CELL,
+                        value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.bank_branch) || globals_1.EMPTY_CELL,
                     },
                     {
                         label: 'Check No',
-                        value: collectionReceipt.check_number || globals_1.EMPTY_CELL,
+                        value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_number) || globals_1.EMPTY_CELL,
                     },
                     {
                         label: 'Check Date',
-                        value: collectionReceipt.check_date
-                            ? (0, utils_1.formatDate)(collectionReceipt.check_date)
+                        value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_date)
+                            ? (0, utils_1.formatDate)(collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_date)
                             : globals_1.EMPTY_CELL,
                     },
                 ] }),

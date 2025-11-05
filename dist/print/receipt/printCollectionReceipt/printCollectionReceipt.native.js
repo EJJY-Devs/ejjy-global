@@ -28,15 +28,15 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     const amount = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.amount) || 0;
     const payor = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor;
     let description = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.extra_description;
-    if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
+    if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         description = 'Full Payment';
     }
-    else if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
+    else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
         description = 'Partial Payment';
     }
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
-        branchMachine: collectionReceipt.branch_machine,
+        branchMachine: collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.branch_machine,
     }));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -53,11 +53,11 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
         },
         {
             label: 'Address',
-            value: payor.home_address || globals_1.EMPTY_CELL,
+            value: (payor === null || payor === void 0 ? void 0 : payor.home_address) || globals_1.EMPTY_CELL,
         },
         {
             label: 'Tin',
-            value: payor.tin || globals_1.EMPTY_CELL,
+            value: (payor === null || payor === void 0 ? void 0 : payor.tin) || globals_1.EMPTY_CELL,
         },
         {
             label: 'the sum of',
@@ -74,26 +74,26 @@ const generateCollectionReceiptContentCommands = (collectionReceipt, siteSetting
     ]));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Check details (if applicable)
-    if (collectionReceipt.check_number) {
+    if (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_number) {
         commands.push('CHECK DETAILS');
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
                 label: 'Bank',
-                value: collectionReceipt.bank_name || globals_1.EMPTY_CELL,
+                value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.bank_name) || globals_1.EMPTY_CELL,
             },
             {
                 label: 'Branch',
-                value: collectionReceipt.bank_branch || globals_1.EMPTY_CELL,
+                value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.bank_branch) || globals_1.EMPTY_CELL,
             },
             {
                 label: 'Check No',
-                value: collectionReceipt.check_number || globals_1.EMPTY_CELL,
+                value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_number) || globals_1.EMPTY_CELL,
             },
             {
                 label: 'Check Date',
-                value: collectionReceipt.check_date
-                    ? (0, utils_1.formatDate)(collectionReceipt.check_date)
+                value: (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_date)
+                    ? (0, utils_1.formatDate)(collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.check_date)
                     : globals_1.EMPTY_CELL,
             },
         ]));

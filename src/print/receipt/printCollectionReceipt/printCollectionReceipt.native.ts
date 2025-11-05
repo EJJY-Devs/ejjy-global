@@ -42,10 +42,10 @@ const generateCollectionReceiptContentCommands = (
 	const payor = orderOfPayment?.payor;
 
 	let description = orderOfPayment?.extra_description;
-	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
+	if (orderOfPayment?.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		description = 'Full Payment';
 	} else if (
-		orderOfPayment.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT
+		orderOfPayment?.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT
 	) {
 		description = 'Partial Payment';
 	}
@@ -53,7 +53,7 @@ const generateCollectionReceiptContentCommands = (
 	// Header
 	commands.push(
 		...generateReceiptHeaderCommands({
-			branchMachine: collectionReceipt.branch_machine,
+			branchMachine: collectionReceipt?.branch_machine,
 		}),
 	);
 
@@ -74,11 +74,11 @@ const generateCollectionReceiptContentCommands = (
 			},
 			{
 				label: 'Address',
-				value: payor.home_address || EMPTY_CELL,
+				value: payor?.home_address || EMPTY_CELL,
 			},
 			{
 				label: 'Tin',
-				value: payor.tin || EMPTY_CELL,
+				value: payor?.tin || EMPTY_CELL,
 			},
 			{
 				label: 'the sum of',
@@ -98,7 +98,7 @@ const generateCollectionReceiptContentCommands = (
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Check details (if applicable)
-	if (collectionReceipt.check_number) {
+	if (collectionReceipt?.check_number) {
 		commands.push('CHECK DETAILS');
 		commands.push(EscPosCommands.LINE_BREAK);
 
@@ -106,20 +106,20 @@ const generateCollectionReceiptContentCommands = (
 			...generateItemBlockCommands([
 				{
 					label: 'Bank',
-					value: collectionReceipt.bank_name || EMPTY_CELL,
+					value: collectionReceipt?.bank_name || EMPTY_CELL,
 				},
 				{
 					label: 'Branch',
-					value: collectionReceipt.bank_branch || EMPTY_CELL,
+					value: collectionReceipt?.bank_branch || EMPTY_CELL,
 				},
 				{
 					label: 'Check No',
-					value: collectionReceipt.check_number || EMPTY_CELL,
+					value: collectionReceipt?.check_number || EMPTY_CELL,
 				},
 				{
 					label: 'Check Date',
-					value: collectionReceipt.check_date
-						? formatDate(collectionReceipt.check_date)
+					value: collectionReceipt?.check_date
+						? formatDate(collectionReceipt?.check_date)
 						: EMPTY_CELL,
 				},
 			]),

@@ -28,17 +28,17 @@ export const CollectionReceiptContent = ({
 	const payor = orderOfPayment?.payor;
 
 	let description = orderOfPayment?.extra_description || '';
-	if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
+	if (orderOfPayment?.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		description = 'Full Payment';
 	} else if (
-		orderOfPayment.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT
+		orderOfPayment?.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT
 	) {
 		description = 'Partial Payment';
 	}
 
 	return (
 		<>
-			<ReceiptHeader branchMachine={collectionReceipt.branch_machine} />
+			<ReceiptHeader branchMachine={collectionReceipt?.branch_machine} />
 
 			<br />
 
@@ -57,12 +57,12 @@ export const CollectionReceiptContent = ({
 					},
 					{
 						label: 'Address',
-						value: payor.home_address || EMPTY_CELL,
+						value: payor?.home_address || EMPTY_CELL,
 						contentStyle: { textAlign: 'left' },
 					},
 					{
 						label: 'Tin',
-						value: payor.tin || EMPTY_CELL,
+						value: payor?.tin || EMPTY_CELL,
 						contentStyle: { textAlign: 'left' },
 					},
 					{
@@ -93,20 +93,20 @@ export const CollectionReceiptContent = ({
 						items={[
 							{
 								label: 'Bank',
-								value: collectionReceipt.bank_name || EMPTY_CELL,
+								value: collectionReceipt?.bank_name || EMPTY_CELL,
 							},
 							{
 								label: 'Branch',
-								value: collectionReceipt.bank_branch || EMPTY_CELL,
+								value: collectionReceipt?.bank_branch || EMPTY_CELL,
 							},
 							{
 								label: 'Check No',
-								value: collectionReceipt.check_number || EMPTY_CELL,
+								value: collectionReceipt?.check_number || EMPTY_CELL,
 							},
 							{
 								label: 'Check Date',
-								value: collectionReceipt.check_date
-									? formatDate(collectionReceipt.check_date)
+								value: collectionReceipt?.check_date
+									? formatDate(collectionReceipt?.check_date)
 									: EMPTY_CELL,
 							},
 						]}
