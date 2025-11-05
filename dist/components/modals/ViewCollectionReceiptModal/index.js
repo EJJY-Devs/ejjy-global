@@ -14,10 +14,17 @@ const CollectionReceiptContent_1 = require("./CollectionReceiptContent");
 const ViewCollectionReceiptModal = ({ collectionReceipt, siteSettings, onClose, }) => {
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `CollectionReceipt_${collectionReceipt.id}`,
-        print: () => (0, print_1.printCollectionReceipt)(collectionReceipt, siteSettings, true),
+        print: () => (0, print_1.printCollectionReceipt)({
+            collectionReceipt,
+            siteSettings,
+            isPdf: true,
+        }),
     });
     const handlePrint = () => {
-        (0, print_1.printCollectionReceipt)(collectionReceipt, siteSettings);
+        (0, print_1.printCollectionReceipt)({
+            collectionReceipt,
+            siteSettings,
+        });
     };
     return (react_1.default.createElement(antd_1.Modal, { footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),

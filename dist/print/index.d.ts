@@ -1,6 +1,7 @@
 export { configurePrinter } from './helper-receipt';
 export * from './receipt/birReports';
 export * from './receipt/printAdjustmentReport';
+export * from './receipt/printAdjustmentSlip';
 export * from './receipt/printCancelledTransactions';
 export * from './receipt/printCashBreakdown';
 export * from './receipt/printCashOut';

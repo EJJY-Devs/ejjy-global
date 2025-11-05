@@ -19,6 +19,7 @@ var helper_receipt_1 = require("./helper-receipt");
 Object.defineProperty(exports, "configurePrinter", { enumerable: true, get: function () { return helper_receipt_1.configurePrinter; } });
 __exportStar(require("./receipt/birReports"), exports);
 __exportStar(require("./receipt/printAdjustmentReport"), exports);
+__exportStar(require("./receipt/printAdjustmentSlip"), exports);
 __exportStar(require("./receipt/printCancelledTransactions"), exports);
 __exportStar(require("./receipt/printCashBreakdown"), exports);
 __exportStar(require("./receipt/printCashOut"), exports);
