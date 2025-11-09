@@ -6,6 +6,7 @@ import {
 	generateItemBlockCommands,
 } from '../../helper-escpos';
 import { PrintCashOut } from './types';
+import { EscPosCommands } from '../../utils/escpos.enum';
 
 export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
 	const metadata = cashOut.cash_out_metadata;
@@ -30,6 +31,8 @@ export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
 			title: 'DISBURSEMENT VOUCHER',
 		}),
 	);
+
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Cash Out Details
 	commands.push(
@@ -61,6 +64,8 @@ export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
 		]),
 	);
 
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	// Footer
 	commands.push(
 		...generateItemBlockCommands([
@@ -78,6 +83,8 @@ export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
 			},
 		]),
 	);
+
+	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };

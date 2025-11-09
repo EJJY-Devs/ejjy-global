@@ -19,7 +19,6 @@ export const printCollectionReceipt = (
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printCollectionReceiptNative(printCollectionReceiptDetails);
 		print(data, 'Collection Receipt', undefined, printingType);
-		console.log('printCollectionReceiptNative data:', data);
 		return undefined;
 	}
 

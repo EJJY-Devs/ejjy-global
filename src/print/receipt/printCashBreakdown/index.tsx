@@ -18,7 +18,6 @@ export const printCashBreakdown = (
 		return data as string; // ✅ return HTML string
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printCashBreakdownNative(printCashBreakdownDetails);
-		console.log('printCashBreakdownNative data:', data);
 		print(data, 'Cash Breakdown', undefined, printingType);
 		return undefined;
 	}

@@ -18,7 +18,6 @@ export const printCashOut = (
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printCashOutNative(params);
 		print(data, 'Cash Out', undefined, printingType);
-		console.log('printCashOutNative data:', data);
 		return undefined;
 	}
 
