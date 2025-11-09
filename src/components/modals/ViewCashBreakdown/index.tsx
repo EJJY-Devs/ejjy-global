@@ -43,7 +43,11 @@ export const ViewCashBreakdownModal = ({
 		}_${cashBreakdown.id}.pdf`,
 		print: () => {
 			if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
-				return printCashOut(cashBreakdown, siteSettings, true);
+				return printCashOut({
+					cashOut: cashBreakdown,
+					siteSettings,
+					isPdf: true,
+				});
 			}
 
 			return printCashBreakdown({
@@ -53,12 +57,13 @@ export const ViewCashBreakdownModal = ({
 				isPdf: true,
 			});
 		},
-	});
-
-	// METHODS
+	}); // METHODS
 	const handlePrint = () => {
 		if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
-			printCashOut(cashBreakdown, siteSettings);
+			printCashOut({
+				cashOut: cashBreakdown,
+				siteSettings,
+			});
 		} else {
 			printCashBreakdown({
 				cashBreakdown,

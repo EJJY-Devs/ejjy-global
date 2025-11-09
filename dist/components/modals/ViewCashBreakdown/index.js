@@ -24,7 +24,11 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             : 'CashBreakdown'}_${cashBreakdown.id}.pdf`,
         print: () => {
             if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT) {
-                return (0, print_1.printCashOut)(cashBreakdown, siteSettings, true);
+                return (0, print_1.printCashOut)({
+                    cashOut: cashBreakdown,
+                    siteSettings,
+                    isPdf: true,
+                });
             }
             return (0, print_1.printCashBreakdown)({
                 cashBreakdown,
@@ -33,11 +37,13 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
                 isPdf: true,
             });
         },
-    });
-    // METHODS
+    }); // METHODS
     const handlePrint = () => {
         if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT) {
-            (0, print_1.printCashOut)(cashBreakdown, siteSettings);
+            (0, print_1.printCashOut)({
+                cashOut: cashBreakdown,
+                siteSettings,
+            });
         }
         else {
             (0, print_1.printCashBreakdown)({
