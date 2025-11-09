@@ -139,11 +139,8 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 scaling: 'shrinkToFit',
             }
             : {})));
-        console.log('config', config);
-        console.log('Print data length:', Array.isArray(printData) ? printData.length : typeof printData);
         if (type === globals_1.printingTypes.NATIVE) {
             const commandString = printData.join('');
-            console.log('Total command string length:', commandString.length);
             // Add delay before printing to ensure printer is ready
             yield new Promise((resolve) => setTimeout(resolve, 500));
             // For large receipts, ensure all bytes are sent by using smaller chunks
@@ -198,8 +195,6 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
                 console.log(`All ${totalBytesSent} bytes sent successfully`);
             }
             else {
-                // For smaller receipts, send all at once with verification and retry
-                console.log(`Sending complete receipt: ${commandString.length} bytes`);
                 const sendSingleReceipt = (retryCount = 0) => __awaiter(void 0, void 0, void 0, function* () {
                     try {
                         yield qz_tray_1.default.print(config, [

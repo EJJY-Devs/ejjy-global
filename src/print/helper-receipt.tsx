@@ -177,15 +177,8 @@ export const print = async (
 				: {}),
 		});
 
-		console.log('config', config);
-		console.log(
-			'Print data length:',
-			Array.isArray(printData) ? printData.length : typeof printData,
-		);
-
 		if (type === printingTypes.NATIVE) {
 			const commandString = (printData as string[]).join('');
-			console.log('Total command string length:', commandString.length);
 
 			// Add delay before printing to ensure printer is ready
 			await new Promise((resolve) => setTimeout(resolve, 500));
@@ -261,9 +254,6 @@ export const print = async (
 
 				console.log(`All ${totalBytesSent} bytes sent successfully`);
 			} else {
-				// For smaller receipts, send all at once with verification and retry
-				console.log(`Sending complete receipt: ${commandString.length} bytes`);
-
 				const sendSingleReceipt = async (retryCount = 0): Promise<void> => {
 					try {
 						await qz.print(config, [
