@@ -17,7 +17,6 @@ const printCollectionReceipt = (printCollectionReceiptDetails) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printCollectionReceipt_native_1.printCollectionReceiptNative)(printCollectionReceiptDetails);
         (0, helper_receipt_1.print)(data, 'Collection Receipt', undefined, printingType);
-        console.log('printCollectionReceiptNative data:', data);
         return undefined;
     }
     return undefined;

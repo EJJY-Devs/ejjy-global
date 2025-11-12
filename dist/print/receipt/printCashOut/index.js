@@ -17,7 +17,6 @@ const printCashOut = (params) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printCashOut_native_1.printCashOutNative)(params);
         (0, helper_receipt_1.print)(data, 'Cash Out', undefined, printingType);
-        console.log('printCashOutNative data:', data);
         return undefined;
     }
     return undefined;

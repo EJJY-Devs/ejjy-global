@@ -8,7 +8,8 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../helper-receipt");
 const helper_escpos_1 = require("../../helper-escpos");
-const printCashOutNative = ({ cashOut }) => {
+const escpos_enum_1 = require("../../utils/escpos.enum");
+const printCashOutNative = ({ cashOut, siteSettings, }) => {
     const metadata = cashOut.cash_out_metadata;
     const { payee, particulars, received_by: receivedBy, prepared_by_user: preparedByUser, } = metadata;
     const datetime = (0, utils_1.formatDateTime)(cashOut.datetime_created);
@@ -21,6 +22,7 @@ const printCashOutNative = ({ cashOut }) => {
         branchMachine: cashOut.branch_machine,
         title: 'DISBURSEMENT VOUCHER',
     }));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Cash Out Details
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -48,6 +50,7 @@ const printCashOutNative = ({ cashOut }) => {
             value: approvedBy,
         },
     ]));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
@@ -63,6 +66,8 @@ const printCashOutNative = ({ cashOut }) => {
             value: preparedByUser.employee_id,
         },
     ]));
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(...(0, helper_escpos_1.generateReceiptFooterCommands)(siteSettings));
     return commands;
 };
 exports.printCashOutNative = printCashOutNative;

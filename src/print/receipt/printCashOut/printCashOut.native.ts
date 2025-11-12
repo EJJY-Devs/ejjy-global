@@ -4,11 +4,15 @@ import { PESO_SIGN } from '../../helper-receipt';
 import {
 	generateReceiptHeaderCommands,
 	generateItemBlockCommands,
+	generateReceiptFooterCommands,
 } from '../../helper-escpos';
 import { PrintCashOut } from './types';
 import { EscPosCommands } from '../../utils/escpos.enum';
 
-export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
+export const printCashOutNative = ({
+	cashOut,
+	siteSettings,
+}: PrintCashOut): string[] => {
 	const metadata = cashOut.cash_out_metadata;
 
 	const {
@@ -85,6 +89,8 @@ export const printCashOutNative = ({ cashOut }: PrintCashOut): string[] => {
 	);
 
 	commands.push(EscPosCommands.LINE_BREAK);
+
+	commands.push(...generateReceiptFooterCommands(siteSettings));
 
 	return commands;
 };

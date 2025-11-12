@@ -16,7 +16,6 @@ const printCashBreakdown = (printCashBreakdownDetails) => {
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printCashBreakdown_native_1.printCashBreakdownNative)(printCashBreakdownDetails);
-        console.log('printCashBreakdownNative data:', data);
         (0, helper_receipt_1.print)(data, 'Cash Breakdown', undefined, printingType);
         return undefined;
     }
