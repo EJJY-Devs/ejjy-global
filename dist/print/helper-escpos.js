@@ -94,8 +94,8 @@ const generateReceiptFooterCommands = (siteSettings) => {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperAddress) {
-        const lines = softwareDeveloperAddress.split('\n');
-        for (const line of lines) {
+        const addressLines = (0, exports.printCenter)(softwareDeveloperAddress).split('\n');
+        for (const line of addressLines) {
             commands.push(line);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

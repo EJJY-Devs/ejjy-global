@@ -92,5 +92,8 @@ export const printCashOutNative = ({
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
 
+	commands.push(EscPosCommands.LINE_BREAK);
+	commands.push(EscPosCommands.LINE_BREAK);
+
 	return commands;
 };

@@ -141,8 +141,8 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	}
 
 	if (softwareDeveloperAddress) {
-		const lines = softwareDeveloperAddress.split('\n');
-		for (const line of lines) {
+		const addressLines = printCenter(softwareDeveloperAddress).split('\n');
+		for (const line of addressLines) {
 			commands.push(line);
 		}
 		commands.push(EscPosCommands.LINE_BREAK);
