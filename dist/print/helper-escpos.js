@@ -94,9 +94,10 @@ const generateReceiptFooterCommands = (siteSettings) => {
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (softwareDeveloperAddress) {
-        const addressLines = (0, exports.printCenter)(softwareDeveloperAddress).split('\n');
+        const addressLines = softwareDeveloperAddress.split('\n');
         for (const line of addressLines) {
             commands.push(line);
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
@@ -114,8 +115,6 @@ const generateReceiptFooterCommands = (siteSettings) => {
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // Reset to left alignment
-    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;

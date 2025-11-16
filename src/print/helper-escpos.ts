@@ -141,9 +141,10 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 	}
 
 	if (softwareDeveloperAddress) {
-		const addressLines = printCenter(softwareDeveloperAddress).split('\n');
+		const addressLines = softwareDeveloperAddress.split('\n');
 		for (const line of addressLines) {
 			commands.push(line);
+			commands.push(EscPosCommands.LINE_BREAK);
 		}
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
@@ -165,9 +166,6 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
-
-	// Reset to left alignment
-	commands.push(EscPosCommands.ALIGN_LEFT);
 
 	return commands;
 };
