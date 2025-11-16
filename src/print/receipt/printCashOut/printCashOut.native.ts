@@ -12,7 +12,20 @@ import { EscPosCommands } from '../../utils/escpos.enum';
 export const printCashOutNative = ({
 	cashOut,
 	siteSettings,
-}: PrintCashOut): string[] => {
+}: PrintCashOut): string[] => [
+	...generateCashOutContentCommands(cashOut, siteSettings),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
+
+const generateCashOutContentCommands = (
+	cashOut: PrintCashOut['cashOut'],
+	siteSettings: PrintCashOut['siteSettings'],
+): string[] => {
 	const metadata = cashOut.cash_out_metadata;
 
 	const {
@@ -91,15 +104,6 @@ export const printCashOutNative = ({
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	commands.push(...generateReceiptFooterCommands(siteSettings));
-
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(EscPosCommands.LINE_BREAK);
 
 	return commands;
 };
