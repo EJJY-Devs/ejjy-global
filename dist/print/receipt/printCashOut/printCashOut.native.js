@@ -74,6 +74,8 @@ const printCashOutNative = ({ cashOut, siteSettings, }) => {
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     return commands;
 };
 exports.printCashOutNative = printCashOutNative;
