@@ -133,15 +133,6 @@ export const print = async (
 	// Stop listening after status check
 	await qz.printers.stopListening();
 
-	// Check if printerStatus was not set
-	if (printerStatus === null) {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'Unable to detect the selected printer.',
-		});
-		return;
-	}
-
 	// Check if the printer is available
 	if (printerStatus.statusText === 'NOT_AVAILABLE') {
 		message.error({
