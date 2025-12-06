@@ -33,7 +33,6 @@ const openCashDrawer = (printerName) => __awaiter(void 0, void 0, void 0, functi
         antd_1.message.success({
             content: 'Cash drawer opened.',
             key: helper_receipt_1.PRINT_MESSAGE_KEY,
-            duration: 2000,
         });
     }
     catch (e) {

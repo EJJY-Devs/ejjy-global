@@ -22,7 +22,6 @@ export const openCashDrawer = async (printerName: string) => {
 		message.success({
 			content: 'Cash drawer opened.',
 			key: PRINT_MESSAGE_KEY,
-			duration: 2000,
 		});
 	} catch (e) {
 		console.error('Failed to open cash drawer:', e);
