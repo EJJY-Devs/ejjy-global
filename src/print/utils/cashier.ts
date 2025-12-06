@@ -7,27 +7,45 @@ export const openCashDrawer = async (printerName: string) => {
 		message.error({
 			content: 'Printer is not connected or QZTray is not open.',
 		});
-		return;
+		throw new Error('QZ websocket not active');
 	}
 
-	try {
-		console.log('Opening Cash Drawer.');
-		const config = qz.configs.create(printerName);
+	const config = qz.configs.create(printerName);
 
-		await qz.print(config, [
-			'\x1B' + '\x40', // init
-			'\x10' + '\x14' + '\x01' + '\x00' + '\x05',
-		]);
+	// Common ESC/POS drawer pulse: ESC p m t1 t2
+	const escpPulse = '\x1B\x70\x00\x19\xFA'; // m=0 (first connector), t1/t2 pulse widths
+	// Your original DLE DC4 sequence (some models support this)
+	const dlePulse = '\x10\x14\x01\x00\x05';
+
+	try {
+		console.log('Opening cash drawer (ESC p)...');
+		await qz.print(config, [escpPulse]);
 
 		message.success({
 			content: 'Cash drawer opened.',
 			key: PRINT_MESSAGE_KEY,
+			duration: 3,
 		});
-	} catch (e) {
-		console.error('Failed to open cash drawer:', e);
-		message.error({
-			content: 'Failed to open cash drawer.',
-			key: PRINT_MESSAGE_KEY,
-		});
+		return;
+	} catch (escErr) {
+		console.warn('ESC p pulse failed, trying DLE DC4 fallback:', escErr);
+		try {
+			console.log('Opening cash drawer (DLE DC4)...');
+			await qz.print(config, [dlePulse]);
+
+			message.success({
+				content: 'Cash drawer opened (fallback).',
+				key: PRINT_MESSAGE_KEY,
+				duration: 3,
+			});
+			return;
+		} catch (dleErr) {
+			console.error('Cash drawer open failed on both pulses:', dleErr);
+			message.error({
+				content: 'Failed to open cash drawer.',
+				key: PRINT_MESSAGE_KEY,
+			});
+			throw dleErr;
+		}
 	}
 };

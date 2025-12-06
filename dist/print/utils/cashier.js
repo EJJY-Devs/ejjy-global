@@ -21,26 +21,43 @@ const openCashDrawer = (printerName) => __awaiter(void 0, void 0, void 0, functi
         antd_1.message.error({
             content: 'Printer is not connected or QZTray is not open.',
         });
-        return;
+        throw new Error('QZ websocket not active');
     }
+    const config = qz_tray_1.default.configs.create(printerName);
+    // Common ESC/POS drawer pulse: ESC p m t1 t2
+    const escpPulse = '\x1B\x70\x00\x19\xFA'; // m=0 (first connector), t1/t2 pulse widths
+    // Your original DLE DC4 sequence (some models support this)
+    const dlePulse = '\x10\x14\x01\x00\x05';
     try {
-        console.log('Opening Cash Drawer.');
-        const config = qz_tray_1.default.configs.create(printerName);
-        yield qz_tray_1.default.print(config, [
-            '\x1B' + '\x40',
-            '\x10' + '\x14' + '\x01' + '\x00' + '\x05',
-        ]);
+        console.log('Opening cash drawer (ESC p)...');
+        yield qz_tray_1.default.print(config, [escpPulse]);
         antd_1.message.success({
             content: 'Cash drawer opened.',
             key: helper_receipt_1.PRINT_MESSAGE_KEY,
+            duration: 3,
         });
+        return;
     }
-    catch (e) {
-        console.error('Failed to open cash drawer:', e);
-        antd_1.message.error({
-            content: 'Failed to open cash drawer.',
-            key: helper_receipt_1.PRINT_MESSAGE_KEY,
-        });
+    catch (escErr) {
+        console.warn('ESC p pulse failed, trying DLE DC4 fallback:', escErr);
+        try {
+            console.log('Opening cash drawer (DLE DC4)...');
+            yield qz_tray_1.default.print(config, [dlePulse]);
+            antd_1.message.success({
+                content: 'Cash drawer opened (fallback).',
+                key: helper_receipt_1.PRINT_MESSAGE_KEY,
+                duration: 3,
+            });
+            return;
+        }
+        catch (dleErr) {
+            console.error('Cash drawer open failed on both pulses:', dleErr);
+            antd_1.message.error({
+                content: 'Failed to open cash drawer.',
+                key: helper_receipt_1.PRINT_MESSAGE_KEY,
+            });
+            throw dleErr;
+        }
     }
 });
 exports.openCashDrawer = openCashDrawer;
