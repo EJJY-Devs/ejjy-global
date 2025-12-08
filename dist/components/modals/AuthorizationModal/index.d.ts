@@ -7,7 +7,8 @@ export type Props = {
     userTypes?: string[];
     branchMachineId?: number;
     branchId?: number;
+    style?: React.CSSProperties;
     onSuccess?: (user: User) => void;
     onCancel?: () => void;
 };
-export declare const AuthorizationModal: ({ baseURL, title, description, branchMachineId, branchId, userTypes, onSuccess, onCancel, }: Props) => React.JSX.Element;
+export declare const AuthorizationModal: ({ baseURL, title, description, branchMachineId, branchId, userTypes, style, onSuccess, onCancel, }: Props) => React.JSX.Element;

@@ -42,7 +42,7 @@ const hooks_1 = require("../../../hooks");
 const utils_1 = require("../../../utils");
 const elements_1 = require("../../elements");
 const RequestErrors_1 = require("../../RequestErrors");
-const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', branchMachineId, branchId, userTypes = [], onSuccess, onCancel, }) => {
+const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'Authorize', branchMachineId, branchId, userTypes = [], style, onSuccess, onCancel, }) => {
     const [usePin, setUsePin] = (0, react_1.useState)(true);
     const { mutateAsync: authenticateUser, isLoading: isAuthenticating, error: authenticateUserError, } = (0, hooks_1.useUserAuthenticate)(undefined, baseURL);
     // REFS
@@ -98,7 +98,7 @@ const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'A
     const currentFormDetails = usePin
         ? pinFormDetails
         : usernamePasswordFormDetails;
-    return (react_1.default.createElement(antd_1.Modal, { footer: null, title: title, centered: true, closable: true, open: true, width: 350, onCancel: onCancel },
+    return (react_1.default.createElement(antd_1.Modal, { footer: null, title: title, centered: true, closable: true, open: true, width: 350, style: style, onCancel: onCancel },
         react_1.default.createElement(formik_1.Formik, { key: usePin ? 'pin' : 'username-password', initialValues: currentFormDetails.defaultValues, validationSchema: currentFormDetails.schema, onSubmit: (values, { setFieldError }) => __awaiter(void 0, void 0, void 0, function* () {
                 const response = yield authenticateUser(values);
                 if (response.status !== 200) {

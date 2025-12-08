@@ -44,6 +44,7 @@ export type Props = {
 	userTypes?: string[];
 	branchMachineId?: number;
 	branchId?: number;
+	style?: React.CSSProperties;
 	onSuccess?: (user: User) => void;
 	onCancel?: () => void;
 };
@@ -55,6 +56,7 @@ export const AuthorizationModal = ({
 	branchMachineId,
 	branchId,
 	userTypes = [],
+	style,
 	onSuccess,
 	onCancel,
 }: Props) => {
@@ -120,7 +122,6 @@ export const AuthorizationModal = ({
 	const currentFormDetails = usePin
 		? pinFormDetails
 		: usernamePasswordFormDetails;
-
 	return (
 		<Modal
 			footer={null}
@@ -129,6 +130,7 @@ export const AuthorizationModal = ({
 			closable
 			open
 			width={350}
+			style={style}
 			onCancel={onCancel}
 		>
 			<Formik<PinFormValues | UsernamePasswordFormValues>
