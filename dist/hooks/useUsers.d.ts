@@ -23,6 +23,7 @@ export declare const useUserCreate: (options?: UseMutationOptions<AxiosResponse<
     firstName?: string | undefined;
     lastName?: string | undefined;
     password?: string | undefined;
+    pin?: string | undefined;
     userType?: string | undefined;
     username?: string | undefined;
 }, unknown>;
@@ -36,6 +37,7 @@ export declare const useUserEdit: (options?: UseMutationOptions<AxiosResponse<Us
     firstName?: string | undefined;
     lastName?: string | undefined;
     password?: string | undefined;
+    pin?: string | undefined;
     userType?: string | undefined;
     username?: string | undefined;
     id: number;

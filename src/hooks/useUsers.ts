@@ -127,6 +127,7 @@ export const useUserCreate = (
 			firstName,
 			lastName,
 			password,
+			pin,
 			userType,
 			username,
 		}) =>
@@ -138,6 +139,7 @@ export const useUserCreate = (
 					first_name: firstName,
 					last_name: lastName,
 					password,
+					pin,
 					user_type: userType,
 					username,
 				},
@@ -167,7 +169,9 @@ export const useUserEdit = (
 			firstName,
 			lastName,
 			password,
+			pin,
 			userType,
+			username,
 		}) =>
 			UsersService.edit(
 				id,
@@ -178,7 +182,9 @@ export const useUserEdit = (
 					first_name: firstName,
 					last_name: lastName,
 					password,
+					pin,
 					user_type: userType,
+					username,
 				},
 				baseURL,
 			),

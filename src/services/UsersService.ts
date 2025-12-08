@@ -27,6 +27,7 @@ export interface Modify {
 	first_name?: string;
 	last_name?: string;
 	password?: string;
+	pin?: string;
 	user_type?: string;
 	username?: string;
 }
