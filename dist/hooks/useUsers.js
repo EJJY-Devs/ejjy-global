@@ -50,9 +50,10 @@ const useUserRetrieve = (data) => {
     return (0, react_query_1.useQuery)(['useUserRetrieve', id], () => (0, helper_1.wrapServiceWithCatch)(services_1.UsersService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL)), options);
 };
 exports.useUserRetrieve = useUserRetrieve;
-const useUserAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)(({ login, password, description, branchMachineId, branchId }) => services_1.UsersService.authenticateAnAction({
+const useUserAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)(({ login, password, pin, description, branchMachineId, branchId }) => services_1.UsersService.authenticateAnAction({
     login,
     password,
+    pin,
     description,
     branch_machine_id: branchMachineId,
     branch_id: branchId,

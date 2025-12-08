@@ -13,6 +13,7 @@ export interface Params extends ListQueryParams {
 export interface AuthenticateAnAction {
 	login: string;
 	password: string;
+	pin?: string;
 	description?: string;
 	branch_machine_id?: number;
 	branch_id?: number;

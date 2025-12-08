@@ -10,6 +10,7 @@ export declare const useUserRetrieve: (data: UseRetrieveQuery<User>) => import("
 export declare const useUserAuthenticate: (options?: UseMutationOptions<AxiosResponse<User>, AxiosErrorResponse, CamelCasedProperties<AuthenticateAnAction>>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<User>, AxiosErrorResponse<any>, {
     login: string;
     password: string;
+    pin?: string | undefined;
     description?: string | undefined;
     branchMachineId?: number | undefined;
     branchId?: number | undefined;
