@@ -267,10 +267,9 @@ export const AuthorizationModal = ({
 							)}
 
 							<Col span={24}>
-								<Space className="w-full justify-center">
+								<Space className="w-full justify-end">
 									<Button
 										disabled={isAuthenticating}
-										block
 										size="middle"
 										onClick={onCancel}
 									>
@@ -280,10 +279,9 @@ export const AuthorizationModal = ({
 										htmlType="submit"
 										loading={isAuthenticating}
 										type="primary"
-										block
 										size="middle"
 									>
-										Submit
+										Authorize
 									</Button>
 								</Space>
 							</Col>

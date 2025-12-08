@@ -156,8 +156,8 @@ const AuthorizationModal = ({ baseURL, title = 'Authorization', description = 'A
                         react_1.default.createElement(formik_1.ErrorMessage, { name: "password", render: (error) => react_1.default.createElement(elements_1.FieldError, { message: error }) }),
                         react_1.default.createElement(RequestErrors_1.RequestErrors, { errors: (0, utils_1.convertIntoArray)(authenticateUserError === null || authenticateUserError === void 0 ? void 0 : authenticateUserError.errors) })))),
                 react_1.default.createElement(antd_1.Col, { span: 24 },
-                    react_1.default.createElement(antd_1.Space, { className: "w-full justify-center" },
-                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, block: true, size: "middle", onClick: onCancel }, "Cancel"),
-                        react_1.default.createElement(antd_1.Button, { htmlType: "submit", loading: isAuthenticating, type: "primary", block: true, size: "middle" }, "Submit")))))))));
+                    react_1.default.createElement(antd_1.Space, { className: "w-full justify-end" },
+                        react_1.default.createElement(antd_1.Button, { disabled: isAuthenticating, size: "middle", onClick: onCancel }, "Cancel"),
+                        react_1.default.createElement(antd_1.Button, { htmlType: "submit", loading: isAuthenticating, type: "primary", size: "middle" }, "Authorize")))))))));
 };
 exports.AuthorizationModal = AuthorizationModal;
