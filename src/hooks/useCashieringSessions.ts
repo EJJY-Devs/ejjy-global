@@ -89,12 +89,13 @@ export const useCashieringSessionStart = (
 		AxiosErrorResponse,
 		CamelCasedProperties<Start>
 	>(
-		({ branchMachineId, branchMachineRegistrationCount, login, password }) =>
+		({ branchMachineId, branchMachineRegistrationCount, login, password, pin }) =>
 			CashieringSessionsService.start({
 				branch_machine_id: branchMachineId,
 				branch_machine_registration_count: branchMachineRegistrationCount,
 				login,
 				password,
+				pin,
 			}),
 		options,
 	);

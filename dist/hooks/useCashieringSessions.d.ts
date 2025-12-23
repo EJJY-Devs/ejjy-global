@@ -11,6 +11,7 @@ export declare const useCashieringSessionValidate: (options?: UseMutationOptions
 export declare const useCashieringSessionStart: (options?: UseMutationOptions<AxiosResponse<CashieringSession>, AxiosErrorResponse, CamelCasedProperties<Start>>) => import("react-query").UseMutationResult<AxiosResponse<CashieringSession>, AxiosErrorResponse<any>, {
     login: string;
     password: string;
+    pin: string;
     branchMachineId: number;
     branchMachineRegistrationCount: number;
 }, unknown>;

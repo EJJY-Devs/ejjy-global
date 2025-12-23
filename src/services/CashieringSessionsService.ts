@@ -5,6 +5,7 @@ import { ListQueryParams, ListResponseData } from './interfaces';
 export interface Start {
 	login: string;
 	password: string;
+	pin: string;
 	branch_machine_id: number;
 	branch_machine_registration_count: number;
 }
