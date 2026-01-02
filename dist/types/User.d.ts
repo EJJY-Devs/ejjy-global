@@ -20,6 +20,7 @@ export interface User {
     pending_approval: null | {
         approval_type: UserPendingApprovalType;
     };
+    datetime_created: string;
 }
 export interface UserPendingApproval {
     id: number;
