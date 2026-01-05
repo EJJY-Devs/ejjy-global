@@ -128,27 +128,33 @@ export const print = async (
 	// Register listener and get status; deregister after
 	await qz.printers.startListening(printerName);
 
-	// Wait for the printer status to be retrieved
-	await qz.printers.getStatus();
+	// Wait briefly for the printer status callback to fire
+	// Note: Removed qz.printers.getStatus() as it requires internet connectivity
+	// The printer status callbacks will still capture events
+	await new Promise((resolve) => setTimeout(resolve, 300));
+	
 	// Stop listening after status check
 	await qz.printers.stopListening();
 
-	// Check if the printer is available
-	if (printerStatus.statusText === 'NOT_AVAILABLE') {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content:
-				'Printer is not available. Make sure the printer is connected to the machine.',
-		});
-		return;
-	}
+	// Check printer status only if it was retrieved (requires internet)
+	// If offline, printerStatus will be null and we'll proceed with printing
+	if (printerStatus !== null) {
+		if (printerStatus.statusText === 'NOT_AVAILABLE') {
+			message.error({
+				key: PRINT_MESSAGE_KEY,
+				content:
+					'Printer is not available. Make sure the printer is connected to the machine.',
+			});
+			return;
+		}
 
-	if (printerStatus.statusText === 'OFFLINE') {
-		message.error({
-			key: PRINT_MESSAGE_KEY,
-			content: 'Printer is offline.',
-		});
-		return;
+		if (printerStatus.statusText === 'OFFLINE') {
+			message.error({
+				key: PRINT_MESSAGE_KEY,
+				content: 'Printer is offline.',
+			});
+			return;
+		}
 	}
 
 	try {

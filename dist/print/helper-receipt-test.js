@@ -98,32 +98,29 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     });
     // Register listener and get status; deregister after
     yield qz_tray_1.default.printers.startListening(printerName);
-    // Wait for the printer status to be retrieved
-    yield qz_tray_1.default.printers.getStatus();
+    // Wait briefly for the printer status callback to fire
+    // Note: Removed qz.printers.getStatus() as it requires internet connectivity
+    // The printer status callbacks will still capture events
+    yield new Promise((resolve) => setTimeout(resolve, 300));
     // Stop listening after status check
     yield qz_tray_1.default.printers.stopListening();
-    // // Check if printerStatus was not set
-    if (printerStatus === null) {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Unable to detect the selected printer.',
-        });
-        return;
-    }
-    // // Check if the printer is available
-    if (printerStatus.statusText === 'NOT_AVAILABLE') {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Printer is not available. Make sure the printer is connected to the machine.',
-        });
-        return;
-    }
-    if (printerStatus.statusText === 'OFFLINE') {
-        antd_1.message.error({
-            key: exports.PRINT_MESSAGE_KEY,
-            content: 'Printer is offline.',
-        });
-        return;
+    // Check printer status only if it was retrieved (requires internet)
+    // If offline, printerStatus will be null and we'll proceed with printing
+    if (printerStatus !== null) {
+        if (printerStatus.statusText === 'NOT_AVAILABLE') {
+            antd_1.message.error({
+                key: exports.PRINT_MESSAGE_KEY,
+                content: 'Printer is not available. Make sure the printer is connected to the machine.',
+            });
+            return;
+        }
+        if (printerStatus.statusText === 'OFFLINE') {
+            antd_1.message.error({
+                key: exports.PRINT_MESSAGE_KEY,
+                content: 'Printer is offline.',
+            });
+            return;
+        }
     }
     try {
         console.log('Printing receipt.');
