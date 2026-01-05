@@ -58,6 +58,11 @@ const configurePrinter = (appPrinterName, appPrinterFontSize, appPrinterFontFami
             console.error('QZ Tray Error', err);
         });
     }
+    else {
+        // Connection appears active but might be stale after offline period
+        // Log for debugging
+        console.log('QZ Tray already connected');
+    }
 };
 exports.configurePrinter = configurePrinter;
 const getHeader = (siteSettings, branchMachine, title, branch) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptHeader, { branchMachine: branchMachine, title: title, branchHeader: branch }));
@@ -90,6 +95,25 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
         key: exports.PRINT_MESSAGE_KEY,
         duration: 5000,
     });
+    // Ensure QZ Tray is connected before printing
+    // Force reconnect if connection seems inactive OR after catching stale connections
+    try {
+        if (!qz_tray_1.default.websocket.isActive()) {
+            (0, utils_1.authenticateQZTray)(qz_tray_1.default);
+            yield qz_tray_1.default.websocket.connect();
+            console.log('Reconnected to QZ Tray before printing');
+        }
+    }
+    catch (err) {
+        antd_1.message.error({
+            content: 'Cannot connect to QZTray. Please ensure QZ Tray is running.',
+            key: exports.PRINT_MESSAGE_KEY,
+        });
+        console.error('QZ Tray reconnection error', err);
+        if (onComplete)
+            onComplete();
+        return;
+    }
     let printerStatus = null;
     // Add printer callback to capture events
     qz_tray_1.default.printers.setPrinterCallbacks((event) => {

@@ -112,6 +112,23 @@ export const print = async (
 		duration: 5_000,
 	});
 
+	// Ensure QZ Tray is connected before printing
+	if (!qz.websocket.isActive()) {
+		try {
+			authenticateQZTray(qz);
+			await qz.websocket.connect();
+			console.log('Reconnected to QZ Tray before printing');
+		} catch (err) {
+			message.error({
+				content: 'Cannot connect to QZTray. Please ensure QZ Tray is running.',
+				key: PRINT_MESSAGE_KEY,
+			});
+			console.error('QZ Tray reconnection error', err);
+			if (onComplete) onComplete();
+			return;
+		}
+	}
+
 	let printerStatus: any = null;
 
 	// Add printer callback to capture events
@@ -127,7 +144,7 @@ export const print = async (
 	// Note: Removed qz.printers.getStatus() as it requires internet connectivity
 	// The printer status callbacks will still capture events
 	await new Promise((resolve) => setTimeout(resolve, 300));
-	
+
 	// Stop listening after status check
 	await qz.printers.stopListening();
 
