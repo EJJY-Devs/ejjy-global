@@ -1,16 +1,19 @@
 import React, { CSSProperties } from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { orderOfPaymentPurposes } from '../../globals';
-import { OrderOfPayment } from '../../types';
+import { orderOfPaymentPurposes } from '../../../globals';
+import { OrderOfPayment } from '../../../types';
 import {
 	formatDate,
 	formatDateTime,
 	formatInPeso,
 	getFullName,
-} from '../../utils';
-import { PESO_SIGN, getPageStyleObject } from '../helper-receipt';
+} from '../../../utils';
+import { PESO_SIGN } from '../../../print/helper-receipt';
 
-export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
+type Props = {
+	orderOfPayment: OrderOfPayment;
+};
+
+export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 	const opNo = orderOfPayment.id;
 	const date = formatDate(orderOfPayment.datetime_created);
 	const payor = getFullName(orderOfPayment.payor);
@@ -40,11 +43,8 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 		fontWeight: 'bold',
 	};
 
-	const dataDom = ReactDOMServer.renderToStaticMarkup(
-		<div
-			className="container"
-			style={getPageStyleObject({ padding: 24, width: 460 })}
-		>
+	return (
+		<>
 			<div>
 				<b>Entity Name: EJ & JY WET MARKET AND ENTERPRISES</b>
 			</div>
@@ -135,8 +135,6 @@ export const printOrderOfPayment = (orderOfPayment: OrderOfPayment) => {
 			>
 				Manager/Authorized Official
 			</div>
-		</div>,
+		</>
 	);
-
-	return dataDom;
 };
