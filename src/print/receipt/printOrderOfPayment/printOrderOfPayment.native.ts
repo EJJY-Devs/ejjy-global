@@ -14,23 +14,23 @@ export const printOrderOfPaymentNative = ({
 }: PrintOrderOfPayment): string[] => {
 	const commands: string[] = [];
 
-	const opNo = orderOfPayment.id;
-	const date = formatDate(orderOfPayment.datetime_created);
-	const payor = getFullName(orderOfPayment.payor);
-	const address = orderOfPayment.payor.home_address;
-	const amount = formatInPeso(orderOfPayment.amount, PESO_SIGN);
+	const opNo = orderOfPayment?.id;
+	const date = formatDate(orderOfPayment?.datetime_created);
+	const payor = getFullName(orderOfPayment?.payor);
+	const address = orderOfPayment?.payor?.home_address;
+	const amount = formatInPeso(orderOfPayment?.amount, PESO_SIGN);
 	const invoiceId =
 		orderOfPayment?.charge_sales_transaction?.invoice?.or_number || '';
 	const invoiceDate = orderOfPayment?.charge_sales_transaction
 		? formatDateTime(
-				orderOfPayment.charge_sales_transaction.invoice.datetime_created,
+				orderOfPayment?.charge_sales_transaction?.invoice?.datetime_created,
 			)
 		: '';
 
-	let purposeDescription = orderOfPayment.extra_description;
-	if (orderOfPayment.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT) {
+	let purposeDescription = orderOfPayment?.extra_description;
+	if (orderOfPayment?.purpose === orderOfPaymentPurposes.PARTIAL_PAYMENT) {
 		purposeDescription = 'Partial Payment';
-	} else if (orderOfPayment.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
+	} else if (orderOfPayment?.purpose === orderOfPaymentPurposes.FULL_PAYMENT) {
 		purposeDescription = 'Full Payment';
 	}
 

@@ -9,21 +9,21 @@ const globals_1 = require("../../../globals");
 const utils_1 = require("../../../utils");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const OrderOfPaymentContent = ({ orderOfPayment }) => {
-    var _a, _b;
-    const opNo = orderOfPayment.id;
-    const date = (0, utils_1.formatDate)(orderOfPayment.datetime_created);
-    const payor = (0, utils_1.getFullName)(orderOfPayment.payor);
-    const address = orderOfPayment.payor.home_address;
-    const amount = (0, utils_1.formatInPeso)(orderOfPayment.amount, helper_receipt_1.PESO_SIGN);
-    const invoiceId = ((_b = (_a = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction) === null || _a === void 0 ? void 0 : _a.invoice) === null || _b === void 0 ? void 0 : _b.or_number) || '';
+    var _a, _b, _c, _d, _e;
+    const opNo = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.id;
+    const date = (0, utils_1.formatDate)(orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.datetime_created);
+    const payor = (0, utils_1.getFullName)(orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor);
+    const address = (_a = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor) === null || _a === void 0 ? void 0 : _a.home_address;
+    const amount = (0, utils_1.formatInPeso)(orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.amount, helper_receipt_1.PESO_SIGN);
+    const invoiceId = ((_c = (_b = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction) === null || _b === void 0 ? void 0 : _b.invoice) === null || _c === void 0 ? void 0 : _c.or_number) || '';
     const invoiceDate = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction)
-        ? (0, utils_1.formatDateTime)(orderOfPayment.charge_sales_transaction.invoice.datetime_created)
+        ? (0, utils_1.formatDateTime)((_e = (_d = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.charge_sales_transaction) === null || _d === void 0 ? void 0 : _d.invoice) === null || _e === void 0 ? void 0 : _e.datetime_created)
         : '';
-    let purposeDescription = orderOfPayment.extra_description;
-    if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
+    let purposeDescription = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.extra_description;
+    if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
         purposeDescription = 'Partial Payment';
     }
-    else if (orderOfPayment.purpose === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
+    else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         purposeDescription = 'Full Payment';
     }
     const letterStyles = {
