@@ -23,3 +23,4 @@ __exportStar(require("./ViewTransactionModal"), exports);
 __exportStar(require("./ViewUnsoldItemModal"), exports);
 __exportStar(require("./ViewXReadReportModal"), exports);
 __exportStar(require("./ViewZReadReportModal"), exports);
+__exportStar(require("./ViewOrderOfPaymentModal"), exports);

@@ -7,3 +7,4 @@ export * from './ViewTransactionModal';
 export * from './ViewUnsoldItemModal';
 export * from './ViewXReadReportModal';
 export * from './ViewZReadReportModal';
+export * from './ViewOrderOfPaymentModal';
