@@ -11,4 +11,5 @@ export interface OrderOfPayment {
 	purpose: 'partial_payment' | 'full_payment' | 'others';
 	extra_description?: string;
 	charge_sales_transaction: Transaction;
+	reference_number: string;
 }

@@ -13,4 +13,5 @@ export interface CollectionReceipt {
     check_date?: string;
     branch_machine: BranchMachine;
     mode: string;
+    reference_number: string;
 }
