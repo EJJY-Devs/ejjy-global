@@ -16,13 +16,13 @@ export const printOrderOfPayment = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printOrderOfPaymentHtml(printOrderOfPaymentDetails) || '';
-		print(data as string, 'Order of Payment', undefined, printingType);
-		return data as string; // ✅ return HTML string
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printOrderOfPaymentNative(printOrderOfPaymentDetails);
-		print(data, 'Order of Payment', undefined, printingType);
-		return undefined;
 	}
 
-	return undefined;
+	if (!printOrderOfPaymentDetails.isPdf) {
+		print(data, 'Order of Payment', undefined, printingType);
+	}
+
+	return printingType === printingTypes.HTML ? (data as string) : undefined;
 };

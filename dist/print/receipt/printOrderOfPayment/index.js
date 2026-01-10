@@ -11,14 +11,13 @@ const printOrderOfPayment = (printOrderOfPaymentDetails) => {
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printOrderOfPayment_html_1.printOrderOfPaymentHtml)(printOrderOfPaymentDetails) || '';
-        (0, helper_receipt_1.print)(data, 'Order of Payment', undefined, printingType);
-        return data; // ✅ return HTML string
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printOrderOfPayment_native_1.printOrderOfPaymentNative)(printOrderOfPaymentDetails);
-        (0, helper_receipt_1.print)(data, 'Order of Payment', undefined, printingType);
-        return undefined;
     }
-    return undefined;
+    if (!printOrderOfPaymentDetails.isPdf) {
+        (0, helper_receipt_1.print)(data, 'Order of Payment', undefined, printingType);
+    }
+    return printingType === globals_1.printingTypes.HTML ? data : undefined;
 };
 exports.printOrderOfPayment = printOrderOfPayment;
