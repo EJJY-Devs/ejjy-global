@@ -59,7 +59,7 @@ const useUserAuthenticate = (options, baseURL) => (0, react_query_1.useMutation)
     branch_id: branchId,
 }, baseURL), options);
 exports.useUserAuthenticate = useUserAuthenticate;
-const useUserCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ contactNumber, displayName, email, firstName, lastName, password, pin, userType, username, }) => services_1.UsersService.create({
+const useUserCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ contactNumber, displayName, email, firstName, lastName, password, pin, userType, username, accountId, }) => services_1.UsersService.create({
     contact_number: contactNumber,
     display_name: displayName,
     email,
@@ -69,9 +69,10 @@ const useUserCreate = (options, baseURL) => (0, react_query_1.useMutation)(({ co
     pin,
     user_type: userType,
     username,
+    account_id: accountId,
 }, baseURL), options);
 exports.useUserCreate = useUserCreate;
-const useUserEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, contactNumber, displayName, email, firstName, lastName, password, pin, userType, username, }) => services_1.UsersService.edit(id, {
+const useUserEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, contactNumber, displayName, email, firstName, lastName, password, pin, userType, username, accountId, }) => services_1.UsersService.edit(id, {
     contact_number: contactNumber,
     display_name: displayName,
     email,
@@ -81,6 +82,7 @@ const useUserEdit = (options, baseURL) => (0, react_query_1.useMutation)(({ id, 
     pin,
     user_type: userType,
     username,
+    account_id: accountId,
 }, baseURL), options);
 exports.useUserEdit = useUserEdit;
 const useUserDelete = (options, baseURL) => (0, react_query_1.useMutation)((id) => services_1.UsersService.delete(id, baseURL), options);

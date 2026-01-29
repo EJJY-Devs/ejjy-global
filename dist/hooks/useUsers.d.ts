@@ -26,6 +26,7 @@ export declare const useUserCreate: (options?: UseMutationOptions<AxiosResponse<
     pin?: string | undefined;
     userType?: string | undefined;
     username?: string | undefined;
+    accountId?: number | undefined;
 }, unknown>;
 export declare const useUserEdit: (options?: UseMutationOptions<AxiosResponse<User>, AxiosErrorResponse, CamelCasedProperties<Modify & {
     id: number;
@@ -40,6 +41,7 @@ export declare const useUserEdit: (options?: UseMutationOptions<AxiosResponse<Us
     pin?: string | undefined;
     userType?: string | undefined;
     username?: string | undefined;
+    accountId?: number | undefined;
     id: number;
 }, unknown>;
 export declare const useUserDelete: (options?: UseMutationOptions<AxiosResponse<void>, AxiosErrorResponse, number>, baseURL?: string) => import("react-query").UseMutationResult<AxiosResponse<void>, AxiosErrorResponse<any>, number, unknown>;

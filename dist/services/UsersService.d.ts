@@ -26,6 +26,7 @@ export interface Modify {
     pin?: string;
     user_type?: string;
     username?: string;
+    account_id?: number;
 }
 export interface RequestUserTypeChange {
     new_user_type: string;

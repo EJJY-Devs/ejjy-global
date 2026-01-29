@@ -130,6 +130,7 @@ export const useUserCreate = (
 			pin,
 			userType,
 			username,
+			accountId,
 		}) =>
 			UsersService.create(
 				{
@@ -142,6 +143,7 @@ export const useUserCreate = (
 					pin,
 					user_type: userType,
 					username,
+					account_id: accountId,
 				},
 				baseURL,
 			),
@@ -172,6 +174,7 @@ export const useUserEdit = (
 			pin,
 			userType,
 			username,
+			accountId,
 		}) =>
 			UsersService.edit(
 				id,
@@ -185,6 +188,7 @@ export const useUserEdit = (
 					pin,
 					user_type: userType,
 					username,
+					account_id: accountId,
 				},
 				baseURL,
 			),
