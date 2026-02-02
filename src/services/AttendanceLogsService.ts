@@ -14,10 +14,10 @@ export interface Params extends ListQueryParams {
 }
 
 export interface Create {
-	account_code: string;
+	account_code: string | undefined;
 	attendance_category: AttendanceLogCategory;
 	branch_id: number;
-	pin: string;
+	pin: string | undefined;
 }
 
 const service = {

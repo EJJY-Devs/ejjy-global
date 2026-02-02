@@ -7,10 +7,10 @@ export interface Params extends ListQueryParams {
     employee_id?: number;
 }
 export interface Create {
-    account_code: string;
+    account_code: string | undefined;
     attendance_category: AttendanceLogCategory;
     branch_id: number;
-    pin: string;
+    pin: string | undefined;
 }
 declare const service: {
     list: (params: Params, baseURL?: string) => Promise<ListResponseData<AttendanceLog>>;

@@ -6,9 +6,9 @@ import { AttendanceLog } from '../types';
 import { UseListQuery } from './inteface';
 declare const useAttendanceLogs: (data?: UseListQuery<AttendanceLog, CamelCasedProperties<Params>>) => import("react-query").UseQueryResult<QueryResponse<AttendanceLog>, Error>;
 export declare const useAttendanceLogCreate: () => import("react-query").UseMutationResult<AxiosResponse<AttendanceLog>, AxiosErrorResponse<any>, {
-    accountCode: string;
+    accountCode: string | undefined;
     attendanceCategory: import("../types").AttendanceLogCategory;
     branchId: number;
-    pin: string;
+    pin: string | undefined;
 }, unknown>;
 export default useAttendanceLogs;
