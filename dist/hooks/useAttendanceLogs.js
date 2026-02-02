@@ -23,10 +23,11 @@ const useAttendanceLogs = (data = {}) => {
             total: query.count,
         }) }, options));
 };
-const useAttendanceLogCreate = () => (0, react_query_1.useMutation)(({ accountCode, attendanceCategory, branchId }) => services_1.AttendanceLogsService.create({
+const useAttendanceLogCreate = () => (0, react_query_1.useMutation)(({ accountCode, attendanceCategory, branchId, pin }) => services_1.AttendanceLogsService.create({
     account_code: accountCode,
     attendance_category: attendanceCategory,
     branch_id: branchId,
+    pin,
 }));
 exports.useAttendanceLogCreate = useAttendanceLogCreate;
 exports.default = useAttendanceLogs;

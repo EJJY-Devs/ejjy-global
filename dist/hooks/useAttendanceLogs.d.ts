@@ -9,5 +9,6 @@ export declare const useAttendanceLogCreate: () => import("react-query").UseMuta
     accountCode: string;
     attendanceCategory: import("../types").AttendanceLogCategory;
     branchId: number;
+    pin: string;
 }, unknown>;
 export default useAttendanceLogs;

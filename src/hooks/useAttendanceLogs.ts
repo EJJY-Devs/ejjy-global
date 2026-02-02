@@ -58,11 +58,12 @@ export const useAttendanceLogCreate = () =>
 		AxiosResponse<AttendanceLog>,
 		AxiosErrorResponse,
 		CamelCasedProperties<Create>
-	>(({ accountCode, attendanceCategory, branchId }) =>
+	>(({ accountCode, attendanceCategory, branchId, pin }) =>
 		AttendanceLogsService.create({
 			account_code: accountCode,
 			attendance_category: attendanceCategory,
 			branch_id: branchId,
+			pin,
 		}),
 	);
 

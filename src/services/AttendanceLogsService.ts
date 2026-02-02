@@ -17,6 +17,7 @@ export interface Create {
 	account_code: string;
 	attendance_category: AttendanceLogCategory;
 	branch_id: number;
+	pin: string;
 }
 
 const service = {
