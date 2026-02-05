@@ -8,7 +8,7 @@ const escpos_enum_1 = require("../../utils/escpos.enum");
 const printOrderOfPaymentNative = ({ orderOfPayment, }) => {
     var _a, _b, _c, _d, _e;
     const commands = [];
-    const opNo = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.id;
+    const opNo = (orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.reference_number) || '';
     const date = (0, utils_1.formatDate)(orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.datetime_created);
     const payor = (0, utils_1.getFullName)(orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor);
     const address = (_a = orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.payor) === null || _a === void 0 ? void 0 : _a.home_address;

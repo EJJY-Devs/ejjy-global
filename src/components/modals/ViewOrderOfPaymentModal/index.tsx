@@ -17,7 +17,7 @@ type Props = {
 
 export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `OrderOfPayment_${orderOfPayment.id}`,
+		title: `OrderOfPayment_${orderOfPayment.reference_number}`,
 		print: () =>
 			printOrderOfPayment({
 				orderOfPayment,

@@ -13,7 +13,7 @@ const Printing_1 = require("../../Printing");
 const CollectionReceiptContent_1 = require("./CollectionReceiptContent");
 const ViewCollectionReceiptModal = ({ collectionReceipt, siteSettings, onClose, }) => {
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
-        title: `CollectionReceipt_${collectionReceipt.id}`,
+        title: `CollectionReceipt_${collectionReceipt.reference_number}`,
         print: () => (0, print_1.printCollectionReceipt)({
             collectionReceipt,
             siteSettings,

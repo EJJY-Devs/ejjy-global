@@ -13,7 +13,7 @@ const Printing_1 = require("../../Printing");
 const OrderOfPaymentContent_1 = require("./OrderOfPaymentContent");
 const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
-        title: `OrderOfPayment_${orderOfPayment.id}`,
+        title: `OrderOfPayment_${orderOfPayment.reference_number}`,
         print: () => (0, print_1.printOrderOfPayment)({
             orderOfPayment,
             isPdf: true,

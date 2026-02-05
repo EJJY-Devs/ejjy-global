@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
-	const opNo = orderOfPayment?.id;
+	const opNo = orderOfPayment?.reference_number || '';
 	const date = formatDate(orderOfPayment?.datetime_created);
 	const payor = getFullName(orderOfPayment?.payor);
 	const address = orderOfPayment?.payor?.home_address;

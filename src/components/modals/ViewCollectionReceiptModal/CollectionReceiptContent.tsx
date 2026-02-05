@@ -125,7 +125,7 @@ export const CollectionReceiptContent = ({
 					justifyContent: 'space-between',
 				}}
 			>
-				<span>ID: {collectionReceipt?.id || EMPTY_CELL}</span>
+				<span>ID: {collectionReceipt?.reference_number || EMPTY_CELL}</span>
 				<span style={{ textAlign: 'right' }}>
 					{collectionReceipt?.created_by?.employee_id}
 				</span>

@@ -99,7 +99,7 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
             } },
             react_1.default.createElement("span", null,
                 "ID: ",
-                (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.id) || globals_1.EMPTY_CELL),
+                (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.reference_number) || globals_1.EMPTY_CELL),
             react_1.default.createElement("span", { style: { textAlign: 'right' } }, (_c = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.created_by) === null || _c === void 0 ? void 0 : _c.employee_id)),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),

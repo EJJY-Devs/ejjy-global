@@ -19,7 +19,7 @@ export const ViewCollectionReceiptModal = ({
 	onClose,
 }: Props) => {
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `CollectionReceipt_${collectionReceipt.id}`,
+		title: `CollectionReceipt_${collectionReceipt.reference_number}`,
 		print: () =>
 			printCollectionReceipt({
 				collectionReceipt,
