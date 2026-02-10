@@ -1,6 +1,7 @@
 import { Account } from './Account';
 import { Transaction } from './Transaction';
 import { User } from './User';
+import { Branch } from './Branch';
 export interface OrderOfPayment {
     id: number;
     datetime_created: string;
@@ -11,4 +12,5 @@ export interface OrderOfPayment {
     extra_description?: string;
     charge_sales_transaction: Transaction;
     reference_number: string;
+    branch: Branch;
 }
