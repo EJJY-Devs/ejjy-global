@@ -14,6 +14,9 @@ type Props = {
 };
 
 export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
+	const storeName = orderOfPayment?.branch?.store_name || '';
+	const branchName = orderOfPayment?.branch?.name || '';
+
 	const opNo = orderOfPayment?.reference_number || '';
 	const date = formatDate(orderOfPayment?.datetime_created);
 	const payor = getFullName(orderOfPayment?.payor);
@@ -45,8 +48,13 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 
 	return (
 		<>
-			<div>
-				<b>Entity Name: EJ & JY WET MARKET AND ENTERPRISES</b>
+			<div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+				{storeName ? (
+					<div style={{ whiteSpace: 'pre-line' }}>{storeName}</div>
+				) : null}
+				{branchName ? (
+					<div style={{ whiteSpace: 'pre' }}>{`${branchName} `}</div>
+				) : null}
 			</div>
 			<div
 				style={{

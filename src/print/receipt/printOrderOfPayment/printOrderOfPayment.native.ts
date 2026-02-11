@@ -14,6 +14,9 @@ export const printOrderOfPaymentNative = ({
 }: PrintOrderOfPayment): string[] => {
 	const commands: string[] = [];
 
+	const storeName = orderOfPayment?.branch?.store_name || '';
+	const branchName = orderOfPayment?.branch?.name || '';
+
 	const opNo = orderOfPayment?.reference_number || '';
 	const date = formatDate(orderOfPayment?.datetime_created);
 	const payor = getFullName(orderOfPayment?.payor);
@@ -36,7 +39,17 @@ export const printOrderOfPaymentNative = ({
 
 	// Header
 	commands.push(EscPosCommands.ALIGN_CENTER);
-	commands.push('Entity Name: EJ & JY WET MARKET AND ENTERPRISES');
+	if (storeName) {
+		for (const line of storeName.split('\n')) {
+			commands.push(line);
+		}
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
+
+	if (branchName) {
+		commands.push(`${branchName} `);
+		commands.push(EscPosCommands.LINE_BREAK);
+	}
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.ALIGN_LEFT);
 	commands.push(EscPosCommands.LINE_BREAK);
