@@ -56,6 +56,7 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 					<div style={{ whiteSpace: 'pre' }}>{`${branchName} `}</div>
 				) : null}
 			</div>
+			<br />
 			<div
 				style={{
 					width: '100%',

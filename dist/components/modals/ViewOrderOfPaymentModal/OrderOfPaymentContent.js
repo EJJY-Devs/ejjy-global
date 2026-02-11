@@ -40,6 +40,7 @@ const OrderOfPaymentContent = ({ orderOfPayment }) => {
         react_1.default.createElement("div", { style: { textAlign: 'center', fontWeight: 'bold' } },
             storeName ? (react_1.default.createElement("div", { style: { whiteSpace: 'pre-line' } }, storeName)) : null,
             branchName ? (react_1.default.createElement("div", { style: { whiteSpace: 'pre' } }, `${branchName} `)) : null),
+        react_1.default.createElement("br", null),
         react_1.default.createElement("div", { style: {
                 width: '100%',
                 display: 'flex',
