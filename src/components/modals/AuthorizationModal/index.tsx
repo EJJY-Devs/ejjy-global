@@ -6,12 +6,10 @@ import {
 	Modal,
 	Row,
 	Space,
-	Tooltip,
 	Typography,
 } from 'antd';
-import { SyncOutlined } from '@ant-design/icons';
 import { ErrorMessage, Form, Formik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { useUserAuthenticate } from '../../../hooks';
 import { User } from '../../../types';
@@ -23,15 +21,6 @@ type PinFormValues = {
 	pin: string;
 	login: string;
 	password: string;
-	description: string;
-	branchMachineId?: number;
-	branchId?: number;
-};
-
-type UsernamePasswordFormValues = {
-	login: string;
-	password: string;
-	pin: string;
 	description: string;
 	branchMachineId?: number;
 	branchId?: number;
@@ -60,8 +49,6 @@ export const AuthorizationModal = ({
 	onSuccess,
 	onCancel,
 }: Props) => {
-	const [usePin, setUsePin] = useState(true);
-
 	const {
 		mutateAsync: authenticateUser,
 		isLoading: isAuthenticating,
@@ -69,21 +56,16 @@ export const AuthorizationModal = ({
 	} = useUserAuthenticate(undefined, baseURL);
 
 	// REFS
-	const usernameRef = useRef<InputRef | null>(null);
 	const pinRef = useRef<InputRef | null>(null);
 
 	// METHODS
 	useEffect(() => {
-		if (usePin && pinRef && pinRef.current) {
+		if (pinRef && pinRef.current) {
 			setTimeout(() => {
 				pinRef.current?.focus();
 			}, 500);
-		} else if (!usePin && usernameRef && usernameRef.current) {
-			setTimeout(() => {
-				usernameRef.current?.focus();
-			}, 500);
 		}
-	}, [usernameRef, pinRef, usePin]);
+	}, [pinRef]);
 
 	const pinFormDetails = {
 		defaultValues: {
@@ -104,24 +86,6 @@ export const AuthorizationModal = ({
 		}),
 	};
 
-	const usernamePasswordFormDetails = {
-		defaultValues: {
-			login: '',
-			password: '',
-			pin: '',
-			description,
-			branchMachineId,
-			branchId,
-		},
-		schema: Yup.object().shape({
-			login: Yup.string().required().label('Username'),
-			password: Yup.string().required().label('Password'),
-		}),
-	};
-
-	const currentFormDetails = usePin
-		? pinFormDetails
-		: usernamePasswordFormDetails;
 	return (
 		<Modal
 			footer={null}
@@ -133,18 +97,15 @@ export const AuthorizationModal = ({
 			style={style}
 			onCancel={onCancel}
 		>
-			<Formik<PinFormValues | UsernamePasswordFormValues>
-				key={usePin ? 'pin' : 'username-password'}
-				initialValues={currentFormDetails.defaultValues}
-				validationSchema={currentFormDetails.schema}
+			<Formik<PinFormValues>
+				key="pin"
+				initialValues={pinFormDetails.defaultValues}
+				validationSchema={pinFormDetails.schema}
 				onSubmit={async (values, { setFieldError }) => {
 					const response = await authenticateUser(values);
 
 					if (response.status !== 200) {
-						setFieldError(
-							usePin ? 'pin' : 'password',
-							'Incorrect credentials.',
-						);
+						setFieldError('pin', 'Incorrect credentials.');
 						return;
 					}
 
@@ -152,7 +113,7 @@ export const AuthorizationModal = ({
 						userTypes.length &&
 						!userTypes.includes(String(response.data.user_type))
 					) {
-						setFieldError(usePin ? 'pin' : 'password', 'User is not allowed.');
+						setFieldError('pin', 'User is not allowed.');
 						return;
 					}
 
@@ -162,111 +123,29 @@ export const AuthorizationModal = ({
 				{({ values, setFieldValue }) => (
 					<Form>
 						<Row gutter={[16, 16]}>
-							{usePin ? (
-								<Col span={24}>
-									<div
-										style={{
-											display: 'flex',
-											alignItems: 'center',
-											gap: '8px',
-											marginBottom: '8px',
-										}}
-									>
-										<Typography.Text>PIN</Typography.Text>
-										<Tooltip title="Switch to Username/Password">
-											<Button
-												icon={<SyncOutlined />}
-												size="small"
-												style={{
-													border: '1px solid #1890ff',
-													color: '#1890ff',
-													borderRadius: '4px',
-												}}
-												onClick={() => setUsePin(false)}
-											/>
-										</Tooltip>
-									</div>
-									<Input.Password
-										maxLength={6}
-										placeholder="Enter PIN"
-										size="middle"
-										ref={pinRef}
-										value={'pin' in values ? values.pin : ''}
-										onChange={(e) => {
-											// Only allow numbers
-											const value = e.target.value.replace(/\D/g, '');
-											setFieldValue('pin', value);
-										}}
-									/>
-									<ErrorMessage
-										name="pin"
-										render={(error) => <FieldError message={error} />}
-									/>
+							<Col span={24}>
+								<Typography.Text>PIN</Typography.Text>
+								<Input.Password
+									maxLength={6}
+									placeholder="Enter PIN"
+									size="middle"
+									ref={pinRef}
+									value={values.pin}
+									onChange={(e) => {
+										// Only allow numbers
+										const value = e.target.value.replace(/\D/g, '');
+										setFieldValue('pin', value);
+									}}
+								/>
+								<ErrorMessage
+									name="pin"
+									render={(error) => <FieldError message={error} />}
+								/>
 
-									<RequestErrors
-										errors={convertIntoArray(authenticateUserError?.errors)}
-									/>
-								</Col>
-							) : (
-								<>
-									<Col span={24}>
-										<div
-											style={{
-												display: 'flex',
-												alignItems: 'center',
-												gap: '8px',
-												marginBottom: '8px',
-											}}
-										>
-											<Typography.Text>Username</Typography.Text>
-											<Tooltip title="Switch to PIN">
-												<Button
-													icon={<SyncOutlined />}
-													size="small"
-													style={{
-														border: '1px solid #1890ff',
-														color: '#1890ff',
-														borderRadius: '4px',
-													}}
-													onClick={() => setUsePin(true)}
-												/>
-											</Tooltip>
-										</div>
-										<Input
-											placeholder="Enter username"
-											size="middle"
-											ref={usernameRef}
-											value={'login' in values ? values.login : ''}
-											onChange={(e) => setFieldValue('login', e.target.value)}
-										/>
-										<ErrorMessage
-											name="login"
-											render={(error) => <FieldError message={error} />}
-										/>
-									</Col>
-
-									<Col span={24}>
-										<Typography.Text>Password</Typography.Text>
-										<Input.Password
-											placeholder="Enter password"
-											type="password"
-											size="middle"
-											value={'password' in values ? values.password : ''}
-											onChange={(e) =>
-												setFieldValue('password', e.target.value)
-											}
-										/>
-										<ErrorMessage
-											name="password"
-											render={(error) => <FieldError message={error} />}
-										/>
-
-										<RequestErrors
-											errors={convertIntoArray(authenticateUserError?.errors)}
-										/>
-									</Col>
-								</>
-							)}
+								<RequestErrors
+									errors={convertIntoArray(authenticateUserError?.errors)}
+								/>
+							</Col>
 
 							<Col span={24}>
 								<Space className="w-full justify-end">
