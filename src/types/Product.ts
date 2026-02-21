@@ -1,4 +1,4 @@
-import { PointSystemTag } from './PointSystemTag';
+import { PatronageSystemTag } from './PatronageSystemTag';
 
 export type UnitOfMeasurement = 'weighing' | 'non_weighing';
 
@@ -28,7 +28,7 @@ export interface Product {
 	price_per_bulk: string;
 	product_category?: string;
 	is_shown_in_scale_list: boolean;
-	point_system_tag: PointSystemTag;
+	patronage_system_tag: PatronageSystemTag;
 	conversion_amount: string;
 	online_id?: number;
 	has_quantity_allowance: boolean;

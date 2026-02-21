@@ -36,7 +36,7 @@ __exportStar(require("./CreditRegistration"), exports);
 __exportStar(require("./DiscountOption"), exports);
 __exportStar(require("./Log"), exports);
 __exportStar(require("./OrderOfPayment"), exports);
-__exportStar(require("./PointSystemTag"), exports);
+__exportStar(require("./PatronageSystemTag"), exports);
 __exportStar(require("./PriceMarkdown"), exports);
 __exportStar(require("./Product"), exports);
 __exportStar(require("./ProductCategory"), exports);

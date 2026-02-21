@@ -20,7 +20,7 @@ export * from './CreditRegistration';
 export * from './DiscountOption';
 export * from './Log';
 export * from './OrderOfPayment';
-export * from './PointSystemTag';
+export * from './PatronageSystemTag';
 export * from './PriceMarkdown';
 export * from './Product';
 export * from './ProductCategory';

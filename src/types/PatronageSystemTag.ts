@@ -1,4 +1,4 @@
-export interface PointSystemTag {
+export interface PatronageSystemTag {
 	id: number;
 	name: string;
 	divisor_amount: number;
