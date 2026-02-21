@@ -19,7 +19,7 @@ interface Modify {
     first_name: string;
     gender: string;
     home_address: string;
-    is_point_system_eligible: boolean;
+    is_patronage_system_eligible: boolean;
     last_name: string;
     middle_name?: string;
     mother_maiden_name?: string;
