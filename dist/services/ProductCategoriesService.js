@@ -26,8 +26,8 @@ const service = {
         });
         return response.data;
     }),
-    create: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/product-categories/', body, { baseURL }); }),
-    edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`/product-categories/${id}/`, body, { baseURL }); }),
-    delete: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`/product-categories/${id}/`, { baseURL }); }),
+    create: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('tags/product-categories/', body, { baseURL }); }),
+    edit: (id, body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.patch(`tags/product-categories/${id}/`, body, { baseURL }); }),
+    delete: (id, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.delete(`tags/product-categories/${id}/`, { baseURL }); }),
 };
 exports.default = service;

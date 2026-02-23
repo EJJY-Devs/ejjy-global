@@ -31,13 +31,13 @@ const service = {
 	},
 
 	create: async (body: Modify, baseURL?: string) =>
-		axios.post<ProductCategory>('/product-categories/', body, { baseURL }),
+		axios.post<ProductCategory>('tags/product-categories/', body, { baseURL }),
 
 	edit: async (id: number, body: Modify, baseURL?: string) =>
-		axios.patch(`/product-categories/${id}/`, body, { baseURL }),
+		axios.patch(`tags/product-categories/${id}/`, body, { baseURL }),
 
 	delete: async (id: number, baseURL?: string) =>
-		axios.delete(`/product-categories/${id}/`, { baseURL }),
+		axios.delete(`tags/product-categories/${id}/`, { baseURL }),
 };
 
 export default service;
