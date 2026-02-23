@@ -17,8 +17,8 @@ const enums_1 = require("../globals/enums");
 const service = {
     list: (params, baseURL, serviceType = enums_1.ServiceType.ONLINE) => __awaiter(void 0, void 0, void 0, function* () {
         const endpoints = {
-            [enums_1.ServiceType.ONLINE]: '/product-categories/',
-            [enums_1.ServiceType.OFFLINE]: '/offline-product-categories/',
+            [enums_1.ServiceType.ONLINE]: 'tags/product-categories/',
+            [enums_1.ServiceType.OFFLINE]: 'tags/offline-product-categories/',
         };
         const response = yield axios_1.default.get(endpoints[serviceType], {
             baseURL,

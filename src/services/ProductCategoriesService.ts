@@ -15,8 +15,8 @@ const service = {
 		serviceType: ServiceType = ServiceType.ONLINE,
 	) => {
 		const endpoints: Endpoints = {
-			[ServiceType.ONLINE]: '/product-categories/',
-			[ServiceType.OFFLINE]: '/offline-product-categories/',
+			[ServiceType.ONLINE]: 'tags/product-categories/',
+			[ServiceType.OFFLINE]: 'tags/offline-product-categories/',
 		};
 
 		const response = await axios.get<ListResponseData<ProductCategory>>(
