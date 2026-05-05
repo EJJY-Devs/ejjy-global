@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { EMPTY_CELL } from '../../../globals';
 import { PESO_SIGN } from '../../../print/helper-receipt';
@@ -71,23 +72,18 @@ export const DeliveryInvoiceContent = ({
 
 			<br />
 
-			<table style={{ width: '100%' }}>
-				datetime_created
-				<tbody>
-					<tr>
-						<td style={{ width: 130 }}>DATE:</td>
-						<td>{formatDateTime(deliveryInvoice?.created_at)}</td>
-					</tr>
-					<tr>
-						<td>REFERENCE #:</td>
-						<td>{deliveryInvoice?.id || EMPTY_CELL}</td>
-					</tr>
-					<tr>
-						<td>ITEMS:</td>
-						<td>{deliveryInvoice?.products?.length || 0} item(s)</td>
-					</tr>
-				</tbody>
-			</table>
+			<div>GDT: {formatDateTime(deliveryInvoice?.created_at)}</div>
+			<div>PDT: {formatDateTime(dayjs(), false)}</div>
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+				}}
+			>
+				<span>{deliveryInvoice?.id || EMPTY_CELL}</span>
+				<span>{deliveryInvoice?.products?.length || 0} item(s)</span>
+			</div>
 
 			<br />
 

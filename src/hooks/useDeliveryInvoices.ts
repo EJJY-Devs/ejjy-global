@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { UseMutationOptions, useMutation, useQuery } from 'react-query';
 import { CamelCasedProperties } from 'type-fest';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, timeRangeTypes } from '../globals';
 import { DeliveryInvoiceService } from '../services';
@@ -86,7 +86,11 @@ export const useDeliveryInvoiceCreate = (data?: Mutate) =>
 		CamelCasedProperties<Create>
 	>(
 		(body) => DeliveryInvoiceService.create(body as unknown as Create),
-		data?.options,
+		data?.options as unknown as UseMutationOptions<
+			AxiosResponse<DeliveryInvoice>,
+			AxiosErrorResponse,
+			CamelCasedProperties<Create>
+		>,
 	);
 
 export default useDeliveryInvoices;

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeliveryInvoiceContent = void 0;
+const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
@@ -39,20 +40,21 @@ const DeliveryInvoiceContent = ({ deliveryInvoice, siteSettings, isReprint, }) =
                         (0, utils_1.formatInPeso)(totalAmount, helper_receipt_1.PESO_SIGN),
                         "\u00A0")))),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("table", { style: { width: '100%' } },
-            "datetime_created",
-            react_1.default.createElement("tbody", null,
-                react_1.default.createElement("tr", null,
-                    react_1.default.createElement("td", { style: { width: 130 } }, "DATE:"),
-                    react_1.default.createElement("td", null, (0, utils_1.formatDateTime)(deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.created_at))),
-                react_1.default.createElement("tr", null,
-                    react_1.default.createElement("td", null, "REFERENCE #:"),
-                    react_1.default.createElement("td", null, (deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.id) || globals_1.EMPTY_CELL)),
-                react_1.default.createElement("tr", null,
-                    react_1.default.createElement("td", null, "ITEMS:"),
-                    react_1.default.createElement("td", null,
-                        ((_c = deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.products) === null || _c === void 0 ? void 0 : _c.length) || 0,
-                        " item(s)")))),
+        react_1.default.createElement("div", null,
+            "GDT: ",
+            (0, utils_1.formatDateTime)(deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.created_at)),
+        react_1.default.createElement("div", null,
+            "PDT: ",
+            (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
+        react_1.default.createElement("div", { style: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+            } },
+            react_1.default.createElement("span", null, (deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.id) || globals_1.EMPTY_CELL),
+            react_1.default.createElement("span", null,
+                ((_c = deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.products) === null || _c === void 0 ? void 0 : _c.length) || 0,
+                " item(s)")),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
         react_1.default.createElement("br", null),

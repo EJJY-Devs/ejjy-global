@@ -26,7 +26,7 @@ export const ViewDeliveryInvoiceModal = ({
 	>(null);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
+	const { htmlPdf, isLoadingPdf } = usePdf({
 		title: `DeliveryInvoice_${deliveryInvoiceData?.id}`,
 		print: () => {
 			if (!deliveryInvoiceData) {
@@ -34,7 +34,6 @@ export const ViewDeliveryInvoiceModal = ({
 				return undefined;
 			}
 
-			// Add printing logic here if needed
 			window.print();
 		},
 	});

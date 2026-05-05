@@ -34,14 +34,13 @@ const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOption
     // STATE
     const [deliveryInvoiceData, setDeliveryInvoiceData] = (0, react_1.useState)(null);
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf } = (0, hooks_1.usePdf)({
         title: `DeliveryInvoice_${deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id}`,
         print: () => {
             if (!deliveryInvoiceData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            // Add printing logic here if needed
             window.print();
         },
     });
