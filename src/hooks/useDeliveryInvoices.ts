@@ -70,7 +70,8 @@ export const useDeliveryInvoiceRetrieve = (
 
 	return useQuery<DeliveryInvoice>(
 		['useDeliveryInvoiceRetrieve', id],
-		() => DeliveryInvoiceService.retrieve(id as number, serviceOptions?.baseURL),
+		() =>
+			DeliveryInvoiceService.retrieve(id as number, serviceOptions?.baseURL),
 		{
 			enabled: idType === 'number' || idType === 'string',
 			...options,
