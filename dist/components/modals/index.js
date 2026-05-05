@@ -19,6 +19,7 @@ __exportStar(require("./ViewCashBreakdown"), exports);
 __exportStar(require("./ViewCollectionReceiptModal"), exports);
 __exportStar(require("./ViewDailyItemSoldModal"), exports);
 __exportStar(require("./ViewDailySalesModal"), exports);
+__exportStar(require("./ViewDeliveryInvoiceModal"), exports);
 __exportStar(require("./ViewTransactionModal"), exports);
 __exportStar(require("./ViewUnsoldItemModal"), exports);
 __exportStar(require("./ViewXReadReportModal"), exports);

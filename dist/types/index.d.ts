@@ -2,6 +2,7 @@ export * from './Account';
 export * from './AttendanceLog';
 export * from './AttendanceSchedule';
 export * from './DeliveryReceipt';
+export * from './DeliveryInvoice';
 export * from './BirReport';
 export * from './Branch';
 export * from './BranchAssignment';

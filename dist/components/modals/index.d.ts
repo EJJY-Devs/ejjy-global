@@ -3,6 +3,7 @@ export * from './ViewCashBreakdown';
 export * from './ViewCollectionReceiptModal';
 export * from './ViewDailyItemSoldModal';
 export * from './ViewDailySalesModal';
+export * from './ViewDeliveryInvoiceModal';
 export * from './ViewTransactionModal';
 export * from './ViewUnsoldItemModal';
 export * from './ViewXReadReportModal';

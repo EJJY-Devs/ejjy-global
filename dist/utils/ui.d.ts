@@ -44,7 +44,7 @@ export type SCFields = {
     id: string;
     tin: string;
 };
-export declare const getDiscountFields: (discountCode: SpecialDiscountCode, fieldsJSON: string) => NaacFields | SPFields | PWDFields | undefined;
+export declare const getDiscountFields: (discountCode: SpecialDiscountCode, fieldsJSON: string) => NaacFields | SPFields | SCFields | undefined;
 export declare const isUserFromBranch: (userType: UserType) => boolean;
 export declare const isDualType: (product: Product) => string | undefined;
 export {};

@@ -18,6 +18,7 @@ __exportStar(require("./Account"), exports);
 __exportStar(require("./AttendanceLog"), exports);
 __exportStar(require("./AttendanceSchedule"), exports);
 __exportStar(require("./DeliveryReceipt"), exports);
+__exportStar(require("./DeliveryInvoice"), exports);
 __exportStar(require("./BirReport"), exports);
 __exportStar(require("./Branch"), exports);
 __exportStar(require("./BranchAssignment"), exports);
