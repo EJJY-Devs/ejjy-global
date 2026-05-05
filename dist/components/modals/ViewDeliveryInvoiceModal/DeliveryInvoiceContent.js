@@ -51,7 +51,7 @@ const DeliveryInvoiceContent = ({ deliveryInvoice, siteSettings, isReprint, }) =
                 alignItems: 'center',
                 justifyContent: 'space-between',
             } },
-            react_1.default.createElement("span", null, (deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.id) || globals_1.EMPTY_CELL),
+            react_1.default.createElement("span", null, (deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.or_number) || globals_1.EMPTY_CELL),
             react_1.default.createElement("span", null,
                 ((_c = deliveryInvoice === null || deliveryInvoice === void 0 ? void 0 : deliveryInvoice.products) === null || _c === void 0 ? void 0 : _c.length) || 0,
                 " item(s)")),

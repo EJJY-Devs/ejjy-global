@@ -20,6 +20,7 @@ export interface DeliveryInvoice {
     authorizer: User;
     creditor_account: Account;
     branch_machine: BranchMachine;
+    or_number: string;
     products: DeliveryInvoiceProduct[];
     created_at: string;
     updated_at?: string;

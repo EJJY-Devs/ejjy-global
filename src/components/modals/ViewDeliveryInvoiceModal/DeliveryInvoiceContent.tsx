@@ -81,7 +81,7 @@ export const DeliveryInvoiceContent = ({
 					justifyContent: 'space-between',
 				}}
 			>
-				<span>{deliveryInvoice?.id || EMPTY_CELL}</span>
+				<span>{deliveryInvoice?.or_number || EMPTY_CELL}</span>
 				<span>{deliveryInvoice?.products?.length || 0} item(s)</span>
 			</div>
 
