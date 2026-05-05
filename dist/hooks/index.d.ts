@@ -33,6 +33,8 @@ export * from './useDeliveryInvoiceRetrieve';
 export { default as useDeliveryInvoiceRetrieve } from './useDeliveryInvoiceRetrieve';
 export * from './useDeliveryInvoices';
 export { default as useDeliveryInvoices } from './useDeliveryInvoices';
+export * from './useViewDeliveryInvoiceModal';
+export { default as useViewDeliveryInvoiceModal } from './useViewDeliveryInvoiceModal';
 export * from './useDiscountOptions';
 export { default as useDiscountOptions } from './useDiscountOptions';
 export * from './useOrderOfPayments';

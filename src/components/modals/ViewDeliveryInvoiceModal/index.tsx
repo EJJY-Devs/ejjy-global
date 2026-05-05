@@ -2,10 +2,7 @@ import { PrinterOutlined } from '@ant-design/icons';
 import { Button, message, Modal, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { GENERIC_ERROR_MESSAGE } from '../../../globals';
-import {
-	usePdf,
-	useDeliveryInvoiceRetrieve,
-} from '../../../hooks';
+import { usePdf, useDeliveryInvoiceRetrieve } from '../../../hooks';
 import { ServiceOptions } from '../../../hooks/inteface';
 import { DeliveryInvoice, SiteSettings } from '../../../types';
 import { DeliveryInvoiceContent } from './DeliveryInvoiceContent';

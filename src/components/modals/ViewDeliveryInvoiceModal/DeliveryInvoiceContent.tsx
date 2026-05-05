@@ -71,7 +71,8 @@ export const DeliveryInvoiceContent = ({
 
 			<br />
 
-			<table style={{ width: '100%' }}>datetime_created
+			<table style={{ width: '100%' }}>
+				datetime_created
 				<tbody>
 					<tr>
 						<td style={{ width: 130 }}>DATE:</td>
