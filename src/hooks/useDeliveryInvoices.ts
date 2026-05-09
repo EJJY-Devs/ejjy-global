@@ -85,7 +85,14 @@ export const useDeliveryInvoiceCreate = (data?: Mutate) =>
 		AxiosErrorResponse,
 		CamelCasedProperties<Create>
 	>(
-		(body) => DeliveryInvoiceService.create(body as unknown as Create),
+		(body) =>
+			DeliveryInvoiceService.create({
+				teller_id: body.tellerId,
+				authorizer_id: body.authorizerId,
+				creditor_account_id: body.creditorAccountId,
+				branch_machine_id: body.branchMachineId,
+				products: body.products,
+			}),
 		data?.options as unknown as UseMutationOptions<
 			AxiosResponse<DeliveryInvoice>,
 			AxiosErrorResponse,

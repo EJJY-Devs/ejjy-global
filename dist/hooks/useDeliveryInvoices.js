@@ -32,6 +32,12 @@ const useDeliveryInvoiceRetrieve = (data) => {
     return (0, react_query_1.useQuery)(['useDeliveryInvoiceRetrieve', id], () => services_1.DeliveryInvoiceService.retrieve(id, serviceOptions === null || serviceOptions === void 0 ? void 0 : serviceOptions.baseURL), Object.assign({ enabled: idType === 'number' || idType === 'string' }, options));
 };
 exports.useDeliveryInvoiceRetrieve = useDeliveryInvoiceRetrieve;
-const useDeliveryInvoiceCreate = (data) => (0, react_query_1.useMutation)((body) => services_1.DeliveryInvoiceService.create(body), data === null || data === void 0 ? void 0 : data.options);
+const useDeliveryInvoiceCreate = (data) => (0, react_query_1.useMutation)((body) => services_1.DeliveryInvoiceService.create({
+    teller_id: body.tellerId,
+    authorizer_id: body.authorizerId,
+    creditor_account_id: body.creditorAccountId,
+    branch_machine_id: body.branchMachineId,
+    products: body.products,
+}), data === null || data === void 0 ? void 0 : data.options);
 exports.useDeliveryInvoiceCreate = useDeliveryInvoiceCreate;
 exports.default = useDeliveryInvoices;
