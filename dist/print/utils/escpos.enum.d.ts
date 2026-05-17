@@ -12,6 +12,7 @@ export declare enum EscPosCommands {
     UNDERLINE_ON = "\u001B-\u0001",
     UNDERLINE_OFF = "\u001B-\0",
     TEXT_DOUBLE = "\u001D!\u0011",
+    TEXT_DOUBLE_HEIGHT = "\u001D!\u0010",
     TEXT_NORMAL_SIZE = "\u001D!\0",
     FEED_LINES = "\u001Bd\u0005",
     LINE_SPACING = "\u001B3\u0010",

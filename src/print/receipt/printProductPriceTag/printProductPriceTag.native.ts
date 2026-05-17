@@ -18,9 +18,9 @@ export const printProductPriceTagNative = (
 
 	commands.push(EscPosCommands.INITIALIZE);
 
-	// Use normal size for multi-line names so the price is not cut off
+	// Use double height for single-line names; normal size for multi-line so price is not cut off
 	if (!hasMultipleLines) {
-		commands.push(EscPosCommands.TEXT_DOUBLE);
+		commands.push(EscPosCommands.TEXT_DOUBLE_HEIGHT);
 	}
 
 	for (const line of nameLines) {
@@ -28,8 +28,8 @@ export const printProductPriceTagNative = (
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	// Price — double size
-	commands.push(EscPosCommands.TEXT_DOUBLE);
+	// Price — double height, normal width (letters stay close together)
+	commands.push(EscPosCommands.TEXT_DOUBLE_HEIGHT);
 	commands.push(price);
 	commands.push(EscPosCommands.LINE_BREAK);
 

@@ -18,6 +18,7 @@ export enum EscPosCommands {
 	UNDERLINE_OFF = '\x1B\x2D\x00', // Underline OFF
 
 	TEXT_DOUBLE = '\x1D\x21\x11', // Double width and height text
+	TEXT_DOUBLE_HEIGHT = '\x1D\x21\x10', // Double height only (normal width)
 	TEXT_NORMAL_SIZE = '\x1D\x21\x00', // Normal size text
 
 	FEED_LINES = '\x1B\x64\x05', // Feed paper 5 lines

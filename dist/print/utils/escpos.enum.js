@@ -16,6 +16,7 @@ var EscPosCommands;
     EscPosCommands["UNDERLINE_ON"] = "\u001B-\u0001";
     EscPosCommands["UNDERLINE_OFF"] = "\u001B-\0";
     EscPosCommands["TEXT_DOUBLE"] = "\u001D!\u0011";
+    EscPosCommands["TEXT_DOUBLE_HEIGHT"] = "\u001D!\u0010";
     EscPosCommands["TEXT_NORMAL_SIZE"] = "\u001D!\0";
     EscPosCommands["FEED_LINES"] = "\u001Bd\u0005";
     EscPosCommands["LINE_SPACING"] = "\u001B3\u0010";
