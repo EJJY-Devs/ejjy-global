@@ -13,26 +13,28 @@ export const printProductPriceTagNative = (
 
 	const nameText = product.price_tag_print_details || EMPTY_CELL;
 	const price = formatInPeso(product.price_per_piece, PESO_SIGN);
+	const nameLines = nameText.split('\n');
+	const hasMultipleLines = nameLines.length > 1;
 
-	// Initialize printer
 	commands.push(EscPosCommands.INITIALIZE);
 
-	// Print name lines
-	const nameLines = nameText.split('\n');
+	// Use normal size for multi-line names so the price is not cut off
+	if (!hasMultipleLines) {
+		commands.push(EscPosCommands.TEXT_DOUBLE);
+	}
+
 	for (const line of nameLines) {
 		commands.push(line);
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
-	// Print price — right-aligned, double size
+	// Price — double size
 	commands.push(EscPosCommands.TEXT_DOUBLE);
-	commands.push(EscPosCommands.ALIGN_RIGHT);
 	commands.push(price);
 	commands.push(EscPosCommands.LINE_BREAK);
 
 	// Reset
 	commands.push(EscPosCommands.TEXT_NORMAL_SIZE);
-	commands.push(EscPosCommands.ALIGN_LEFT);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
