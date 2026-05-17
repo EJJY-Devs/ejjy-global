@@ -1,14 +1,7 @@
-import { Product, SiteSettings } from '../../types';
-import { formatInPeso } from '../../utils';
-import { EMPTY_CELL, PESO_SIGN } from '../helper-receipt';
-import { print } from '../helper-receipt';
-
-type PaperSettings = {
-	paperWidth: number;
-	paperHeight: number;
-	fontSize: number;
-	fontFamily: string;
-};
+import { Product, SiteSettings } from '../../../types';
+import { formatInPeso } from '../../../utils';
+import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
+import { PaperSettings } from './types';
 
 export const printProductPriceTagHtml = (
 	product: Product,
@@ -37,22 +30,4 @@ export const printProductPriceTagHtml = (
     <div style="font-size: 1.53em; text-align: right; flex-shrink: 0; margin-top: auto;">${price}</div>
 	</div>
 	`;
-};
-
-export const printProductPriceTag = (
-	product: Product,
-	siteSettings: SiteSettings,
-	paperSettings: PaperSettings,
-	onComplete?: () => void,
-) => {
-	const htmlData = printProductPriceTagHtml(
-		product,
-		siteSettings,
-		paperSettings,
-	);
-
-	// Print the HTML data
-	print(htmlData, 'Product Price Tag', onComplete, 'HTML');
-
-	return htmlData;
 };
