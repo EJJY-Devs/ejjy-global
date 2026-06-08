@@ -11,12 +11,16 @@ const printCollectionReceipt = (printCollectionReceiptDetails) => {
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printCollectionReceipt_html_1.printCollectionReceiptHtml)(printCollectionReceiptDetails) || '';
-        (0, helper_receipt_1.print)(data, 'Collection Receipt', undefined, printingType);
-        return data; // ✅ return HTML string
+        if (!printCollectionReceiptDetails.isPdf) {
+            (0, helper_receipt_1.print)(data, 'Collection Receipt', undefined, printingType);
+        }
+        return data;
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printCollectionReceipt_native_1.printCollectionReceiptNative)(printCollectionReceiptDetails);
-        (0, helper_receipt_1.print)(data, 'Collection Receipt', undefined, printingType);
+        if (!printCollectionReceiptDetails.isPdf) {
+            (0, helper_receipt_1.print)(data, 'Collection Receipt', undefined, printingType);
+        }
         return undefined;
     }
     return undefined;

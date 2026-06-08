@@ -25,7 +25,7 @@ export const ViewCollectionReceiptModal = ({
 				collectionReceipt,
 				siteSettings,
 				isPdf: true,
-			}),
+			}) as string | undefined,
 	});
 
 	const handlePrint = () => {

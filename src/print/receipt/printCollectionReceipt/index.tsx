@@ -14,11 +14,15 @@ export const printCollectionReceipt = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printCollectionReceiptHtml(printCollectionReceiptDetails) || '';
-		print(data as string, 'Collection Receipt', undefined, printingType);
-		return data as string; // ✅ return HTML string
+		if (!printCollectionReceiptDetails.isPdf) {
+			print(data as string, 'Collection Receipt', undefined, printingType);
+		}
+		return data as string;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printCollectionReceiptNative(printCollectionReceiptDetails);
-		print(data, 'Collection Receipt', undefined, printingType);
+		if (!printCollectionReceiptDetails.isPdf) {
+			print(data, 'Collection Receipt', undefined, printingType);
+		}
 		return undefined;
 	}
 
