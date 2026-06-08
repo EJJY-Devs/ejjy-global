@@ -46,7 +46,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            (0, print_1.printSalesInvoice)({
+            return (0, print_1.printSalesInvoice)({
                 transaction: transactionData,
                 siteSettings,
                 isReprint: true,

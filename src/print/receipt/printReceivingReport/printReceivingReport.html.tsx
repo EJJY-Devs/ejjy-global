@@ -17,7 +17,7 @@ export const printReceivingReportHtml = ({
 	const products = receivingReport?.receiving_voucher_products;
 
 	const data = `
-	<div className="container" style="${getPageStyle()}">
+	<div class="container" style="${getPageStyle()}">
 		${getHeader(siteSettings, undefined, 'RECEIVING REPORT', receivingReport.branch)}
 
 		<br />

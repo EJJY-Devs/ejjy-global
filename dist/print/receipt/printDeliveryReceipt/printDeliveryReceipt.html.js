@@ -10,7 +10,7 @@ const helper_receipt_1 = require("../../helper-receipt");
 const printDeliveryReceiptHtml = ({ deliveryReceipt, siteSettings, isPdf = false, }) => {
     const products = deliveryReceipt === null || deliveryReceipt === void 0 ? void 0 : deliveryReceipt.products;
     const data = `
-	<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
+	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'DELIVERY RECEIPT', deliveryReceipt.branch)}
 
 		<br />

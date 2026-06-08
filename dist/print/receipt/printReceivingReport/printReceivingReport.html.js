@@ -10,7 +10,7 @@ const helper_receipt_1 = require("../../helper-receipt");
 const printReceivingReportHtml = ({ receivingReport, siteSettings, isPdf = false, }) => {
     const products = receivingReport === null || receivingReport === void 0 ? void 0 : receivingReport.receiving_voucher_products;
     const data = `
-	<div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
+	<div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
 		${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'RECEIVING REPORT', receivingReport.branch)}
 
 		<br />

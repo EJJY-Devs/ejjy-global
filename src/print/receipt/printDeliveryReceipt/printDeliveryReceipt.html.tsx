@@ -17,7 +17,7 @@ export const printDeliveryReceiptHtml = ({
 	const products = deliveryReceipt?.products;
 
 	const data = `
-	<div className="container" style="${getPageStyle()}">
+	<div class="container" style="${getPageStyle()}">
 		${getHeader(siteSettings, undefined, 'DELIVERY RECEIPT', deliveryReceipt.branch)}
 
 		<br />

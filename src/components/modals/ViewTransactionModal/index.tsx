@@ -42,12 +42,12 @@ export const ViewTransactionModal = ({
 				return undefined;
 			}
 
-			printSalesInvoice({
+			return printSalesInvoice({
 				transaction: transactionData,
 				siteSettings,
 				isReprint: true,
 				isPdf: true,
-			});
+			}) as string | undefined;
 		},
 	});
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({

@@ -10,7 +10,7 @@ const helper_receipt_1 = require("../../helper-receipt");
 const printRequisitionSlipHtml = ({ requisitionSlip, siteSettings, user, isPdf = false, }) => {
     var _a, _b;
     const data = `
-        <div className="container" style="${(0, helper_receipt_1.getPageStyle)()}">
+        <div class="container" style="${(0, helper_receipt_1.getPageStyle)()}">
   ${(0, helper_receipt_1.getHeader)(siteSettings, undefined, 'REQUISITION SLIP', requisitionSlip.branch)}
 
     <br />

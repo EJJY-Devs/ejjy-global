@@ -10,12 +10,16 @@ const printUnsoldItem = (printUnsoldItemDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printingType === globals_1.printingTypes.HTML) {
         const htmlData = (0, printUnsoldItem_html_1.printUnsoldItemHtml)(printUnsoldItemDetails) || '';
-        (0, helper_receipt_1.print)(htmlData, 'Unsold Item', undefined, printingType);
-        return htmlData; // ✅ return HTML string
+        if (!printUnsoldItemDetails.isPdf) {
+            (0, helper_receipt_1.print)(htmlData, 'Unsold Item', undefined, printingType);
+        }
+        return htmlData;
     }
     else if (printingType === globals_1.printingTypes.NATIVE) {
         const nativeData = (0, printUnsoldItem_native_1.printUnsoldItemNative)(printUnsoldItemDetails);
-        (0, helper_receipt_1.print)(nativeData, 'Unsold Item', undefined, printingType);
+        if (!printUnsoldItemDetails.isPdf) {
+            (0, helper_receipt_1.print)(nativeData, 'Unsold Item', undefined, printingType);
+        }
         return undefined;
     }
     return undefined;

@@ -14,11 +14,15 @@ export const printAdjustmentSlip = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printAdjustmentSlipHtml(printAdjustmentSlipDetails) || '';
-		print(data as string, 'Adjustment Slip', undefined, printingType);
-		return data as string; // ✅ return HTML string
+		if (!printAdjustmentSlipDetails.isPdf) {
+			print(data as string, 'Adjustment Slip', undefined, printingType);
+		}
+		return data as string;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printAdjustmentSlipNative(printAdjustmentSlipDetails);
-		print(data, 'Adjustment Slip', undefined, printingType);
+		if (!printAdjustmentSlipDetails.isPdf) {
+			print(data, 'Adjustment Slip', undefined, printingType);
+		}
 		return undefined;
 	}
 

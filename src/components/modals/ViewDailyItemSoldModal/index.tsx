@@ -1,6 +1,6 @@
-import { FileTextOutlined, PrinterOutlined } from '@ant-design/icons';
+import { PrinterOutlined } from '@ant-design/icons';
 import { Button, Modal, Spin } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
 import { printDailyItemSold } from '../../../print';
@@ -35,9 +35,6 @@ export const ViewDailyItemSoldModal = ({
 	reportDate,
 	onClose,
 }: Props) => {
-	// STATES
-	const [isCreatingTxt, setIsCreatingTxt] = useState<boolean>(false);
-
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `DailyItemSoldSummary_${new Date().toISOString().split('T')[0]}`,
@@ -73,24 +70,12 @@ export const ViewDailyItemSoldModal = ({
 		});
 	};
 
-	const handleCreateTxt = () => {
-		setIsCreatingTxt(true);
-		// TODO: Implement createDailyItemSoldTxt when TXT printing is needed
-		console.log('Create daily item sold TXT:', {
-			dailyItemSoldSummary,
-			branch,
-			branchMachine,
-			user,
-		});
-		setIsCreatingTxt(false);
-	};
-
 	return (
 		<Modal
 			footer={[
 				<Button
 					key="print"
-					disabled={isLoadingPdf || isCreatingTxt || loading}
+					disabled={isLoadingPdf || loading}
 					icon={<PrinterOutlined />}
 					type="primary"
 					onClick={handlePrint}
@@ -104,16 +89,6 @@ export const ViewDailyItemSoldModal = ({
 					isLoading={isLoadingPdf}
 					previewPdf={previewPdf}
 				/>,
-				<Button
-					key="txt"
-					disabled={isLoadingPdf || isCreatingTxt || loading}
-					icon={<FileTextOutlined />}
-					loading={isCreatingTxt}
-					type="primary"
-					onClick={handleCreateTxt}
-				>
-					Create TXT
-				</Button>,
 			]}
 			title="Daily Item Sold"
 			width={425}

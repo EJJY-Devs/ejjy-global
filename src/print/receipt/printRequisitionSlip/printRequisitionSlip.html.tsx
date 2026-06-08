@@ -15,7 +15,7 @@ export const printRequisitionSlipHtml = ({
 	isPdf = false,
 }: PrintRequisitionSlip) => {
 	const data = `
-        <div className="container" style="${getPageStyle()}">
+        <div class="container" style="${getPageStyle()}">
   ${getHeader(siteSettings, undefined, 'REQUISITION SLIP', requisitionSlip.branch)}
 
     <br />

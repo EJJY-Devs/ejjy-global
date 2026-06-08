@@ -12,11 +12,15 @@ export const printUnsoldItem = (
 
 	if (printingType === printingTypes.HTML) {
 		const htmlData = printUnsoldItemHtml(printUnsoldItemDetails) || '';
-		print(htmlData, 'Unsold Item', undefined, printingType);
-		return htmlData; // ✅ return HTML string
+		if (!printUnsoldItemDetails.isPdf) {
+			print(htmlData, 'Unsold Item', undefined, printingType);
+		}
+		return htmlData;
 	} else if (printingType === printingTypes.NATIVE) {
 		const nativeData = printUnsoldItemNative(printUnsoldItemDetails);
-		print(nativeData, 'Unsold Item', undefined, printingType);
+		if (!printUnsoldItemDetails.isPdf) {
+			print(nativeData, 'Unsold Item', undefined, printingType);
+		}
 		return undefined;
 	}
 
