@@ -12,6 +12,10 @@ export const printOrderOfPayment = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printOrderOfPaymentDetails.isPdf) {
+		return printOrderOfPaymentHtml(printOrderOfPaymentDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
@@ -20,9 +24,7 @@ export const printOrderOfPayment = (
 		data = printOrderOfPaymentNative(printOrderOfPaymentDetails);
 	}
 
-	if (!printOrderOfPaymentDetails.isPdf) {
-		print(data, 'Order of Payment', undefined, printingType);
-	}
+	print(data, 'Order of Payment', undefined, printingType);
 
 	return printingType === printingTypes.HTML ? (data as string) : undefined;
 };

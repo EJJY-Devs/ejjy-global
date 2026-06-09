@@ -63,6 +63,6 @@ const printUnsoldItemHtml = ({ unsoldItemSummary, branch, branchMachine, user, i
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'Unsold Item Summary');
+    return data;
 };
 exports.printUnsoldItemHtml = printUnsoldItemHtml;

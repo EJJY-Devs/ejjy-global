@@ -8,6 +8,9 @@ const printZReadReport_native_1 = require("./printZReadReport.native");
 const printZReadReport_html_1 = require("./printZReadReport.html");
 const printZReadReport = (printZReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
+    if (printZReadReportDetails.isPdf) {
+        return (0, printZReadReport_html_1.printZReadReportHtml)(printZReadReportDetails) || '';
+    }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printZReadReport_html_1.printZReadReportHtml)(printZReadReportDetails) || '';

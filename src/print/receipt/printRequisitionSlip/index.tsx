@@ -10,6 +10,10 @@ export const printRequisitionSlip = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printRequisitionSlipDetails.isPdf) {
+		return printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
+	}
+
 	if (printingType === printingTypes.HTML) {
 		const data = printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
 		if (!printRequisitionSlipDetails.isPdf) {

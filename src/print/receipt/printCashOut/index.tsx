@@ -9,6 +9,10 @@ export const printCashOut = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (params.isPdf) {
+		return printCashOutHtml(params) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {

@@ -8,4 +8,4 @@ export declare const UnsoldItemContent: ({ unsoldItemSummary, branch, branchMach
     user?: User | undefined;
     reportDate?: string | undefined;
 }) => React.JSX.Element;
-export declare const printUnsoldItemHtml: ({ unsoldItemSummary, branch, branchMachine, user, isPdf, reportDate, }: PrintUnsoldItem) => string | undefined;
+export declare const printUnsoldItemHtml: ({ unsoldItemSummary, branch, branchMachine, user, isPdf, reportDate, }: PrintUnsoldItem) => string;

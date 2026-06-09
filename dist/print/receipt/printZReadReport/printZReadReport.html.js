@@ -14,6 +14,6 @@ const printZReadReportHtml = ({ report, siteSettings, user, isPdf, }) => {
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'ZRead Report');
+    return data;
 };
 exports.printZReadReportHtml = printZReadReportHtml;

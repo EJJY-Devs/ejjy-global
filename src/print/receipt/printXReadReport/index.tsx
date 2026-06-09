@@ -10,6 +10,10 @@ export const printXReadReport = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printXReadReportDetails.isPdf) {
+		return printXReadReportHtml(printXReadReportDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {

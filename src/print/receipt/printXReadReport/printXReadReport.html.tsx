@@ -4,7 +4,6 @@ import { XReadContent } from '../../../components/modals/ViewXReadReportModal/XR
 import {
 	appendHtmlElement,
 	getPageStyleObject,
-	print,
 } from '../../helper-receipt';
 import { PrintXReadReport } from './types';
 
@@ -29,5 +28,5 @@ export const printXReadReportHtml = ({
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'XRead Report');
+	return data;
 };

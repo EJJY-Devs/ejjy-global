@@ -10,6 +10,10 @@ export const printReceivingReport = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printReceivingReportDetails.isPdf) {
+		return printReceivingReportHtml(printReceivingReportDetails) || '';
+	}
+
 	if (printingType === printingTypes.HTML) {
 		const data = printReceivingReportHtml(printReceivingReportDetails) || '';
 		if (!printReceivingReportDetails.isPdf) {

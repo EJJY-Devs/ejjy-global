@@ -14,6 +14,6 @@ const printDailySalesHtml = ({ dailySales, siteSettings, user, isPdf = false, })
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'Daily Sales');
+    return data;
 };
 exports.printDailySalesHtml = printDailySalesHtml;

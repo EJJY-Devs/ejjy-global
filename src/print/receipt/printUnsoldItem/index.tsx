@@ -10,6 +10,10 @@ export const printUnsoldItem = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printUnsoldItemDetails.isPdf) {
+		return printUnsoldItemHtml(printUnsoldItemDetails) || '';
+	}
+
 	if (printingType === printingTypes.HTML) {
 		const htmlData = printUnsoldItemHtml(printUnsoldItemDetails) || '';
 		if (!printUnsoldItemDetails.isPdf) {

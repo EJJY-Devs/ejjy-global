@@ -4,7 +4,6 @@ import { Branch, BranchMachine, User } from '../../../types';
 import {
 	appendHtmlElement,
 	getPageStyleObject,
-	print,
 } from '../../helper-receipt';
 import { PrintUnsoldItem, UnsoldItemSummary } from './types';
 
@@ -125,5 +124,5 @@ export const printUnsoldItemHtml = ({
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'Unsold Item Summary');
+	return data;
 };

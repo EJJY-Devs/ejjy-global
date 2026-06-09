@@ -8,6 +8,9 @@ const printUnsoldItem_native_1 = require("./printUnsoldItem.native");
 const printUnsoldItem_html_1 = require("./printUnsoldItem.html");
 const printUnsoldItem = (printUnsoldItemDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
+    if (printUnsoldItemDetails.isPdf) {
+        return (0, printUnsoldItem_html_1.printUnsoldItemHtml)(printUnsoldItemDetails) || '';
+    }
     if (printingType === globals_1.printingTypes.HTML) {
         const htmlData = (0, printUnsoldItem_html_1.printUnsoldItemHtml)(printUnsoldItemDetails) || '';
         if (!printUnsoldItemDetails.isPdf) {

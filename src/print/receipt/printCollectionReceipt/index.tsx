@@ -10,6 +10,10 @@ export const printCollectionReceipt = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printCollectionReceiptDetails.isPdf) {
+		return printCollectionReceiptHtml(printCollectionReceiptDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {

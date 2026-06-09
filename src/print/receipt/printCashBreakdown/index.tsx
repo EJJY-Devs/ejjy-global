@@ -10,12 +10,16 @@ export const printCashBreakdown = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printCashBreakdownDetails.isPdf) {
+		return printCashBreakdownHtml(printCashBreakdownDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
 		data = printCashBreakdownHtml(printCashBreakdownDetails) || '';
 		print(data as string, 'Cash Breakdown', undefined, printingType);
-		return data as string; // ✅ return HTML string
+		return data as string;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printCashBreakdownNative(printCashBreakdownDetails);
 		print(data, 'Cash Breakdown', undefined, printingType);

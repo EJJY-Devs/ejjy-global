@@ -14,6 +14,6 @@ const printXReadReportHtml = ({ report, siteSettings, user, isPdf = false, }) =>
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'XRead Report');
+    return data;
 };
 exports.printXReadReportHtml = printXReadReportHtml;

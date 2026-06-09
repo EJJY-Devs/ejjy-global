@@ -10,6 +10,10 @@ export const printSalesInvoice = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printSalesInvoiceDetails.isPdf) {
+		return printSalesInvoiceHtml(printSalesInvoiceDetails);
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
@@ -18,9 +22,7 @@ export const printSalesInvoice = (
 		data = printSalesInvoiceNative(printSalesInvoiceDetails);
 	}
 
-	if (!printSalesInvoiceDetails.isPdf) {
-		print(data, 'Sales Invoice', undefined, printingType);
-	}
+	print(data, 'Sales Invoice', undefined, printingType);
 
 	return printingType === printingTypes.HTML ? (data as string) : undefined;
 };

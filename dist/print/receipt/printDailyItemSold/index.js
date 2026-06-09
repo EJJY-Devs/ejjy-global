@@ -8,6 +8,9 @@ const printDailyItemSold_native_1 = require("./printDailyItemSold.native");
 const printDailyItemSold_html_1 = require("./printDailyItemSold.html");
 const printDailyItemSold = (printDailyItemSoldDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
+    if (printDailyItemSoldDetails.isPdf) {
+        return (0, printDailyItemSold_html_1.printDailyItemSoldHtml)(printDailyItemSoldDetails) || '';
+    }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {
         data = (0, printDailyItemSold_html_1.printDailyItemSoldHtml)(printDailyItemSoldDetails) || '';

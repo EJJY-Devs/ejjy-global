@@ -5,7 +5,6 @@ import { PrintZReadReport } from './types';
 import {
 	appendHtmlElement,
 	getPageStyleObject,
-	print,
 } from '../../helper-receipt';
 
 export const printZReadReportHtml = ({
@@ -29,5 +28,5 @@ export const printZReadReportHtml = ({
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'ZRead Report');
+	return data;
 };

@@ -14,6 +14,6 @@ const printDailyItemSoldHtml = ({ dailyItemSoldSummary, branch, branchMachine, u
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }
-    (0, helper_receipt_1.print)(data, 'Daily Item Sold Summary');
+    return data;
 };
 exports.printDailyItemSoldHtml = printDailyItemSoldHtml;

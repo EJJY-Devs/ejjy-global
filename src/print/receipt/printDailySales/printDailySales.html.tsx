@@ -4,7 +4,6 @@ import { DailySalesContent } from '../../../components/modals/ViewDailySalesModa
 import {
 	appendHtmlElement,
 	getPageStyleObject,
-	print,
 } from '../../helper-receipt';
 import { PrintDailySales } from './types';
 
@@ -29,5 +28,5 @@ export const printDailySalesHtml = ({
 		return appendHtmlElement(data);
 	}
 
-	print(data, 'Daily Sales');
+	return data;
 };

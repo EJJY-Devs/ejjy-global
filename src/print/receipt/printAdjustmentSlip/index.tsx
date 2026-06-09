@@ -10,6 +10,10 @@ export const printAdjustmentSlip = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printAdjustmentSlipDetails.isPdf) {
+		return printAdjustmentSlipHtml(printAdjustmentSlipDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {

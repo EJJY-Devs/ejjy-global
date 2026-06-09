@@ -10,6 +10,10 @@ export const printDailySales = (
 ): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
+	if (printDailySalesDetails.isPdf) {
+		return printDailySalesHtml(printDailySalesDetails) || '';
+	}
+
 	let data: string | string[] = '';
 
 	if (printingType === printingTypes.HTML) {
