@@ -7,21 +7,22 @@ import { PrintDeliveryReceipt } from './types';
 
 export const printDeliveryReceipt = (
 	printDeliveryReceiptDetails: PrintDeliveryReceipt,
-) => {
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
-	let data: string | string[] = '';
-
 	if (printingType === printingTypes.HTML) {
-		data = printDeliveryReceiptHtml(printDeliveryReceiptDetails) || '';
+		const data = printDeliveryReceiptHtml(printDeliveryReceiptDetails) || '';
+		if (!printDeliveryReceiptDetails.isPdf) {
+			print(data, 'Delivery Receipt', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
-		data = printDeliveryReceiptNative(printDeliveryReceiptDetails);
+		const data = printDeliveryReceiptNative(printDeliveryReceiptDetails);
+		if (!printDeliveryReceiptDetails.isPdf) {
+			print(data, 'Delivery Receipt', undefined, printingType);
+		}
+		return undefined;
 	}
 
-	// Only call print if NOT generating PDF
-	if (!printDeliveryReceiptDetails.isPdf) {
-		print(data, 'Delivery Receipt', undefined, printingType);
-	}
-
-	return data;
+	return undefined;
 };

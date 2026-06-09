@@ -1,2 +1,2 @@
 import { PrintSalesInvoice } from './types';
-export declare const printSalesInvoice: (printSalesInvoiceDetails: PrintSalesInvoice) => string | string[];
+export declare const printSalesInvoice: (printSalesInvoiceDetails: PrintSalesInvoice) => string | undefined;

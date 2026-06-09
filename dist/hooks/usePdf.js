@@ -32,15 +32,19 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
             // Correctly resolving the type of dataHtml here.
             const dataHtml = typeof print === 'function' ? print() : undefined;
             if (dataHtml instanceof Promise) {
-                // If dataHtml is a Promise, await it.
                 const resolvedDataHtml = yield dataHtml;
                 if (resolvedDataHtml) {
                     performPdfOperation(resolvedDataHtml, actionCallback);
                 }
+                else {
+                    setLoadingPdf(false);
+                }
             }
             else if (typeof dataHtml === 'string') {
-                // If dataHtml is a string, process it directly.
                 performPdfOperation(dataHtml, actionCallback);
+            }
+            else {
+                setLoadingPdf(false);
             }
         }
         catch (error) {
@@ -71,8 +75,12 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
             pdf.html(dataHtml, Object.assign(Object.assign({ margin: 10 }, htmlOptions), { callback: (instance) => {
-                    callback(instance);
-                    setLoadingPdf(false);
+                    try {
+                        callback(instance);
+                    }
+                    finally {
+                        setLoadingPdf(false);
+                    }
                 } }));
         }, TIMEOUT_MS);
     };

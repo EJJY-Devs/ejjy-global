@@ -70,10 +70,12 @@ exports.getHeader = getHeader;
 const getFooter = (siteSettings) => server_1.default.renderToStaticMarkup(react_1.default.createElement(components_1.ReceiptFooter, { siteSettings: siteSettings }));
 exports.getFooter = getFooter;
 const getPageStyle = (extraStyle = '') => {
-    return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
+    const fontSize = printerFontSize || '10';
+    const fontFamily = printerFontFamily || 'monospace';
+    return `width: 100%; font-size: ${fontSize}pt; font-family: ${fontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
 };
 exports.getPageStyle = getPageStyle;
-const getPageStyleObject = (extraStyle) => (Object.assign({ width: '100%', fontSize: `${printerFontSize}pt`, fontFamily: printerFontFamily, lineHeight: '100%', position: 'relative' }, extraStyle));
+const getPageStyleObject = (extraStyle) => (Object.assign({ width: '100%', fontSize: `${printerFontSize || '10'}pt`, fontFamily: printerFontFamily || 'monospace', lineHeight: '100%', position: 'relative' }, extraStyle));
 exports.getPageStyleObject = getPageStyleObject;
 const appendHtmlElement = (data) => `
   <html lang="en">

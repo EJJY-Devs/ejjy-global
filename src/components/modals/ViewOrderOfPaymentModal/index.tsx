@@ -22,7 +22,7 @@ export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 			printOrderOfPayment({
 				orderOfPayment,
 				isPdf: true,
-			} as PrintOrderOfPaymentType),
+			} as PrintOrderOfPaymentType) as string | undefined,
 	});
 
 	const handlePrint = () => {

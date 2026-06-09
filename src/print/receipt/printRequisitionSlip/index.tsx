@@ -7,21 +7,22 @@ import { PrintRequisitionSlip } from './types';
 
 export const printRequisitionSlip = (
 	printRequisitionSlipDetails: PrintRequisitionSlip,
-) => {
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
-	let data: string | string[] = '';
-
 	if (printingType === printingTypes.HTML) {
-		data = printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
+		const data = printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
+		if (!printRequisitionSlipDetails.isPdf) {
+			print(data, 'Requisition Slip', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
-		data = printRequisitionSlipNative(printRequisitionSlipDetails);
+		const data = printRequisitionSlipNative(printRequisitionSlipDetails);
+		if (!printRequisitionSlipDetails.isPdf) {
+			print(data, 'Requisition Slip', undefined, printingType);
+		}
+		return undefined;
 	}
 
-	// Only call print if NOT generating PDF
-	if (!printRequisitionSlipDetails.isPdf) {
-		print(data, 'Requisition Slip', undefined, printingType);
-	}
-
-	return data;
+	return undefined;
 };

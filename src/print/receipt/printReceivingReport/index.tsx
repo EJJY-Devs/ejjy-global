@@ -7,22 +7,22 @@ import { PrintReceivingReport } from './types';
 
 export const printReceivingReport = (
 	printReceivingReportDetails: PrintReceivingReport,
-) => {
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
-	let data: string | string[] = '';
-
 	if (printingType === printingTypes.HTML) {
-		data = printReceivingReportHtml(printReceivingReportDetails) || '';
+		const data = printReceivingReportHtml(printReceivingReportDetails) || '';
+		if (!printReceivingReportDetails.isPdf) {
+			print(data, 'Receiving Report', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
-		data = printReceivingReportNative(printReceivingReportDetails);
+		const data = printReceivingReportNative(printReceivingReportDetails);
+		if (!printReceivingReportDetails.isPdf) {
+			print(data, 'Receiving Report', undefined, printingType);
+		}
+		return undefined;
 	}
 
-	// Only call print if NOT generating PDF
-	if (!printReceivingReportDetails.isPdf) {
-		print(data, 'Receiving Report', undefined, printingType);
-	}
-
-	// Return data for PDF generation or other uses
-	return data;
+	return undefined;
 };

@@ -15,10 +15,9 @@ const printSalesInvoice = (printSalesInvoiceDetails) => {
     else if (printingType === globals_1.printingTypes.NATIVE) {
         data = (0, printSalesInvoice_native_1.printSalesInvoiceNative)(printSalesInvoiceDetails);
     }
-    // Only call print if NOT generating PDF
     if (!printSalesInvoiceDetails.isPdf) {
         (0, helper_receipt_1.print)(data, 'Sales Invoice', undefined, printingType);
     }
-    return data;
+    return printingType === globals_1.printingTypes.HTML ? data : undefined;
 };
 exports.printSalesInvoice = printSalesInvoice;

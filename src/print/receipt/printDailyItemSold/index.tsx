@@ -14,11 +14,15 @@ export const printDailyItemSold = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printDailyItemSoldHtml(printDailyItemSoldDetails) || '';
-		print(data, 'Daily Item Sold', undefined, printingType);
-		return data; // ✅ return HTML string
+		if (!printDailyItemSoldDetails.isPdf) {
+			print(data, 'Daily Item Sold', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printDailyItemSoldNative(printDailyItemSoldDetails);
-		print(data, 'Daily Item Sold', undefined, printingType);
+		if (!printDailyItemSoldDetails.isPdf) {
+			print(data, 'Daily Item Sold', undefined, printingType);
+		}
 		return undefined;
 	}
 

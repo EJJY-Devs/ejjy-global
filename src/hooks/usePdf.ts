@@ -55,14 +55,16 @@ const usePdf = ({
 			const dataHtml = typeof print === 'function' ? print() : undefined;
 
 			if (dataHtml instanceof Promise) {
-				// If dataHtml is a Promise, await it.
 				const resolvedDataHtml = await dataHtml;
 				if (resolvedDataHtml) {
 					performPdfOperation(resolvedDataHtml, actionCallback);
+				} else {
+					setLoadingPdf(false);
 				}
 			} else if (typeof dataHtml === 'string') {
-				// If dataHtml is a string, process it directly.
 				performPdfOperation(dataHtml, actionCallback);
+			} else {
+				setLoadingPdf(false);
 			}
 		} catch (error) {
 			console.error(error);
@@ -107,8 +109,11 @@ const usePdf = ({
 				margin: 10,
 				...htmlOptions,
 				callback: (instance) => {
-					callback(instance);
-					setLoadingPdf(false);
+					try {
+						callback(instance);
+					} finally {
+						setLoadingPdf(false);
+					}
 				},
 			});
 		}, TIMEOUT_MS);

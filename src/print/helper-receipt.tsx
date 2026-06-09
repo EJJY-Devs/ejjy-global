@@ -81,15 +81,17 @@ export const getFooter = (siteSettings: SiteSettings) =>
 	);
 
 export const getPageStyle = (extraStyle = '') => {
-	return `width: 100%; font-size: ${printerFontSize}pt; font-family: ${printerFontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
+	const fontSize = printerFontSize || '10';
+	const fontFamily = printerFontFamily || 'monospace';
+	return `width: 100%; font-size: ${fontSize}pt; font-family: ${fontFamily}, monospace; line-height: 100%; position: relative; ${extraStyle}`;
 };
 
 export const getPageStyleObject = (
 	extraStyle?: React.CSSProperties,
 ): React.CSSProperties => ({
 	width: '100%',
-	fontSize: `${printerFontSize}pt`,
-	fontFamily: printerFontFamily,
+	fontSize: `${printerFontSize || '10'}pt`,
+	fontFamily: printerFontFamily || 'monospace',
 	lineHeight: '100%',
 	position: 'relative',
 	...extraStyle,

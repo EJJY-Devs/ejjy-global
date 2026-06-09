@@ -14,11 +14,15 @@ export const printZReadReport = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printZReadReportHtml(printZReadReportDetails) || '';
-		print(data, 'ZRead Report', undefined, printingType);
-		return data; // ✅ Return HTML string
+		if (!printZReadReportDetails.isPdf) {
+			print(data, 'ZRead Report', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printZReadReportNative(printZReadReportDetails);
-		print(data, 'ZRead Report', undefined, printingType);
-		return undefined; // ✅ Native printing doesn't need to return anything
+		if (!printZReadReportDetails.isPdf) {
+			print(data, 'ZRead Report', undefined, printingType);
+		}
+		return undefined;
 	}
 };

@@ -47,7 +47,7 @@ export const ViewTransactionModal = ({
 				siteSettings,
 				isReprint: true,
 				isPdf: true,
-			}) as string | undefined;
+			});
 		},
 	});
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({

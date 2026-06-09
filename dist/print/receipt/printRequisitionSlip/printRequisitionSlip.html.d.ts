@@ -1,2 +1,2 @@
 import { PrintRequisitionSlip } from './types';
-export declare const printRequisitionSlipHtml: ({ requisitionSlip, siteSettings, user, isPdf, }: PrintRequisitionSlip) => string | undefined;
+export declare const printRequisitionSlipHtml: ({ requisitionSlip, user, isPdf, }: PrintRequisitionSlip) => string;

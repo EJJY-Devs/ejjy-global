@@ -7,7 +7,7 @@ import { PrintSalesInvoice } from './types';
 
 export const printSalesInvoice = (
 	printSalesInvoiceDetails: PrintSalesInvoice,
-) => {
+): string | undefined => {
 	const printingType = getAppReceiptPrintingType();
 
 	let data: string | string[] = '';
@@ -18,10 +18,9 @@ export const printSalesInvoice = (
 		data = printSalesInvoiceNative(printSalesInvoiceDetails);
 	}
 
-	// Only call print if NOT generating PDF
 	if (!printSalesInvoiceDetails.isPdf) {
 		print(data, 'Sales Invoice', undefined, printingType);
 	}
 
-	return data;
+	return printingType === printingTypes.HTML ? (data as string) : undefined;
 };

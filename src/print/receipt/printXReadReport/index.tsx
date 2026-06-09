@@ -14,12 +14,15 @@ export const printXReadReport = (
 
 	if (printingType === printingTypes.HTML) {
 		data = printXReadReportHtml(printXReadReportDetails) || '';
-		print(data, 'XRead Report', undefined, printingType);
-		return data; // ✅ return HTML string
+		if (!printXReadReportDetails.isPdf) {
+			print(data, 'XRead Report', undefined, printingType);
+		}
+		return data;
 	} else if (printingType === printingTypes.NATIVE) {
 		data = printXReadReportNative(printXReadReportDetails);
-		print(data, 'XRead Report', undefined, printingType);
-		// native printers don’t need to return anything
+		if (!printXReadReportDetails.isPdf) {
+			print(data, 'XRead Report', undefined, printingType);
+		}
 		return undefined;
 	}
 };
