@@ -47,46 +47,31 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 	};
 
 	return (
-		<>
-			<div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+		<div className="font-mono text-sm">
+			<div className="text-center font-bold">
 				{storeName ? (
 					<div style={{ whiteSpace: 'pre-line' }}>{storeName}</div>
 				) : null}
-				{branchName ? (
-					<div style={{ whiteSpace: 'pre' }}>{`${branchName} `}</div>
-				) : null}
+				{branchName ? <div>{branchName}</div> : null}
 			</div>
+
 			<br />
-			<div
-				style={{
-					width: '100%',
-					display: 'flex',
-					justifyContent: 'space-between',
-					columnGap: 10,
-					fontWeight: 'bold',
-				}}
-			>
-				<div style={{ width: '100%', display: 'flex' }}>
-					<span style={{ flexShrink: 0 }}>OP No:</span>
+
+			<div className="flex w-full justify-between gap-2 font-bold">
+				<div className="flex w-full">
+					<span className="shrink-0">OP No:</span>
 					<div
-						style={{
-							flexGrow: 1,
-							borderBottom: '2px solid black',
-							textAlign: 'center',
-						}}
+						style={{ borderBottom: '2px solid black' }}
+						className="grow text-center"
 					>
 						{opNo}
 					</div>
 				</div>
-
-				<div style={{ width: '100%', display: 'flex' }}>
-					<span style={{ flexShrink: 0 }}>Date:</span>
+				<div className="flex w-full">
+					<span className="shrink-0">Date:</span>
 					<div
-						style={{
-							flexGrow: 1,
-							borderBottom: '2px solid black',
-							textAlign: 'center',
-						}}
+						style={{ borderBottom: '2px solid black' }}
+						className="grow text-center"
 					>
 						{date}
 					</div>
@@ -96,15 +81,7 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 			<br />
 			<br />
 
-			<div
-				style={{
-					fontSize: '1.5em',
-					fontWeight: 'bold',
-					textAlign: 'center',
-				}}
-			>
-				ORDER OF PAYMENT
-			</div>
+			<div className="text-center text-xl font-bold">ORDER OF PAYMENT</div>
 
 			<br />
 
@@ -133,17 +110,9 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 			<br />
 			<br />
 
-			<div
-				style={{
-					padding: '0 12px',
-					width: '60%',
-					borderTop: '2px solid black',
-					float: 'right',
-					textAlign: 'center',
-				}}
-			>
+			<div className="float-right w-3/5 text-center" style={{ borderTop: '2px solid black', padding: '0 12px' }}>
 				Manager/Authorized Official
 			</div>
-		</>
+		</div>
 	);
 };

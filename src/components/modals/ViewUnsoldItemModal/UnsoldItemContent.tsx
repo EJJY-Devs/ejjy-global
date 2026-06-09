@@ -48,6 +48,9 @@ export const UnsoldItemContent = ({
 				<br />
 				<strong>UNSOLD ITEMS</strong>
 				<br />
+				<br />
+				<strong>Report Date:</strong>
+				<br />
 				<span>{reportDate}</span>
 				<br />
 				<br />
@@ -68,7 +71,7 @@ export const UnsoldItemContent = ({
 				)}
 
 				<br />
-				<span>PDT: {currentDateTime}</span>
+				<span>Print Details: {currentDateTime}</span>
 				<br />
 				<br />
 			</div>

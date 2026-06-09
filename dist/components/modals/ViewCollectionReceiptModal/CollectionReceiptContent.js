@@ -24,12 +24,12 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
     else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.PARTIAL_PAYMENT) {
         description = 'Partial Payment';
     }
-    return (react_1.default.createElement(react_1.default.Fragment, null,
+    return (react_1.default.createElement("div", { className: "font-mono text-sm" },
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.branch_machine }),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "[Collection Receipt]"),
+        react_1.default.createElement("div", { className: "text-center" }, "[Collection Receipt]"),
         react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Received payment from"),
+        react_1.default.createElement("div", { className: "text-center" }, "Received payment from"),
         react_1.default.createElement(ItemBlock_1.ItemBlock, { items: [
                 {
                     label: 'Name',
@@ -92,18 +92,14 @@ const CollectionReceiptContent = ({ collectionReceipt, siteSettings, }) => {
         react_1.default.createElement("div", null,
             "PDT: ",
             (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-        react_1.default.createElement("div", { style: {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-            } },
+        react_1.default.createElement("div", { className: "flex items-center justify-between" },
             react_1.default.createElement("span", null,
                 "ID: ",
                 (collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.reference_number) || globals_1.EMPTY_CELL),
-            react_1.default.createElement("span", { style: { textAlign: 'right' } }, (_c = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.created_by) === null || _c === void 0 ? void 0 : _c.employee_id)),
+            react_1.default.createElement("span", null, (_c = collectionReceipt === null || collectionReceipt === void 0 ? void 0 : collectionReceipt.created_by) === null || _c === void 0 ? void 0 : _c.employee_id)),
         react_1.default.createElement("br", null),
         react_1.default.createElement(Printing_1.ReceiptFooter, { siteSettings: siteSettings }),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "This Document Is Not Valid For Claim Of Input Tax"),
-        react_1.default.createElement("div", { style: { textAlign: 'center' } }, "Thank You!")));
+        react_1.default.createElement("div", { className: "text-center" }, "This Document Is Not Valid For Claim Of Input Tax"),
+        react_1.default.createElement("div", { className: "text-center" }, "Thank You!")));
 };
 exports.CollectionReceiptContent = CollectionReceiptContent;

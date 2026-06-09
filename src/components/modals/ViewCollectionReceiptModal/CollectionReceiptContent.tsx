@@ -37,16 +37,16 @@ export const CollectionReceiptContent = ({
 	}
 
 	return (
-		<>
+		<div className="font-mono text-sm">
 			<ReceiptHeader branchMachine={collectionReceipt?.branch_machine} />
 
 			<br />
 
-			<div style={{ textAlign: 'center' }}>[Collection Receipt]</div>
+			<div className="text-center">[Collection Receipt]</div>
 
 			<br />
 
-			<div style={{ textAlign: 'center' }}>Received payment from</div>
+			<div className="text-center">Received payment from</div>
 
 			<ItemBlock
 				items={[
@@ -118,27 +118,19 @@ export const CollectionReceiptContent = ({
 
 			<div>GDT: {formatDateTime(collectionReceipt?.datetime_created)}</div>
 			<div>PDT: {formatDateTime(dayjs(), false)}</div>
-			<div
-				style={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				}}
-			>
+			<div className="flex items-center justify-between">
 				<span>ID: {collectionReceipt?.reference_number || EMPTY_CELL}</span>
-				<span style={{ textAlign: 'right' }}>
-					{collectionReceipt?.created_by?.employee_id}
-				</span>
+				<span>{collectionReceipt?.created_by?.employee_id}</span>
 			</div>
 
 			<br />
 
 			<ReceiptFooter siteSettings={siteSettings} />
 
-			<div style={{ textAlign: 'center' }}>
+			<div className="text-center">
 				This Document Is Not Valid For Claim Of Input Tax
 			</div>
-			<div style={{ textAlign: 'center' }}>Thank You!</div>
-		</>
+			<div className="text-center">Thank You!</div>
+		</div>
 	);
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import { RequisitionSlip, User } from '../../../types';
+import { RequisitionSlip } from '../../../types';
 type Props = {
     requisitionSlip: RequisitionSlip;
-    user?: User;
+    user?: unknown;
 };
-export declare const RequisitionSlipContent: ({ requisitionSlip, user }: Props) => React.JSX.Element;
+export declare const RequisitionSlipContent: ({ requisitionSlip }: Props) => React.JSX.Element;
 export {};

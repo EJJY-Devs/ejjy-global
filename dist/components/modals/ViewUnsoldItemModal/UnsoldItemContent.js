@@ -33,6 +33,9 @@ const UnsoldItemContent = ({ unsoldItemSummary, branch, branchMachine, reportDat
             react_1.default.createElement("br", null),
             react_1.default.createElement("strong", null, "UNSOLD ITEMS"),
             react_1.default.createElement("br", null),
+            react_1.default.createElement("br", null),
+            react_1.default.createElement("strong", null, "Report Date:"),
+            react_1.default.createElement("br", null),
             react_1.default.createElement("span", null, reportDate),
             react_1.default.createElement("br", null),
             react_1.default.createElement("br", null),
@@ -40,7 +43,7 @@ const UnsoldItemContent = ({ unsoldItemSummary, branch, branchMachine, reportDat
                 react_1.default.createElement("span", null, "No unsold items found"))) : (react_1.default.createElement(antd_1.Table, { columns: columns, dataSource: unsoldItemSummary, pagination: false, rowKey: "name", size: "small", className: "unsold-item-table" })),
             react_1.default.createElement("br", null),
             react_1.default.createElement("span", null,
-                "PDT: ",
+                "Print Details: ",
                 currentDateTime),
             react_1.default.createElement("br", null),
             react_1.default.createElement("br", null))));
