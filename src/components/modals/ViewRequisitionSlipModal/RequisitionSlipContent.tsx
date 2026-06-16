@@ -80,7 +80,7 @@ export const RequisitionSlipContent = ({ requisitionSlip }: Props) => {
 					<tr>
 						<td>Encoder:</td>
 						<td style={{ textAlign: 'right' }}>
-							{getFullName(requisitionSlip.prepared_by) || EMPTY_CELL}
+							{getFullName(requisitionSlip.authorizer) || EMPTY_CELL}
 						</td>
 					</tr>
 				</tbody>

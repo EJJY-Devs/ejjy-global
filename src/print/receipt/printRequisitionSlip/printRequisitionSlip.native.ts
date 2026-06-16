@@ -85,13 +85,13 @@ const generateRequisitionSlipContentCommands = (
 		);
 	}
 
-	// Encoder (Prepared By)
-	if (requisitionSlip.prepared_by) {
+	// Encoder (Authorizer)
+	if (requisitionSlip.authorizer) {
 		commands.push(
 			...generateItemBlockCommands([
 				{
 					label: 'Encoder:',
-					value: getFullName(requisitionSlip.prepared_by) || '',
+					value: getFullName(requisitionSlip.authorizer) || '',
 				},
 			]),
 		);

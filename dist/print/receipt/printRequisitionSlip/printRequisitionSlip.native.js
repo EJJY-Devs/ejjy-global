@@ -59,12 +59,12 @@ const generateRequisitionSlipContentCommands = (requisitionSlip) => {
             { label: 'Customer:', value: requisitionSlip.branch.name || '' },
         ]));
     }
-    // Encoder (Prepared By)
-    if (requisitionSlip.prepared_by) {
+    // Encoder (Authorizer)
+    if (requisitionSlip.authorizer) {
         commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
             {
                 label: 'Encoder:',
-                value: (0, utils_1.getFullName)(requisitionSlip.prepared_by) || '',
+                value: (0, utils_1.getFullName)(requisitionSlip.authorizer) || '',
             },
         ]));
     }

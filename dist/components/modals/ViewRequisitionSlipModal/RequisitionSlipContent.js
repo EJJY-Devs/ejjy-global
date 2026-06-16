@@ -61,7 +61,7 @@ const RequisitionSlipContent = ({ requisitionSlip }) => {
                     react_1.default.createElement("td", { style: { textAlign: 'right' } }, ((_b = requisitionSlip.branch) === null || _b === void 0 ? void 0 : _b.name) || constants_1.EMPTY_CELL)),
                 react_1.default.createElement("tr", null,
                     react_1.default.createElement("td", null, "Encoder:"),
-                    react_1.default.createElement("td", { style: { textAlign: 'right' } }, (0, utils_1.getFullName)(requisitionSlip.prepared_by) || constants_1.EMPTY_CELL)))),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } }, (0, utils_1.getFullName)(requisitionSlip.authorizer) || constants_1.EMPTY_CELL)))),
         react_1.default.createElement("br", null),
         react_1.default.createElement(antd_1.Table, { columns: columns, dataSource: requisitionSlip.products, pagination: false, rowKey: "id", size: "small" }),
         react_1.default.createElement("br", null),

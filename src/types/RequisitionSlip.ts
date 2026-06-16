@@ -53,7 +53,7 @@ type RequisitionSlipRequestingUser = {
 export type RequisitionSlip = {
 	id: number;
 	datetime_created: string;
-	prepared_by: RequisitionSlipRequestingUser;
+	authorizer: RequisitionSlipRequestingUser;
 	approved_by: RequisitionSlipRequestingUser;
 	type: RequisitionSlipType;
 	action: RequisitionSlipAction;
