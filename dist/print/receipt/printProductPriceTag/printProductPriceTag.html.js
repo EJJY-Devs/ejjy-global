@@ -10,7 +10,7 @@ const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     return `
 	<div style="
     width: ${paperSettings.paperWidth}mm;
-    height: ${Math.floor(paperSettings.paperHeight * 0.9)}mm;
+    min-height: ${Math.floor(paperSettings.paperHeight * 0.9)}mm;
     padding: 1mm 2mm 0 2mm;
     display: flex;
     flex-direction: column;
@@ -19,9 +19,8 @@ const printProductPriceTagHtml = (product, siteSettings, paperSettings) => {
     font-family: ${paperSettings.fontFamily};
     line-height: 100%;
     color: black;
-    overflow: hidden;
   ">
-    <div style="max-height: 3.3em; overflow: hidden; font-size: 1em; line-height: 1.1em; word-wrap: break-word; overflow-wrap: break-word;">${name}</div>
+    <div style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; flex-shrink: 0; overflow: hidden; font-size: 1em; line-height: 1.1em; word-wrap: break-word; overflow-wrap: break-word;">${name}</div>
     <div style="font-size: 1.53em; text-align: right; flex-shrink: 0; margin-top: auto;">${price}</div>
 	</div>
 	`;
