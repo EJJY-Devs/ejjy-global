@@ -108,11 +108,11 @@ export const getCashBreakdownTypeDescription = (
 				description = '';
 		}
 	} else if (category === cashBreakdownCategories.CASH_IN) {
-		description = 'Cash In';
+		description = 'Petty Cash | Cash In';
 	} else if (category === cashBreakdownCategories.PRINT_ONLY) {
-		description = 'Cash Drawer';
+		description = 'Cash Breakdown';
 	} else if (category === cashBreakdownCategories.CASH_OUT) {
-		description = 'Cash Out';
+		description = 'Disbursement Voucher';
 	}
 
 	return description;
