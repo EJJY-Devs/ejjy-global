@@ -11,9 +11,15 @@ const printEmployeeCode = (name, barcode, qrCode) => `
         flex-direction: column;
       "
     >
-      <h4>${name}</h4>
-      <img width="100" src="${barcode}" />
-      <img width="100" src="${qrCode}" />
+      <div style="
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        word-break: break-word;
+        margin: 0 0 2mm;
+      ">${name}</div>
+      <img width="100" style="display: block; margin-bottom: 2mm;" src="${barcode}" />
+      <img width="100" style="display: block;" src="${qrCode}" />
     </div>
   `;
 exports.printEmployeeCode = printEmployeeCode;
