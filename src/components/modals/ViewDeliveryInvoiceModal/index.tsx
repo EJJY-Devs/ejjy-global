@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { GENERIC_ERROR_MESSAGE } from '../../../globals';
 import { usePdf, useDeliveryInvoiceRetrieve } from '../../../hooks';
 import { ServiceOptions } from '../../../hooks/inteface';
+import { printDeliveryInvoice } from '../../../print';
 import { DeliveryInvoice, SiteSettings } from '../../../types';
+import { PdfButtons } from '../../Printing';
 import { DeliveryInvoiceContent } from './DeliveryInvoiceContent';
 
 type Props = {
@@ -26,7 +28,7 @@ export const ViewDeliveryInvoiceModal = ({
 	>(null);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf } = usePdf({
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `DeliveryInvoice_${deliveryInvoiceData?.id}`,
 		print: () => {
 			if (!deliveryInvoiceData) {
@@ -34,7 +36,12 @@ export const ViewDeliveryInvoiceModal = ({
 				return undefined;
 			}
 
-			window.print();
+			return printDeliveryInvoice({
+				deliveryInvoice: deliveryInvoiceData,
+				siteSettings,
+				isReprint: true,
+				isPdf: true,
+			});
 		},
 	});
 	const { data: deliveryInvoiceRetrieved, isFetching } =
@@ -63,7 +70,11 @@ export const ViewDeliveryInvoiceModal = ({
 			return;
 		}
 
-		window.print();
+		printDeliveryInvoice({
+			deliveryInvoice: deliveryInvoiceData,
+			siteSettings,
+			isReprint: true,
+		});
 	};
 
 	return (
@@ -78,6 +89,13 @@ export const ViewDeliveryInvoiceModal = ({
 				>
 					Print
 				</Button>,
+				<PdfButtons
+					key="pdf"
+					downloadPdf={downloadPdf}
+					isDisabled={isLoadingPdf}
+					isLoading={isLoadingPdf}
+					previewPdf={previewPdf}
+				/>,
 			]}
 			title="Delivery Invoice"
 			width={425}

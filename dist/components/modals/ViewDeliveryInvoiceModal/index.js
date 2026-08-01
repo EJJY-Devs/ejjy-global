@@ -29,19 +29,26 @@ const antd_1 = require("antd");
 const react_1 = __importStar(require("react"));
 const globals_1 = require("../../../globals");
 const hooks_1 = require("../../../hooks");
+const print_1 = require("../../../print");
+const Printing_1 = require("../../Printing");
 const DeliveryInvoiceContent_1 = require("./DeliveryInvoiceContent");
 const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOptions, onClose, }) => {
     // STATE
     const [deliveryInvoiceData, setDeliveryInvoiceData] = (0, react_1.useState)(null);
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `DeliveryInvoice_${deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id}`,
         print: () => {
             if (!deliveryInvoiceData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
                 return undefined;
             }
-            window.print();
+            return (0, print_1.printDeliveryInvoice)({
+                deliveryInvoice: deliveryInvoiceData,
+                siteSettings,
+                isReprint: true,
+                isPdf: true,
+            });
         },
     });
     const { data: deliveryInvoiceRetrieved, isFetching } = (0, hooks_1.useDeliveryInvoiceRetrieve)({
@@ -64,10 +71,15 @@ const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOption
             antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
             return;
         }
-        window.print();
+        (0, print_1.printDeliveryInvoice)({
+            deliveryInvoice: deliveryInvoiceData,
+            siteSettings,
+            isReprint: true,
+        });
     };
     return (react_1.default.createElement(antd_1.Modal, { footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
+            react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: "Delivery Invoice", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: isFetching }, (deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id) && (react_1.default.createElement(DeliveryInvoiceContent_1.DeliveryInvoiceContent, { deliveryInvoice: deliveryInvoiceData, siteSettings: siteSettings }))),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
