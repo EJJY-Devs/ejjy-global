@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jspdf_1 = __importDefault(require("jspdf"));
 const react_1 = require("react");
-const TIMEOUT_MS = 3000;
+const antd_1 = require("antd");
 const FORMAT_WIDTH = 400;
 const FORMAT_HEIGHT = 2000;
 const JSPDF_SETTINGS = {
@@ -52,43 +52,53 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
             setLoadingPdf(false);
         }
     });
-    const performPdfOperation = (dataHtml, callback) => {
+    const performPdfOperation = (dataHtml, callback) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a, _b, _c, _d;
         setHtmlPdf(dataHtml);
-        console.log('dataHtml', dataHtml);
-        setTimeout(() => {
-            var _a, _b, _c, _d;
-            if ((_a = container === null || container === void 0 ? void 0 : container.containerRef) === null || _a === void 0 ? void 0 : _a.current) {
-                const width = ((((_b = container === null || container === void 0 ? void 0 : container.containerRef) === null || _b === void 0 ? void 0 : _b.current.offsetWidth) || FORMAT_WIDTH) +
+        try {
+            // setHtmlPdf() only schedules the re-render that fills containerRef via
+            // dangerouslySetInnerHTML; wait for it to actually paint (double rAF) and
+            // for webfonts to finish loading before measuring the container/snapshotting
+            // it with html2canvas, otherwise we read stale dimensions or mismeasured text.
+            yield new Promise((resolve) => {
+                requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+            });
+            if ((_a = document.fonts) === null || _a === void 0 ? void 0 : _a.ready) {
+                yield document.fonts.ready;
+            }
+            if ((_b = container === null || container === void 0 ? void 0 : container.containerRef) === null || _b === void 0 ? void 0 : _b.current) {
+                const width = ((((_c = container === null || container === void 0 ? void 0 : container.containerRef) === null || _c === void 0 ? void 0 : _c.current.offsetWidth) || FORMAT_WIDTH) +
                     ((container === null || container === void 0 ? void 0 : container.widthAdd) || 0)) *
                     (container.widthMultiplier || 1);
-                const height = ((((_c = container === null || container === void 0 ? void 0 : container.containerRef) === null || _c === void 0 ? void 0 : _c.current.offsetHeight) || FORMAT_HEIGHT) +
+                const height = ((((_d = container === null || container === void 0 ? void 0 : container.containerRef) === null || _d === void 0 ? void 0 : _d.current.offsetHeight) || FORMAT_HEIGHT) +
                     ((container === null || container === void 0 ? void 0 : container.heightAdd) || 0)) *
                     (container.heightMultiplier || 1);
                 JSPDF_SETTINGS.format = [width, height];
                 JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
-                console.log((_d = container.containerRef) === null || _d === void 0 ? void 0 : _d.current);
-                console.log(JSPDF_SETTINGS.format);
             }
             const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
             pdf.setProperties({ title });
             if (image) {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
-            pdf.html(dataHtml, Object.assign(Object.assign({ margin: 10 }, htmlOptions), { callback: (instance) => {
-                    try {
-                        callback(instance);
-                    }
-                    finally {
-                        setLoadingPdf(false);
-                    }
-                } }));
-        }, TIMEOUT_MS);
-    };
+            yield pdf.html(dataHtml, Object.assign(Object.assign({ margin: 10 }, htmlOptions), { callback }));
+        }
+        catch (error) {
+            console.error(error);
+            antd_1.message.error('Failed to generate the PDF. Please try again.');
+        }
+        finally {
+            setLoadingPdf(false);
+        }
+    });
     const previewPdf = () => {
         handlePdfAction((pdf) => window.open(pdf.output('bloburl').toString()));
     };
     const downloadPdf = () => {
-        handlePdfAction((pdf) => pdf.save(title || 'Document'));
+        handlePdfAction((pdf) => {
+            pdf.save(title || 'Document');
+            antd_1.message.success('PDF downloaded successfully.');
+        });
     };
     return {
         htmlPdf,

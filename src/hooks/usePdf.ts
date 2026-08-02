@@ -1,7 +1,6 @@
 import jsPDF, { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { MutableRefObject, useState } from 'react';
-
-const TIMEOUT_MS = 3000;
+import { message } from 'antd';
 
 const FORMAT_WIDTH = 400;
 const FORMAT_HEIGHT = 2000;
@@ -72,14 +71,24 @@ const usePdf = ({
 		}
 	};
 
-	const performPdfOperation = (
+	const performPdfOperation = async (
 		dataHtml: string,
 		callback: (instance: jsPDF) => void,
 	) => {
 		setHtmlPdf(dataHtml);
-		console.log('dataHtml', dataHtml);
 
-		setTimeout(() => {
+		try {
+			// setHtmlPdf() only schedules the re-render that fills containerRef via
+			// dangerouslySetInnerHTML; wait for it to actually paint (double rAF) and
+			// for webfonts to finish loading before measuring the container/snapshotting
+			// it with html2canvas, otherwise we read stale dimensions or mismeasured text.
+			await new Promise<void>((resolve) => {
+				requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+			});
+			if (document.fonts?.ready) {
+				await document.fonts.ready;
+			}
+
 			if (container?.containerRef?.current) {
 				const width =
 					((container?.containerRef?.current.offsetWidth || FORMAT_WIDTH) +
@@ -92,10 +101,6 @@ const usePdf = ({
 
 				JSPDF_SETTINGS.format = [width, height];
 				JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
-
-				console.log(container.containerRef?.current);
-
-				console.log(JSPDF_SETTINGS.format);
 			}
 
 			const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
@@ -105,18 +110,17 @@ const usePdf = ({
 				pdf.addImage(image!.src, 'png', image!.x, image!.y, image!.w, image!.h);
 			}
 
-			pdf.html(dataHtml, {
+			await pdf.html(dataHtml, {
 				margin: 10,
 				...htmlOptions,
-				callback: (instance) => {
-					try {
-						callback(instance);
-					} finally {
-						setLoadingPdf(false);
-					}
-				},
+				callback,
 			});
-		}, TIMEOUT_MS);
+		} catch (error) {
+			console.error(error);
+			message.error('Failed to generate the PDF. Please try again.');
+		} finally {
+			setLoadingPdf(false);
+		}
 	};
 
 	const previewPdf = () => {
@@ -124,7 +128,10 @@ const usePdf = ({
 	};
 
 	const downloadPdf = () => {
-		handlePdfAction((pdf) => pdf.save(title || 'Document'));
+		handlePdfAction((pdf) => {
+			pdf.save(title || 'Document');
+			message.success('PDF downloaded successfully.');
+		});
 	};
 
 	return {
