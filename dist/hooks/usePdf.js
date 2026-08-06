@@ -92,10 +92,29 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
         }
     });
     const previewPdf = () => {
-        handlePdfAction((pdf) => window.open(pdf.output('bloburl').toString()));
+        // Open the tab synchronously, in direct response to the user's click,
+        // before any of the async PDF generation work (rAF, font loading,
+        // jsPDF's own async .html() render) happens below. If we wait until the
+        // blob URL is ready to call window.open(), the call is no longer inside
+        // the original user gesture and browsers' popup blockers silently
+        // swallow it. Navigating this already-open tab to the blob URL once
+        // it's ready does not require a fresh user gesture.
+        const previewTab = window.open('', '_blank');
+        if (!previewTab) {
+            antd_1.message.error('Unable to open PDF preview. Please allow pop-ups for this site and try again.');
+            return;
+        }
+        handlePdfAction((pdf) => {
+            previewTab.location.href = pdf.output('bloburl').toString();
+        });
     };
     const downloadPdf = () => {
-        handlePdfAction((pdf) => pdf.save(title || 'Document'));
+        // jsPDF's save() takes "the filename including extension" verbatim and
+        // does not append one itself, so every caller here — none of which
+        // includes ".pdf" in its title — was downloading an extensionless file
+        // that the OS/browser can't associate back to a PDF viewer.
+        const filename = title || 'Document';
+        handlePdfAction((pdf) => pdf.save(filename.endsWith('.pdf') ? filename : `${filename}.pdf`));
     };
     return {
         htmlPdf,

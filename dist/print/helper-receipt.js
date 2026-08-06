@@ -77,12 +77,16 @@ const getPageStyle = (extraStyle = '') => {
 exports.getPageStyle = getPageStyle;
 const getPageStyleObject = (extraStyle) => (Object.assign({ width: '100%', fontSize: `${printerFontSize || '10'}pt`, fontFamily: printerFontFamily || 'monospace', lineHeight: '100%', position: 'relative' }, extraStyle));
 exports.getPageStyleObject = getPageStyleObject;
-const appendHtmlElement = (data) => `
+// 380px matches a receipt / A4-1/2-lengthwise (portrait) layout — the width
+// nearly everything printed through here uses. Callers whose content is
+// meant for a wider sheet (e.g. A4-1/2-crosswise/landscape) must pass their
+// own widthPx, or this forces their layout into the narrow receipt column.
+const appendHtmlElement = (data, widthPx = 380) => `
   <html lang="en">
   <head>
     <style>
       .container, .container > div, .container > table {
-        width: 380px !important;
+        width: ${widthPx}px !important;
       }
     </style>
   </head>
@@ -296,11 +300,6 @@ const print = (printData, entity, onComplete, type) => __awaiter(void 0, void 0,
     return;
 });
 exports.print = print;
-// OTHERS
-antd_1.message.error({
-    key: exports.PRINT_MESSAGE_KEY,
-    content: 'Printer cannot print right now. Please contact an administrator.',
-});
 const formatInPesoWithUnderline = (value) => `<div style="display:inline-block">
     ${(0, utils_1.formatInPeso)(value, exports.PESO_SIGN)}
   </div>`;

@@ -40,7 +40,9 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
     const [title, setTitle] = (0, react_1.useState)('Invoice');
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
-        title: `SalesInvoice_${(_a = transactionData === null || transactionData === void 0 ? void 0 : transactionData.invoice) === null || _a === void 0 ? void 0 : _a.or_number}`,
+        title: `${(transactionData === null || transactionData === void 0 ? void 0 : transactionData.payment.mode) === globals_1.saleTypes.CREDIT
+            ? 'ChargeInvoice'
+            : 'SalesInvoice'}_${(_a = transactionData === null || transactionData === void 0 ? void 0 : transactionData.invoice) === null || _a === void 0 ? void 0 : _a.or_number}`,
         print: () => {
             if (!transactionData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);

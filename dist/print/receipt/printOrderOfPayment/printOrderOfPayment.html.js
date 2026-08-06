@@ -12,7 +12,12 @@ const printOrderOfPaymentHtml = ({ orderOfPayment, isPdf = false, }) => {
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
         react_1.default.createElement(OrderOfPaymentContent_1.OrderOfPaymentContent, { orderOfPayment: orderOfPayment })));
     if (isPdf) {
-        return (0, helper_receipt_1.appendHtmlElement)(data);
+        // Order of Payment is the one PF B document laid out for A4 1/2
+        // Crosswise (landscape half-sheet), not the narrow receipt column
+        // every other item here uses — OrderOfPaymentContent's flex rows and
+        // justified paragraph assume that width. 794px matches an A4 sheet's
+        // full width (the dimension a crosswise cut preserves).
+        return (0, helper_receipt_1.appendHtmlElement)(data, 794);
     }
     return data;
 };

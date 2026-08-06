@@ -44,4 +44,5 @@ __exportStar(require("./txt/createSalesInvoiceTxt"), exports);
 __exportStar(require("./txt/createXReadTxt"), exports);
 __exportStar(require("./txt/createZReadTxt"), exports);
 __exportStar(require("./utils/cashier"), exports);
+__exportStar(require("./utils/renderA4SinglePagePdf"), exports);
 __exportStar(require("./receipt/printSalesInvoice/printSalesInvoice.native"), exports);

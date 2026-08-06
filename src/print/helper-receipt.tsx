@@ -97,12 +97,16 @@ export const getPageStyleObject = (
 	...extraStyle,
 });
 
-export const appendHtmlElement = (data: string) => `
+// 380px matches a receipt / A4-1/2-lengthwise (portrait) layout — the width
+// nearly everything printed through here uses. Callers whose content is
+// meant for a wider sheet (e.g. A4-1/2-crosswise/landscape) must pass their
+// own widthPx, or this forces their layout into the narrow receipt column.
+export const appendHtmlElement = (data: string, widthPx = 380) => `
   <html lang="en">
   <head>
     <style>
       .container, .container > div, .container > table {
-        width: 380px !important;
+        width: ${widthPx}px !important;
       }
     </style>
   </head>
@@ -359,12 +363,6 @@ export const print = async (
 
 	return;
 };
-
-// OTHERS
-message.error({
-	key: PRINT_MESSAGE_KEY,
-	content: 'Printer cannot print right now. Please contact an administrator.',
-});
 
 export const formatInPesoWithUnderline = (
 	value: string | number,

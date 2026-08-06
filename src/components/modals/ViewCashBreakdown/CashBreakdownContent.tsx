@@ -21,7 +21,6 @@ export const CashBreakdownContent = ({
 	siteSettings,
 	user,
 }: Props) => {
-	<ReceiptHeader branchMachine={cashBreakdown.branch_machine} />;
 	const breakdownCoins = [
 		{
 			label: '0.25',

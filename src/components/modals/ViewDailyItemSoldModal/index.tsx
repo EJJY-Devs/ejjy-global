@@ -37,7 +37,10 @@ export const ViewDailyItemSoldModal = ({
 }: Props) => {
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `DailyItemSoldSummary_${new Date().toISOString().split('T')[0]}`,
+		// Name the file after the report's own date, not today's — reportDate
+		// falls back to today only when the caller didn't pass one (e.g. a
+		// "current day so far" view where there's no distinct report date yet).
+		title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
 		image:
 			dailyItemSoldSummary.length === 0 && !loading
 				? {

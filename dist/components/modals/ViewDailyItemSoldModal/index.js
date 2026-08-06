@@ -16,7 +16,10 @@ const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, u
 reportDate, onClose, }) => {
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
-        title: `DailyItemSoldSummary_${new Date().toISOString().split('T')[0]}`,
+        // Name the file after the report's own date, not today's — reportDate
+        // falls back to today only when the caller didn't pass one (e.g. a
+        // "current day so far" view where there's no distinct report date yet).
+        title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
         image: dailyItemSoldSummary.length === 0 && !loading
             ? {
                 src: no_transaction_png_1.default,

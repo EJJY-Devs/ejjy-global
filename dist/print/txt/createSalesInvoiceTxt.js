@@ -142,7 +142,13 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
     if (returnContent) {
         return reportTextFile.get();
     }
-    reportTextFile.export(`Sales_Invoice_${transaction.invoice.or_number}.txt`);
+    // Filename must follow the same Sales vs. Charge branching as the
+    // document title above — this is a Charge Invoice whenever payment is on
+    // credit, and exporting it under a "Sales_Invoice_" name is misleading.
+    const filePrefix = transaction.payment.mode === globals_1.saleTypes.CREDIT
+        ? 'Charge_Invoice'
+        : 'Sales_Invoice';
+    reportTextFile.export(`${filePrefix}_${transaction.invoice.or_number}.txt`);
     return null;
 };
 exports.createSalesInvoiceTxt = createSalesInvoiceTxt;

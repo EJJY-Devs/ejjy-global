@@ -35,7 +35,11 @@ export const ViewTransactionModal = ({
 
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `SalesInvoice_${transactionData?.invoice?.or_number}`,
+		title: `${
+			transactionData?.payment.mode === saleTypes.CREDIT
+				? 'ChargeInvoice'
+				: 'SalesInvoice'
+		}_${transactionData?.invoice?.or_number}`,
 		print: () => {
 			if (!transactionData) {
 				message.error(GENERIC_ERROR_MESSAGE);

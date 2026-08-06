@@ -12,7 +12,7 @@ export declare const getHeader: (siteSettings: SiteSettings, branchMachine?: Bra
 export declare const getFooter: (siteSettings: SiteSettings) => string;
 export declare const getPageStyle: (extraStyle?: string) => string;
 export declare const getPageStyleObject: (extraStyle?: React.CSSProperties) => React.CSSProperties;
-export declare const appendHtmlElement: (data: string) => string;
+export declare const appendHtmlElement: (data: string, widthPx?: number) => string;
 export declare const print: (printData: string | string[], entity: string, onComplete?: () => void, type?: any) => Promise<void>;
 export declare const formatInPesoWithUnderline: (value: string | number) => string;
 export declare const addUnderline: (value: string | number) => "" | "<div style=\"width: 100%; text-align: right\">-----------</div>";
