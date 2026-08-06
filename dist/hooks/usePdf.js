@@ -95,10 +95,7 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
         handlePdfAction((pdf) => window.open(pdf.output('bloburl').toString()));
     };
     const downloadPdf = () => {
-        handlePdfAction((pdf) => {
-            pdf.save(title || 'Document');
-            antd_1.message.success('PDF downloaded successfully.');
-        });
+        handlePdfAction((pdf) => pdf.save(title || 'Document'));
     };
     return {
         htmlPdf,

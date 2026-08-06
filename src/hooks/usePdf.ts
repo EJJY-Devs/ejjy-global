@@ -128,10 +128,7 @@ const usePdf = ({
 	};
 
 	const downloadPdf = () => {
-		handlePdfAction((pdf) => {
-			pdf.save(title || 'Document');
-			message.success('PDF downloaded successfully.');
-		});
+		handlePdfAction((pdf) => pdf.save(title || 'Document'));
 	};
 
 	return {
