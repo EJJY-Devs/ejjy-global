@@ -8,7 +8,11 @@ import {
 } from '../../../globals';
 import { usePdf, useTransactionRetrieve } from '../../../hooks';
 import { ServiceOptions } from '../../../hooks/inteface';
-import { createSalesInvoiceTxt, printSalesInvoice } from '../../../print';
+import {
+	createSalesInvoiceTxt,
+	paperSizes,
+	printSalesInvoice,
+} from '../../../print';
 import { SiteSettings, Transaction } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { TransactionContent } from './TransactionContent';
@@ -40,6 +44,9 @@ export const ViewTransactionModal = ({
 				? 'ChargeInvoice'
 				: 'SalesInvoice'
 		}_${transactionData?.invoice?.or_number}`,
+		// PF A: both the Sales Invoice (cash) and Charge Invoice (credit) render
+		// through here on A4 1/2 lengthwise (tall, narrow half-sheet).
+		jsPdfSettings: paperSizes.A4_LENGTHWISE,
 		print: () => {
 			if (!transactionData) {
 				message.error(GENERIC_ERROR_MESSAGE);

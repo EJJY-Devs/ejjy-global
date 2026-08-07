@@ -14,13 +14,12 @@ const OrderOfPaymentContent_1 = require("./OrderOfPaymentContent");
 const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `OrderOfPayment_${orderOfPayment.reference_number}`,
-        // This document renders at 794px wide (see printOrderOfPaymentHtml) to
-        // match its A4 1/2 Crosswise/landscape layout, not the 400px-wide
-        // default jsPDF page every narrow receipt-format item relies on.
-        // Without overriding the page format here, jsPDF has no width/
-        // windowWidth option to auto-scale by, so it would rasterize the
-        // wider content onto a narrower page and clip the right side.
-        jsPdfSettings: { format: [794, 2000] },
+        // PF B: A4 1/2 crosswise (short, wide landscape half-sheet). This
+        // document renders at 794px wide (see printOrderOfPaymentHtml) to match
+        // that layout, not the 400px-wide default jsPDF page every narrow
+        // receipt-format item relies on — otherwise jsPDF rasterizes the wider
+        // content onto a narrower page and clips the right side.
+        jsPdfSettings: print_1.paperSizes.A4_CROSSWISE,
         print: () => (0, print_1.printOrderOfPayment)({
             orderOfPayment,
             isPdf: true,

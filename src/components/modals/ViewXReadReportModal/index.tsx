@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { createXReadTxt, printXReadReport } from '../../../print';
+import { createXReadTxt, paperSizes, printXReadReport } from '../../../print';
 import { SiteSettings, User, XReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { XReadContent } from './XReadContent';
@@ -29,6 +29,10 @@ export const ViewXReadReportModal = ({
 	// CUSTOM HOOKS
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
 		title: `XReadReport_${report.id}`,
+		// PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
+		// receipt-width default (380px via appendHtmlElement), which sits inside
+		// this 397px-wide page; the report paginates onto real half-sheets.
+		jsPdfSettings: paperSizes.A4_LENGTHWISE,
 		image:
 			report?.gross_sales === 0
 				? {

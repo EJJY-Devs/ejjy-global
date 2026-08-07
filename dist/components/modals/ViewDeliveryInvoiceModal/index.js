@@ -38,6 +38,8 @@ const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOption
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `DeliveryInvoice_${deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id}`,
+        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         print: () => {
             if (!deliveryInvoiceData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);

@@ -39,9 +39,18 @@ const RENDER_SCALE = 2;
  *   the BIR reports' ~2000px tables) so nothing is squeezed or clipped
  *   during capture — the fit-to-page scaling below shrinks the resulting
  *   image down to one page regardless of how wide this is.
+ * @param orientation  'p' (default) targets A4 portrait (794 x 1123); 'l'
+ *   targets A4 landscape / "crosswise" (1123 x 794). Wide reports (the BIR
+ *   annex transaction lists — E2 SC, E3 PWD, E4 NAAC, E5 Solo Parent) stay
+ *   far more legible shrunk onto landscape than portrait, so pass 'l' for
+ *   those; the portrait E1 summary keeps the default.
  */
-const renderA4SinglePagePdf = ({ html, title, widthPx = exports.PDF_WRAPPER_WIDTH_PX, }) => __awaiter(void 0, void 0, void 0, function* () {
+const renderA4SinglePagePdf = ({ html, title, widthPx = exports.PDF_WRAPPER_WIDTH_PX, orientation = 'p', }) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
+    // Page dimensions follow the requested orientation: portrait keeps A4's
+    // natural 794 x 1123; landscape swaps to 1123 x 794.
+    const pageWidth = orientation === 'l' ? exports.PDF_PAGE_HEIGHT_PX : exports.PDF_PAGE_WIDTH_PX;
+    const pageHeight = orientation === 'l' ? exports.PDF_PAGE_WIDTH_PX : exports.PDF_PAGE_HEIGHT_PX;
     const container = document.createElement('div');
     container.style.position = 'fixed';
     container.style.top = '0';
@@ -61,17 +70,17 @@ const renderA4SinglePagePdf = ({ html, title, widthPx = exports.PDF_WRAPPER_WIDT
         });
         const contentWidthPx = canvas.width / RENDER_SCALE;
         const contentHeightPx = canvas.height / RENDER_SCALE;
-        const maxWidth = exports.PDF_PAGE_WIDTH_PX - PDF_MARGIN_PX * 2;
-        const maxHeight = exports.PDF_PAGE_HEIGHT_PX - PDF_MARGIN_PX * 2;
+        const maxWidth = pageWidth - PDF_MARGIN_PX * 2;
+        const maxHeight = pageHeight - PDF_MARGIN_PX * 2;
         const fitScale = Math.min(maxWidth / contentWidthPx, maxHeight / contentHeightPx, 1);
         const renderWidth = contentWidthPx * fitScale;
         const renderHeight = contentHeightPx * fitScale;
-        const x = Math.max(0, (exports.PDF_PAGE_WIDTH_PX - renderWidth) / 2);
+        const x = Math.max(0, (pageWidth - renderWidth) / 2);
         const y = PDF_MARGIN_PX;
         const pdf = new jspdf_1.default({
-            orientation: 'p',
+            orientation,
             unit: 'px',
-            format: [exports.PDF_PAGE_WIDTH_PX, exports.PDF_PAGE_HEIGHT_PX],
+            format: [pageWidth, pageHeight],
             putOnlyUsedFonts: true,
         });
         pdf.setProperties({ title });

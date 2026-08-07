@@ -41,6 +41,10 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `XReadReport_${report.id}`,
+        // PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
+        // receipt-width default (380px via appendHtmlElement), which sits inside
+        // this 397px-wide page; the report paginates onto real half-sheets.
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         image: (report === null || report === void 0 ? void 0 : report.gross_sales) === 0
             ? {
                 src: no_transaction_png_1.default,

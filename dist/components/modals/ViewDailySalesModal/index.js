@@ -41,6 +41,8 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
         title: `DailySales_${dailySales.id}`,
+        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         image: (dailySales === null || dailySales === void 0 ? void 0 : dailySales.gross_sales) === 0
             ? {
                 src: no_transaction_png_1.default,

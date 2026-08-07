@@ -43,6 +43,9 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
         title: `${(transactionData === null || transactionData === void 0 ? void 0 : transactionData.payment.mode) === globals_1.saleTypes.CREDIT
             ? 'ChargeInvoice'
             : 'SalesInvoice'}_${(_a = transactionData === null || transactionData === void 0 ? void 0 : transactionData.invoice) === null || _a === void 0 ? void 0 : _a.or_number}`,
+        // PF A: both the Sales Invoice (cash) and Charge Invoice (credit) render
+        // through here on A4 1/2 lengthwise (tall, narrow half-sheet).
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         print: () => {
             if (!transactionData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
