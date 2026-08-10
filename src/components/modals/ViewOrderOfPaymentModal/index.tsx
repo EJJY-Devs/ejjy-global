@@ -60,7 +60,7 @@ export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 				/>,
 			]}
 			title="Order of Payment"
-			width={425}
+			width={820}
 			centered
 			closable
 			open

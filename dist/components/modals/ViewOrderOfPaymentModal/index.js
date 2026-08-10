@@ -33,7 +33,7 @@ const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
     return (react_1.default.createElement(antd_1.Modal, { footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
-        ], title: "Order of Payment", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
+        ], title: "Order of Payment", width: 820, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(OrderOfPaymentContent_1.OrderOfPaymentContent, { orderOfPayment: orderOfPayment }),
         react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
         pdfPreviewModal));

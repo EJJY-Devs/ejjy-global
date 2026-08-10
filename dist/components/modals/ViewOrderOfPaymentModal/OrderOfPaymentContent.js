@@ -28,34 +28,30 @@ const OrderOfPaymentContent = ({ orderOfPayment }) => {
     else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         purposeDescription = 'Full Payment';
     }
-    // Inline fill-in blank for the dynamic fields in the body sentence. A shared
-    // style keeps every underline visually consistent (same thickness, padding,
-    // baseline) and evenly sized via a common minimum width; the generous body
-    // line-height below stops adjacent underlines from colliding when the
-    // sentence wraps.
+    // Inline underline for the fill-in values in the body sentence. Kept as an
+    // INLINE span (not inline-block) with a bottom border so the underline tracks
+    // the text baseline. jsPDF's html2canvas mis-positions bottom borders on
+    // inline-block elements whose line-height differs from the surrounding line —
+    // that was drawing the underlines *through* the values in the generated PDF.
     const fillIn = {
-        display: 'inline-block',
-        minWidth: 120,
-        margin: '0 6px',
-        padding: '0 8px',
+        borderBottom: '1px solid black',
+        padding: '0 10px',
+        fontWeight: 'bold',
+        whiteSpace: 'nowrap',
+    };
+    // The meta row and signature line are laid out with <table>, not flexbox:
+    // tables + cell borders are the primitive html2canvas renders reliably, so
+    // the OP No / Date underlines and the signature rule land in the right place
+    // in the PDF and print output (flex alignment + borders did not).
+    const metaLabelCell = {
+        whiteSpace: 'nowrap',
+        fontWeight: 'bold',
+        paddingRight: 10,
+        width: 1,
+    };
+    const metaValueCell = {
         borderBottom: '1px solid black',
         textAlign: 'center',
-        fontWeight: 'bold',
-        lineHeight: 1.2,
-        verticalAlign: 'baseline',
-    };
-    // Underlined value in the OP No / Date meta row: grows to fill its column,
-    // with left padding so the value doesn't touch its label.
-    const metaValue = {
-        flex: 1,
-        borderBottom: '1px solid black',
-        padding: '0 6px 1px',
-        textAlign: 'center',
-        fontWeight: 'bold',
-    };
-    const metaLabel = {
-        flexShrink: 0,
-        marginRight: 10,
         fontWeight: 'bold',
     };
     // Layout-critical styling is expressed inline (not via Tailwind utility
@@ -79,38 +75,48 @@ const OrderOfPaymentContent = ({ orderOfPayment }) => {
                 fontSize: '1.35em',
                 fontWeight: 'bold',
                 letterSpacing: 3,
-                margin: '20px 0 24px',
+                margin: '18px 0 22px',
             } }, "ORDER OF PAYMENT"),
-        react_1.default.createElement("div", { style: { display: 'flex', gap: 48, marginBottom: 24 } },
-            react_1.default.createElement("div", { style: { display: 'flex', flex: 1, alignItems: 'flex-end' } },
-                react_1.default.createElement("span", { style: metaLabel }, "OP No:"),
-                react_1.default.createElement("span", { style: metaValue }, opNo)),
-            react_1.default.createElement("div", { style: { display: 'flex', flex: 1, alignItems: 'flex-end' } },
-                react_1.default.createElement("span", { style: metaLabel }, "Date:"),
-                react_1.default.createElement("span", { style: metaValue }, date))),
-        react_1.default.createElement("div", { style: { marginBottom: 20 } },
+        react_1.default.createElement("table", { style: { width: '100%', marginBottom: 22 } },
+            react_1.default.createElement("tbody", null,
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", { style: metaLabelCell }, "OP No:"),
+                    react_1.default.createElement("td", { style: metaValueCell }, opNo),
+                    react_1.default.createElement("td", { style: { width: 48 } }),
+                    react_1.default.createElement("td", { style: metaLabelCell }, "Date:"),
+                    react_1.default.createElement("td", { style: metaValueCell }, date)))),
+        react_1.default.createElement("div", { style: { marginBottom: 18 } },
             react_1.default.createElement("div", { style: { fontWeight: 'bold' } }, "The Cashier"),
             react_1.default.createElement("div", null, "Cashiering Unit")),
-        react_1.default.createElement("div", { style: { textAlign: 'left', lineHeight: 2.4, textIndent: 40 } },
+        react_1.default.createElement("div", { style: { textAlign: 'left', lineHeight: 2, textIndent: 40 } },
             "Please issue Collection Receipt in favor of",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, payor),
             " from",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, address),
             " in the amount of",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, amount),
             " for payment of",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, purposeDescription),
             " per Charge Invoice No.",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, invoiceId),
             " dated",
+            ' ',
             react_1.default.createElement("span", { style: fillIn }, invoiceDate),
             "."),
-        react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'flex-end', marginTop: 56 } },
-            react_1.default.createElement("div", { style: {
-                    width: '45%',
-                    textAlign: 'center',
-                    borderTop: '1px solid black',
-                    paddingTop: 6,
-                } }, "Manager/Authorized Official"))));
+        react_1.default.createElement("table", { style: { width: '100%', marginTop: 44 } },
+            react_1.default.createElement("tbody", null,
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", { style: { width: '55%' } }),
+                    react_1.default.createElement("td", { style: {
+                            width: '45%',
+                            borderTop: '1px solid black',
+                            textAlign: 'center',
+                            paddingTop: 6,
+                        } }, "Manager/Authorized Official"))))));
 };
 exports.OrderOfPaymentContent = OrderOfPaymentContent;
