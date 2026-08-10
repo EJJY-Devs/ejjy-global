@@ -36,7 +36,7 @@ const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOption
     // STATE
     const [deliveryInvoiceData, setDeliveryInvoiceData] = (0, react_1.useState)(null);
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `DeliveryInvoice_${deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id}`,
         // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
         jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
@@ -84,6 +84,7 @@ const ViewDeliveryInvoiceModal = ({ deliveryInvoice, siteSettings, serviceOption
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: "Delivery Invoice", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: isFetching }, (deliveryInvoiceData === null || deliveryInvoiceData === void 0 ? void 0 : deliveryInvoiceData.id) && (react_1.default.createElement(DeliveryInvoiceContent_1.DeliveryInvoiceContent, { deliveryInvoice: deliveryInvoiceData, siteSettings: siteSettings }))),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewDeliveryInvoiceModal = ViewDeliveryInvoiceModal;

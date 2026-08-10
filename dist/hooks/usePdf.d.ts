@@ -26,5 +26,6 @@ declare const usePdf: ({ title, container, print, jsPdfSettings, htmlOptions, im
     isLoadingPdf: boolean;
     previewPdf: () => void;
     downloadPdf: () => void;
+    pdfPreviewModal: import("react").JSX.Element;
 };
 export default usePdf;

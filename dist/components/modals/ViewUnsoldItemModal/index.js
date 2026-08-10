@@ -15,7 +15,7 @@ const UnsoldItemContent_1 = require("./UnsoldItemContent");
 const ViewUnsoldItemModal = ({ unsoldItemSummary, branch, branchMachine, user, loading = false, // Default to false
 reportDate, onClose, }) => {
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         // Name the file after the report's own date, not today's — reportDate
         // falls back to today only when the caller didn't pass one (e.g. a
         // "current day so far" view where there's no distinct report date yet).
@@ -54,6 +54,7 @@ reportDate, onClose, }) => {
         ], title: "Unsold Items", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: loading, tip: "Loading products..." },
             react_1.default.createElement(UnsoldItemContent_1.UnsoldItemContent, { unsoldItemSummary: unsoldItemSummary, branch: branch, branchMachine: branchMachine, user: user, reportDate: reportDate })),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewUnsoldItemModal = ViewUnsoldItemModal;

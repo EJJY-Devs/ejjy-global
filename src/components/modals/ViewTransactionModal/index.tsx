@@ -38,29 +38,30 @@ export const ViewTransactionModal = ({
 	const [title, setTitle] = useState('Invoice');
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `${
-			transactionData?.payment.mode === saleTypes.CREDIT
-				? 'ChargeInvoice'
-				: 'SalesInvoice'
-		}_${transactionData?.invoice?.or_number}`,
-		// PF A: both the Sales Invoice (cash) and Charge Invoice (credit) render
-		// through here on A4 1/2 lengthwise (tall, narrow half-sheet).
-		jsPdfSettings: paperSizes.A4_LENGTHWISE,
-		print: () => {
-			if (!transactionData) {
-				message.error(GENERIC_ERROR_MESSAGE);
-				return undefined;
-			}
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `${
+				transactionData?.payment.mode === saleTypes.CREDIT
+					? 'ChargeInvoice'
+					: 'SalesInvoice'
+			}_${transactionData?.invoice?.or_number}`,
+			// PF A: both the Sales Invoice (cash) and Charge Invoice (credit) render
+			// through here on A4 1/2 lengthwise (tall, narrow half-sheet).
+			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			print: () => {
+				if (!transactionData) {
+					message.error(GENERIC_ERROR_MESSAGE);
+					return undefined;
+				}
 
-			return printSalesInvoice({
-				transaction: transactionData,
-				siteSettings,
-				isReprint: true,
-				isPdf: true,
-			});
-		},
-	});
+				return printSalesInvoice({
+					transaction: transactionData,
+					siteSettings,
+					isReprint: true,
+					isPdf: true,
+				});
+			},
+		});
 	const { data: transactionRetrieved, isFetching } = useTransactionRetrieve({
 		id: typeof transaction === 'number' ? transaction : transaction.id,
 		options: { enabled: typeof transaction === 'number' },
@@ -158,6 +159,8 @@ export const ViewTransactionModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

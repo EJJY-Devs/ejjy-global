@@ -36,33 +36,34 @@ export const ViewDailyItemSoldModal = ({
 	onClose,
 }: Props) => {
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		// Name the file after the report's own date, not today's — reportDate
-		// falls back to today only when the caller didn't pass one (e.g. a
-		// "current day so far" view where there's no distinct report date yet).
-		title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
-		// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
-		jsPdfSettings: paperSizes.A4_LENGTHWISE,
-		image:
-			dailyItemSoldSummary.length === 0 && !loading
-				? {
-						src: imgNoTransaction,
-						x: 50,
-						y: 50,
-						w: 300,
-						h: 600,
-					}
-				: undefined,
-		print: () =>
-			printDailyItemSold({
-				dailyItemSoldSummary,
-				branch,
-				branchMachine,
-				user,
-				isPdf: true,
-				reportDate,
-			}),
-	});
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			// Name the file after the report's own date, not today's — reportDate
+			// falls back to today only when the caller didn't pass one (e.g. a
+			// "current day so far" view where there's no distinct report date yet).
+			title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
+			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			image:
+				dailyItemSoldSummary.length === 0 && !loading
+					? {
+							src: imgNoTransaction,
+							x: 50,
+							y: 50,
+							w: 300,
+							h: 600,
+						}
+					: undefined,
+			print: () =>
+				printDailyItemSold({
+					dailyItemSoldSummary,
+					branch,
+					branchMachine,
+					user,
+					isPdf: true,
+					reportDate,
+				}),
+		});
 
 	// METHODS
 	const handlePrint = () => {
@@ -116,6 +117,8 @@ export const ViewDailyItemSoldModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

@@ -39,7 +39,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
     // STATES
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `XReadReport_${report.id}`,
         // PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
         // receipt-width default (380px via appendHtmlElement), which sits inside
@@ -71,6 +71,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: "X-Read Report", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(XReadContent_1.XReadContent, { report: report, siteSettings: siteSettings, isForPrint: isForPrint }),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewXReadReportModal = ViewXReadReportModal;

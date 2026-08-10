@@ -17,20 +17,21 @@ type Props = {
 };
 
 export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `OrderOfPayment_${orderOfPayment.reference_number}`,
-		// PF B: A4 1/2 crosswise (short, wide landscape half-sheet). This
-		// document renders at 794px wide (see printOrderOfPaymentHtml) to match
-		// that layout, not the 400px-wide default jsPDF page every narrow
-		// receipt-format item relies on — otherwise jsPDF rasterizes the wider
-		// content onto a narrower page and clips the right side.
-		jsPdfSettings: paperSizes.A4_CROSSWISE,
-		print: () =>
-			printOrderOfPayment({
-				orderOfPayment,
-				isPdf: true,
-			} as PrintOrderOfPaymentType) as string | undefined,
-	});
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `OrderOfPayment_${orderOfPayment.reference_number}`,
+			// PF B: A4 1/2 crosswise (short, wide landscape half-sheet). This
+			// document renders at 794px wide (see printOrderOfPaymentHtml) to match
+			// that layout, not the 400px-wide default jsPDF page every narrow
+			// receipt-format item relies on — otherwise jsPDF rasterizes the wider
+			// content onto a narrower page and clips the right side.
+			jsPdfSettings: paperSizes.A4_CROSSWISE,
+			print: () =>
+				printOrderOfPayment({
+					orderOfPayment,
+					isPdf: true,
+				} as PrintOrderOfPaymentType) as string | undefined,
+		});
 
 	const handlePrint = () => {
 		printOrderOfPayment({
@@ -71,6 +72,8 @@ export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

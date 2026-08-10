@@ -18,7 +18,7 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
     // VARIABLES
     const type = (0, utils_1.getCashBreakdownTypeDescription)(cashBreakdown.category, cashBreakdown.type);
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `${cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT
             ? 'CashOut'
             : 'CashBreakdown'}_${cashBreakdown.id}.pdf`,
@@ -58,7 +58,8 @@ const ViewCashBreakdownModal = ({ cashBreakdown, siteSettings, user, onClose, })
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: `[View] ${type}`, centered: true, closable: true, open: true, onCancel: onClose },
         cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_OUT ? (react_1.default.createElement(CashOutDetails, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user })) : (react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings })),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewCashBreakdownModal = ViewCashBreakdownModal;
 const CashOutDetails = ({ cashBreakdown, siteSettings, user, }) => {
