@@ -37,81 +37,126 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 		purposeDescription = 'Full Payment';
 	}
 
-	const letterStyles: CSSProperties = {
+	// Inline fill-in blank for the dynamic fields in the body sentence. A shared
+	// style keeps every underline visually consistent (same thickness, padding,
+	// baseline) and evenly sized via a common minimum width; the generous body
+	// line-height below stops adjacent underlines from colliding when the
+	// sentence wraps.
+	const fillIn: CSSProperties = {
 		display: 'inline-block',
-		minWidth: 100,
+		minWidth: 120,
+		margin: '0 6px',
 		padding: '0 8px',
-		borderBottom: '2px solid black',
+		borderBottom: '1px solid black',
+		textAlign: 'center',
+		fontWeight: 'bold',
+		lineHeight: 1.2,
+		verticalAlign: 'baseline',
+	};
+
+	// Underlined value in the OP No / Date meta row: grows to fill its column,
+	// with left padding so the value doesn't touch its label.
+	const metaValue: CSSProperties = {
+		flex: 1,
+		borderBottom: '1px solid black',
+		padding: '0 6px 1px',
 		textAlign: 'center',
 		fontWeight: 'bold',
 	};
 
+	const metaLabel: CSSProperties = {
+		flexShrink: 0,
+		marginRight: 10,
+		fontWeight: 'bold',
+	};
+
+	// Layout-critical styling is expressed inline (not via Tailwind utility
+	// classes) so the three render paths look identical: the on-screen modal and
+	// the jsPDF path both sit in the live app DOM where Tailwind is loaded, but
+	// the QZ HTML print path renders the standalone markup with only the width
+	// rule appendHtmlElement injects — no Tailwind. Inline styles apply in all
+	// three. `font-mono text-sm` stays on the root purely as a harmless hint for
+	// the modal; the print/PDF container already sets a monospace font.
 	return (
-		<div className="font-mono text-sm">
-			<div className="text-center font-bold">
+		<div
+			className="font-mono text-sm"
+			style={{ boxSizing: 'border-box', padding: '16px 32px', lineHeight: 1.5 }}
+		>
+			{/* Header — company / branch */}
+			<div style={{ textAlign: 'center' }}>
 				{storeName ? (
-					<div style={{ whiteSpace: 'pre-line' }}>{storeName}</div>
+					<div
+						style={{
+							whiteSpace: 'pre-line',
+							letterSpacing: 1,
+							fontSize: '1.125em',
+							fontWeight: 'bold',
+						}}
+					>
+						{storeName}
+					</div>
 				) : null}
-				{branchName ? <div>{branchName}</div> : null}
+				{branchName ? (
+					<div style={{ fontWeight: 'bold' }}>{branchName}</div>
+				) : null}
 			</div>
 
-			<br />
+			{/* Title */}
+			<div
+				style={{
+					textAlign: 'center',
+					fontSize: '1.35em',
+					fontWeight: 'bold',
+					letterSpacing: 3,
+					margin: '20px 0 24px',
+				}}
+			>
+				ORDER OF PAYMENT
+			</div>
 
-			<div className="flex w-full justify-between gap-2 font-bold">
-				<div className="flex w-full">
-					<span className="shrink-0">OP No:</span>
-					<div
-						style={{ borderBottom: '2px solid black' }}
-						className="grow text-center"
-					>
-						{opNo}
-					</div>
+			{/* Meta row — OP No / Date */}
+			<div style={{ display: 'flex', gap: 48, marginBottom: 24 }}>
+				<div style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}>
+					<span style={metaLabel}>OP No:</span>
+					<span style={metaValue}>{opNo}</span>
 				</div>
-				<div className="flex w-full">
-					<span className="shrink-0">Date:</span>
-					<div
-						style={{ borderBottom: '2px solid black' }}
-						className="grow text-center"
-					>
-						{date}
-					</div>
+				<div style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}>
+					<span style={metaLabel}>Date:</span>
+					<span style={metaValue}>{date}</span>
 				</div>
 			</div>
 
-			<br />
-			<br />
-
-			<div className="text-center text-xl font-bold">ORDER OF PAYMENT</div>
-
-			<br />
-
-			<div>
-				<b>The Cashier</b>
-			</div>
-			<div>Cashiering Unit</div>
-
-			<br />
-			<br />
-
-			<div style={{ textAlign: 'justify' }}>
-				&emsp;&emsp;&emsp;Please issue Collection Receipt in favor of
-				<span style={letterStyles}>{payor}</span> from
-				<span style={letterStyles}>{address}</span> in the amount of
-				<span style={letterStyles}>{amount}</span> for payment of
-				<span style={letterStyles}>{purposeDescription}</span> per Charge
-				Invoice No.
-				<span style={letterStyles}>{invoiceId}</span> dated
-				<span style={letterStyles}>{invoiceDate}</span>.
+			{/* Recipient block */}
+			<div style={{ marginBottom: 20 }}>
+				<div style={{ fontWeight: 'bold' }}>The Cashier</div>
+				<div>Cashiering Unit</div>
 			</div>
 
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
+			{/* Body */}
+			<div style={{ textAlign: 'left', lineHeight: 2.4, textIndent: 40 }}>
+				Please issue Collection Receipt in favor of
+				<span style={fillIn}>{payor}</span> from
+				<span style={fillIn}>{address}</span> in the amount of
+				<span style={fillIn}>{amount}</span> for payment of
+				<span style={fillIn}>{purposeDescription}</span> per Charge Invoice No.
+				<span style={fillIn}>{invoiceId}</span> dated
+				<span style={fillIn}>{invoiceDate}</span>.
+			</div>
 
-			<div className="float-right w-3/5 text-center" style={{ borderTop: '2px solid black', padding: '0 12px' }}>
-				Manager/Authorized Official
+			{/* Signature */}
+			<div
+				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 56 }}
+			>
+				<div
+					style={{
+						width: '45%',
+						textAlign: 'center',
+						borderTop: '1px solid black',
+						paddingTop: 6,
+					}}
+				>
+					Manager/Authorized Official
+				</div>
 			</div>
 		</div>
 	);
