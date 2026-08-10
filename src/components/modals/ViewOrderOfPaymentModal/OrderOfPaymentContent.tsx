@@ -37,31 +37,36 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 		purposeDescription = 'Full Payment';
 	}
 
-	// Inline underline for the fill-in values in the body sentence. Kept as an
-	// INLINE span (not inline-block) with a bottom border so the underline tracks
-	// the text baseline. jsPDF's html2canvas mis-positions bottom borders on
-	// inline-block elements whose line-height differs from the surrounding line —
-	// that was drawing the underlines *through* the values in the generated PDF.
+	// Inline fill-in blank for the dynamic fields in the body sentence. A shared
+	// style keeps every underline visually consistent (same thickness, padding,
+	// baseline) and evenly sized via a common minimum widath; the generous body
+	// line-height below stops adjacent underlines from colliding when the
+	// sentence wraps.
 	const fillIn: CSSProperties = {
-		borderBottom: '1px solid black',
-		padding: '0 10px',
-		fontWeight: 'bold',
-		whiteSpace: 'nowrap',
-	};
-
-	// The meta row and signature line are laid out with <table>, not flexbox:
-	// tables + cell borders are the primitive html2canvas renders reliably, so
-	// the OP No / Date underlines and the signature rule land in the right place
-	// in the PDF and print output (flex alignment + borders did not).
-	const metaLabelCell: CSSProperties = {
-		whiteSpace: 'nowrap',
-		fontWeight: 'bold',
-		paddingRight: 10,
-		width: 1,
-	};
-	const metaValueCell: CSSProperties = {
+		display: 'inline-block',
+		minWidth: 120,
+		margin: '0 6px',
+		padding: '0 8px',
 		borderBottom: '1px solid black',
 		textAlign: 'center',
+		fontWeight: 'bold',
+		lineHeight: 1.2,
+		verticalAlign: 'baseline',
+	};
+
+	// Underlined value in the OP No / Date meta row: grows to fill its column,
+	// with left padding so the value doesn't touch its label.
+	const metaValue: CSSProperties = {
+		flex: 1,
+		borderBottom: '1px solid black',
+		padding: '0 6px 1px',
+		textAlign: 'center',
+		fontWeight: 'bold',
+	};
+
+	const metaLabel: CSSProperties = {
+		flexShrink: 0,
+		marginRight: 10,
 		fontWeight: 'bold',
 	};
 
@@ -73,27 +78,12 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 	// three. `font-mono text-sm` stays on the root purely as a harmless hint for
 	// the modal; the print/PDF container already sets a monospace font.
 	return (
-		<div
-			className="font-mono text-sm"
-			style={{ boxSizing: 'border-box', padding: '16px 32px', lineHeight: 1.5 }}
-		>
-			{/* Header — company / branch */}
-			<div style={{ textAlign: 'center' }}>
+		<div className="font-mono text-sm">
+			<div className="text-center font-bold">
 				{storeName ? (
-					<div
-						style={{
-							whiteSpace: 'pre-line',
-							letterSpacing: 1,
-							fontSize: '1.125em',
-							fontWeight: 'bold',
-						}}
-					>
-						{storeName}
-					</div>
+					<div style={{ whiteSpace: 'pre-line' }}>{storeName}</div>
 				) : null}
-				{branchName ? (
-					<div style={{ fontWeight: 'bold' }}>{branchName}</div>
-				) : null}
+				{branchName ? <div>{branchName}</div> : null}
 			</div>
 
 			{/* Title */}
@@ -103,60 +93,56 @@ export const OrderOfPaymentContent = ({ orderOfPayment }: Props) => {
 					fontSize: '1.35em',
 					fontWeight: 'bold',
 					letterSpacing: 3,
-					margin: '18px 0 22px',
+					margin: '20px 0 24px',
 				}}
 			>
 				ORDER OF PAYMENT
 			</div>
 
 			{/* Meta row — OP No / Date */}
-			<table style={{ width: '100%', marginBottom: 22 }}>
-				<tbody>
-					<tr>
-						<td style={metaLabelCell}>OP No:</td>
-						<td style={metaValueCell}>{opNo}</td>
-						<td style={{ width: 48 }} />
-						<td style={metaLabelCell}>Date:</td>
-						<td style={metaValueCell}>{date}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div style={{ display: 'flex', gap: 48, marginBottom: 24 }}>
+				<div style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}>
+					<span style={metaLabel}>OP No:</span>
+					<span style={metaValue}>{opNo}</span>
+				</div>
+				<div style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}>
+					<span style={metaLabel}>Date:</span>
+					<span style={metaValue}>{date}</span>
+				</div>
+			</div>
 
 			{/* Recipient block */}
-			<div style={{ marginBottom: 18 }}>
+			<div style={{ marginBottom: 20 }}>
 				<div style={{ fontWeight: 'bold' }}>The Cashier</div>
 				<div>Cashiering Unit</div>
 			</div>
 
 			{/* Body */}
-			<div style={{ textAlign: 'left', lineHeight: 2, textIndent: 40 }}>
-				Please issue Collection Receipt in favor of{' '}
-				<span style={fillIn}>{payor}</span> from{' '}
-				<span style={fillIn}>{address}</span> in the amount of{' '}
-				<span style={fillIn}>{amount}</span> for payment of{' '}
-				<span style={fillIn}>{purposeDescription}</span> per Charge Invoice No.{' '}
-				<span style={fillIn}>{invoiceId}</span> dated{' '}
+			<div style={{ textAlign: 'left', lineHeight: 2.4, textIndent: 40 }}>
+				Please issue Collection Receipt in favor of
+				<span style={fillIn}>{payor}</span> from
+				<span style={fillIn}>{address}</span> in the amount of
+				<span style={fillIn}>{amount}</span> for payment of
+				<span style={fillIn}>{purposeDescription}</span> per Charge Invoice No.
+				<span style={fillIn}>{invoiceId}</span> dated
 				<span style={fillIn}>{invoiceDate}</span>.
 			</div>
 
 			{/* Signature */}
-			<table style={{ width: '100%', marginTop: 44 }}>
-				<tbody>
-					<tr>
-						<td style={{ width: '55%' }} />
-						<td
-							style={{
-								width: '45%',
-								borderTop: '1px solid black',
-								textAlign: 'center',
-								paddingTop: 6,
-							}}
-						>
-							Manager/Authorized Official
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div
+				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 56 }}
+			>
+				<div
+					style={{
+						width: '45%',
+						textAlign: 'center',
+						borderTop: '1px solid black',
+						paddingTop: 6,
+					}}
+				>
+					Manager/Authorized Official
+				</div>
+			</div>
 		</div>
 	);
 };
