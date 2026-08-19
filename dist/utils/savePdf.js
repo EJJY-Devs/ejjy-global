@@ -31,7 +31,16 @@ const savePdf = (pdf, fileName) => __awaiter(void 0, void 0, void 0, function* (
     const safeName = ensurePdfExtension(fileName || 'Document');
     const blob = pdf.output('blob');
     const showSaveFilePicker = window.showSaveFilePicker;
-    if (typeof showSaveFilePicker === 'function') {
+    // Electron builds that consume this library (nodeIntegration: true) expose
+    // window.require. In Electron, anchor downloads are intercepted by the host
+    // app's main process with a native "Save As" dialog that reliably lets the
+    // user pick any folder (including Desktop) — Electron's own implementation
+    // of the File System Access API used below is not reliable for this (it can
+    // resolve without finishing the write, leaving a broken file behind, while
+    // the code still falls through to a second anchor download). So skip the
+    // picker entirely in Electron and let the host's native dialog handle it.
+    const isElectron = typeof window.require === 'function';
+    if (!isElectron && typeof showSaveFilePicker === 'function') {
         try {
             const handle = yield showSaveFilePicker({
                 suggestedName: safeName,

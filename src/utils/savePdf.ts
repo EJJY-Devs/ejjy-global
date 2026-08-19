@@ -48,7 +48,17 @@ export const savePdf = async (pdf: jsPDF, fileName: string): Promise<void> => {
 		window as unknown as { showSaveFilePicker?: ShowSaveFilePicker }
 	).showSaveFilePicker;
 
-	if (typeof showSaveFilePicker === 'function') {
+	// Electron builds that consume this library (nodeIntegration: true) expose
+	// window.require. In Electron, anchor downloads are intercepted by the host
+	// app's main process with a native "Save As" dialog that reliably lets the
+	// user pick any folder (including Desktop) — Electron's own implementation
+	// of the File System Access API used below is not reliable for this (it can
+	// resolve without finishing the write, leaving a broken file behind, while
+	// the code still falls through to a second anchor download). So skip the
+	// picker entirely in Electron and let the host's native dialog handle it.
+	const isElectron = typeof (window as any).require === 'function';
+
+	if (!isElectron && typeof showSaveFilePicker === 'function') {
 		try {
 			const handle = await showSaveFilePicker({
 				suggestedName: safeName,
