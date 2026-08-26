@@ -12,15 +12,14 @@ const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const OrderOfPaymentContent_1 = require("./OrderOfPaymentContent");
 const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `OrderOfPayment_${orderOfPayment.reference_number}`,
-        // This document renders at 794px wide (see printOrderOfPaymentHtml) to
-        // match its A4 1/2 Crosswise/landscape layout, not the 400px-wide
-        // default jsPDF page every narrow receipt-format item relies on.
-        // Without overriding the page format here, jsPDF has no width/
-        // windowWidth option to auto-scale by, so it would rasterize the
-        // wider content onto a narrower page and clip the right side.
-        jsPdfSettings: { format: [794, 2000] },
+        // PF B: A4 1/2 crosswise (short, wide landscape half-sheet). This
+        // document renders at 794px wide (see printOrderOfPaymentHtml) to match
+        // that layout, not the 400px-wide default jsPDF page every narrow
+        // receipt-format item relies on — otherwise jsPDF rasterizes the wider
+        // content onto a narrower page and clips the right side.
+        jsPdfSettings: print_1.paperSizes.A4_CROSSWISE,
         print: () => (0, print_1.printOrderOfPayment)({
             orderOfPayment,
             isPdf: true,
@@ -34,8 +33,9 @@ const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
     return (react_1.default.createElement(antd_1.Modal, { footer: [
             react_1.default.createElement(antd_1.Button, { key: "print", disabled: isLoadingPdf, icon: react_1.default.createElement(icons_1.PrinterOutlined, null), type: "primary", onClick: handlePrint }, "Print"),
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
-        ], title: "Order of Payment", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
+        ], title: "Order of Payment", width: 820, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(OrderOfPaymentContent_1.OrderOfPaymentContent, { orderOfPayment: orderOfPayment }),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewOrderOfPaymentModal = ViewOrderOfPaymentModal;

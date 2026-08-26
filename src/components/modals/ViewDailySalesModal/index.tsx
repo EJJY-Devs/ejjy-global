@@ -3,7 +3,11 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { createDailySalesTxt, printDailySales } from '../../../print';
+import {
+	createDailySalesTxt,
+	paperSizes,
+	printDailySales,
+} from '../../../print';
 import { DailySales, SiteSettings, User } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DailySalesContent } from './DailySalesContent';
@@ -27,21 +31,24 @@ export const ViewDailySalesModal = ({
 	const [isCreatingTxt, setIsCreatingTxt] = useState(false);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `DailySales_${dailySales.id}`,
-		image:
-			dailySales?.gross_sales === 0
-				? {
-						src: imgNoTransaction,
-						x: 50,
-						y: 50,
-						w: 300,
-						h: 600,
-					}
-				: undefined,
-		print: () =>
-			printDailySales({ dailySales, siteSettings, user, isPdf: true }),
-	});
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `DailySales_${dailySales.id}`,
+			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			image:
+				dailySales?.gross_sales === 0
+					? {
+							src: imgNoTransaction,
+							x: 50,
+							y: 50,
+							w: 300,
+							h: 600,
+						}
+					: undefined,
+			print: () =>
+				printDailySales({ dailySales, siteSettings, user, isPdf: true }),
+		});
 
 	// METHODS
 	const handlePrint = () => {
@@ -101,6 +108,8 @@ export const ViewDailySalesModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

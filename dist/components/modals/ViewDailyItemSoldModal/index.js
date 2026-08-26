@@ -15,11 +15,13 @@ const DailyItemSoldContent_1 = require("./DailyItemSoldContent");
 const ViewDailyItemSoldModal = ({ dailyItemSoldSummary, branch, branchMachine, user, loading = false, // Default to false
 reportDate, onClose, }) => {
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         // Name the file after the report's own date, not today's — reportDate
         // falls back to today only when the caller didn't pass one (e.g. a
         // "current day so far" view where there's no distinct report date yet).
         title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
+        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         image: dailyItemSoldSummary.length === 0 && !loading
             ? {
                 src: no_transaction_png_1.default,
@@ -54,6 +56,7 @@ reportDate, onClose, }) => {
         ], title: "Daily Item Sold", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: loading, tip: "Loading products..." },
             react_1.default.createElement(DailyItemSoldContent_1.DailyItemSoldContent, { dailyItemSoldSummary: dailyItemSoldSummary, branch: branch, branchMachine: branchMachine, user: user, reportDate: reportDate })),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewDailyItemSoldModal = ViewDailyItemSoldModal;

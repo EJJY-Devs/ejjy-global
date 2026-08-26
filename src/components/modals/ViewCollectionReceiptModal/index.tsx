@@ -18,15 +18,16 @@ export const ViewCollectionReceiptModal = ({
 	siteSettings,
 	onClose,
 }: Props) => {
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `CollectionReceipt_${collectionReceipt.reference_number}`,
-		print: () =>
-			printCollectionReceipt({
-				collectionReceipt,
-				siteSettings,
-				isPdf: true,
-			}) as string | undefined,
-	});
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `CollectionReceipt_${collectionReceipt.reference_number}`,
+			print: () =>
+				printCollectionReceipt({
+					collectionReceipt,
+					siteSettings,
+					isPdf: true,
+				}) as string | undefined,
+		});
 
 	const handlePrint = () => {
 		printCollectionReceipt({
@@ -71,6 +72,8 @@ export const ViewCollectionReceiptModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

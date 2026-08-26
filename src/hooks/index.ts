@@ -40,6 +40,8 @@ export * from './useOrderOfPayments';
 export { default as useOrderOfPayments } from './useOrderOfPayments';
 export * from './usePdf';
 export { default as usePdf } from './usePdf';
+export * from './usePdfPreviewModal';
+export { default as usePdfPreviewModal } from './usePdfPreviewModal';
 export * from './useProductCategories';
 export { default as useProductCategories } from './useProductCategories';
 export { default as useQueryParams } from './useQueryParams';

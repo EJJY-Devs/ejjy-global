@@ -12,7 +12,7 @@ const print_1 = require("../../../print");
 const Printing_1 = require("../../Printing");
 const CollectionReceiptContent_1 = require("./CollectionReceiptContent");
 const ViewCollectionReceiptModal = ({ collectionReceipt, siteSettings, onClose, }) => {
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `CollectionReceipt_${collectionReceipt.reference_number}`,
         print: () => (0, print_1.printCollectionReceipt)({
             collectionReceipt,
@@ -31,6 +31,7 @@ const ViewCollectionReceiptModal = ({ collectionReceipt, siteSettings, onClose, 
             react_1.default.createElement(Printing_1.PdfButtons, { key: "pdf", downloadPdf: downloadPdf, isDisabled: isLoadingPdf, isLoading: isLoadingPdf, previewPdf: previewPdf }),
         ], title: "Collection Receipt", width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(CollectionReceiptContent_1.CollectionReceiptContent, { collectionReceipt: collectionReceipt, siteSettings: siteSettings }),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewCollectionReceiptModal = ViewCollectionReceiptModal;

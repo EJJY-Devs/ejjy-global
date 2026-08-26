@@ -39,10 +39,13 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
     const [isCreatingTxt, setIsCreatingTxt] = (0, react_1.useState)(false);
     const [title, setTitle] = (0, react_1.useState)('Invoice');
     // CUSTOM HOOKS
-    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = (0, hooks_1.usePdf)({
+    const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `${(transactionData === null || transactionData === void 0 ? void 0 : transactionData.payment.mode) === globals_1.saleTypes.CREDIT
             ? 'ChargeInvoice'
             : 'SalesInvoice'}_${(_a = transactionData === null || transactionData === void 0 ? void 0 : transactionData.invoice) === null || _a === void 0 ? void 0 : _a.or_number}`,
+        // PF A: both the Sales Invoice (cash) and Charge Invoice (credit) render
+        // through here on A4 1/2 lengthwise (tall, narrow half-sheet).
+        jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
         print: () => {
             if (!transactionData) {
                 antd_1.message.error(globals_1.GENERIC_ERROR_MESSAGE);
@@ -102,6 +105,7 @@ const ViewTransactionModal = ({ transaction, siteSettings, serviceOptions, onClo
             react_1.default.createElement(antd_1.Button, { key: "txt", disabled: isLoadingPdf || isCreatingTxt, icon: react_1.default.createElement(icons_1.FileTextOutlined, null), loading: isCreatingTxt, type: "primary", onClick: handleCreateTxt }, "Create TXT"),
         ], title: title, width: 425, centered: true, closable: true, open: true, onCancel: onClose },
         react_1.default.createElement(antd_1.Spin, { spinning: isFetching }, (transactionData === null || transactionData === void 0 ? void 0 : transactionData.id) && (react_1.default.createElement(TransactionContent_1.TransactionContent, { transaction: transactionData, siteSettings: siteSettings }))),
-        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } })));
+        react_1.default.createElement("div", { dangerouslySetInnerHTML: { __html: htmlPdf }, style: { display: 'none' } }),
+        pdfPreviewModal));
 };
 exports.ViewTransactionModal = ViewTransactionModal;

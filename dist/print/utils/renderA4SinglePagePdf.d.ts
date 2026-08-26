@@ -14,9 +14,15 @@ export declare const PDF_WRAPPER_PADDING_PX = 32;
  *   the BIR reports' ~2000px tables) so nothing is squeezed or clipped
  *   during capture — the fit-to-page scaling below shrinks the resulting
  *   image down to one page regardless of how wide this is.
+ * @param orientation  'p' (default) targets A4 portrait (794 x 1123); 'l'
+ *   targets A4 landscape / "crosswise" (1123 x 794). Wide reports (the BIR
+ *   annex transaction lists — E2 SC, E3 PWD, E4 NAAC, E5 Solo Parent) stay
+ *   far more legible shrunk onto landscape than portrait, so pass 'l' for
+ *   those; the portrait E1 summary keeps the default.
  */
-export declare const renderA4SinglePagePdf: ({ html, title, widthPx, }: {
+export declare const renderA4SinglePagePdf: ({ html, title, widthPx, orientation, }: {
     html: string;
     title: string;
     widthPx?: number | undefined;
+    orientation?: "p" | "l" | undefined;
 }) => Promise<jsPDF>;

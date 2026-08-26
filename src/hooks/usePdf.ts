@@ -1,6 +1,8 @@
 import jsPDF, { HTMLOptions, jsPDFOptions } from 'jspdf';
-import { MutableRefObject, useState } from 'react';
+import { MutableRefObject, useRef, useState } from 'react';
 import { message } from 'antd';
+import { savePdf } from '../utils';
+import usePdfPreviewModal from './usePdfPreviewModal';
 
 const FORMAT_WIDTH = 400;
 const FORMAT_HEIGHT = 2000;
@@ -45,6 +47,10 @@ const usePdf = ({
 }: UsePDFProps) => {
 	const [htmlPdf, setHtmlPdf] = useState<string>('');
 	const [isLoadingPdf, setLoadingPdf] = useState<boolean>(false);
+	// Keep the most recently generated document so the preview modal's Download
+	// button can reuse it (preserving the user gesture the folder picker needs)
+	// instead of regenerating the PDF.
+	const lastPdfRef = useRef<jsPDF | null>(null);
 
 	const handlePdfAction = async (actionCallback: (pdf: jsPDF) => void) => {
 		setLoadingPdf(true);
@@ -123,37 +129,42 @@ const usePdf = ({
 		}
 	};
 
-	const previewPdf = () => {
-		// Open the tab synchronously, in direct response to the user's click,
-		// before any of the async PDF generation work (rAF, font loading,
-		// jsPDF's own async .html() render) happens below. If we wait until the
-		// blob URL is ready to call window.open(), the call is no longer inside
-		// the original user gesture and browsers' popup blockers silently
-		// swallow it. Navigating this already-open tab to the blob URL once
-		// it's ready does not require a fresh user gesture.
-		const previewTab = window.open('', '_blank');
+	// savePdf appends ".pdf" itself, so we pass the raw title here.
+	const getFilename = () => title || 'Document';
 
-		if (!previewTab) {
-			message.error(
-				'Unable to open PDF preview. Please allow pop-ups for this site and try again.',
-			);
-			return;
-		}
-
+	const downloadPdf = () => {
 		handlePdfAction((pdf) => {
-			previewTab.location.href = pdf.output('bloburl').toString();
+			lastPdfRef.current = pdf;
+			void savePdf(pdf, getFilename());
 		});
 	};
 
-	const downloadPdf = () => {
-		// jsPDF's save() takes "the filename including extension" verbatim and
-		// does not append one itself, so every caller here — none of which
-		// includes ".pdf" in its title — was downloading an extensionless file
-		// that the OS/browser can't associate back to a PDF viewer.
-		const filename = title || 'Document';
-		handlePdfAction((pdf) =>
-			pdf.save(filename.endsWith('.pdf') ? filename : `${filename}.pdf`),
-		);
+	// Reuse the already-generated document when the user hits Download from
+	// inside the preview modal — this keeps the click's user activation intact
+	// for the folder picker and avoids re-rendering the PDF.
+	const handlePreviewDownload = () => {
+		if (lastPdfRef.current) {
+			void savePdf(lastPdfRef.current, getFilename());
+		} else {
+			downloadPdf();
+		}
+	};
+
+	const { showPreview, pdfPreviewModal } = usePdfPreviewModal({
+		title,
+		onDownload: handlePreviewDownload,
+	});
+
+	const previewPdf = () => {
+		// Render the PDF into an in-app modal instead of a new browser tab. A
+		// blob URL opened via window.open() after the async generation work is
+		// no longer inside the original user gesture, so popup blockers (and the
+		// packaged Electron shell) swallow it. An iframe inside a modal has no
+		// such restriction.
+		handlePdfAction((pdf) => {
+			lastPdfRef.current = pdf;
+			showPreview(pdf.output('bloburl').toString());
+		});
 	};
 
 	return {
@@ -161,6 +172,7 @@ const usePdf = ({
 		isLoadingPdf,
 		previewPdf,
 		downloadPdf,
+		pdfPreviewModal,
 	};
 };
 

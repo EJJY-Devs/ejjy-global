@@ -35,29 +35,30 @@ export const ViewCashBreakdownModal = ({
 	);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `${
-			cashBreakdown.category === cashBreakdownCategories.CASH_OUT
-				? 'CashOut'
-				: 'CashBreakdown'
-		}_${cashBreakdown.id}.pdf`,
-		print: () => {
-			if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
-				return printCashOut({
-					cashOut: cashBreakdown,
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `${
+				cashBreakdown.category === cashBreakdownCategories.CASH_OUT
+					? 'CashOut'
+					: 'CashBreakdown'
+			}_${cashBreakdown.id}.pdf`,
+			print: () => {
+				if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
+					return printCashOut({
+						cashOut: cashBreakdown,
+						siteSettings,
+						isPdf: true,
+					});
+				}
+
+				return printCashBreakdown({
+					cashBreakdown,
 					siteSettings,
+					user,
 					isPdf: true,
 				});
-			}
-
-			return printCashBreakdown({
-				cashBreakdown,
-				siteSettings,
-				user,
-				isPdf: true,
-			});
-		},
-	}); // METHODS
+			},
+		}); // METHODS
 	const handlePrint = () => {
 		if (cashBreakdown.category === cashBreakdownCategories.CASH_OUT) {
 			printCashOut({
@@ -117,6 +118,8 @@ export const ViewCashBreakdownModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

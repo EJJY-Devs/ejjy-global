@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { createZReadTxt, printZReadReport } from '../../../print';
+import { createZReadTxt, paperSizes, printZReadReport } from '../../../print';
 import { SiteSettings, User, ZReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { ZReadContent } from './ZReadContent';
@@ -27,20 +27,25 @@ export const ViewZReadReportModal = ({
 	const [isCreatingTxt, setIsCreatingTxt] = useState<boolean>(false);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `ZReadReport_${report.id}`,
-		image:
-			report.total_transactions === 0
-				? {
-						src: imgNoTransaction,
-						x: 50,
-						y: 50,
-						w: 300,
-						h: 600,
-					}
-				: undefined,
-		print: () => printZReadReport({ report, siteSettings, user, isPdf: true }),
-	});
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `ZReadReport_${report.id}`,
+			// PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
+			// receipt-width default; the report paginates onto real half-sheets.
+			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			image:
+				report.total_transactions === 0
+					? {
+							src: imgNoTransaction,
+							x: 50,
+							y: 50,
+							w: 300,
+							h: 600,
+						}
+					: undefined,
+			print: () =>
+				printZReadReport({ report, siteSettings, user, isPdf: true }),
+		});
 
 	// METHODS
 	const handlePrint = () => {
@@ -100,6 +105,8 @@ export const ViewZReadReportModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

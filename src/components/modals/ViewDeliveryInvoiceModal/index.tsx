@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { GENERIC_ERROR_MESSAGE } from '../../../globals';
 import { usePdf, useDeliveryInvoiceRetrieve } from '../../../hooks';
 import { ServiceOptions } from '../../../hooks/inteface';
-import { printDeliveryInvoice } from '../../../print';
+import { paperSizes, printDeliveryInvoice } from '../../../print';
 import { DeliveryInvoice, SiteSettings } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DeliveryInvoiceContent } from './DeliveryInvoiceContent';
@@ -28,22 +28,25 @@ export const ViewDeliveryInvoiceModal = ({
 	>(null);
 
 	// CUSTOM HOOKS
-	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf } = usePdf({
-		title: `DeliveryInvoice_${deliveryInvoiceData?.id}`,
-		print: () => {
-			if (!deliveryInvoiceData) {
-				message.error(GENERIC_ERROR_MESSAGE);
-				return undefined;
-			}
+	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
+		usePdf({
+			title: `DeliveryInvoice_${deliveryInvoiceData?.id}`,
+			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			print: () => {
+				if (!deliveryInvoiceData) {
+					message.error(GENERIC_ERROR_MESSAGE);
+					return undefined;
+				}
 
-			return printDeliveryInvoice({
-				deliveryInvoice: deliveryInvoiceData,
-				siteSettings,
-				isReprint: true,
-				isPdf: true,
-			});
-		},
-	});
+				return printDeliveryInvoice({
+					deliveryInvoice: deliveryInvoiceData,
+					siteSettings,
+					isReprint: true,
+					isPdf: true,
+				});
+			},
+		});
 	const { data: deliveryInvoiceRetrieved, isFetching } =
 		useDeliveryInvoiceRetrieve({
 			id:
@@ -117,6 +120,8 @@ export const ViewDeliveryInvoiceModal = ({
 				dangerouslySetInnerHTML={{ __html: htmlPdf }}
 				style={{ display: 'none' }}
 			/>
+
+			{pdfPreviewModal}
 		</Modal>
 	);
 };

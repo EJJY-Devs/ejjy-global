@@ -19,4 +19,5 @@ __exportStar(require("./formatters"), exports);
 __exportStar(require("./localstorage"), exports);
 __exportStar(require("./qztray"), exports);
 __exportStar(require("./ReportTextFile"), exports);
+__exportStar(require("./savePdf"), exports);
 __exportStar(require("./ui"), exports);

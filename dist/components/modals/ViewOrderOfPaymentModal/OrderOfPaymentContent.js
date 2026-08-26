@@ -28,54 +28,84 @@ const OrderOfPaymentContent = ({ orderOfPayment }) => {
     else if ((orderOfPayment === null || orderOfPayment === void 0 ? void 0 : orderOfPayment.purpose) === globals_1.orderOfPaymentPurposes.FULL_PAYMENT) {
         purposeDescription = 'Full Payment';
     }
-    const letterStyles = {
+    // Inline fill-in blank for the dynamic fields in the body sentence. A shared
+    // style keeps every underline visually consistent (same thickness, padding,
+    // baseline) and evenly sized via a common minimum widath; the generous body
+    // line-height below stops adjacent underlines from colliding when the
+    // sentence wraps.
+    const fillIn = {
         display: 'inline-block',
-        minWidth: 100,
+        minWidth: 120,
+        margin: '0 6px',
         padding: '0 8px',
-        borderBottom: '2px solid black',
+        borderBottom: '1px solid black',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        lineHeight: 1.2,
+        verticalAlign: 'baseline',
+    };
+    // Underlined value in the OP No / Date meta row: grows to fill its column,
+    // with left padding so the value doesn't touch its label.
+    const metaValue = {
+        flex: 1,
+        borderBottom: '1px solid black',
+        padding: '0 6px 1px',
         textAlign: 'center',
         fontWeight: 'bold',
     };
+    const metaLabel = {
+        flexShrink: 0,
+        marginRight: 10,
+        fontWeight: 'bold',
+    };
+    // Layout-critical styling is expressed inline (not via Tailwind utility
+    // classes) so the three render paths look identical: the on-screen modal and
+    // the jsPDF path both sit in the live app DOM where Tailwind is loaded, but
+    // the QZ HTML print path renders the standalone markup with only the width
+    // rule appendHtmlElement injects — no Tailwind. Inline styles apply in all
+    // three. `font-mono text-sm` stays on the root purely as a harmless hint for
+    // the modal; the print/PDF container already sets a monospace font.
     return (react_1.default.createElement("div", { className: "font-mono text-sm" },
         react_1.default.createElement("div", { className: "text-center font-bold" },
             storeName ? (react_1.default.createElement("div", { style: { whiteSpace: 'pre-line' } }, storeName)) : null,
             branchName ? react_1.default.createElement("div", null, branchName) : null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { className: "flex w-full justify-between gap-2 font-bold" },
-            react_1.default.createElement("div", { className: "flex w-full" },
-                react_1.default.createElement("span", { className: "shrink-0" }, "OP No:"),
-                react_1.default.createElement("div", { style: { borderBottom: '2px solid black' }, className: "grow text-center" }, opNo)),
-            react_1.default.createElement("div", { className: "flex w-full" },
-                react_1.default.createElement("span", { className: "shrink-0" }, "Date:"),
-                react_1.default.createElement("div", { style: { borderBottom: '2px solid black' }, className: "grow text-center" }, date))),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { className: "text-center text-xl font-bold" }, "ORDER OF PAYMENT"),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("div", null,
-            react_1.default.createElement("b", null, "The Cashier")),
-        react_1.default.createElement("div", null, "Cashiering Unit"),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { style: { textAlign: 'justify' } },
-            "\u2003\u2003\u2003Please issue Collection Receipt in favor of",
-            react_1.default.createElement("span", { style: letterStyles }, payor),
+        react_1.default.createElement("div", { style: {
+                textAlign: 'center',
+                fontSize: '1.35em',
+                fontWeight: 'bold',
+                letterSpacing: 3,
+                margin: '20px 0 24px',
+            } }, "ORDER OF PAYMENT"),
+        react_1.default.createElement("div", { style: { display: 'flex', gap: 48, marginBottom: 24 } },
+            react_1.default.createElement("div", { style: { display: 'flex', flex: 1, alignItems: 'flex-end' } },
+                react_1.default.createElement("span", { style: metaLabel }, "OP No:"),
+                react_1.default.createElement("span", { style: metaValue }, opNo)),
+            react_1.default.createElement("div", { style: { display: 'flex', flex: 1, alignItems: 'flex-end' } },
+                react_1.default.createElement("span", { style: metaLabel }, "Date:"),
+                react_1.default.createElement("span", { style: metaValue }, date))),
+        react_1.default.createElement("div", { style: { marginBottom: 20 } },
+            react_1.default.createElement("div", { style: { fontWeight: 'bold' } }, "The Cashier"),
+            react_1.default.createElement("div", null, "Cashiering Unit")),
+        react_1.default.createElement("div", { style: { textAlign: 'left', lineHeight: 2.4, textIndent: 40 } },
+            "Please issue Collection Receipt in favor of",
+            react_1.default.createElement("span", { style: fillIn }, payor),
             " from",
-            react_1.default.createElement("span", { style: letterStyles }, address),
+            react_1.default.createElement("span", { style: fillIn }, address),
             " in the amount of",
-            react_1.default.createElement("span", { style: letterStyles }, amount),
+            react_1.default.createElement("span", { style: fillIn }, amount),
             " for payment of",
-            react_1.default.createElement("span", { style: letterStyles }, purposeDescription),
+            react_1.default.createElement("span", { style: fillIn }, purposeDescription),
             " per Charge Invoice No.",
-            react_1.default.createElement("span", { style: letterStyles }, invoiceId),
+            react_1.default.createElement("span", { style: fillIn }, invoiceId),
             " dated",
-            react_1.default.createElement("span", { style: letterStyles }, invoiceDate),
+            react_1.default.createElement("span", { style: fillIn }, invoiceDate),
             "."),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("br", null),
-        react_1.default.createElement("div", { className: "float-right w-3/5 text-center", style: { borderTop: '2px solid black', padding: '0 12px' } }, "Manager/Authorized Official")));
+        react_1.default.createElement("div", { style: { display: 'flex', justifyContent: 'flex-end', marginTop: 56 } },
+            react_1.default.createElement("div", { style: {
+                    width: '45%',
+                    textAlign: 'center',
+                    borderTop: '1px solid black',
+                    paddingTop: 6,
+                } }, "Manager/Authorized Official"))));
 };
 exports.OrderOfPaymentContent = OrderOfPaymentContent;
