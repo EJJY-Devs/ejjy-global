@@ -28,7 +28,7 @@ export const ReceiptHeader = ({
 	const {
 		name,
 		machine_identification_number: machineID,
-		pos_terminal: posTerminal,
+		storage_serial_number: serialNumber,
 		branch,
 		ptu_date_issued: ptuDateIssued,
 		permit_to_use,
@@ -66,7 +66,7 @@ export const ReceiptHeader = ({
 						.join(' | ')}
 				</span>
 				{machineID && <span>MIN: {machineID}</span>}
-				{posTerminal && <span>SN: {posTerminal}</span>}
+				{serialNumber && <span>SN: {serialNumber}</span>}
 				{permit_to_use && <span>PTU No: {permit_to_use}</span>}
 				{ptuDateIssued && <span>Date Issued: {ptuDateIssued}</span>}
 				{title ? <br /> : ''}

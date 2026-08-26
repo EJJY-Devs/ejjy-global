@@ -27,7 +27,7 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
 };
 exports.generateReceiptHeaderCommandsV2 = generateReceiptHeaderCommandsV2;
 const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) => {
-    const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
+    const { name, machine_identification_number: machineID, storage_serial_number: serialNumber, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
     const commands = [];
     // Initialize and set center alignment for header
@@ -62,8 +62,8 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
         commands.push(`MIN: ${machineID}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
-    if (posTerminal) {
-        commands.push(`SN: ${posTerminal}`); // Let ESC/POS center alignment handle it
+    if (serialNumber) {
+        commands.push(`SN: ${serialNumber}`); // Let ESC/POS center alignment handle it
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (permit_to_use) {

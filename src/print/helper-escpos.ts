@@ -45,7 +45,7 @@ export const generateReceiptHeaderCommands = ({
 	const {
 		name,
 		machine_identification_number: machineID,
-		pos_terminal: posTerminal,
+		storage_serial_number: serialNumber,
 		branch,
 		ptu_date_issued: ptuDateIssued,
 		permit_to_use,
@@ -96,8 +96,8 @@ export const generateReceiptHeaderCommands = ({
 		commands.push(`MIN: ${machineID}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
-	if (posTerminal) {
-		commands.push(`SN: ${posTerminal}`); // Let ESC/POS center alignment handle it
+	if (serialNumber) {
+		commands.push(`SN: ${serialNumber}`); // Let ESC/POS center alignment handle it
 		commands.push(EscPosCommands.LINE_BREAK);
 	}
 	if (permit_to_use) {

@@ -19,7 +19,7 @@ const globalStyles = react_1.default.createElement('style', {}, [
 ]);
 const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
     var _a, _b, _c, _d, _e, _f;
-    const { name, machine_identification_number: machineID, pos_terminal: posTerminal, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
+    const { name, machine_identification_number: machineID, storage_serial_number: serialNumber, branch, ptu_date_issued: ptuDateIssued, permit_to_use, } = branchMachine || {};
     return (react_1.default.createElement(react_1.default.Fragment, null,
         globalStyles,
         react_1.default.createElement("div", { style: {
@@ -42,9 +42,9 @@ const ReceiptHeader = ({ branchMachine, title, branchHeader, }) => {
             machineID && react_1.default.createElement("span", null,
                 "MIN: ",
                 machineID),
-            posTerminal && react_1.default.createElement("span", null,
+            serialNumber && react_1.default.createElement("span", null,
                 "SN: ",
-                posTerminal),
+                serialNumber),
             permit_to_use && react_1.default.createElement("span", null,
                 "PTU No: ",
                 permit_to_use),

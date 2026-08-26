@@ -11,7 +11,7 @@ exports.TXT_NBSP = ' ';
 exports.TXT_DIVIDER = '----------------------------------------------------------------------';
 const getTxtHeader = ({ branchMachine, siteSettings, }) => {
     const { contact_number: contactNumber, address_of_tax_payer: location = '', proprietor, store_name: storeName = '', tax_type: taxType, tin, } = siteSettings;
-    const { name, machine_identification_number: machineID, pos_terminal: posTerminal, } = branchMachine;
+    const { name, machine_identification_number: machineID, storage_serial_number: serialNumber, } = branchMachine;
     const storeNames = storeName
         .trim()
         .split('\n')
@@ -27,7 +27,7 @@ const getTxtHeader = ({ branchMachine, siteSettings, }) => {
         proprietor,
         [(0, utils_1.getTaxTypeDescription)(taxType), tin].filter(Boolean).join(' | '),
         `MIN: ${machineID}`,
-        `SN: ${posTerminal}`,
+        `SN: ${serialNumber}`,
     ]
         .filter((row) => typeof row === 'string')
         .map((data) => ({ center: data }));

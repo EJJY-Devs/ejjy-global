@@ -37,7 +37,7 @@ export const getTxtHeader = ({
 	const {
 		name,
 		machine_identification_number: machineID,
-		pos_terminal: posTerminal,
+		storage_serial_number: serialNumber,
 	} = branchMachine;
 
 	const storeNames = storeName
@@ -57,7 +57,7 @@ export const getTxtHeader = ({
 		proprietor,
 		[getTaxTypeDescription(taxType), tin].filter(Boolean).join(' | '),
 		`MIN: ${machineID}`,
-		`SN: ${posTerminal}`,
+		`SN: ${serialNumber}`,
 	]
 		.filter((row) => typeof row === 'string')
 		.map((data) => ({ center: data }));
