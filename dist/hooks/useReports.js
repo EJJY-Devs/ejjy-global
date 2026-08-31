@@ -22,23 +22,46 @@ const services_1 = require("../services");
 const formatDateTime = (dateTime) => {
     return dayjs_1.default.tz(dateTime).format('MMDDYYYY');
 };
+const VOID_STATUSES = [
+    globals_1.transactionStatuses.VOID_EDITED,
+    globals_1.transactionStatuses.VOID_CANCELLED,
+];
+// Loops through every page of a paginated list endpoint (driven by the
+// response's `count`) so callers get the full result set for the time range
+// instead of only the first MAX_PAGE_SIZE records.
+const fetchAllPages = (list, params) => __awaiter(void 0, void 0, void 0, function* () {
+    let page = globals_1.DEFAULT_PAGE;
+    let results = [];
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        // eslint-disable-next-line no-await-in-loop
+        const response = yield list(Object.assign(Object.assign({}, params), { page, page_size: globals_1.MAX_PAGE_SIZE }));
+        results = results.concat(response.results);
+        if (results.length >= response.count || response.results.length === 0) {
+            break;
+        }
+        page += 1;
+    }
+    return results;
+});
 const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, timeRange, user }) => __awaiter(void 0, void 0, void 0, function* () {
-    const params = {
-        page_size: globals_1.MAX_PAGE_SIZE,
-        page: globals_1.DEFAULT_PAGE,
-        time_range: timeRange,
-    };
-    const [transactions, xreadReports, zreadReports] = yield Promise.all([
-        services_1.TransactionsService.list(params),
-        services_1.XReadReportsService.list(Object.assign(Object.assign({}, params), { branch_machine_id: branchMachine.id, is_with_daily_sales_data: false })),
-        services_1.ZReadReportsService.list(Object.assign(Object.assign({}, params), { branch_machine_id: branchMachine.id })),
+    const params = { time_range: timeRange };
+    const [allTransactions, xreadReports, zreadReports] = yield Promise.all([
+        fetchAllPages(services_1.TransactionsService.list, Object.assign(Object.assign({}, params), { statuses: [
+                globals_1.transactionStatuses.FULLY_PAID,
+                ...VOID_STATUSES,
+            ].join(',') })),
+        fetchAllPages(services_1.XReadReportsService.list, Object.assign(Object.assign({}, params), { branch_machine_id: branchMachine.id, is_with_daily_sales_data: false })),
+        fetchAllPages(services_1.ZReadReportsService.list, Object.assign(Object.assign({}, params), { branch_machine_id: branchMachine.id })),
     ]);
+    const salesTransactions = allTransactions.filter((transaction) => transaction.invoice !== null &&
+        !VOID_STATUSES.includes(transaction.status));
+    const voidTransactions = allTransactions.filter((transaction) => VOID_STATUSES.includes(transaction.status));
+    const voidTransactionsWithInvoice = voidTransactions.filter((transaction) => transaction.invoice !== null);
     const requests = [];
-    if (transactions.results.length > 0) {
+    if (salesTransactions.length > 0) {
         requests.push(services_1.ReportsService.bulkExportReports({
-            data: transactions.results
-                .filter((transaction) => transaction.invoice !== null)
-                .map((transaction) => {
+            data: salesTransactions.map((transaction) => {
                 var _a;
                 return ({
                     folder_name: `invoices/${formatDateTime(transaction.invoice.datetime_created)}/${((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || 'NO_CASHIER'}`,
@@ -48,22 +71,51 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
             }),
         }));
     }
-    if (xreadReports.results.length > 0) {
+    if (xreadReports.length > 0) {
         requests.push(services_1.ReportsService.bulkExportReports({
-            data: xreadReports.results.map((report) => ({
+            data: xreadReports.map((report) => ({
                 folder_name: 'reports/xread',
                 file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
                 contents: (0, print_1.createXReadTxt)(report, siteSettings, user, true),
             })),
         }));
     }
-    if (zreadReports.results.length > 0) {
+    if (zreadReports.length > 0) {
         requests.push(services_1.ReportsService.bulkExportReports({
-            data: zreadReports.results.map((report) => ({
+            data: zreadReports.map((report) => ({
                 folder_name: 'reports/zread',
                 file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
                 contents: (0, print_1.createZReadTxt)(report, siteSettings, user, true),
             })),
+        }));
+    }
+    // Voided Transactions: a single summary report listing every voided
+    // transaction (OR number + amount) in the time range.
+    if (voidTransactions.length > 0) {
+        requests.push(services_1.ReportsService.bulkExportReports({
+            data: [
+                {
+                    folder_name: 'reports/void',
+                    file_name: `VoidedTransactions_${formatDateTime((0, dayjs_1.default)().toISOString())}.txt`,
+                    contents: (0, print_1.createVoidedTransactionsSummaryTxt)(voidTransactions, siteSettings, user, timeRange || '', true),
+                },
+            ],
+        }));
+    }
+    // Voided Invoices: the full invoice content for each voided
+    // transaction, reusing createSalesInvoiceTxt directly so the
+    // "VOIDED TRANSACTION" footer (as opposed to "REPRINT ONLY") is
+    // produced the same way it already is everywhere else.
+    if (voidTransactionsWithInvoice.length > 0) {
+        requests.push(services_1.ReportsService.bulkExportReports({
+            data: voidTransactionsWithInvoice.map((transaction) => {
+                var _a;
+                return ({
+                    folder_name: `invoices/${formatDateTime(transaction.invoice.datetime_created)}/${((_a = transaction === null || transaction === void 0 ? void 0 : transaction.teller) === null || _a === void 0 ? void 0 : _a.employee_id) || 'NO_CASHIER'}`,
+                    file_name: `Void_Sales_Invoice_${transaction.invoice.or_number}.txt`,
+                    contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
+                });
+            }),
         }));
     }
     return Promise.all(requests);

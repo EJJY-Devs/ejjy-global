@@ -41,6 +41,7 @@ __exportStar(require("./receipt/printXReadReport"), exports);
 __exportStar(require("./receipt/printZReadReport"), exports);
 __exportStar(require("./txt/createDailySalesTxt"), exports);
 __exportStar(require("./txt/createSalesInvoiceTxt"), exports);
+__exportStar(require("./txt/createVoidedTransactionsSummaryTxt"), exports);
 __exportStar(require("./txt/createXReadTxt"), exports);
 __exportStar(require("./txt/createZReadTxt"), exports);
 __exportStar(require("./utils/cashier"), exports);

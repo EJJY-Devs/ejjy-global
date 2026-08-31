@@ -33,7 +33,6 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     table.bir-reports th,
     table.bir-reports .nested-row td {
       min-width: 60px;
-      line-height: 100%;
     }
 
     table.bir-reports th[colspan] {
@@ -49,6 +48,12 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
     table.bir-reports td {
       border: 1px solid black;
       text-align: center;
+      vertical-align: middle;
+      padding: 6px 4px;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-break: normal;
+      line-height: 1.3;
     }
 
     .bir-reports-pdf .title {
