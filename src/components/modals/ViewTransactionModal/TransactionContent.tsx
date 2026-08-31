@@ -43,10 +43,7 @@ export const getTransactionData = (transaction: Transaction) => {
 			key,
 			value: discountOptionFields[key],
 		}));
-	} else if (
-		transaction?.client?.name ||
-		transaction?.payment?.creditor_account
-	) {
+	} else {
 		fields = [
 			{
 				key: 'NAME',
@@ -67,6 +64,12 @@ export const getTransactionData = (transaction: Transaction) => {
 				value:
 					transaction.client?.address ||
 					transaction.payment?.creditor_account?.home_address ||
+					EMPTY_CELL,
+			},
+			{
+				key: 'BUS. ADDRESS',
+				value:
+					transaction.payment?.creditor_account?.business_address ||
 					EMPTY_CELL,
 			},
 		];

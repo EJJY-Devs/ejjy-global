@@ -27,25 +27,29 @@ const getTransactionData = (transaction) => {
             value: discountOptionFields[key],
         }));
     }
-    else if (((_b = transaction === null || transaction === void 0 ? void 0 : transaction.client) === null || _b === void 0 ? void 0 : _b.name) ||
-        ((_c = transaction === null || transaction === void 0 ? void 0 : transaction.payment) === null || _c === void 0 ? void 0 : _c.creditor_account)) {
+    else {
         fields = [
             {
                 key: 'NAME',
-                value: ((_d = transaction.client) === null || _d === void 0 ? void 0 : _d.name) ||
-                    (0, utils_1.getFullName)((_e = transaction.payment) === null || _e === void 0 ? void 0 : _e.creditor_account) ||
+                value: ((_b = transaction.client) === null || _b === void 0 ? void 0 : _b.name) ||
+                    (0, utils_1.getFullName)((_c = transaction.payment) === null || _c === void 0 ? void 0 : _c.creditor_account) ||
                     globals_1.EMPTY_CELL,
             },
             {
                 key: 'TIN',
-                value: ((_f = transaction.client) === null || _f === void 0 ? void 0 : _f.tin) ||
-                    ((_h = (_g = transaction.payment) === null || _g === void 0 ? void 0 : _g.creditor_account) === null || _h === void 0 ? void 0 : _h.tin) ||
+                value: ((_d = transaction.client) === null || _d === void 0 ? void 0 : _d.tin) ||
+                    ((_f = (_e = transaction.payment) === null || _e === void 0 ? void 0 : _e.creditor_account) === null || _f === void 0 ? void 0 : _f.tin) ||
                     globals_1.EMPTY_CELL,
             },
             {
                 key: 'ADDRESS',
-                value: ((_j = transaction.client) === null || _j === void 0 ? void 0 : _j.address) ||
-                    ((_l = (_k = transaction.payment) === null || _k === void 0 ? void 0 : _k.creditor_account) === null || _l === void 0 ? void 0 : _l.home_address) ||
+                value: ((_g = transaction.client) === null || _g === void 0 ? void 0 : _g.address) ||
+                    ((_j = (_h = transaction.payment) === null || _h === void 0 ? void 0 : _h.creditor_account) === null || _j === void 0 ? void 0 : _j.home_address) ||
+                    globals_1.EMPTY_CELL,
+            },
+            {
+                key: 'BUS. ADDRESS',
+                value: ((_l = (_k = transaction.payment) === null || _k === void 0 ? void 0 : _k.creditor_account) === null || _l === void 0 ? void 0 : _l.business_address) ||
                     globals_1.EMPTY_CELL,
             },
         ];
