@@ -20,11 +20,7 @@ export const birReportStyles = (variant: BirReportStylesVariant = 'wide') => {
 	return React.createElement('style', {}, [
 		`
     .bir-reports-pdf {
-      ${
-				isWide
-					? 'max-width: 2300px;\n      min-width: 2000px;'
-					: 'width: fit-content;\n      max-width: 100%;'
-			}
+      ${isWide ? 'max-width: 2300px;\n      min-width: 2000px;' : ''}
     }
 
     .bir-reports-pdf * {
@@ -39,7 +35,7 @@ export const birReportStyles = (variant: BirReportStylesVariant = 'wide') => {
 
     table.bir-reports {
       border-collapse: collapse;
-      ${isWide ? 'min-width: 2000px;\n      width: 100%;' : 'width: auto;'}
+      ${isWide ? 'min-width: 2000px;\n      width: 100%;' : 'width: auto;\n      margin: 0 auto;'}
     }
 
     table.bir-reports th,

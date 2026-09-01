@@ -39,8 +39,8 @@ const VOID_STATUSES = [
 ];
 
 // Loops through every page of a paginated list endpoint (driven by the
-// response's `count`) so callers get the full result set for the time range
-// instead of only the first MAX_PAGE_SIZE records.
+// response's `count`) so callers get the full result set matching the given
+// params instead of only the first MAX_PAGE_SIZE records.
 const fetchAllPages = async <T>(
 	list: (params: Record<string, unknown>) => Promise<ListResponseData<T>>,
 	params: Record<string, unknown>,
@@ -73,24 +73,26 @@ interface BulkExport {
 
 export const useBulkExport = () =>
 	useMutation<Awaited<AxiosResponse<string>[]>, AxiosErrorResponse, BulkExport>(
-		async ({ branchMachine, siteSettings, timeRange, user }) => {
-			const params = { time_range: timeRange };
-
+		async ({ branchMachine, siteSettings, user }) => {
+			// The e-journal export must be exhaustive: it is meant to be the
+			// complete historical record, so it intentionally does NOT scope
+			// these fetches to any caller-supplied time range (`timeRange` is
+			// accepted on BulkExport only for backward compatibility with
+			// existing callers and is otherwise ignored here) — every
+			// transaction/xread/zread ever recorded is fetched and grouped
+			// into its own month/day folder by the invoice/report's own date.
 			const [allTransactions, xreadReports, zreadReports] = await Promise.all([
 				fetchAllPages<Transaction>(TransactionsService.list, {
-					...params,
 					statuses: [
 						transactionStatuses.FULLY_PAID,
 						...VOID_STATUSES,
 					].join(','),
 				}),
 				fetchAllPages<XReadReport>(XReadReportsService.list, {
-					...params,
 					branch_machine_id: branchMachine.id,
 					is_with_daily_sales_data: false,
 				}),
 				fetchAllPages<ZReadReport>(ZReadReportsService.list, {
-					...params,
 					branch_machine_id: branchMachine.id,
 				}),
 			]);
@@ -107,9 +109,14 @@ export const useBulkExport = () =>
 				(transaction) => transaction.invoice !== null,
 			);
 
-			const requests = [];
+			// Each batch is queued as a thunk (not yet invoked) so the export
+			// requests can be run one at a time below, instead of firing all
+			// of them at the local API concurrently — the concurrent version
+			// was seen to intermittently drop/omit some batches' folders on
+			// the first attempt.
+			const requests: (() => Promise<AxiosResponse<string>>)[] = [];
 			if (salesTransactions.length > 0) {
-				requests.push(
+				requests.push(() =>
 					ReportsService.bulkExportReports({
 						data: salesTransactions.map((transaction) => ({
 							folder_name: `invoices/${formatMonth(
@@ -128,7 +135,7 @@ export const useBulkExport = () =>
 			}
 
 			if (xreadReports.length > 0) {
-				requests.push(
+				requests.push(() =>
 					ReportsService.bulkExportReports({
 						data: xreadReports.map((report) => ({
 							folder_name: `reports/xread/${formatMonth(
@@ -144,7 +151,7 @@ export const useBulkExport = () =>
 			}
 
 			if (zreadReports.length > 0) {
-				requests.push(
+				requests.push(() =>
 					ReportsService.bulkExportReports({
 						data: zreadReports.map(
 							(report): BulkExportData => ({
@@ -169,7 +176,7 @@ export const useBulkExport = () =>
 			// transactions, so it uses the same file naming as a regular
 			// sales invoice.
 			if (voidTransactionsWithInvoice.length > 0) {
-				requests.push(
+				requests.push(() =>
 					ReportsService.bulkExportReports({
 						data: voidTransactionsWithInvoice.map((transaction) => ({
 							folder_name: `void/${formatMonth(
@@ -187,7 +194,14 @@ export const useBulkExport = () =>
 				);
 			}
 
-			return Promise.all(requests);
+			const responses: AxiosResponse<string>[] = [];
+			// eslint-disable-next-line no-restricted-syntax
+			for (const request of requests) {
+				// eslint-disable-next-line no-await-in-loop
+				responses.push(await request());
+			}
+
+			return responses;
 		},
 	);
 
