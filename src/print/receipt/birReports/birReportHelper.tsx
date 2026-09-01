@@ -3,11 +3,28 @@ import React from 'react';
 import { BranchMachine, SiteSettings, User } from '../../../types';
 import { formatDateTime } from '../../../utils';
 
-export const birReportStyles = React.createElement('style', {}, [
-	`
+// The BIR Sales Summary (E1) genuinely has ~29 columns and needs the full
+// ~2000px table to lay them out without crushing every cell. The annex
+// reports (NAAC, PWD, SC, Solo Parent) have far fewer columns; forcing them
+// onto the same 2000px-wide table stretched every column way past its
+// content, and — since these render into a narrower off-screen container for
+// the single-page PDF capture (see renderA4SinglePagePdf) — the oversized
+// table spilled past the container and got clipped/overlapped at the page's
+// right edge instead of shrinking to fit. 'compact' lets these tables size
+// to their own content instead of being pinned to the E1 report's width.
+type BirReportStylesVariant = 'wide' | 'compact';
+
+export const birReportStyles = (variant: BirReportStylesVariant = 'wide') => {
+	const isWide = variant === 'wide';
+
+	return React.createElement('style', {}, [
+		`
     .bir-reports-pdf {
-      max-width: 2300px;
-      min-width: 2000px;
+      ${
+				isWide
+					? 'max-width: 2300px;\n      min-width: 2000px;'
+					: 'width: fit-content;\n      max-width: 100%;'
+			}
     }
 
     .bir-reports-pdf * {
@@ -15,15 +32,14 @@ export const birReportStyles = React.createElement('style', {}, [
       font-size: 12px;
     }
 
-    table.bir-reports,
     .bir-report-header div.details,
     .bir-report-header .title {
-      min-width: 2000px;
       width: 100%;
     }
 
     table.bir-reports {
       border-collapse: collapse;
+      ${isWide ? 'min-width: 2000px;\n      width: 100%;' : 'width: auto;'}
     }
 
     table.bir-reports th,
@@ -58,7 +74,8 @@ export const birReportStyles = React.createElement('style', {}, [
       margin-bottom:4px;
     }
   `,
-]);
+	]);
+};
 
 type BirHeaderProps = {
 	branchMachine?: BranchMachine;

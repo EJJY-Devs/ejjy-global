@@ -26,7 +26,7 @@ const printBirReportSP = (transactions, siteSettings, user, branchMachine) => {
             react_1.default.createElement("td", null, (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN))));
     });
     return server_1.default.renderToStaticMarkup(react_1.default.createElement("html", { lang: "en" },
-        react_1.default.createElement("head", null, birReportHelper_1.birReportStyles),
+        react_1.default.createElement("head", null, (0, birReportHelper_1.birReportStyles)('compact')),
         react_1.default.createElement("body", null,
             react_1.default.createElement("div", { className: "bir-reports-pdf" },
                 react_1.default.createElement(birReportHelper_1.BirHeader, { branchMachine: branchMachine, siteSettings: siteSettings, user: user, title: "Solo Parents Sales Book/Report" }),

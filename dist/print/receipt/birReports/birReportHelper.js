@@ -7,11 +7,14 @@ exports.BirHeader = exports.birReportStyles = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const utils_1 = require("../../../utils");
-exports.birReportStyles = react_1.default.createElement('style', {}, [
-    `
+const birReportStyles = (variant = 'wide') => {
+    const isWide = variant === 'wide';
+    return react_1.default.createElement('style', {}, [
+        `
     .bir-reports-pdf {
-      max-width: 2300px;
-      min-width: 2000px;
+      ${isWide
+            ? 'max-width: 2300px;\n      min-width: 2000px;'
+            : 'width: fit-content;\n      max-width: 100%;'}
     }
 
     .bir-reports-pdf * {
@@ -19,15 +22,14 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
       font-size: 12px;
     }
 
-    table.bir-reports,
     .bir-report-header div.details,
     .bir-report-header .title {
-      min-width: 2000px;
       width: 100%;
     }
 
     table.bir-reports {
       border-collapse: collapse;
+      ${isWide ? 'min-width: 2000px;\n      width: 100%;' : 'width: auto;'}
     }
 
     table.bir-reports th,
@@ -62,7 +64,9 @@ exports.birReportStyles = react_1.default.createElement('style', {}, [
       margin-bottom:4px;
     }
   `,
-]);
+    ]);
+};
+exports.birReportStyles = birReportStyles;
 const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement("div", { className: "bir-report-header" },
     react_1.default.createElement("div", { className: "details" }, siteSettings.proprietor),
     react_1.default.createElement("div", { className: "details" }, siteSettings.address_of_tax_payer),

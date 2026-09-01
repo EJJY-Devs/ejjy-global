@@ -171,7 +171,7 @@ export const printBirReport = (
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
-			<head>{birReportStyles}</head>
+			<head>{birReportStyles('wide')}</head>
 
 			<body>
 				<div className="bir-reports-pdf">

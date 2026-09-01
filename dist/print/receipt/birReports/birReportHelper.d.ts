@@ -1,6 +1,7 @@
 import React from 'react';
 import { BranchMachine, SiteSettings, User } from '../../../types';
-export declare const birReportStyles: React.DetailedReactHTMLElement<{}, HTMLElement>;
+type BirReportStylesVariant = 'wide' | 'compact';
+export declare const birReportStyles: (variant?: BirReportStylesVariant) => React.DetailedReactHTMLElement<{}, HTMLElement>;
 type BirHeaderProps = {
     branchMachine?: BranchMachine;
     siteSettings: SiteSettings;

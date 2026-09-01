@@ -4,7 +4,6 @@ import { DEFAULT_PAGE, MAX_PAGE_SIZE, transactionStatuses } from '../globals';
 import { wrapServiceWithCatch } from '../hooks/helper';
 import {
 	createSalesInvoiceTxt,
-	createVoidedTransactionsSummaryTxt,
 	createXReadTxt,
 	createZReadTxt,
 } from '../print';
@@ -28,6 +27,10 @@ import { AxiosResponse } from 'axios';
 
 const formatDateTime = (dateTime?: string): string => {
 	return dayjs.tz(dateTime).format('MMDDYYYY');
+};
+
+const formatMonth = (dateTime?: string): string => {
+	return dayjs.tz(dateTime).format('MMYYYY');
 };
 
 const VOID_STATUSES = [
@@ -109,9 +112,9 @@ export const useBulkExport = () =>
 				requests.push(
 					ReportsService.bulkExportReports({
 						data: salesTransactions.map((transaction) => ({
-							folder_name: `invoices/${formatDateTime(
+							folder_name: `invoices/${formatMonth(
 								transaction.invoice.datetime_created,
-							)}/${transaction?.teller?.employee_id || 'NO_CASHIER'}`,
+							)}/${formatDateTime(transaction.invoice.datetime_created)}`,
 							file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
 							contents: createSalesInvoiceTxt(
 								transaction,
@@ -128,7 +131,9 @@ export const useBulkExport = () =>
 				requests.push(
 					ReportsService.bulkExportReports({
 						data: xreadReports.map((report) => ({
-							folder_name: 'reports/xread',
+							folder_name: `reports/xread/${formatMonth(
+								report.generation_datetime,
+							)}/${formatDateTime(report.generation_datetime)}`,
 							file_name: `XReadReport_${formatDateTime(
 								report.generation_datetime,
 							)}_${report.id}.txt`,
@@ -143,7 +148,9 @@ export const useBulkExport = () =>
 					ReportsService.bulkExportReports({
 						data: zreadReports.map(
 							(report): BulkExportData => ({
-								folder_name: 'reports/zread',
+								folder_name: `reports/zread/${formatMonth(
+									report.generation_datetime,
+								)}/${formatDateTime(report.generation_datetime)}`,
 								file_name: `ZReadReport_${formatDateTime(
 									report.generation_datetime,
 								)}_${report.id}.txt`,
@@ -154,42 +161,21 @@ export const useBulkExport = () =>
 				);
 			}
 
-			// Voided Transactions: a single summary report listing every voided
-			// transaction (OR number + amount) in the time range.
-			if (voidTransactions.length > 0) {
-				requests.push(
-					ReportsService.bulkExportReports({
-						data: [
-							{
-								folder_name: 'reports/void',
-								file_name: `VoidedTransactions_${formatDateTime(
-									dayjs().toISOString(),
-								)}.txt`,
-								contents: createVoidedTransactionsSummaryTxt(
-									voidTransactions,
-									siteSettings,
-									user,
-									timeRange || '',
-									true,
-								),
-							},
-						],
-					}),
-				);
-			}
-
 			// Voided Invoices: the full invoice content for each voided
 			// transaction, reusing createSalesInvoiceTxt directly so the
 			// "VOIDED TRANSACTION" footer (as opposed to "REPRINT ONLY") is
-			// produced the same way it already is everywhere else.
+			// produced the same way it already is everywhere else. The void
+			// folder exists purely to mirror the sales invoices of voided
+			// transactions, so it uses the same file naming as a regular
+			// sales invoice.
 			if (voidTransactionsWithInvoice.length > 0) {
 				requests.push(
 					ReportsService.bulkExportReports({
 						data: voidTransactionsWithInvoice.map((transaction) => ({
-							folder_name: `invoices/${formatDateTime(
+							folder_name: `void/${formatMonth(
 								transaction.invoice.datetime_created,
-							)}/${transaction?.teller?.employee_id || 'NO_CASHIER'}`,
-							file_name: `Void_Sales_Invoice_${transaction.invoice.or_number}.txt`,
+							)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+							file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
 							contents: createSalesInvoiceTxt(
 								transaction,
 								siteSettings,
