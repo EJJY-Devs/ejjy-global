@@ -46,7 +46,7 @@ export const printBirReportSP = (
 			<head>{birReportStyles('compact')}</head>
 
 			<body>
-				<div className="bir-reports-pdf">
+				<div className="bir-reports-pdf" style={{ width: '100%' }}>
 					<BirHeader
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}

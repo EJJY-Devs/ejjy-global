@@ -174,7 +174,10 @@ export const printBirReport = (
 			<head>{birReportStyles('wide')}</head>
 
 			<body>
-				<div className="bir-reports-pdf">
+				<div
+					className="bir-reports-pdf"
+					style={{ width: '100%', minWidth: 2000, maxWidth: 2300 }}
+				>
 					<BirHeader
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}

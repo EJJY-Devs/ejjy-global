@@ -65,16 +65,30 @@ const birReportStyles = (variant = 'wide') => {
     ]);
 };
 exports.birReportStyles = birReportStyles;
-const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement("div", { className: "bir-report-header" },
-    react_1.default.createElement("div", { className: "details" }, siteSettings.proprietor),
-    react_1.default.createElement("div", { className: "details" }, siteSettings.address_of_tax_payer),
-    react_1.default.createElement("div", { className: "details" }, siteSettings.tin),
+// Inline styles here are deliberate, not decorative: this markup is dropped
+// straight into the host app's live DOM for html2canvas capture (see
+// renderA4SinglePagePdf), so it's exposed to whatever global CSS that app
+// already has for very generic class names like "details"/"title". A cascade
+// collision there previously collapsed each line down to single-word width,
+// wrapping the proprietor name/address/TIN one word per line. Inline styles
+// win over any external stylesheet the host page happens to define for these
+// class names, so the layout stays correct regardless of what else is on the
+// page.
+const detailLineStyle = {
+    width: '100%',
+    display: 'block',
+    whiteSpace: 'normal',
+};
+const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.default.createElement("div", { className: "bir-report-header", style: { width: '100%' } },
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, siteSettings.proprietor),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, siteSettings.address_of_tax_payer),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, siteSettings.tin),
     react_1.default.createElement("br", null),
-    react_1.default.createElement("div", { className: "details" }, "V1.0 (Static)"),
-    react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.pos_terminal),
-    react_1.default.createElement("div", { className: "details" }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name),
-    react_1.default.createElement("div", { className: "details" }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-    react_1.default.createElement("div", { className: "details" }, user.employee_id),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, "V1.0 (Static)"),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.pos_terminal),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, user.employee_id),
     react_1.default.createElement("br", null),
-    react_1.default.createElement("div", { className: "title" }, title)));
+    react_1.default.createElement("div", { className: "title", style: Object.assign(Object.assign({}, detailLineStyle), { textAlign: 'center', fontWeight: 'bold' }) }, title)));
 exports.BirHeader = BirHeader;

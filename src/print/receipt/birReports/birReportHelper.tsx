@@ -79,27 +79,63 @@ type BirHeaderProps = {
 	title: string;
 	user: User;
 };
+// Inline styles here are deliberate, not decorative: this markup is dropped
+// straight into the host app's live DOM for html2canvas capture (see
+// renderA4SinglePagePdf), so it's exposed to whatever global CSS that app
+// already has for very generic class names like "details"/"title". A cascade
+// collision there previously collapsed each line down to single-word width,
+// wrapping the proprietor name/address/TIN one word per line. Inline styles
+// win over any external stylesheet the host page happens to define for these
+// class names, so the layout stays correct regardless of what else is on the
+// page.
+const detailLineStyle: React.CSSProperties = {
+	width: '100%',
+	display: 'block',
+	whiteSpace: 'normal',
+};
+
 export const BirHeader = ({
 	branchMachine,
 	siteSettings,
 	title,
 	user,
 }: BirHeaderProps) => (
-	<div className="bir-report-header">
-		<div className="details">{siteSettings.proprietor}</div>
-		<div className="details">{siteSettings.address_of_tax_payer}</div>
-		<div className="details">{siteSettings.tin}</div>
+	<div className="bir-report-header" style={{ width: '100%' }}>
+		<div className="details" style={detailLineStyle}>
+			{siteSettings.proprietor}
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{siteSettings.address_of_tax_payer}
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{siteSettings.tin}
+		</div>
 
 		<br />
 
-		<div className="details">V1.0 (Static)</div>
-		<div className="details">{branchMachine?.pos_terminal}</div>
-		<div className="details">{branchMachine?.name}</div>
-		<div className="details">{formatDateTime(dayjs(), false)}</div>
-		<div className="details">{user.employee_id}</div>
+		<div className="details" style={detailLineStyle}>
+			V1.0 (Static)
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{branchMachine?.pos_terminal}
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{branchMachine?.name}
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{formatDateTime(dayjs(), false)}
+		</div>
+		<div className="details" style={detailLineStyle}>
+			{user.employee_id}
+		</div>
 
 		<br />
 
-		<div className="title">{title}</div>
+		<div
+			className="title"
+			style={{ ...detailLineStyle, textAlign: 'center', fontWeight: 'bold' }}
+		>
+			{title}
+		</div>
 	</div>
 );
