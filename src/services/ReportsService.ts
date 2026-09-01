@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 export type BulkExportData = {
 	folder_name: string;
@@ -17,8 +17,11 @@ interface Generate {
 }
 
 const service = {
-	bulkExportReports: async (body: BulkExport) =>
-		axios.post<string>('/reports/bulk-export/', body),
+	bulkExportReports: async (
+		body: BulkExport,
+		onUploadProgress?: AxiosRequestConfig['onUploadProgress'],
+	) =>
+		axios.post<string>('/reports/bulk-export/', body, { onUploadProgress }),
 
 	generate: async (body: Generate) =>
 		axios.post<boolean>('/reports/generate-reports/', body),

@@ -1,11 +1,13 @@
 import { AxiosErrorResponse } from '../services/interfaces';
 import { BranchMachine, SiteSettings, User } from '../types';
 import { AxiosResponse } from 'axios';
+export type BulkExportOnProgress = (percent: number) => void;
 interface BulkExport {
     branchMachine: BranchMachine;
     siteSettings: SiteSettings;
     timeRange?: string;
     user: User;
+    onProgress?: BulkExportOnProgress;
 }
 export declare const useBulkExport: () => import("react-query").UseMutationResult<AxiosResponse<string>[], AxiosErrorResponse<any>, BulkExport, unknown>;
 type GenerateReports = {

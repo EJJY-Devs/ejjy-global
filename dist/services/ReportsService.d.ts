@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 export type BulkExportData = {
     folder_name: string;
     file_name: string;
@@ -12,7 +13,7 @@ interface Generate {
     user_id?: number;
 }
 declare const service: {
-    bulkExportReports: (body: BulkExport) => Promise<import("axios").AxiosResponse<string>>;
+    bulkExportReports: (body: BulkExport, onUploadProgress?: AxiosRequestConfig['onUploadProgress']) => Promise<import("axios").AxiosResponse<string>>;
     generate: (body: Generate) => Promise<import("axios").AxiosResponse<boolean>>;
 };
 export default service;
