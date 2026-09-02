@@ -69,11 +69,25 @@ const fetchAllPages = async <T>(
 };
 
 // The fetch phase (3 paginated reads, run concurrently) and the write phase
-// (up to 4 sequential batch POSTs) are weighted into one combined 0-100
-// value so a single onProgress callback can drive a progress bar across
-// both phases.
+// (a sequence of batch POSTs) are weighted into one combined 0-100 value so
+// a single onProgress callback can drive a progress bar across both phases.
 const FETCH_PHASE_WEIGHT = 30;
 const WRITE_PHASE_WEIGHT = 100 - FETCH_PHASE_WEIGHT;
+
+// Each bulk-export POST body carries the full text contents of every record
+// in it, so a category with a production-sized history (tens of thousands
+// of invoices) sent as one giant request risks browser/axios timeouts and
+// backend payload-size limits. Splitting each category into bounded chunks
+// keeps every request's body small regardless of total record count.
+const BULK_EXPORT_CHUNK_SIZE = 200;
+
+const chunkArray = <T>(items: T[], size: number): T[][] => {
+	const chunks: T[][] = [];
+	for (let i = 0; i < items.length; i += size) {
+		chunks.push(items.slice(i, i + size));
+	}
+	return chunks;
+};
 
 export type BulkExportOnProgress = (percent: number) => void;
 
@@ -155,85 +169,76 @@ export const useBulkExport = () =>
 				(transaction) => transaction.invoice !== null,
 			);
 
-			// Each batch is queued as a thunk (not yet invoked) so the export
+			// Each chunk is queued as a thunk (not yet invoked) so the export
 			// requests can be run one at a time below, instead of firing all
 			// of them at the local API concurrently — the concurrent version
 			// was seen to intermittently drop/omit some batches' folders on
 			// the first attempt. `recordCount` is carried alongside so the
 			// write phase's share of onProgress can be split proportionally
-			// across whichever batches actually exist.
+			// across whichever chunks actually exist. Every category is
+			// split into BULK_EXPORT_CHUNK_SIZE-record chunks (each becoming
+			// its own request) rather than one POST per category, so a
+			// production-sized history doesn't end up sent as a single huge
+			// request body.
 			const requests: {
 				recordCount: number;
 				run: (
 					onUploadProgress?: AxiosRequestConfig['onUploadProgress'],
 				) => Promise<AxiosResponse<string>>;
 			}[] = [];
-			if (salesTransactions.length > 0) {
-				requests.push({
-					recordCount: salesTransactions.length,
-					run: (onUploadProgress) =>
-						ReportsService.bulkExportReports(
-							{
-								data: salesTransactions.map((transaction) => ({
-									folder_name: `invoices/${formatMonth(
-										transaction.invoice.datetime_created,
-									)}/${formatDateTime(transaction.invoice.datetime_created)}`,
-									file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
-									contents: createSalesInvoiceTxt(
-										transaction,
-										siteSettings,
-										true,
-										true,
-									),
-								})),
-							},
-							onUploadProgress,
-						),
+			const pushBulkExportRequests = <T>(
+				records: T[],
+				toData: (record: T) => BulkExportData,
+			) => {
+				chunkArray(records, BULK_EXPORT_CHUNK_SIZE).forEach((chunk) => {
+					requests.push({
+						recordCount: chunk.length,
+						run: (onUploadProgress) =>
+							ReportsService.bulkExportReports(
+								{ data: chunk.map(toData) },
+								onUploadProgress,
+							),
+					});
 				});
+			};
+
+			if (salesTransactions.length > 0) {
+				pushBulkExportRequests(salesTransactions, (transaction) => ({
+					folder_name: `invoices/${formatMonth(
+						transaction.invoice.datetime_created,
+					)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+					file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
+					contents: createSalesInvoiceTxt(
+						transaction,
+						siteSettings,
+						true,
+						true,
+					),
+				}));
 			}
 
 			if (xreadReports.length > 0) {
-				requests.push({
-					recordCount: xreadReports.length,
-					run: (onUploadProgress) =>
-						ReportsService.bulkExportReports(
-							{
-								data: xreadReports.map((report) => ({
-									folder_name: `reports/xread/${formatMonth(
-										report.generation_datetime,
-									)}/${formatDateTime(report.generation_datetime)}`,
-									file_name: `XReadReport_${formatDateTime(
-										report.generation_datetime,
-									)}_${report.id}.txt`,
-									contents: createXReadTxt(report, siteSettings, user, true),
-								})),
-							},
-							onUploadProgress,
-						),
-				});
+				pushBulkExportRequests(xreadReports, (report) => ({
+					folder_name: `reports/xread/${formatMonth(
+						report.generation_datetime,
+					)}/${formatDateTime(report.generation_datetime)}`,
+					file_name: `XReadReport_${formatDateTime(
+						report.generation_datetime,
+					)}_${report.id}.txt`,
+					contents: createXReadTxt(report, siteSettings, user, true),
+				}));
 			}
 
 			if (zreadReports.length > 0) {
-				requests.push({
-					recordCount: zreadReports.length,
-					run: (onUploadProgress) =>
-						ReportsService.bulkExportReports(
-							{
-								data: zreadReports.map(
-									(report): BulkExportData => ({
-										folder_name: `reports/zread/${formatMonth(
-											report.generation_datetime,
-										)}/${formatDateTime(report.generation_datetime)}`,
-										file_name: `ZReadReport_${formatDateTime(
-											report.generation_datetime,
-										)}_${report.id}.txt`,
-										contents: createZReadTxt(report, siteSettings, user, true),
-									}),
-								),
-							},
-							onUploadProgress,
-						),
-				});
+				pushBulkExportRequests(zreadReports, (report) => ({
+					folder_name: `reports/zread/${formatMonth(
+						report.generation_datetime,
+					)}/${formatDateTime(report.generation_datetime)}`,
+					file_name: `ZReadReport_${formatDateTime(
+						report.generation_datetime,
+					)}_${report.id}.txt`,
+					contents: createZReadTxt(report, siteSettings, user, true),
+				}));
 			}
 
 			// Voided Invoices: the full invoice content for each voided
@@ -244,27 +249,18 @@ export const useBulkExport = () =>
 			// transactions, so it uses the same file naming as a regular
 			// sales invoice.
 			if (voidTransactionsWithInvoice.length > 0) {
-				requests.push({
-					recordCount: voidTransactionsWithInvoice.length,
-					run: (onUploadProgress) =>
-						ReportsService.bulkExportReports(
-							{
-								data: voidTransactionsWithInvoice.map((transaction) => ({
-									folder_name: `void/${formatMonth(
-										transaction.invoice.datetime_created,
-									)}/${formatDateTime(transaction.invoice.datetime_created)}`,
-									file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
-									contents: createSalesInvoiceTxt(
-										transaction,
-										siteSettings,
-										true,
-										true,
-									),
-								})),
-							},
-							onUploadProgress,
-						),
-				});
+				pushBulkExportRequests(voidTransactionsWithInvoice, (transaction) => ({
+					folder_name: `void/${formatMonth(
+						transaction.invoice.datetime_created,
+					)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+					file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
+					contents: createSalesInvoiceTxt(
+						transaction,
+						siteSettings,
+						true,
+						true,
+					),
+				}));
 			}
 
 			const totalRecords = requests.reduce(

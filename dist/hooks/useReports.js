@@ -51,11 +51,23 @@ const fetchAllPages = (list, params, onPage) => __awaiter(void 0, void 0, void 0
     return results;
 });
 // The fetch phase (3 paginated reads, run concurrently) and the write phase
-// (up to 4 sequential batch POSTs) are weighted into one combined 0-100
-// value so a single onProgress callback can drive a progress bar across
-// both phases.
+// (a sequence of batch POSTs) are weighted into one combined 0-100 value so
+// a single onProgress callback can drive a progress bar across both phases.
 const FETCH_PHASE_WEIGHT = 30;
 const WRITE_PHASE_WEIGHT = 100 - FETCH_PHASE_WEIGHT;
+// Each bulk-export POST body carries the full text contents of every record
+// in it, so a category with a production-sized history (tens of thousands
+// of invoices) sent as one giant request risks browser/axios timeouts and
+// backend payload-size limits. Splitting each category into bounded chunks
+// keeps every request's body small regardless of total record count.
+const BULK_EXPORT_CHUNK_SIZE = 200;
+const chunkArray = (items, size) => {
+    const chunks = [];
+    for (let i = 0; i < items.length; i += size) {
+        chunks.push(items.slice(i, i + size));
+    }
+    return chunks;
+};
 const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress }) => __awaiter(void 0, void 0, void 0, function* () {
     // Fetch phase: each of the 3 reads gets an equal share of
     // FETCH_PHASE_WEIGHT, filled in proportionally to how much of
