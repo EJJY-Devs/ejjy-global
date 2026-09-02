@@ -38,6 +38,12 @@ const formatMonth = (dateTime?: string): string => {
 	return dayjs.tz(dateTime).format('MMYYYY');
 };
 
+// Folder names land on disk as-is, so a branch machine's name has to be
+// sanitized into something every OS accepts as a path segment first —
+// strips/replaces characters invalid in Windows paths in particular.
+const sanitizeFolderSegment = (value: string) =>
+	value.replace(/[/\\:*?"<>|]/g, '_').trim();
+
 const VOID_STATUSES = [
 	transactionStatuses.VOID_EDITED,
 	transactionStatuses.VOID_CANCELLED,
@@ -186,6 +192,7 @@ export const useBulkExport = () =>
 				fetchAllPages<Transaction>(
 					TransactionsService.list,
 					{
+						branch_machine_id: branchMachine.id,
 						statuses: [
 							transactionStatuses.FULLY_PAID,
 							...VOID_STATUSES,
@@ -247,7 +254,7 @@ export const useBulkExport = () =>
 			// (cashiering's existing, unprefixed layout) unless the caller
 			// opts in.
 			const machineFolder = groupByBranchMachine
-				? `${branchMachine.name}/`
+				? `${sanitizeFolderSegment(branchMachine.name)}/`
 				: '';
 
 			// Each chunk is queued as a thunk (not yet invoked) so the export

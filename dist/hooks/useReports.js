@@ -25,6 +25,10 @@ const formatDateTime = (dateTime) => {
 const formatMonth = (dateTime) => {
     return dayjs_1.default.tz(dateTime).format('MMYYYY');
 };
+// Folder names land on disk as-is, so a branch machine's name has to be
+// sanitized into something every OS accepts as a path segment first —
+// strips/replaces characters invalid in Windows paths in particular.
+const sanitizeFolderSegment = (value) => value.replace(/[/\\:*?"<>|]/g, '_').trim();
 const VOID_STATUSES = [
     globals_1.transactionStatuses.VOID_EDITED,
     globals_1.transactionStatuses.VOID_CANCELLED,
@@ -99,7 +103,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
         }
         : {};
     const [allTransactions, xreadReports, zreadReports] = yield Promise.all([
-        fetchAllPages(services_1.TransactionsService.list, Object.assign({ statuses: [
+        fetchAllPages(services_1.TransactionsService.list, Object.assign({ branch_machine_id: branchMachine.id, statuses: [
                 globals_1.transactionStatuses.FULLY_PAID,
                 ...VOID_STATUSES,
             ].join(',') }, sinceParams), (fetched, total) => reportFetchProgress(0, fetched, total), readBaseURL),
@@ -130,7 +134,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     // (cashiering's existing, unprefixed layout) unless the caller
     // opts in.
     const machineFolder = groupByBranchMachine
-        ? `${branchMachine.name}/`
+        ? `${sanitizeFolderSegment(branchMachine.name)}/`
         : '';
     // Each chunk is queued as a thunk (not yet invoked) so the export
     // requests can be run one at a time below, instead of firing all
