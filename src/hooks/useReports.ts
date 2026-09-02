@@ -157,10 +157,16 @@ export const useBulkExport = () =>
 			// fraction never resolves to 1 above).
 			onProgress?.(FETCH_PHASE_WEIGHT);
 
+			// The invoices/ folder is the complete invoice record: every
+			// transaction that has an invoice goes here, voided or not, each
+			// rendered the standard way via createSalesInvoiceTxt (which
+			// already appends the right footer for the transaction's own
+			// status — "REPRINT ONLY" for a fully paid one, "VOIDED
+			// TRANSACTION" for a void one). Voided transactions are not
+			// excluded from this set — they're additionally collected below
+			// into their own void/ folder alongside it.
 			const salesTransactions = allTransactions.filter(
-				(transaction) =>
-					transaction.invoice !== null &&
-					!VOID_STATUSES.includes(transaction.status),
+				(transaction) => transaction.invoice !== null,
 			);
 			const voidTransactions = allTransactions.filter((transaction) =>
 				VOID_STATUSES.includes(transaction.status),
@@ -244,13 +250,13 @@ export const useBulkExport = () =>
 			// Voided Invoices: the full invoice content for each voided
 			// transaction, reusing createSalesInvoiceTxt directly so the
 			// "VOIDED TRANSACTION" footer (as opposed to "REPRINT ONLY") is
-			// produced the same way it already is everywhere else. The void
-			// folder exists purely to mirror the sales invoices of voided
-			// transactions, so it uses the same file naming as a regular
-			// sales invoice.
+			// produced the same way it already is everywhere else. This
+			// mirrors (does not replace) the copy of the same invoices that
+			// also lands in invoices/ above. Lives under reports/, alongside
+			// xread/zread, rather than as its own top-level folder.
 			if (voidTransactionsWithInvoice.length > 0) {
 				pushBulkExportRequests(voidTransactionsWithInvoice, (transaction) => ({
-					folder_name: `void/${formatMonth(
+					folder_name: `reports/void/${formatMonth(
 						transaction.invoice.datetime_created,
 					)}/${formatDateTime(transaction.invoice.datetime_created)}`,
 					file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,

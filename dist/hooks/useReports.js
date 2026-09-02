@@ -105,72 +105,71 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     // done, in case a source ended up with 0 total records (whose
     // fraction never resolves to 1 above).
     onProgress === null || onProgress === void 0 ? void 0 : onProgress(FETCH_PHASE_WEIGHT);
-    const salesTransactions = allTransactions.filter((transaction) => transaction.invoice !== null &&
-        !VOID_STATUSES.includes(transaction.status));
+    // The invoices/ folder is the complete invoice record: every
+    // transaction that has an invoice goes here, voided or not, each
+    // rendered the standard way via createSalesInvoiceTxt (which
+    // already appends the right footer for the transaction's own
+    // status — "REPRINT ONLY" for a fully paid one, "VOIDED
+    // TRANSACTION" for a void one). Voided transactions are not
+    // excluded from this set — they're additionally collected below
+    // into their own void/ folder alongside it.
+    const salesTransactions = allTransactions.filter((transaction) => transaction.invoice !== null);
     const voidTransactions = allTransactions.filter((transaction) => VOID_STATUSES.includes(transaction.status));
     const voidTransactionsWithInvoice = voidTransactions.filter((transaction) => transaction.invoice !== null);
-    // Each batch is queued as a thunk (not yet invoked) so the export
+    // Each chunk is queued as a thunk (not yet invoked) so the export
     // requests can be run one at a time below, instead of firing all
     // of them at the local API concurrently — the concurrent version
     // was seen to intermittently drop/omit some batches' folders on
     // the first attempt. `recordCount` is carried alongside so the
     // write phase's share of onProgress can be split proportionally
-    // across whichever batches actually exist.
+    // across whichever chunks actually exist. Every category is
+    // split into BULK_EXPORT_CHUNK_SIZE-record chunks (each becoming
+    // its own request) rather than one POST per category, so a
+    // production-sized history doesn't end up sent as a single huge
+    // request body.
     const requests = [];
-    if (salesTransactions.length > 0) {
-        requests.push({
-            recordCount: salesTransactions.length,
-            run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({
-                data: salesTransactions.map((transaction) => ({
-                    folder_name: `invoices/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
-                    file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
-                    contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
-                })),
-            }, onUploadProgress),
+    const pushBulkExportRequests = (records, toData) => {
+        chunkArray(records, BULK_EXPORT_CHUNK_SIZE).forEach((chunk) => {
+            requests.push({
+                recordCount: chunk.length,
+                run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({ data: chunk.map(toData) }, onUploadProgress),
+            });
         });
+    };
+    if (salesTransactions.length > 0) {
+        pushBulkExportRequests(salesTransactions, (transaction) => ({
+            folder_name: `invoices/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+            file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
+            contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
+        }));
     }
     if (xreadReports.length > 0) {
-        requests.push({
-            recordCount: xreadReports.length,
-            run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({
-                data: xreadReports.map((report) => ({
-                    folder_name: `reports/xread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
-                    file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                    contents: (0, print_1.createXReadTxt)(report, siteSettings, user, true),
-                })),
-            }, onUploadProgress),
-        });
+        pushBulkExportRequests(xreadReports, (report) => ({
+            folder_name: `reports/xread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
+            file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
+            contents: (0, print_1.createXReadTxt)(report, siteSettings, user, true),
+        }));
     }
     if (zreadReports.length > 0) {
-        requests.push({
-            recordCount: zreadReports.length,
-            run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({
-                data: zreadReports.map((report) => ({
-                    folder_name: `reports/zread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
-                    file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
-                    contents: (0, print_1.createZReadTxt)(report, siteSettings, user, true),
-                })),
-            }, onUploadProgress),
-        });
+        pushBulkExportRequests(zreadReports, (report) => ({
+            folder_name: `reports/zread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
+            file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
+            contents: (0, print_1.createZReadTxt)(report, siteSettings, user, true),
+        }));
     }
     // Voided Invoices: the full invoice content for each voided
     // transaction, reusing createSalesInvoiceTxt directly so the
     // "VOIDED TRANSACTION" footer (as opposed to "REPRINT ONLY") is
-    // produced the same way it already is everywhere else. The void
-    // folder exists purely to mirror the sales invoices of voided
-    // transactions, so it uses the same file naming as a regular
-    // sales invoice.
+    // produced the same way it already is everywhere else. This
+    // mirrors (does not replace) the copy of the same invoices that
+    // also lands in invoices/ above. Lives under reports/, alongside
+    // xread/zread, rather than as its own top-level folder.
     if (voidTransactionsWithInvoice.length > 0) {
-        requests.push({
-            recordCount: voidTransactionsWithInvoice.length,
-            run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({
-                data: voidTransactionsWithInvoice.map((transaction) => ({
-                    folder_name: `void/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
-                    file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
-                    contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
-                })),
-            }, onUploadProgress),
-        });
+        pushBulkExportRequests(voidTransactionsWithInvoice, (transaction) => ({
+            folder_name: `reports/void/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+            file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
+            contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
+        }));
     }
     const totalRecords = requests.reduce((sum, request) => sum + request.recordCount, 0);
     // Write phase: WRITE_PHASE_WEIGHT is split across the batches
