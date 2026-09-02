@@ -8,6 +8,7 @@ interface BulkExport {
     timeRange?: string;
     user: User;
     onProgress?: BulkExportOnProgress;
+    since?: string;
 }
 export declare const useBulkExport: () => import("react-query").UseMutationResult<AxiosResponse<string>[], AxiosErrorResponse<any>, BulkExport, unknown>;
 type GenerateReports = {

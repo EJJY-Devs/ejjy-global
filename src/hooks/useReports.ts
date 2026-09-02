@@ -1,6 +1,11 @@
 import dayjs from 'dayjs';
 import { useMutation, useQuery } from 'react-query';
-import { DEFAULT_PAGE, MAX_PAGE_SIZE, transactionStatuses } from '../globals';
+import {
+	DATE_FORMAT,
+	DEFAULT_PAGE,
+	MAX_PAGE_SIZE,
+	transactionStatuses,
+} from '../globals';
 import { wrapServiceWithCatch } from '../hooks/helper';
 import {
 	createSalesInvoiceTxt,
@@ -97,11 +102,17 @@ interface BulkExport {
 	timeRange?: string;
 	user: User;
 	onProgress?: BulkExportOnProgress;
+	// Any dayjs-parseable date. When given, the transactions/X-read/Z-read
+	// fetches are scoped to [since, today] instead of the full history —
+	// meant for a repeat/automated run that already has everything before
+	// `since` exported, so it only re-fetches and re-writes what's new.
+	// Omit for the default, exhaustive, complete-history export.
+	since?: string;
 }
 
 export const useBulkExport = () =>
 	useMutation<Awaited<AxiosResponse<string>[]>, AxiosErrorResponse, BulkExport>(
-		async ({ branchMachine, siteSettings, user, onProgress }) => {
+		async ({ branchMachine, siteSettings, user, onProgress, since }) => {
 			// Fetch phase: each of the 3 reads gets an equal share of
 			// FETCH_PHASE_WEIGHT, filled in proportionally to how much of
 			// that read's own pages have come back so far.
@@ -117,13 +128,26 @@ export const useBulkExport = () =>
 				onProgress?.(fetchProgress.reduce((sum, value) => sum + value, 0));
 			};
 
-			// The e-journal export must be exhaustive: it is meant to be the
-			// complete historical record, so it intentionally does NOT scope
-			// these fetches to any caller-supplied time range (`timeRange` is
-			// accepted on BulkExport only for backward compatibility with
-			// existing callers and is otherwise ignored here) — every
-			// transaction/xread/zread ever recorded is fetched and grouped
-			// into its own month/day folder by the invoice/report's own date.
+			// The e-journal export is exhaustive by default — meant to be
+			// the complete historical record, so it does NOT scope these
+			// fetches to any caller-supplied time range on its own
+			// (`timeRange` is accepted on BulkExport only for backward
+			// compatibility with existing callers and is otherwise ignored
+			// here) — every transaction/xread/zread ever recorded is fetched
+			// and grouped into its own month/day folder by the
+			// invoice/report's own date. `since`, when given, is the one
+			// opt-in exception: it narrows all 3 fetches to [since, today],
+			// for a caller that already knows everything before `since` was
+			// exported in a prior run.
+			const sinceParams = since
+				? {
+						time_range: [
+							dayjs.tz(since).format(DATE_FORMAT),
+							dayjs.tz().format(DATE_FORMAT),
+						].join(','),
+					}
+				: {};
+
 			const [allTransactions, xreadReports, zreadReports] = await Promise.all([
 				fetchAllPages<Transaction>(
 					TransactionsService.list,
@@ -132,6 +156,7 @@ export const useBulkExport = () =>
 							transactionStatuses.FULLY_PAID,
 							...VOID_STATUSES,
 						].join(','),
+						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(0, fetched, total),
 				),
@@ -144,6 +169,7 @@ export const useBulkExport = () =>
 					XReadReportsService.list,
 					{
 						branch_machine_id: branchMachine.id,
+						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(1, fetched, total),
 				),
@@ -151,6 +177,7 @@ export const useBulkExport = () =>
 					ZReadReportsService.list,
 					{
 						branch_machine_id: branchMachine.id,
+						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(2, fetched, total),
 				),

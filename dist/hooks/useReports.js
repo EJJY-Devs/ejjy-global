@@ -68,7 +68,7 @@ const chunkArray = (items, size) => {
     }
     return chunks;
 };
-const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress }) => __awaiter(void 0, void 0, void 0, function* () {
+const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress, since }) => __awaiter(void 0, void 0, void 0, function* () {
     // Fetch phase: each of the 3 reads gets an equal share of
     // FETCH_PHASE_WEIGHT, filled in proportionally to how much of
     // that read's own pages have come back so far.
@@ -79,31 +79,37 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
         fetchProgress[index] = fraction * fetchWeight;
         onProgress === null || onProgress === void 0 ? void 0 : onProgress(fetchProgress.reduce((sum, value) => sum + value, 0));
     };
-    // The e-journal export must be exhaustive: it is meant to be the
-    // complete historical record, so it intentionally does NOT scope
-    // these fetches to any caller-supplied time range (`timeRange` is
-    // accepted on BulkExport only for backward compatibility with
-    // existing callers and is otherwise ignored here) — every
-    // transaction/xread/zread ever recorded is fetched and grouped
-    // into its own month/day folder by the invoice/report's own date.
+    // The e-journal export is exhaustive by default — meant to be
+    // the complete historical record, so it does NOT scope these
+    // fetches to any caller-supplied time range on its own
+    // (`timeRange` is accepted on BulkExport only for backward
+    // compatibility with existing callers and is otherwise ignored
+    // here) — every transaction/xread/zread ever recorded is fetched
+    // and grouped into its own month/day folder by the
+    // invoice/report's own date. `since`, when given, is the one
+    // opt-in exception: it narrows all 3 fetches to [since, today],
+    // for a caller that already knows everything before `since` was
+    // exported in a prior run.
+    const sinceParams = since
+        ? {
+            time_range: [
+                dayjs_1.default.tz(since).format(globals_1.DATE_FORMAT),
+                dayjs_1.default.tz().format(globals_1.DATE_FORMAT),
+            ].join(','),
+        }
+        : {};
     const [allTransactions, xreadReports, zreadReports] = yield Promise.all([
-        fetchAllPages(services_1.TransactionsService.list, {
-            statuses: [
+        fetchAllPages(services_1.TransactionsService.list, Object.assign({ statuses: [
                 globals_1.transactionStatuses.FULLY_PAID,
                 ...VOID_STATUSES,
-            ].join(','),
-        }, (fetched, total) => reportFetchProgress(0, fetched, total)),
+            ].join(',') }, sinceParams), (fetched, total) => reportFetchProgress(0, fetched, total)),
         // Deliberately omits is_with_daily_sales_data: the export
         // must include every X-read regardless of whether its daily
         // sales data has been generated/linked yet — passing `false`
         // here previously filtered the results down to only the
         // X-reads still missing daily sales data.
-        fetchAllPages(services_1.XReadReportsService.list, {
-            branch_machine_id: branchMachine.id,
-        }, (fetched, total) => reportFetchProgress(1, fetched, total)),
-        fetchAllPages(services_1.ZReadReportsService.list, {
-            branch_machine_id: branchMachine.id,
-        }, (fetched, total) => reportFetchProgress(2, fetched, total)),
+        fetchAllPages(services_1.XReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(1, fetched, total)),
+        fetchAllPages(services_1.ZReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(2, fetched, total)),
     ]);
     // Pin the fetch phase to exactly FETCH_PHASE_WEIGHT once it's
     // done, in case a source ended up with 0 total records (whose
