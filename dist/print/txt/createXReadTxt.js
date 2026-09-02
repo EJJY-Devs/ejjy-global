@@ -39,8 +39,14 @@ const createXReadTxt = (report, siteSettings, user, returnContent = false) => {
                     .filter(Boolean)
                     .join(' - ')}`,
             },
+            // A session can exist on the report without a linked user (seen
+            // on some historical records) -- guarded the same way every
+            // other optional field on this report already is, so one such
+            // record doesn't throw and abort the entire bulk export.
             {
-                center: `Cashier: ${cashieringSession.user.employee_id} | ${(0, utils_1.getFullName)(cashieringSession.user)}`,
+                center: cashieringSession.user
+                    ? `Cashier: ${cashieringSession.user.employee_id} | ${(0, utils_1.getFullName)(cashieringSession.user)}`
+                    : `Cashier: ${helper_receipt_1.EMPTY_CELL}`,
             },
         ]);
     }

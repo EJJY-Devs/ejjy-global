@@ -9,6 +9,7 @@ interface BulkExport {
     user: User;
     onProgress?: BulkExportOnProgress;
     since?: string;
+    until?: string;
     groupByBranchMachine?: boolean;
     readBaseURL?: string;
     writeBaseURL?: string;

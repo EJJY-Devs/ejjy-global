@@ -116,11 +116,18 @@ interface BulkExport {
 	user: User;
 	onProgress?: BulkExportOnProgress;
 	// Any dayjs-parseable date. When given, the transactions/X-read/Z-read
-	// fetches are scoped to [since, today] instead of the full history —
+	// fetches are scoped to [since, until] instead of the full history —
 	// meant for a repeat/automated run that already has everything before
 	// `since` exported, so it only re-fetches and re-writes what's new.
 	// Omit for the default, exhaustive, complete-history export.
 	since?: string;
+	// Any dayjs-parseable date, paired with `since` to bound the fetch's
+	// upper edge as well — e.g. a single calendar month's worth of history
+	// instead of "everything since some point up to now". Ignored if
+	// `since` isn't given; defaults to today when `since` is given but
+	// `until` isn't, preserving the original [since, today] behavior for
+	// existing callers.
+	until?: string;
 	// Prefixes every folder_name below with the branch machine's own name.
 	// Off by default, which keeps cashiering's export exactly as it's
 	// always been: a cashiering terminal is the only machine writing to
@@ -149,6 +156,7 @@ export const useBulkExport = () =>
 			user,
 			onProgress,
 			since,
+			until,
 			groupByBranchMachine,
 			readBaseURL,
 			writeBaseURL,
@@ -176,14 +184,16 @@ export const useBulkExport = () =>
 			// here) — every transaction/xread/zread ever recorded is fetched
 			// and grouped into its own month/day folder by the
 			// invoice/report's own date. `since`, when given, is the one
-			// opt-in exception: it narrows all 3 fetches to [since, today],
-			// for a caller that already knows everything before `since` was
-			// exported in a prior run.
+			// opt-in exception: it narrows all 3 fetches to [since, until]
+			// (until defaulting to today), for a caller that already knows
+			// everything before `since` was exported in a prior run, or that
+			// wants to scope a run to an arbitrary window (e.g. one calendar
+			// month at a time for an initial backfill).
 			const sinceParams = since
 				? {
 						time_range: [
 							dayjs.tz(since).format(DATE_FORMAT),
-							dayjs.tz().format(DATE_FORMAT),
+							(until ? dayjs.tz(until) : dayjs.tz()).format(DATE_FORMAT),
 						].join(','),
 					}
 				: {};

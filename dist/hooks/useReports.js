@@ -72,7 +72,7 @@ const chunkArray = (items, size) => {
     }
     return chunks;
 };
-const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress, since, groupByBranchMachine, readBaseURL, writeBaseURL, }) => __awaiter(void 0, void 0, void 0, function* () {
+const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress, since, until, groupByBranchMachine, readBaseURL, writeBaseURL, }) => __awaiter(void 0, void 0, void 0, function* () {
     // Fetch phase: each of the 3 reads gets an equal share of
     // FETCH_PHASE_WEIGHT, filled in proportionally to how much of
     // that read's own pages have come back so far.
@@ -91,14 +91,16 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     // here) — every transaction/xread/zread ever recorded is fetched
     // and grouped into its own month/day folder by the
     // invoice/report's own date. `since`, when given, is the one
-    // opt-in exception: it narrows all 3 fetches to [since, today],
-    // for a caller that already knows everything before `since` was
-    // exported in a prior run.
+    // opt-in exception: it narrows all 3 fetches to [since, until]
+    // (until defaulting to today), for a caller that already knows
+    // everything before `since` was exported in a prior run, or that
+    // wants to scope a run to an arbitrary window (e.g. one calendar
+    // month at a time for an initial backfill).
     const sinceParams = since
         ? {
             time_range: [
                 dayjs_1.default.tz(since).format(globals_1.DATE_FORMAT),
-                dayjs_1.default.tz().format(globals_1.DATE_FORMAT),
+                (until ? dayjs_1.default.tz(until) : dayjs_1.default.tz()).format(globals_1.DATE_FORMAT),
             ].join(','),
         }
         : {};
