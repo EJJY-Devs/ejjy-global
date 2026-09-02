@@ -49,9 +49,13 @@ const VOID_STATUSES = [
 // given, is called after every page with the cumulative results fetched so
 // far vs. the total the endpoint reports, so a caller can render progress.
 const fetchAllPages = async <T>(
-	list: (params: Record<string, unknown>) => Promise<ListResponseData<T>>,
+	list: (
+		params: Record<string, unknown>,
+		baseURL?: string,
+	) => Promise<ListResponseData<T>>,
 	params: Record<string, unknown>,
 	onPage?: (fetched: number, total: number) => void,
+	baseURL?: string,
 ): Promise<T[]> => {
 	let page = DEFAULT_PAGE;
 	let results: T[] = [];
@@ -59,7 +63,10 @@ const fetchAllPages = async <T>(
 	// eslint-disable-next-line no-constant-condition
 	while (true) {
 		// eslint-disable-next-line no-await-in-loop
-		const response = await list({ ...params, page, page_size: MAX_PAGE_SIZE });
+		const response = await list(
+			{ ...params, page, page_size: MAX_PAGE_SIZE },
+			baseURL,
+		);
 		results = results.concat(response.results);
 		onPage?.(results.length, response.count);
 
@@ -108,11 +115,38 @@ interface BulkExport {
 	// `since` exported, so it only re-fetches and re-writes what's new.
 	// Omit for the default, exhaustive, complete-history export.
 	since?: string;
+	// Prefixes every folder_name below with the branch machine's own name.
+	// Off by default, which keeps cashiering's export exactly as it's
+	// always been: a cashiering terminal is the only machine writing to
+	// its own local disk, so it has no need for a machine-name segment.
+	// Backoffice opts in — a single backoffice instance's local API is
+	// shared by every machine on that branch, so without this, exports
+	// for different machines would land in the same invoices/reports
+	// folders and could even overwrite each other (OR numbers are only
+	// unique per machine, not per branch).
+	groupByBranchMachine?: boolean;
+	// Per-request baseURL overrides for a consumer with more than one API
+	// base (e.g. a local-branch API for writes and a separate reports API
+	// for reads). Both are optional and independent of each other; when
+	// omitted, every call below falls through to axios.defaults.baseURL,
+	// exactly as it already does — existing callers (ejjy-cashiering) don't
+	// pass either and see no change in behavior.
+	readBaseURL?: string;
+	writeBaseURL?: string;
 }
 
 export const useBulkExport = () =>
 	useMutation<Awaited<AxiosResponse<string>[]>, AxiosErrorResponse, BulkExport>(
-		async ({ branchMachine, siteSettings, user, onProgress, since }) => {
+		async ({
+			branchMachine,
+			siteSettings,
+			user,
+			onProgress,
+			since,
+			groupByBranchMachine,
+			readBaseURL,
+			writeBaseURL,
+		}) => {
 			// Fetch phase: each of the 3 reads gets an equal share of
 			// FETCH_PHASE_WEIGHT, filled in proportionally to how much of
 			// that read's own pages have come back so far.
@@ -159,6 +193,7 @@ export const useBulkExport = () =>
 						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(0, fetched, total),
+					readBaseURL,
 				),
 				// Deliberately omits is_with_daily_sales_data: the export
 				// must include every X-read regardless of whether its daily
@@ -172,6 +207,7 @@ export const useBulkExport = () =>
 						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(1, fetched, total),
+					readBaseURL,
 				),
 				fetchAllPages<ZReadReport>(
 					ZReadReportsService.list,
@@ -180,6 +216,7 @@ export const useBulkExport = () =>
 						...sinceParams,
 					},
 					(fetched, total) => reportFetchProgress(2, fetched, total),
+					readBaseURL,
 				),
 			]);
 
@@ -205,6 +242,13 @@ export const useBulkExport = () =>
 			const voidTransactionsWithInvoice = voidTransactions.filter(
 				(transaction) => transaction.invoice !== null,
 			);
+
+			// See groupByBranchMachine's doc comment on BulkExport: empty
+			// (cashiering's existing, unprefixed layout) unless the caller
+			// opts in.
+			const machineFolder = groupByBranchMachine
+				? `${branchMachine.name}/`
+				: '';
 
 			// Each chunk is queued as a thunk (not yet invoked) so the export
 			// requests can be run one at a time below, instead of firing all
@@ -234,6 +278,7 @@ export const useBulkExport = () =>
 							ReportsService.bulkExportReports(
 								{ data: chunk.map(toData) },
 								onUploadProgress,
+								writeBaseURL,
 							),
 					});
 				});
@@ -241,7 +286,7 @@ export const useBulkExport = () =>
 
 			if (salesTransactions.length > 0) {
 				pushBulkExportRequests(salesTransactions, (transaction) => ({
-					folder_name: `invoices/${formatMonth(
+					folder_name: `${machineFolder}invoices/${formatMonth(
 						transaction.invoice.datetime_created,
 					)}/${formatDateTime(transaction.invoice.datetime_created)}`,
 					file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
@@ -256,7 +301,7 @@ export const useBulkExport = () =>
 
 			if (xreadReports.length > 0) {
 				pushBulkExportRequests(xreadReports, (report) => ({
-					folder_name: `reports/xread/${formatMonth(
+					folder_name: `${machineFolder}reports/xread/${formatMonth(
 						report.generation_datetime,
 					)}/${formatDateTime(report.generation_datetime)}`,
 					file_name: `XReadReport_${formatDateTime(
@@ -268,7 +313,7 @@ export const useBulkExport = () =>
 
 			if (zreadReports.length > 0) {
 				pushBulkExportRequests(zreadReports, (report) => ({
-					folder_name: `reports/zread/${formatMonth(
+					folder_name: `${machineFolder}reports/zread/${formatMonth(
 						report.generation_datetime,
 					)}/${formatDateTime(report.generation_datetime)}`,
 					file_name: `ZReadReport_${formatDateTime(
@@ -287,7 +332,7 @@ export const useBulkExport = () =>
 			// xread/zread, rather than as its own top-level folder.
 			if (voidTransactionsWithInvoice.length > 0) {
 				pushBulkExportRequests(voidTransactionsWithInvoice, (transaction) => ({
-					folder_name: `reports/void/${formatMonth(
+					folder_name: `${machineFolder}reports/void/${formatMonth(
 						transaction.invoice.datetime_created,
 					)}/${formatDateTime(transaction.invoice.datetime_created)}`,
 					file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
@@ -347,6 +392,7 @@ type GenerateReports = {
 	branchId?: number;
 	branchMachineId?: number;
 	userId?: number;
+	baseURL?: string;
 };
 
 export const useGenerateReports = ({
@@ -355,16 +401,20 @@ export const useGenerateReports = ({
 	userId,
 	enabled,
 	intervalMs,
+	baseURL,
 }: GenerateReports) =>
 	useQuery(
 		['useGenerateReports', branchId, branchMachineId],
 		() =>
 			wrapServiceWithCatch(
-				ReportsService.generate({
-					branch_id: branchId,
-					branch_machine_id: branchMachineId,
-					user_id: userId,
-				}),
+				ReportsService.generate(
+					{
+						branch_id: branchId,
+						branch_machine_id: branchMachineId,
+						user_id: userId,
+					},
+					baseURL,
+				),
 			),
 		{
 			enabled,

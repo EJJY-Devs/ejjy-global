@@ -14,7 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const service = {
-    bulkExportReports: (body, onUploadProgress) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/reports/bulk-export/', body, { onUploadProgress }); }),
-    generate: (body) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/reports/generate-reports/', body); }),
+    bulkExportReports: (body, onUploadProgress, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
+        return axios_1.default.post('/reports/bulk-export/', body, {
+            onUploadProgress,
+            baseURL,
+        });
+    }),
+    generate: (body, baseURL) => __awaiter(void 0, void 0, void 0, function* () { return axios_1.default.post('/reports/generate-reports/', body, { baseURL }); }),
 };
 exports.default = service;

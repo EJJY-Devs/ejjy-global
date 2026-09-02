@@ -13,7 +13,7 @@ interface Generate {
     user_id?: number;
 }
 declare const service: {
-    bulkExportReports: (body: BulkExport, onUploadProgress?: AxiosRequestConfig['onUploadProgress']) => Promise<import("axios").AxiosResponse<string>>;
-    generate: (body: Generate) => Promise<import("axios").AxiosResponse<boolean>>;
+    bulkExportReports: (body: BulkExport, onUploadProgress?: AxiosRequestConfig['onUploadProgress'], baseURL?: string) => Promise<import("axios").AxiosResponse<string>>;
+    generate: (body: Generate, baseURL?: string) => Promise<import("axios").AxiosResponse<boolean>>;
 };
 export default service;

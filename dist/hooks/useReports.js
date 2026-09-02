@@ -34,13 +34,13 @@ const VOID_STATUSES = [
 // params instead of only the first MAX_PAGE_SIZE records. `onPage`, when
 // given, is called after every page with the cumulative results fetched so
 // far vs. the total the endpoint reports, so a caller can render progress.
-const fetchAllPages = (list, params, onPage) => __awaiter(void 0, void 0, void 0, function* () {
+const fetchAllPages = (list, params, onPage, baseURL) => __awaiter(void 0, void 0, void 0, function* () {
     let page = globals_1.DEFAULT_PAGE;
     let results = [];
     // eslint-disable-next-line no-constant-condition
     while (true) {
         // eslint-disable-next-line no-await-in-loop
-        const response = yield list(Object.assign(Object.assign({}, params), { page, page_size: globals_1.MAX_PAGE_SIZE }));
+        const response = yield list(Object.assign(Object.assign({}, params), { page, page_size: globals_1.MAX_PAGE_SIZE }), baseURL);
         results = results.concat(response.results);
         onPage === null || onPage === void 0 ? void 0 : onPage(results.length, response.count);
         if (results.length >= response.count || response.results.length === 0) {
@@ -68,7 +68,7 @@ const chunkArray = (items, size) => {
     }
     return chunks;
 };
-const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress, since }) => __awaiter(void 0, void 0, void 0, function* () {
+const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, siteSettings, user, onProgress, since, groupByBranchMachine, readBaseURL, writeBaseURL, }) => __awaiter(void 0, void 0, void 0, function* () {
     // Fetch phase: each of the 3 reads gets an equal share of
     // FETCH_PHASE_WEIGHT, filled in proportionally to how much of
     // that read's own pages have come back so far.
@@ -102,14 +102,14 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
         fetchAllPages(services_1.TransactionsService.list, Object.assign({ statuses: [
                 globals_1.transactionStatuses.FULLY_PAID,
                 ...VOID_STATUSES,
-            ].join(',') }, sinceParams), (fetched, total) => reportFetchProgress(0, fetched, total)),
+            ].join(',') }, sinceParams), (fetched, total) => reportFetchProgress(0, fetched, total), readBaseURL),
         // Deliberately omits is_with_daily_sales_data: the export
         // must include every X-read regardless of whether its daily
         // sales data has been generated/linked yet — passing `false`
         // here previously filtered the results down to only the
         // X-reads still missing daily sales data.
-        fetchAllPages(services_1.XReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(1, fetched, total)),
-        fetchAllPages(services_1.ZReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(2, fetched, total)),
+        fetchAllPages(services_1.XReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(1, fetched, total), readBaseURL),
+        fetchAllPages(services_1.ZReadReportsService.list, Object.assign({ branch_machine_id: branchMachine.id }, sinceParams), (fetched, total) => reportFetchProgress(2, fetched, total), readBaseURL),
     ]);
     // Pin the fetch phase to exactly FETCH_PHASE_WEIGHT once it's
     // done, in case a source ended up with 0 total records (whose
@@ -126,6 +126,12 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     const salesTransactions = allTransactions.filter((transaction) => transaction.invoice !== null);
     const voidTransactions = allTransactions.filter((transaction) => VOID_STATUSES.includes(transaction.status));
     const voidTransactionsWithInvoice = voidTransactions.filter((transaction) => transaction.invoice !== null);
+    // See groupByBranchMachine's doc comment on BulkExport: empty
+    // (cashiering's existing, unprefixed layout) unless the caller
+    // opts in.
+    const machineFolder = groupByBranchMachine
+        ? `${branchMachine.name}/`
+        : '';
     // Each chunk is queued as a thunk (not yet invoked) so the export
     // requests can be run one at a time below, instead of firing all
     // of them at the local API concurrently — the concurrent version
@@ -142,27 +148,27 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
         chunkArray(records, BULK_EXPORT_CHUNK_SIZE).forEach((chunk) => {
             requests.push({
                 recordCount: chunk.length,
-                run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({ data: chunk.map(toData) }, onUploadProgress),
+                run: (onUploadProgress) => services_1.ReportsService.bulkExportReports({ data: chunk.map(toData) }, onUploadProgress, writeBaseURL),
             });
         });
     };
     if (salesTransactions.length > 0) {
         pushBulkExportRequests(salesTransactions, (transaction) => ({
-            folder_name: `invoices/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+            folder_name: `${machineFolder}invoices/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
             file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
             contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
         }));
     }
     if (xreadReports.length > 0) {
         pushBulkExportRequests(xreadReports, (report) => ({
-            folder_name: `reports/xread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
+            folder_name: `${machineFolder}reports/xread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
             file_name: `XReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
             contents: (0, print_1.createXReadTxt)(report, siteSettings, user, true),
         }));
     }
     if (zreadReports.length > 0) {
         pushBulkExportRequests(zreadReports, (report) => ({
-            folder_name: `reports/zread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
+            folder_name: `${machineFolder}reports/zread/${formatMonth(report.generation_datetime)}/${formatDateTime(report.generation_datetime)}`,
             file_name: `ZReadReport_${formatDateTime(report.generation_datetime)}_${report.id}.txt`,
             contents: (0, print_1.createZReadTxt)(report, siteSettings, user, true),
         }));
@@ -176,7 +182,7 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     // xread/zread, rather than as its own top-level folder.
     if (voidTransactionsWithInvoice.length > 0) {
         pushBulkExportRequests(voidTransactionsWithInvoice, (transaction) => ({
-            folder_name: `reports/void/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
+            folder_name: `${machineFolder}reports/void/${formatMonth(transaction.invoice.datetime_created)}/${formatDateTime(transaction.invoice.datetime_created)}`,
             file_name: `Sales_Invoice_${transaction.invoice.or_number}.txt`,
             contents: (0, print_1.createSalesInvoiceTxt)(transaction, siteSettings, true, true),
         }));
@@ -208,11 +214,11 @@ const useBulkExport = () => (0, react_query_1.useMutation)(({ branchMachine, sit
     return responses;
 }), { mutationKey: ['bulkExportReports'] });
 exports.useBulkExport = useBulkExport;
-const useGenerateReports = ({ branchId, branchMachineId, userId, enabled, intervalMs, }) => (0, react_query_1.useQuery)(['useGenerateReports', branchId, branchMachineId], () => (0, helper_1.wrapServiceWithCatch)(services_1.ReportsService.generate({
+const useGenerateReports = ({ branchId, branchMachineId, userId, enabled, intervalMs, baseURL, }) => (0, react_query_1.useQuery)(['useGenerateReports', branchId, branchMachineId], () => (0, helper_1.wrapServiceWithCatch)(services_1.ReportsService.generate({
     branch_id: branchId,
     branch_machine_id: branchMachineId,
     user_id: userId,
-})), {
+}, baseURL)), {
     enabled,
     refetchInterval: intervalMs,
     refetchIntervalInBackground: true,

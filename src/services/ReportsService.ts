@@ -20,11 +20,15 @@ const service = {
 	bulkExportReports: async (
 		body: BulkExport,
 		onUploadProgress?: AxiosRequestConfig['onUploadProgress'],
+		baseURL?: string,
 	) =>
-		axios.post<string>('/reports/bulk-export/', body, { onUploadProgress }),
+		axios.post<string>('/reports/bulk-export/', body, {
+			onUploadProgress,
+			baseURL,
+		}),
 
-	generate: async (body: Generate) =>
-		axios.post<boolean>('/reports/generate-reports/', body),
+	generate: async (body: Generate, baseURL?: string) =>
+		axios.post<boolean>('/reports/generate-reports/', body, { baseURL }),
 };
 
 export default service;

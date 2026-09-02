@@ -9,6 +9,9 @@ interface BulkExport {
     user: User;
     onProgress?: BulkExportOnProgress;
     since?: string;
+    groupByBranchMachine?: boolean;
+    readBaseURL?: string;
+    writeBaseURL?: string;
 }
 export declare const useBulkExport: () => import("react-query").UseMutationResult<AxiosResponse<string>[], AxiosErrorResponse<any>, BulkExport, unknown>;
 type GenerateReports = {
@@ -17,6 +20,7 @@ type GenerateReports = {
     branchId?: number;
     branchMachineId?: number;
     userId?: number;
+    baseURL?: string;
 };
-export declare const useGenerateReports: ({ branchId, branchMachineId, userId, enabled, intervalMs, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
+export declare const useGenerateReports: ({ branchId, branchMachineId, userId, enabled, intervalMs, baseURL, }: GenerateReports) => import("react-query").UseQueryResult<any, unknown>;
 export {};
