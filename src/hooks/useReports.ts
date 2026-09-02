@@ -135,11 +135,15 @@ export const useBulkExport = () =>
 					},
 					(fetched, total) => reportFetchProgress(0, fetched, total),
 				),
+				// Deliberately omits is_with_daily_sales_data: the export
+				// must include every X-read regardless of whether its daily
+				// sales data has been generated/linked yet — passing `false`
+				// here previously filtered the results down to only the
+				// X-reads still missing daily sales data.
 				fetchAllPages<XReadReport>(
 					XReadReportsService.list,
 					{
 						branch_machine_id: branchMachine.id,
-						is_with_daily_sales_data: false,
 					},
 					(fetched, total) => reportFetchProgress(1, fetched, total),
 				),
