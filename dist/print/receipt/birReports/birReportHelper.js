@@ -7,6 +7,7 @@ exports.BirHeader = exports.birReportStyles = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const utils_1 = require("../../../utils");
+// eslint-disable-next-line react-refresh/only-export-components
 const birReportStyles = (variant = 'wide') => {
     const isWide = variant === 'wide';
     return react_1.default.createElement('style', {}, [
@@ -84,11 +85,22 @@ const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.de
     react_1.default.createElement("div", { className: "details", style: detailLineStyle }, siteSettings.address_of_tax_payer),
     react_1.default.createElement("div", { className: "details", style: detailLineStyle }, siteSettings.tin),
     react_1.default.createElement("br", null),
-    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, "V1.0 (Static)"),
-    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.pos_terminal),
-    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, branchMachine === null || branchMachine === void 0 ? void 0 : branchMachine.name),
-    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
-    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, user.employee_id),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle },
+        "SW Version: ",
+        siteSettings.product_version),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle },
+        "SN: ", branchMachine === null || branchMachine === void 0 ? void 0 :
+        branchMachine.storage_serial_number),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle },
+        "MIN: ", branchMachine === null || branchMachine === void 0 ? void 0 :
+        branchMachine.machine_identification_number),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle }, "POS Terminal No.:"),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle },
+        "Date Generated: ",
+        (0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)),
+    react_1.default.createElement("div", { className: "details", style: detailLineStyle },
+        "UserID: ",
+        user.employee_id),
     react_1.default.createElement("br", null),
     react_1.default.createElement("div", { className: "title", style: Object.assign(Object.assign({}, detailLineStyle), { textAlign: 'center', fontWeight: 'bold' }) }, title)));
 exports.BirHeader = BirHeader;

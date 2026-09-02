@@ -14,6 +14,7 @@ import { formatDateTime } from '../../../utils';
 // to their own content instead of being pinned to the E1 report's width.
 type BirReportStylesVariant = 'wide' | 'compact';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const birReportStyles = (variant: BirReportStylesVariant = 'wide') => {
 	const isWide = variant === 'wide';
 
@@ -114,19 +115,24 @@ export const BirHeader = ({
 		<br />
 
 		<div className="details" style={detailLineStyle}>
-			V1.0 (Static)
+			SW Version: {siteSettings.product_version}
 		</div>
 		<div className="details" style={detailLineStyle}>
-			{branchMachine?.pos_terminal}
+			SN: {branchMachine?.storage_serial_number}
 		</div>
 		<div className="details" style={detailLineStyle}>
-			{branchMachine?.name}
+			MIN: {branchMachine?.machine_identification_number}
+		</div>
+		{/* POS Terminal No. is intentionally left blank for now. */}
+		<div className="details" style={detailLineStyle}>
+			POS Terminal No.:
 		</div>
 		<div className="details" style={detailLineStyle}>
-			{formatDateTime(dayjs(), false)}
+			Date Generated: {formatDateTime(dayjs(), false)}
 		</div>
+		{/* UserID is the authorizer's (the user generating this report) employee ID. */}
 		<div className="details" style={detailLineStyle}>
-			{user.employee_id}
+			UserID: {user.employee_id}
 		</div>
 
 		<br />
