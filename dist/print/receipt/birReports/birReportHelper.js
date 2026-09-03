@@ -87,6 +87,8 @@ const BirHeader = ({ branchMachine, siteSettings, title, user, }) => (react_1.de
     react_1.default.createElement("br", null),
     react_1.default.createElement("div", { className: "details", style: detailLineStyle },
         "SW Version: ",
+        siteSettings.app_description,
+        " ",
         siteSettings.product_version),
     react_1.default.createElement("div", { className: "details", style: detailLineStyle },
         "SN: ", branchMachine === null || branchMachine === void 0 ? void 0 :

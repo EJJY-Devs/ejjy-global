@@ -115,7 +115,7 @@ export const BirHeader = ({
 		<br />
 
 		<div className="details" style={detailLineStyle}>
-			SW Version: {siteSettings.product_version}
+			SW Version: {siteSettings.app_description} {siteSettings.product_version}
 		</div>
 		<div className="details" style={detailLineStyle}>
 			SN: {branchMachine?.storage_serial_number}
