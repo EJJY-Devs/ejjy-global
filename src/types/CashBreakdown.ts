@@ -15,11 +15,26 @@ type CashBreakdownMetadata = {
 	received_by?: string;
 };
 
+export interface CashInMetadata {
+	id: number;
+	received_from: string;
+	particulars: string;
+	amount: string;
+}
+
+export interface CashCollectionMetadata {
+	id: number;
+	collector: string;
+	amount: string;
+}
+
 export interface CashBreakdown {
 	id: number;
 	branch_machine: BranchMachine;
 	cashiering_session: CashieringSession;
 	cash_out_metadata: CashBreakdownMetadata;
+	cash_in_metadata?: CashInMetadata;
+	cash_collection_metadata?: CashCollectionMetadata;
 	datetime_updated: string;
 	to_be_uploaded: boolean;
 	online_id?: number;

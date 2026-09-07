@@ -38,6 +38,19 @@ const useCashBreakdownCreate = () => (0, react_query_1.useMutation)((body) => se
             received_by: body.cashOutMetadata.receivedBy,
         }
         : undefined,
+    cash_in_metadata: body.cashInMetadata
+        ? {
+            received_from: body.cashInMetadata.receivedFrom,
+            particulars: body.cashInMetadata.particulars,
+            amount: body.cashInMetadata.amount,
+        }
+        : undefined,
+    cash_collection_metadata: body.cashCollectionMetadata
+        ? {
+            collector: body.cashCollectionMetadata.collector,
+            amount: body.cashCollectionMetadata.amount,
+        }
+        : undefined,
     category: body.category,
     coins_1: body.coins1,
     coins_10: body.coins10,

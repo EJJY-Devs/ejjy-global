@@ -5,6 +5,8 @@ export * from './receipt/printAdjustmentSlip';
 export * from './receipt/printCancelledTransactions';
 export * from './receipt/printCashBreakdown';
 export * from './receipt/printCashOut';
+export * from './receipt/printCashIn';
+export * from './receipt/printCashCollection';
 export * from './receipt/printCollectionReceipt';
 export * from './receipt/printDailyItemSold';
 export * from './receipt/printDailySales';

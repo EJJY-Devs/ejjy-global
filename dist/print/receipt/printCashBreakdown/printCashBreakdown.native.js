@@ -6,6 +6,8 @@ const globals_1 = require("../../../globals");
 const helper_escpos_1 = require("../../helper-escpos");
 const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
+const printCashIn_native_1 = require("../printCashIn/printCashIn.native");
+const printCashCollection_native_1 = require("../printCashCollection/printCashCollection.native");
 const printCashBreakdownNative = ({ cashBreakdown, siteSettings, user, }) => [
     ...generateCashBreakdownContentCommands(cashBreakdown, siteSettings, user),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -17,6 +19,18 @@ const printCashBreakdownNative = ({ cashBreakdown, siteSettings, user, }) => [
 ];
 exports.printCashBreakdownNative = printCashBreakdownNative;
 const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user) => {
+    // Cash In and Cash Collection are voucher-style receipts, not
+    // denomination (coins/bills) breakdowns — Opening Fund (start_session)
+    // and Cash in Drawer (end_session) keep the denomination table below
+    // untouched.
+    if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN &&
+        cashBreakdown.type === globals_1.cashBreakdownTypes.MID_SESSION) {
+        return (0, printCashIn_native_1.generateCashInContentCommands)(cashBreakdown, siteSettings, user);
+    }
+    if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_BREAKDOWN &&
+        cashBreakdown.type === globals_1.cashBreakdownTypes.MID_SESSION) {
+        return (0, printCashCollection_native_1.generateCashCollectionContentCommands)(cashBreakdown, siteSettings, user);
+    }
     const commands = [];
     // Header
     commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({

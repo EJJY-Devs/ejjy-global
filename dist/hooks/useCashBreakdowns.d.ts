@@ -21,6 +21,15 @@ export declare const useCashBreakdownCreate: () => import("react-query").UseMuta
         approvedByUserId: number;
         receivedBy: string;
     } | undefined;
+    cashInMetadata?: {
+        receivedFrom: string;
+        particulars: string;
+        amount: string;
+    } | undefined;
+    cashCollectionMetadata?: {
+        collector: string;
+        amount: string;
+    } | undefined;
     cashieringSessionId?: number | undefined;
     category?: import("../types").CashBreakdownCategory | undefined;
     coins1?: number | undefined;

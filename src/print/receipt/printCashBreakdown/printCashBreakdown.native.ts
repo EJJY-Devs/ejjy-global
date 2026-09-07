@@ -3,7 +3,7 @@ import {
 	formatDateTime,
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
-import { cashBreakdownCategories } from '../../../globals';
+import { cashBreakdownCategories, cashBreakdownTypes } from '../../../globals';
 import {
 	generateItemBlockCommands,
 	generateReceiptFooterCommands,
@@ -13,6 +13,8 @@ import {
 } from '../../helper-escpos';
 import { PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
+import { generateCashInContentCommands } from '../printCashIn/printCashIn.native';
+import { generateCashCollectionContentCommands } from '../printCashCollection/printCashCollection.native';
 import { PrintCashBreakdown } from './types';
 
 export const printCashBreakdownNative = ({
@@ -34,6 +36,28 @@ const generateCashBreakdownContentCommands = (
 	siteSettings: PrintCashBreakdown['siteSettings'],
 	user: PrintCashBreakdown['user'],
 ): string[] => {
+	// Cash In and Cash Collection are voucher-style receipts, not
+	// denomination (coins/bills) breakdowns — Opening Fund (start_session)
+	// and Cash in Drawer (end_session) keep the denomination table below
+	// untouched.
+	if (
+		cashBreakdown.category === cashBreakdownCategories.CASH_IN &&
+		cashBreakdown.type === cashBreakdownTypes.MID_SESSION
+	) {
+		return generateCashInContentCommands(cashBreakdown, siteSettings, user);
+	}
+
+	if (
+		cashBreakdown.category === cashBreakdownCategories.CASH_BREAKDOWN &&
+		cashBreakdown.type === cashBreakdownTypes.MID_SESSION
+	) {
+		return generateCashCollectionContentCommands(
+			cashBreakdown,
+			siteSettings,
+			user,
+		);
+	}
+
 	const commands: string[] = [];
 
 	// Header

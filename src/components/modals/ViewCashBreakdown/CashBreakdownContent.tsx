@@ -1,5 +1,7 @@
 import React from 'react';
-import { cashBreakdownCategories } from '../../../globals';
+import { cashBreakdownCategories, cashBreakdownTypes } from '../../../globals';
+import { CashInVoucherContent } from '../../../print/receipt/printCashIn/CashInVoucherContent';
+import { CashCollectionVoucherContent } from '../../../print/receipt/printCashCollection/CashCollectionVoucherContent';
 import { PESO_SIGN } from '../../../print/helper-receipt';
 import { CashBreakdown, SiteSettings, User } from '../../../types';
 import {
@@ -21,6 +23,35 @@ export const CashBreakdownContent = ({
 	siteSettings,
 	user,
 }: Props) => {
+	// Cash In and Cash Collection are voucher-style receipts, not denomination
+	// (coins/bills) breakdowns — Opening Fund (start_session) and Cash in
+	// Drawer (end_session) keep the denomination table below untouched.
+	if (
+		cashBreakdown.category === cashBreakdownCategories.CASH_IN &&
+		cashBreakdown.type === cashBreakdownTypes.MID_SESSION
+	) {
+		return (
+			<CashInVoucherContent
+				cashBreakdown={cashBreakdown}
+				siteSettings={siteSettings}
+				user={user}
+			/>
+		);
+	}
+
+	if (
+		cashBreakdown.category === cashBreakdownCategories.CASH_BREAKDOWN &&
+		cashBreakdown.type === cashBreakdownTypes.MID_SESSION
+	) {
+		return (
+			<CashCollectionVoucherContent
+				cashBreakdown={cashBreakdown}
+				siteSettings={siteSettings}
+				user={user}
+			/>
+		);
+	}
+
 	const breakdownCoins = [
 		{
 			label: '0.25',

@@ -6,11 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashBreakdownContent = void 0;
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
+const CashInVoucherContent_1 = require("../../../print/receipt/printCashIn/CashInVoucherContent");
+const CashCollectionVoucherContent_1 = require("../../../print/receipt/printCashCollection/CashCollectionVoucherContent");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const PrintDetails_1 = require("../../Printing/PrintDetails");
 const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, }) => {
+    // Cash In and Cash Collection are voucher-style receipts, not denomination
+    // (coins/bills) breakdowns — Opening Fund (start_session) and Cash in
+    // Drawer (end_session) keep the denomination table below untouched.
+    if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_IN &&
+        cashBreakdown.type === globals_1.cashBreakdownTypes.MID_SESSION) {
+        return (react_1.default.createElement(CashInVoucherContent_1.CashInVoucherContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user }));
+    }
+    if (cashBreakdown.category === globals_1.cashBreakdownCategories.CASH_BREAKDOWN &&
+        cashBreakdown.type === globals_1.cashBreakdownTypes.MID_SESSION) {
+        return (react_1.default.createElement(CashCollectionVoucherContent_1.CashCollectionVoucherContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user }));
+    }
     const breakdownCoins = [
         {
             label: '0.25',

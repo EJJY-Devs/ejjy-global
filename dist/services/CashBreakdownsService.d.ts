@@ -11,6 +11,15 @@ export interface CashOutMetadata {
     approved_by_user_id: number;
     received_by: string;
 }
+export interface CashInMetadata {
+    received_from: string;
+    particulars: string;
+    amount: string;
+}
+export interface CashCollectionMetadata {
+    collector: string;
+    amount: string;
+}
 export interface Create {
     bills_100?: number;
     bills_1000?: number;
@@ -20,6 +29,8 @@ export interface Create {
     bills_500?: number;
     branch_machine_id?: number;
     cash_out_metadata?: CashOutMetadata;
+    cash_in_metadata?: CashInMetadata;
+    cash_collection_metadata?: CashCollectionMetadata;
     cashiering_session_id?: number;
     category?: CashBreakdownCategory;
     coins_1?: number;
