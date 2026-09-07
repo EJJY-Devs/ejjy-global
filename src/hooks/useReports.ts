@@ -35,7 +35,7 @@ const formatDateTime = (dateTime?: string): string => {
 };
 
 const formatMonth = (dateTime?: string): string => {
-	return dayjs.tz(dateTime).format('MMYYYY');
+	return dayjs.tz(dateTime).format('YYYY-MM');
 };
 
 // Folder names land on disk as-is, so a branch machine's name has to be

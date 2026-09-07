@@ -23,7 +23,7 @@ const formatDateTime = (dateTime) => {
     return dayjs_1.default.tz(dateTime).format('MMDDYYYY');
 };
 const formatMonth = (dateTime) => {
-    return dayjs_1.default.tz(dateTime).format('MMYYYY');
+    return dayjs_1.default.tz(dateTime).format('YYYY-MM');
 };
 // Folder names land on disk as-is, so a branch machine's name has to be
 // sanitized into something every OS accepts as a path segment first —
