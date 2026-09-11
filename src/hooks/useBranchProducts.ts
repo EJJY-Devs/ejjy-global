@@ -34,6 +34,8 @@ export const useBranchProducts = (
 						unit_of_measurement: params?.unitOfMeasurement,
 						barcode: params?.barcode,
 						search_by: params?.searchBy,
+						show_purchases: params?.showPurchases,
+						show_expenses: params?.showExpenses,
 					},
 					serviceOptions?.baseURL,
 					serviceOptions?.type,
