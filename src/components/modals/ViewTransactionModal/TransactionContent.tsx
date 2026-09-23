@@ -5,6 +5,7 @@ import {
 	INVOICE_LAST_MESSAGE,
 	salesInvoiceTitles,
 	saleTypes,
+	taxTypes,
 	transactionStatuses,
 	vatTypes,
 } from '../../../globals';
@@ -23,6 +24,12 @@ type Props = {
 	siteSettings: SiteSettings;
 	isReprint?: boolean;
 };
+
+// An NVAT entity has no VAT breakdown at all (every line is treated as VE),
+// so invoices omit the VAT Exempt / VATable Sales / VAT Amount / ZERO Rated
+// lines entirely.
+export const isNvatEntity = (siteSettings?: SiteSettings) =>
+	siteSettings?.tax_type === taxTypes.NVAT;
 
 export const getTransactionData = (transaction: Transaction) => {
 	let title = '';
@@ -214,34 +221,38 @@ export const TransactionContent = ({
 				</>
 			)}
 
-			<table style={{ width: '100%' }}>
-				<tr>
-					<td>VAT Exempt</td>
-					<td style={{ textAlign: 'right' }}>
-						{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td>VATable Sales</td>
-					<td style={{ textAlign: 'right' }}>
-						{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td>VAT Amount (12%)</td>
-					<td style={{ textAlign: 'right' }}>
-						{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td>ZERO Rated</td>
-					<td style={{ textAlign: 'right' }}>
-						{formatInPeso(0, PESO_SIGN)}&nbsp;
-					</td>
-				</tr>
-			</table>
+			{!isNvatEntity(siteSettings) && (
+				<>
+					<table style={{ width: '100%' }}>
+						<tr>
+							<td>VAT Exempt</td>
+							<td style={{ textAlign: 'right' }}>
+								{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td>VATable Sales</td>
+							<td style={{ textAlign: 'right' }}>
+								{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td>VAT Amount (12%)</td>
+							<td style={{ textAlign: 'right' }}>
+								{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td>ZERO Rated</td>
+							<td style={{ textAlign: 'right' }}>
+								{formatInPeso(0, PESO_SIGN)}&nbsp;
+							</td>
+						</tr>
+					</table>
 
-			<br />
+					<br />
+				</>
+			)}
 
 			<div>GDT: {formatDateTime(transaction.invoice.datetime_created)}</div>
 			<div>PDT: {formatDateTime(dayjs(), false)}</div>

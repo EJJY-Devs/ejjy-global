@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
-import { getTransactionData } from '../../components/modals/ViewTransactionModal/TransactionContent';
+import {
+	getTransactionData,
+	isNvatEntity,
+} from '../../components/modals/ViewTransactionModal/TransactionContent';
 import {
 	INVOICE_LAST_MESSAGE,
 	saleTypes,
@@ -127,32 +130,36 @@ export const createSalesInvoiceTxt = (
 		);
 	}
 
-	rowData.push(
-		...[
-			TXT_LINE_BREAK,
-			...getTxtItemBlock([
-				{
-					label: 'VAT Exempt',
-					value:
-						formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN) + TXT_NBSP,
-				},
-				{
-					label: 'VATable Sales',
-					value:
-						formatInPeso(transaction.invoice.vat_sales, PESO_SIGN) + TXT_NBSP,
-				},
-				{
-					label: 'VAT Amount (12%)',
-					value:
-						formatInPeso(transaction.invoice.vat_amount, PESO_SIGN) + TXT_NBSP,
-				},
-				{
-					label: 'ZERO Rated',
-					value: formatInPeso(0, PESO_SIGN) + TXT_NBSP,
-				},
-			]),
-		],
-	);
+	if (!isNvatEntity(siteSettings)) {
+		rowData.push(
+			...[
+				TXT_LINE_BREAK,
+				...getTxtItemBlock([
+					{
+						label: 'VAT Exempt',
+						value:
+							formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN) +
+							TXT_NBSP,
+					},
+					{
+						label: 'VATable Sales',
+						value:
+							formatInPeso(transaction.invoice.vat_sales, PESO_SIGN) + TXT_NBSP,
+					},
+					{
+						label: 'VAT Amount (12%)',
+						value:
+							formatInPeso(transaction.invoice.vat_amount, PESO_SIGN) +
+							TXT_NBSP,
+					},
+					{
+						label: 'ZERO Rated',
+						value: formatInPeso(0, PESO_SIGN) + TXT_NBSP,
+					},
+				]),
+			],
+		);
+	}
 
 	rowData.push(
 		...[
