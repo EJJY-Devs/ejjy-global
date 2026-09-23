@@ -117,25 +117,27 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
             ]));
         }
         // VAT Details
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-            {
-                label: 'VAT Exempt',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN),
-            },
-            {
-                label: 'VATable Sales',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN),
-            },
-            {
-                label: 'VAT Amount (12%)',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
-            },
-            {
-                label: 'ZERO Rated',
-                value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-            },
-        ]));
+        if (!(0, TransactionContent_1.isNvatEntity)(siteSettings)) {
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+            commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+                {
+                    label: 'VAT Exempt',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: 'VATable Sales',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: 'VAT Amount (12%)',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
+                },
+                {
+                    label: 'ZERO Rated',
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                },
+            ]));
+        }
         // Add GDT and PDT
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         commands.push('GDT: ' + (0, utils_1.formatDateTime)(transaction.invoice.datetime_created));

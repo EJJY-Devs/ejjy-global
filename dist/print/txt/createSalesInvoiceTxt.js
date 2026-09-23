@@ -82,27 +82,31 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
             ]),
         ]);
     }
-    rowData.push(...[
-        helper_txt_1.TXT_LINE_BREAK,
-        ...(0, helper_txt_1.getTxtItemBlock)([
-            {
-                label: 'VAT Exempt',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
-            },
-            {
-                label: 'VATable Sales',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
-            },
-            {
-                label: 'VAT Amount (12%)',
-                value: (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
-            },
-            {
-                label: 'ZERO Rated',
-                value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
-            },
-        ]),
-    ]);
+    if (!(0, TransactionContent_1.isNvatEntity)(siteSettings)) {
+        rowData.push(...[
+            helper_txt_1.TXT_LINE_BREAK,
+            ...(0, helper_txt_1.getTxtItemBlock)([
+                {
+                    label: 'VAT Exempt',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN) +
+                        helper_txt_1.TXT_NBSP,
+                },
+                {
+                    label: 'VATable Sales',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
+                },
+                {
+                    label: 'VAT Amount (12%)',
+                    value: (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN) +
+                        helper_txt_1.TXT_NBSP,
+                },
+                {
+                    label: 'ZERO Rated',
+                    value: (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
+                },
+            ]),
+        ]);
+    }
     rowData.push(...[
         { left: `GDT: ${(0, utils_1.formatDateTime)(transaction.invoice.datetime_created)}` },
         { left: `PDT: ${(0, utils_1.formatDateTime)((0, dayjs_1.default)(), false)}` },

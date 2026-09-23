@@ -5,6 +5,7 @@ type Props = {
     siteSettings: SiteSettings;
     isReprint?: boolean;
 };
+export declare const isNvatEntity: (siteSettings?: SiteSettings) => boolean;
 export declare const getTransactionData: (transaction: Transaction) => {
     title: string;
     fields: Record<string, string | undefined>[];

@@ -3,13 +3,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionContent = exports.getTransactionData = void 0;
+exports.TransactionContent = exports.getTransactionData = exports.isNvatEntity = void 0;
 const dayjs_1 = __importDefault(require("dayjs"));
 const react_1 = __importDefault(require("react"));
 const globals_1 = require("../../../globals");
 const helper_receipt_1 = require("../../../print/helper-receipt");
 const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
+// An NVAT entity has no VAT breakdown at all (every line is treated as VE),
+// so invoices omit the VAT Exempt / VATable Sales / VAT Amount / ZERO Rated
+// lines entirely.
+const isNvatEntity = (siteSettings) => (siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.tax_type) === globals_1.taxTypes.NVAT;
+exports.isNvatEntity = isNvatEntity;
 const getTransactionData = (transaction) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
     let title = '';
@@ -138,28 +143,29 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                         (0, utils_1.formatInPeso)(change, helper_receipt_1.PESO_SIGN),
                         "\u00A0"))),
             react_1.default.createElement("br", null))),
-        react_1.default.createElement("table", { style: { width: '100%' } },
-            react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "VAT Exempt"),
-                react_1.default.createElement("td", { style: { textAlign: 'right' } },
-                    (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN),
-                    "\u00A0")),
-            react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "VATable Sales"),
-                react_1.default.createElement("td", { style: { textAlign: 'right' } },
-                    (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN),
-                    "\u00A0")),
-            react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "VAT Amount (12%)"),
-                react_1.default.createElement("td", { style: { textAlign: 'right' } },
-                    (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
-                    "\u00A0")),
-            react_1.default.createElement("tr", null,
-                react_1.default.createElement("td", null, "ZERO Rated"),
-                react_1.default.createElement("td", { style: { textAlign: 'right' } },
-                    (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
-                    "\u00A0"))),
-        react_1.default.createElement("br", null),
+        !(0, exports.isNvatEntity)(siteSettings) && (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement("table", { style: { width: '100%' } },
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", null, "VAT Exempt"),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } },
+                        (0, utils_1.formatInPeso)(transaction.invoice.vat_exempt, helper_receipt_1.PESO_SIGN),
+                        "\u00A0")),
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", null, "VATable Sales"),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } },
+                        (0, utils_1.formatInPeso)(transaction.invoice.vat_sales, helper_receipt_1.PESO_SIGN),
+                        "\u00A0")),
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", null, "VAT Amount (12%)"),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } },
+                        (0, utils_1.formatInPeso)(transaction.invoice.vat_amount, helper_receipt_1.PESO_SIGN),
+                        "\u00A0")),
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", null, "ZERO Rated"),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } },
+                        (0, utils_1.formatInPeso)(0, helper_receipt_1.PESO_SIGN),
+                        "\u00A0"))),
+            react_1.default.createElement("br", null))),
         react_1.default.createElement("div", null,
             "GDT: ",
             (0, utils_1.formatDateTime)(transaction.invoice.datetime_created)),
