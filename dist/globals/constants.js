@@ -42,7 +42,7 @@ exports.JSPDF_SETTINGS = {
 exports.EJOURNAL_FOLDER = 'media';
 exports.DESKTOP_FOLDER_OPEN_FUNCTION = 'openFolder';
 exports.AUTOMATIC_GENERATED_REPORT_USER_NAME = 'Auto';
-exports.INVOICE_LAST_MESSAGE = 'This Serves As Your Official Receipt';
+exports.INVOICE_LAST_MESSAGE = 'This Serves As Your Invoice';
 exports.REPRINT_ONLY_MESSAGE = 'REPRINT ONLY';
 // Localstorgae
 exports.APP_PRINTING_TYPE = 'EJJY_PRINTING_TYPE';

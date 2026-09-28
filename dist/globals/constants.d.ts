@@ -39,7 +39,7 @@ export declare const JSPDF_SETTINGS: {
 export declare const EJOURNAL_FOLDER = "media";
 export declare const DESKTOP_FOLDER_OPEN_FUNCTION = "openFolder";
 export declare const AUTOMATIC_GENERATED_REPORT_USER_NAME = "Auto";
-export declare const INVOICE_LAST_MESSAGE = "This Serves As Your Official Receipt";
+export declare const INVOICE_LAST_MESSAGE = "This Serves As Your Invoice";
 export declare const REPRINT_ONLY_MESSAGE = "REPRINT ONLY";
 export declare const APP_PRINTING_TYPE = "EJJY_PRINTING_TYPE";
 export declare const APP_AUTOMATIC_FULL_SCREEN = "EJJY_AUTOMATIC_FULL_SCREEN";
