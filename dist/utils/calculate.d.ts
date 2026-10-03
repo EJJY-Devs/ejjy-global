@@ -14,6 +14,18 @@ export declare const getCashBreakdownTotals: (cashBreakdown: CashBreakdownCounts
     billsTotal: number;
     total: number;
 };
+export declare const getCashInDrawerTotals: (cashBreakdown: {
+    total_e_payments?: number;
+    total_others?: number;
+    total_remittance?: number;
+}, cashTotal: number, summary?: {
+    ePayments: number;
+    others: number;
+}) => {
+    ePayments: number;
+    others: number | undefined;
+    remittance: number;
+} | undefined;
 export declare const calculateCashBreakdownTotal: (cashBreakdown: CashBreakdownCounts) => number;
 export declare const getComputedDiscount: (transaction: Transaction) => number;
 export {};

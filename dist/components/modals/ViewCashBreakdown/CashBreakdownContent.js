@@ -12,7 +12,7 @@ const utils_1 = require("../../../utils");
 const Printing_1 = require("../../Printing");
 const PrintDetails_1 = require("../../Printing/PrintDetails");
 const PESO_SIGN_UI = '₱';
-const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, layout = 'columns', }) => {
+const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, layout = 'columns', cashInDrawerSummary, }) => {
     // Cash In and Cash Collection are voucher-style receipts, not denomination
     // (coins/bills) breakdowns — Opening Fund (start_session) and Cash in
     // Drawer (end_session) keep the denomination table below untouched.
@@ -25,6 +25,7 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, layout = 'col
         return (react_1.default.createElement(CashCollectionVoucherContent_1.CashCollectionVoucherContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user }));
     }
     const { coinsTotal, billsTotal, total } = (0, utils_1.getCashBreakdownTotals)(cashBreakdown);
+    const drawerTotals = (0, utils_1.getCashInDrawerTotals)(cashBreakdown, total, cashInDrawerSummary);
     const denominationSection = (title, denominations, subtotal) => (react_1.default.createElement("div", { style: { flex: 1 } },
         react_1.default.createElement("div", { style: { textAlign: 'center', fontWeight: 'bold' } }, title),
         denominations.map(({ key, value }) => (react_1.default.createElement("div", { key: key, style: { display: 'flex', justifyContent: 'space-between', gap: 8 } },
@@ -57,14 +58,23 @@ const CashBreakdownContent = ({ cashBreakdown, siteSettings, user, layout = 'col
             } },
             denominationSection('COINS', utils_1.CASH_BREAKDOWN_COINS, coinsTotal),
             denominationSection('BILLS', utils_1.CASH_BREAKDOWN_BILLS, billsTotal)),
-        react_1.default.createElement("div", { style: {
+        drawerTotals ? (react_1.default.createElement("div", { style: { fontWeight: 'bold' } }, [
+            ['TOTAL CASH ON HAND', total],
+            ['TOTAL E-PAYMENTS', drawerTotals.ePayments],
+            ...(drawerTotals.others !== undefined
+                ? [['OTHERS', drawerTotals.others]]
+                : []),
+            ['TOTAL REMITTANCE', drawerTotals.remittance],
+        ].map(([label, value]) => (react_1.default.createElement("div", { key: label, style: { display: 'flex', justifyContent: 'space-between' } },
+            react_1.default.createElement("span", null, label),
+            react_1.default.createElement("span", null, (0, utils_1.formatInPeso)(Number(value), PESO_SIGN_UI))))))) : (react_1.default.createElement("div", { style: {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
                 fontWeight: 'bold',
             } },
             react_1.default.createElement("span", null, "TOTAL"),
-            react_1.default.createElement("span", null, (0, utils_1.formatInPeso)(total, PESO_SIGN_UI))),
+            react_1.default.createElement("span", null, (0, utils_1.formatInPeso)(total, PESO_SIGN_UI)))),
         react_1.default.createElement("br", null),
         react_1.default.createElement("div", null,
             "GDT: ",

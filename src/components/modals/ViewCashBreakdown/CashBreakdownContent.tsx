@@ -1,6 +1,7 @@
 import React from 'react';
 import { cashBreakdownCategories, cashBreakdownTypes } from '../../../globals';
 import { CashInVoucherContent } from '../../../print/receipt/printCashIn/CashInVoucherContent';
+import { CashInDrawerSummary } from '../../../print/receipt/printCashBreakdown/types';
 import { CashCollectionVoucherContent } from '../../../print/receipt/printCashCollection/CashCollectionVoucherContent';
 import { CashBreakdown, SiteSettings, User } from '../../../types';
 import {
@@ -9,6 +10,7 @@ import {
 	formatDateTime,
 	formatInPeso,
 	getCashBreakdownTotals,
+	getCashInDrawerTotals,
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
 import { ReceiptFooter, ReceiptHeader } from '../../Printing';
@@ -23,6 +25,8 @@ type Props = {
 	// 'columns' (Coins | Bills side by side) for the modal, 'stacked' for
 	// narrow receipt output
 	layout?: 'columns' | 'stacked';
+	// Cash in Drawer only: adds e-payments, others and total remittance lines
+	cashInDrawerSummary?: CashInDrawerSummary;
 };
 
 export const CashBreakdownContent = ({
@@ -30,6 +34,7 @@ export const CashBreakdownContent = ({
 	siteSettings,
 	user,
 	layout = 'columns',
+	cashInDrawerSummary,
 }: Props) => {
 	// Cash In and Cash Collection are voucher-style receipts, not denomination
 	// (coins/bills) breakdowns — Opening Fund (start_session) and Cash in
@@ -62,6 +67,11 @@ export const CashBreakdownContent = ({
 
 	const { coinsTotal, billsTotal, total } =
 		getCashBreakdownTotals(cashBreakdown);
+	const drawerTotals = getCashInDrawerTotals(
+		cashBreakdown,
+		total,
+		cashInDrawerSummary,
+	);
 
 	const denominationSection = (
 		title: string,
@@ -125,17 +135,38 @@ export const CashBreakdownContent = ({
 				{denominationSection('BILLS', CASH_BREAKDOWN_BILLS, billsTotal)}
 			</div>
 
-			<div
-				style={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-evenly',
-					fontWeight: 'bold',
-				}}
-			>
-				<span>TOTAL</span>
-				<span>{formatInPeso(total, PESO_SIGN_UI)}</span>
-			</div>
+			{drawerTotals ? (
+				<div style={{ fontWeight: 'bold' }}>
+					{[
+						['TOTAL CASH ON HAND', total],
+						['TOTAL E-PAYMENTS', drawerTotals.ePayments],
+						...(drawerTotals.others !== undefined
+							? [['OTHERS', drawerTotals.others]]
+							: []),
+						['TOTAL REMITTANCE', drawerTotals.remittance],
+					].map(([label, value]) => (
+						<div
+							key={label}
+							style={{ display: 'flex', justifyContent: 'space-between' }}
+						>
+							<span>{label}</span>
+							<span>{formatInPeso(Number(value), PESO_SIGN_UI)}</span>
+						</div>
+					))}
+				</div>
+			) : (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-evenly',
+						fontWeight: 'bold',
+					}}
+				>
+					<span>TOTAL</span>
+					<span>{formatInPeso(total, PESO_SIGN_UI)}</span>
+				</div>
+			)}
 
 			<br />
 

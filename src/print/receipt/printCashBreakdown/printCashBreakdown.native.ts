@@ -4,6 +4,7 @@ import {
 	formatInPeso,
 	formatDateTime,
 	getCashBreakdownTotals,
+	getCashInDrawerTotals,
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
 import { cashBreakdownCategories, cashBreakdownTypes } from '../../../globals';
@@ -18,14 +19,20 @@ import { PESO_SIGN } from '../../helper-receipt';
 import { EscPosCommands } from '../../utils/escpos.enum';
 import { generateCashInContentCommands } from '../printCashIn/printCashIn.native';
 import { generateCashCollectionContentCommands } from '../printCashCollection/printCashCollection.native';
-import { PrintCashBreakdown } from './types';
+import { CashInDrawerSummary, PrintCashBreakdown } from './types';
 
 export const printCashBreakdownNative = ({
 	cashBreakdown,
 	siteSettings,
 	user,
+	cashInDrawerSummary,
 }: PrintCashBreakdown): string[] => [
-	...generateCashBreakdownContentCommands(cashBreakdown, siteSettings, user),
+	...generateCashBreakdownContentCommands(
+		cashBreakdown,
+		siteSettings,
+		user,
+		cashInDrawerSummary,
+	),
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
 	EscPosCommands.LINE_BREAK,
@@ -38,6 +45,7 @@ const generateCashBreakdownContentCommands = (
 	cashBreakdown: PrintCashBreakdown['cashBreakdown'],
 	siteSettings: PrintCashBreakdown['siteSettings'],
 	user: PrintCashBreakdown['user'],
+	cashInDrawerSummary?: CashInDrawerSummary,
 ): string[] => {
 	// Cash In and Cash Collection are voucher-style receipts, not
 	// denomination (coins/bills) breakdowns — Opening Fund (start_session)
@@ -127,14 +135,43 @@ const generateCashBreakdownContentCommands = (
 	// Total
 	commands.push(printCenter('----------------------------------------'));
 	commands.push(EscPosCommands.LINE_BREAK);
-	commands.push(
-		...generateItemBlockCommands([
-			{
-				label: 'TOTAL',
-				value: formatInPeso(total, PESO_SIGN),
-			},
-		]),
+	const drawerTotals = getCashInDrawerTotals(
+		cashBreakdown,
+		total,
+		cashInDrawerSummary,
 	);
+	if (drawerTotals) {
+		const { ePayments, others, remittance } = drawerTotals;
+
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'TOTAL CASH ON HAND',
+					value: formatInPeso(total, PESO_SIGN),
+				},
+				{
+					label: 'TOTAL E-PAYMENTS',
+					value: formatInPeso(ePayments, PESO_SIGN),
+				},
+				...(others !== undefined
+					? [{ label: 'OTHERS', value: formatInPeso(others, PESO_SIGN) }]
+					: []),
+				{
+					label: 'TOTAL REMITTANCE',
+					value: formatInPeso(remittance, PESO_SIGN),
+				},
+			]),
+		);
+	} else {
+		commands.push(
+			...generateItemBlockCommands([
+				{
+					label: 'TOTAL',
+					value: formatInPeso(total, PESO_SIGN),
+				},
+			]),
+		);
+	}
 
 	commands.push(EscPosCommands.LINE_BREAK);
 

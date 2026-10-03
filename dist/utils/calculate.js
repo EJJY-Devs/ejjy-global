@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getComputedDiscount = exports.calculateCashBreakdownTotal = exports.getCashBreakdownTotals = exports.CASH_BREAKDOWN_BILLS = exports.CASH_BREAKDOWN_COINS = exports.countDecimals = exports.calculateTableHeight = void 0;
+exports.getComputedDiscount = exports.calculateCashBreakdownTotal = exports.getCashInDrawerTotals = exports.getCashBreakdownTotals = exports.CASH_BREAKDOWN_BILLS = exports.CASH_BREAKDOWN_COINS = exports.countDecimals = exports.calculateTableHeight = void 0;
 const globals_1 = require("../globals");
 const calculateTableHeight = (listLength) => {
     const MAX_ROW_COUNT = 6;
@@ -39,6 +39,29 @@ const getCashBreakdownTotals = (cashBreakdown) => {
     return { coinsTotal, billsTotal, total: coinsTotal + billsTotal };
 };
 exports.getCashBreakdownTotals = getCashBreakdownTotals;
+// Cash in Drawer extras: either the summary (e-payments + others) or the
+// plain total_e_payments/total_others/total_remittance fields on the cash breakdown.
+const getCashInDrawerTotals = (cashBreakdown, cashTotal, summary) => {
+    var _a, _b;
+    if (summary) {
+        return {
+            ePayments: summary.ePayments,
+            others: summary.others,
+            remittance: cashTotal + summary.ePayments + summary.others,
+        };
+    }
+    if (cashBreakdown.total_e_payments === undefined) {
+        return undefined;
+    }
+    return {
+        ePayments: cashBreakdown.total_e_payments,
+        others: cashBreakdown.total_others,
+        remittance: (_a = cashBreakdown.total_remittance) !== null && _a !== void 0 ? _a : cashTotal +
+            cashBreakdown.total_e_payments +
+            ((_b = cashBreakdown.total_others) !== null && _b !== void 0 ? _b : 0),
+    };
+};
+exports.getCashInDrawerTotals = getCashInDrawerTotals;
 const calculateCashBreakdownTotal = (cashBreakdown) => (0, exports.getCashBreakdownTotals)(cashBreakdown).total;
 exports.calculateCashBreakdownTotal = calculateCashBreakdownTotal;
 // TODO: Remove once already implemented in backend

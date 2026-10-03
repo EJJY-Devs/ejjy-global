@@ -8,9 +8,9 @@ const react_1 = __importDefault(require("react"));
 const server_1 = __importDefault(require("react-dom/server"));
 const CashBreakdownContent_1 = require("../../../components/modals/ViewCashBreakdown/CashBreakdownContent");
 const helper_receipt_1 = require("../../helper-receipt");
-const printCashBreakdownHtml = ({ cashBreakdown, siteSettings, user, isPdf = false, }) => {
+const printCashBreakdownHtml = ({ cashBreakdown, siteSettings, user, cashInDrawerSummary, isPdf = false, }) => {
     const data = server_1.default.renderToStaticMarkup(react_1.default.createElement("div", { className: "container", style: (0, helper_receipt_1.getPageStyleObject)() },
-        react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user, layout: "stacked" })));
+        react_1.default.createElement(CashBreakdownContent_1.CashBreakdownContent, { cashBreakdown: cashBreakdown, siteSettings: siteSettings, user: user, layout: "stacked", cashInDrawerSummary: cashInDrawerSummary })));
     if (isPdf) {
         return (0, helper_receipt_1.appendHtmlElement)(data);
     }

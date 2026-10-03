@@ -8,6 +8,7 @@ export const printCashBreakdownHtml = ({
 	cashBreakdown,
 	siteSettings,
 	user,
+	cashInDrawerSummary,
 	isPdf = false,
 }: PrintCashBreakdown) => {
 	const data = ReactDOMServer.renderToStaticMarkup(
@@ -17,6 +18,7 @@ export const printCashBreakdownHtml = ({
 				siteSettings={siteSettings}
 				user={user}
 				layout="stacked"
+				cashInDrawerSummary={cashInDrawerSummary}
 			/>
 		</div>,
 	);

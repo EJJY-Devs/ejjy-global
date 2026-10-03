@@ -8,8 +8,8 @@ const helper_receipt_1 = require("../../helper-receipt");
 const escpos_enum_1 = require("../../utils/escpos.enum");
 const printCashIn_native_1 = require("../printCashIn/printCashIn.native");
 const printCashCollection_native_1 = require("../printCashCollection/printCashCollection.native");
-const printCashBreakdownNative = ({ cashBreakdown, siteSettings, user, }) => [
-    ...generateCashBreakdownContentCommands(cashBreakdown, siteSettings, user),
+const printCashBreakdownNative = ({ cashBreakdown, siteSettings, user, cashInDrawerSummary, }) => [
+    ...generateCashBreakdownContentCommands(cashBreakdown, siteSettings, user, cashInDrawerSummary),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -18,7 +18,7 @@ const printCashBreakdownNative = ({ cashBreakdown, siteSettings, user, }) => [
     escpos_enum_1.EscPosCommands.LINE_BREAK,
 ];
 exports.printCashBreakdownNative = printCashBreakdownNative;
-const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user) => {
+const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user, cashInDrawerSummary) => {
     // Cash In and Cash Collection are voucher-style receipts, not
     // denomination (coins/bills) breakdowns — Opening Fund (start_session)
     // and Cash in Drawer (end_session) keep the denomination table below
@@ -69,12 +69,35 @@ const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user)
     // Total
     commands.push((0, helper_escpos_1.printCenter)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
-        {
-            label: 'TOTAL',
-            value: (0, utils_1.formatInPeso)(total, helper_receipt_1.PESO_SIGN),
-        },
-    ]));
+    const drawerTotals = (0, utils_1.getCashInDrawerTotals)(cashBreakdown, total, cashInDrawerSummary);
+    if (drawerTotals) {
+        const { ePayments, others, remittance } = drawerTotals;
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'TOTAL CASH ON HAND',
+                value: (0, utils_1.formatInPeso)(total, helper_receipt_1.PESO_SIGN),
+            },
+            {
+                label: 'TOTAL E-PAYMENTS',
+                value: (0, utils_1.formatInPeso)(ePayments, helper_receipt_1.PESO_SIGN),
+            },
+            ...(others !== undefined
+                ? [{ label: 'OTHERS', value: (0, utils_1.formatInPeso)(others, helper_receipt_1.PESO_SIGN) }]
+                : []),
+            {
+                label: 'TOTAL REMITTANCE',
+                value: (0, utils_1.formatInPeso)(remittance, helper_receipt_1.PESO_SIGN),
+            },
+        ]));
+    }
+    else {
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: 'TOTAL',
+                value: (0, utils_1.formatInPeso)(total, helper_receipt_1.PESO_SIGN),
+            },
+        ]));
+    }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Date and time
     commands.push(`GDT: ${(0, utils_1.formatDateTime)(cashBreakdown.datetime_created)}`);

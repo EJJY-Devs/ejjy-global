@@ -1,2 +1,2 @@
 import { PrintCashBreakdown } from './types';
-export declare const printCashBreakdownNative: ({ cashBreakdown, siteSettings, user, }: PrintCashBreakdown) => string[];
+export declare const printCashBreakdownNative: ({ cashBreakdown, siteSettings, user, cashInDrawerSummary, }: PrintCashBreakdown) => string[];

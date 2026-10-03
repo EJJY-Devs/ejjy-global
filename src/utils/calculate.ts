@@ -70,6 +70,40 @@ export const getCashBreakdownTotals = (cashBreakdown: CashBreakdownCounts) => {
 	return { coinsTotal, billsTotal, total: coinsTotal + billsTotal };
 };
 
+// Cash in Drawer extras: either the summary (e-payments + others) or the
+// plain total_e_payments/total_others/total_remittance fields on the cash breakdown.
+export const getCashInDrawerTotals = (
+	cashBreakdown: {
+	total_e_payments?: number;
+	total_others?: number;
+	total_remittance?: number;
+},
+	cashTotal: number,
+	summary?: { ePayments: number; others: number },
+) => {
+	if (summary) {
+		return {
+			ePayments: summary.ePayments,
+			others: summary.others as number | undefined,
+			remittance: cashTotal + summary.ePayments + summary.others,
+		};
+	}
+
+	if (cashBreakdown.total_e_payments === undefined) {
+		return undefined;
+	}
+
+	return {
+		ePayments: cashBreakdown.total_e_payments,
+		others: cashBreakdown.total_others,
+		remittance:
+			cashBreakdown.total_remittance ??
+			cashTotal +
+			cashBreakdown.total_e_payments +
+			(cashBreakdown.total_others ?? 0),
+	};
+};
+
 export const calculateCashBreakdownTotal = (
 	cashBreakdown: CashBreakdownCounts,
 ) => getCashBreakdownTotals(cashBreakdown).total;
