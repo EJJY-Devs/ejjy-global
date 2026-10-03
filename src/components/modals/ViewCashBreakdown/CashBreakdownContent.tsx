@@ -2,26 +2,34 @@ import React from 'react';
 import { cashBreakdownCategories, cashBreakdownTypes } from '../../../globals';
 import { CashInVoucherContent } from '../../../print/receipt/printCashIn/CashInVoucherContent';
 import { CashCollectionVoucherContent } from '../../../print/receipt/printCashCollection/CashCollectionVoucherContent';
-import { PESO_SIGN } from '../../../print/helper-receipt';
 import { CashBreakdown, SiteSettings, User } from '../../../types';
 import {
+	CASH_BREAKDOWN_BILLS,
+	CASH_BREAKDOWN_COINS,
 	formatDateTime,
 	formatInPeso,
+	getCashBreakdownTotals,
 	getCashBreakdownTypeDescription,
 } from '../../../utils';
 import { ReceiptFooter, ReceiptHeader } from '../../Printing';
 import { PrintDetails } from '../../Printing/PrintDetails';
 
+const PESO_SIGN_UI = '₱';
+
 type Props = {
 	cashBreakdown: CashBreakdown;
 	siteSettings: SiteSettings;
 	user?: User;
+	// 'columns' (Coins | Bills side by side) for the modal, 'stacked' for
+	// narrow receipt output
+	layout?: 'columns' | 'stacked';
 };
 
 export const CashBreakdownContent = ({
 	cashBreakdown,
 	siteSettings,
 	user,
+	layout = 'columns',
 }: Props) => {
 	// Cash In and Cash Collection are voucher-style receipts, not denomination
 	// (coins/bills) breakdowns — Opening Fund (start_session) and Cash in
@@ -52,120 +60,38 @@ export const CashBreakdownContent = ({
 		);
 	}
 
-	const breakdownCoins = [
-		{
-			label: '0.25',
-			quantity: cashBreakdown.coins_25,
-			amount: formatInPeso(0.25 * cashBreakdown.coins_25, ''),
-		},
-		{
-			label: '1.00',
-			quantity: cashBreakdown.coins_1,
-			amount: formatInPeso(cashBreakdown.coins_1, ''),
-		},
-		{
-			label: '5.00',
-			quantity: cashBreakdown.coins_5,
-			amount: formatInPeso(5 * cashBreakdown.coins_5, ''),
-		},
-		{
-			label: '10.00',
-			quantity: cashBreakdown.coins_10,
-			amount: formatInPeso(10 * cashBreakdown.coins_10, ''),
-		},
-		{
-			label: '20.00',
-			quantity: cashBreakdown.coins_20,
-			amount: formatInPeso(20 * cashBreakdown.coins_20, ''),
-		},
-	];
+	const { coinsTotal, billsTotal, total } =
+		getCashBreakdownTotals(cashBreakdown);
 
-	const denomCoins = breakdownCoins.map(({ label }) => (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-			}}
-		>
-			<span>P </span>
-			<span>{label}</span>
+	const denominationSection = (
+		title: string,
+		denominations: typeof CASH_BREAKDOWN_COINS,
+		subtotal: number,
+	) => (
+		<div style={{ flex: 1 }}>
+			<div style={{ textAlign: 'center', fontWeight: 'bold' }}>{title}</div>
+			{denominations.map(({ key, value }) => (
+				<div
+					key={key}
+					style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}
+				>
+					<span>{formatInPeso(value, '')}</span>
+					<span>x {cashBreakdown[key]}</span>
+					<span>{formatInPeso(value * cashBreakdown[key], '')}</span>
+				</div>
+			))}
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					borderTop: '1px dashed',
+				}}
+			>
+				<span>Subtotal</span>
+				<span>{formatInPeso(subtotal, PESO_SIGN_UI)}</span>
+			</div>
 		</div>
-	));
-	const quantityCoins = breakdownCoins.map(({ quantity }) => (
-		<div>{quantity}</div>
-	));
-	const amountCoins = breakdownCoins.map(({ amount }) => (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-			}}
-		>
-			<span>P </span>
-			<span>{amount}</span>
-		</div>
-	));
-	const breakdownBills = [
-		{
-			label: '20.00',
-			quantity: cashBreakdown.bills_20,
-			amount: formatInPeso(20 * cashBreakdown.bills_20, ''),
-		},
-		{
-			label: '50.00',
-			quantity: cashBreakdown.bills_50,
-			amount: formatInPeso(50 * cashBreakdown.bills_50, ''),
-		},
-		{
-			label: '100.00',
-			quantity: cashBreakdown.bills_100,
-			amount: formatInPeso(100 * cashBreakdown.bills_100, ''),
-		},
-		{
-			label: '200.00',
-			quantity: cashBreakdown.bills_200,
-			amount: formatInPeso(200 * cashBreakdown.bills_200, ''),
-		},
-		{
-			label: '500.00',
-			quantity: cashBreakdown.bills_500,
-			amount: formatInPeso(500 * cashBreakdown.bills_500, ''),
-		},
-		{
-			label: '1,000.00',
-			quantity: cashBreakdown.bills_1000,
-			amount: formatInPeso(1000 * cashBreakdown.bills_1000, ''),
-		},
-	];
-	const denomBills = breakdownBills.map(({ label }) => (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-			}}
-		>
-			<span>P </span>
-			<span>{label}</span>
-		</div>
-	));
-	const quantityBills = breakdownBills.map(({ quantity }) => (
-		<div>{quantity}</div>
-	));
-	const amountBills = breakdownBills.map(({ amount }) => (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-			}}
-		>
-			<span>P </span>
-			<span>{amount}</span>
-		</div>
-	));
+	);
 
 	return (
 		<>
@@ -188,43 +114,15 @@ export const CashBreakdownContent = ({
 				</span>
 			</div>
 			<br />
-			<div style={{ display: 'flex' }}>
-				<div>
-					<div style={{ textAlign: 'center' }}>DENOM</div>
-					<br />
-					<div>COINS</div>
-					{denomCoins}
-					<br />
-					<div>BILLS</div>
-					{denomBills}
-				</div>
-
-				<div
-					style={{
-						flex: 1,
-						paddingLeft: 10,
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-					}}
-				>
-					<div>QTY</div>
-					<br />
-					<br />
-					{quantityCoins}
-					<br />
-					<br />
-					{quantityBills}
-				</div>
-				<div>
-					<div style={{ textAlign: 'center' }}>AMOUNT</div>
-					<br />
-					<br />
-					{amountCoins}
-					<br />
-					<br />
-					{amountBills}
-				</div>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: layout === 'columns' ? 'row' : 'column',
+					gap: 16,
+				}}
+			>
+				{denominationSection('COINS', CASH_BREAKDOWN_COINS, coinsTotal)}
+				{denominationSection('BILLS', CASH_BREAKDOWN_BILLS, billsTotal)}
 			</div>
 
 			<div
@@ -232,10 +130,11 @@ export const CashBreakdownContent = ({
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'space-evenly',
+					fontWeight: 'bold',
 				}}
 			>
 				<span>TOTAL</span>
-				<span>{formatInPeso(cashBreakdown.total_amount, PESO_SIGN)}</span>
+				<span>{formatInPeso(total, PESO_SIGN_UI)}</span>
 			</div>
 
 			<br />

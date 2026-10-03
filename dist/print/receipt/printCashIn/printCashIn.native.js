@@ -10,6 +10,48 @@ const helper_receipt_1 = require("../../helper-receipt");
 const helper_escpos_1 = require("../../helper-escpos");
 const constants_1 = require("./constants");
 const escpos_enum_1 = require("../../utils/escpos.enum");
+const REMARKS_LABEL = 'Remarks:';
+// 40-char paper width minus label and minimum spacing
+const REMARKS_LINE_WIDTH = 40 - REMARKS_LABEL.length - 3;
+const wrapText = (text, width) => {
+    const lines = [];
+    let current = '';
+    text.split(/\s+/).forEach((word) => {
+        let remaining = word;
+        while (remaining.length > width) {
+            if (current) {
+                lines.push(current);
+                current = '';
+            }
+            lines.push(remaining.slice(0, width));
+            remaining = remaining.slice(width);
+        }
+        if (!remaining)
+            return;
+        if (!current) {
+            current = remaining;
+        }
+        else if (current.length + 1 + remaining.length <= width) {
+            current += ` ${remaining}`;
+        }
+        else {
+            lines.push(current);
+            current = remaining;
+        }
+    });
+    if (current)
+        lines.push(current);
+    return lines;
+};
+const generateRemarksItems = (remarks) => {
+    const trimmed = remarks === null || remarks === void 0 ? void 0 : remarks.trim();
+    if (!trimmed)
+        return [];
+    return wrapText(trimmed, REMARKS_LINE_WIDTH).map((value, index) => ({
+        label: index === 0 ? REMARKS_LABEL : '',
+        value,
+    }));
+};
 const printCashInNative = ({ cashBreakdown, siteSettings, user, }) => [
     ...(0, exports.generateCashInContentCommands)(cashBreakdown, siteSettings, user),
     escpos_enum_1.EscPosCommands.LINE_BREAK,
@@ -46,6 +88,7 @@ const generateCashInContentCommands = (cashBreakdown, siteSettings, user) => {
             label: 'Amount:',
             value: amount,
         },
+        ...generateRemarksItems(cashBreakdown.remarks),
     ]));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Footer

@@ -41,6 +41,14 @@ export const CashInVoucherContent = ({
 						<td>Amount:</td>
 						<td>{amount}</td>
 					</tr>
+					{cashBreakdown.remarks && (
+						<tr>
+							<td style={{ verticalAlign: 'top' }}>Remarks:</td>
+							<td style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-wrap' }}>
+								{cashBreakdown.remarks}
+							</td>
+						</tr>
+					)}
 				</tbody>
 			</table>
 

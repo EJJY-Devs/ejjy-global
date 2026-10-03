@@ -43,84 +43,28 @@ const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user)
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push((0, helper_escpos_1.printCenter)('----------------------------------------'));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // COINS section
-    commands.push('COINS');
+    const { coinsTotal, billsTotal, total } = (0, utils_1.getCashBreakdownTotals)(cashBreakdown);
+    const pushDenominationSection = (title, denominations, subtotal) => {
+        commands.push(title);
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+        denominations.forEach(({ key, value }) => {
+            const quantity = cashBreakdown[key];
+            if (quantity > 0) {
+                commands.push((0, helper_escpos_1.generateThreeColumnLine)(`${helper_receipt_1.PESO_SIGN} ${(0, utils_1.formatInPeso)(value, '')}`, quantity.toString(), (0, utils_1.formatInPeso)(value * quantity, '')));
+                commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+            }
+        });
+        commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+            {
+                label: `${title} SUBTOTAL`,
+                value: (0, utils_1.formatInPeso)(subtotal, helper_receipt_1.PESO_SIGN),
+            },
+        ]));
+        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    };
+    pushDenominationSection('COINS', utils_1.CASH_BREAKDOWN_COINS, coinsTotal);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    const breakdownCoins = [
-        {
-            label: 'P 0.25',
-            quantity: cashBreakdown.coins_25,
-            amount: 0.25 * cashBreakdown.coins_25,
-        },
-        {
-            label: 'P 1.00',
-            quantity: cashBreakdown.coins_1,
-            amount: 1 * cashBreakdown.coins_1,
-        },
-        {
-            label: 'P 5.00',
-            quantity: cashBreakdown.coins_5,
-            amount: 5 * cashBreakdown.coins_5,
-        },
-        {
-            label: 'P 10.00',
-            quantity: cashBreakdown.coins_10,
-            amount: 10 * cashBreakdown.coins_10,
-        },
-        {
-            label: 'P 20.00',
-            quantity: cashBreakdown.coins_20,
-            amount: 20 * cashBreakdown.coins_20,
-        },
-    ];
-    breakdownCoins.forEach(({ label, quantity, amount }) => {
-        if (quantity > 0) {
-            commands.push((0, helper_escpos_1.generateThreeColumnLine)(label, quantity.toString(), (0, utils_1.formatInPeso)(amount, '')));
-            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        }
-    });
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    // BILLS section
-    commands.push('BILLS');
-    commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-    const breakdownBills = [
-        {
-            label: 'P 20.00',
-            quantity: cashBreakdown.bills_20,
-            amount: 20 * cashBreakdown.bills_20,
-        },
-        {
-            label: 'P 50.00',
-            quantity: cashBreakdown.bills_50,
-            amount: 50 * cashBreakdown.bills_50,
-        },
-        {
-            label: 'P 100.00',
-            quantity: cashBreakdown.bills_100,
-            amount: 100 * cashBreakdown.bills_100,
-        },
-        {
-            label: 'P 200.00',
-            quantity: cashBreakdown.bills_200,
-            amount: 200 * cashBreakdown.bills_200,
-        },
-        {
-            label: 'P 500.00',
-            quantity: cashBreakdown.bills_500,
-            amount: 500 * cashBreakdown.bills_500,
-        },
-        {
-            label: 'P 1,000.00',
-            quantity: cashBreakdown.bills_1000,
-            amount: 1000 * cashBreakdown.bills_1000,
-        },
-    ];
-    breakdownBills.forEach(({ label, quantity, amount }) => {
-        if (quantity > 0) {
-            commands.push((0, helper_escpos_1.generateThreeColumnLine)(label, quantity.toString(), (0, utils_1.formatInPeso)(amount, '')));
-            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-        }
-    });
+    pushDenominationSection('BILLS', utils_1.CASH_BREAKDOWN_BILLS, billsTotal);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     // Total
     commands.push((0, helper_escpos_1.printCenter)('----------------------------------------'));
@@ -128,7 +72,7 @@ const generateCashBreakdownContentCommands = (cashBreakdown, siteSettings, user)
     commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
         {
             label: 'TOTAL',
-            value: (0, utils_1.formatInPeso)(cashBreakdown.total_amount, helper_receipt_1.PESO_SIGN),
+            value: (0, utils_1.formatInPeso)(total, helper_receipt_1.PESO_SIGN),
         },
     ]));
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getComputedDiscount = exports.calculateCashBreakdownTotal = exports.countDecimals = exports.calculateTableHeight = void 0;
+exports.getComputedDiscount = exports.calculateCashBreakdownTotal = exports.getCashBreakdownTotals = exports.CASH_BREAKDOWN_BILLS = exports.CASH_BREAKDOWN_COINS = exports.countDecimals = exports.calculateTableHeight = void 0;
 const globals_1 = require("../globals");
 const calculateTableHeight = (listLength) => {
     const MAX_ROW_COUNT = 6;
@@ -13,17 +13,33 @@ const countDecimals = (value) => {
     return value.toString().split('.')[1].length || 0;
 };
 exports.countDecimals = countDecimals;
-const calculateCashBreakdownTotal = (cashBreakdown) => 0.25 * cashBreakdown.coins_25 +
-    1 * cashBreakdown.coins_1 +
-    5 * cashBreakdown.coins_5 +
-    10 * cashBreakdown.coins_10 +
-    20 * cashBreakdown.coins_20 +
-    20 * cashBreakdown.bills_20 +
-    50 * cashBreakdown.bills_50 +
-    100 * cashBreakdown.bills_100 +
-    200 * cashBreakdown.bills_200 +
-    500 * cashBreakdown.bills_500 +
-    1000 * cashBreakdown.bills_1000;
+exports.CASH_BREAKDOWN_COINS = [
+    { key: 'coins_25', value: 0.25 },
+    { key: 'coins_1', value: 1 },
+    { key: 'coins_5', value: 5 },
+    { key: 'coins_10', value: 10 },
+    { key: 'coins_20', value: 20 },
+];
+exports.CASH_BREAKDOWN_BILLS = [
+    { key: 'bills_20', value: 20 },
+    { key: 'bills_50', value: 50 },
+    { key: 'bills_100', value: 100 },
+    { key: 'bills_200', value: 200 },
+    { key: 'bills_500', value: 500 },
+    { key: 'bills_1000', value: 1000 },
+];
+const sumDenominations = (cashBreakdown, denominations) => 
+// Work in centavos to avoid floating point drift (e.g. 0.25 x 3)
+denominations.reduce((sum, { key, value }) => sum + Math.round(value * 100) * (Number(cashBreakdown[key]) || 0), 0) / 100;
+// Computed from the denomination counts (not total_amount) so print-only
+// data and saved records always agree.
+const getCashBreakdownTotals = (cashBreakdown) => {
+    const coinsTotal = sumDenominations(cashBreakdown, exports.CASH_BREAKDOWN_COINS);
+    const billsTotal = sumDenominations(cashBreakdown, exports.CASH_BREAKDOWN_BILLS);
+    return { coinsTotal, billsTotal, total: coinsTotal + billsTotal };
+};
+exports.getCashBreakdownTotals = getCashBreakdownTotals;
+const calculateCashBreakdownTotal = (cashBreakdown) => (0, exports.getCashBreakdownTotals)(cashBreakdown).total;
 exports.calculateCashBreakdownTotal = calculateCashBreakdownTotal;
 // TODO: Remove once already implemented in backend
 const getComputedDiscount = (transaction) => {

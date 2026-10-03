@@ -54,4 +54,6 @@ export interface CashBreakdown {
 	bills_500: number;
 	bills_1000: number;
 	total_amount: number;
+	total_e_payments?: number;
+	total_remittance?: number;
 }

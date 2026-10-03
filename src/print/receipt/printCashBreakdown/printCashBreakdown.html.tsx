@@ -16,6 +16,7 @@ export const printCashBreakdownHtml = ({
 				cashBreakdown={cashBreakdown}
 				siteSettings={siteSettings}
 				user={user}
+				layout="stacked"
 			/>
 		</div>,
 	);

@@ -11,6 +11,52 @@ import { CASH_IN_VOUCHER_TITLE } from './constants';
 import { PrintCashIn } from './types';
 import { EscPosCommands } from '../../utils/escpos.enum';
 
+const REMARKS_LABEL = 'Remarks:';
+// 40-char paper width minus label and minimum spacing
+const REMARKS_LINE_WIDTH = 40 - REMARKS_LABEL.length - 3;
+
+const wrapText = (text: string, width: number): string[] => {
+	const lines: string[] = [];
+	let current = '';
+
+	text.split(/\s+/).forEach((word) => {
+		let remaining = word;
+		while (remaining.length > width) {
+			if (current) {
+				lines.push(current);
+				current = '';
+			}
+			lines.push(remaining.slice(0, width));
+			remaining = remaining.slice(width);
+		}
+
+		if (!remaining) return;
+
+		if (!current) {
+			current = remaining;
+		} else if (current.length + 1 + remaining.length <= width) {
+			current += ` ${remaining}`;
+		} else {
+			lines.push(current);
+			current = remaining;
+		}
+	});
+
+	if (current) lines.push(current);
+
+	return lines;
+};
+
+const generateRemarksItems = (remarks?: string) => {
+	const trimmed = remarks?.trim();
+	if (!trimmed) return [];
+
+	return wrapText(trimmed, REMARKS_LINE_WIDTH).map((value, index) => ({
+		label: index === 0 ? REMARKS_LABEL : '',
+		value,
+	}));
+};
+
 export const printCashInNative = ({
 	cashBreakdown,
 	siteSettings,
@@ -63,6 +109,7 @@ export const generateCashInContentCommands = (
 				label: 'Amount:',
 				value: amount,
 			},
+			...generateRemarksItems(cashBreakdown.remarks),
 		]),
 	);
 
