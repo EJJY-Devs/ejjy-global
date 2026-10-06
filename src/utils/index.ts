@@ -4,4 +4,5 @@ export * from './localstorage';
 export * from './qztray';
 export * from './ReportTextFile';
 export * from './savePdf';
+export * from './saveXlsx';
 export * from './ui';

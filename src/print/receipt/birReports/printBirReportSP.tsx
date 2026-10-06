@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
+import { formatDate } from '../../../utils';
 import {
-	formatDate,
-	formatInPeso,
-	getDiscountFields,
-	SPFields,
-} from '../../../utils';
-import { PESO_SIGN } from '../../helper-receipt';
-import { BirHeader, birReportStyles } from './birReportHelper';
-import { specialDiscountCodes } from '../../../globals';
+	BIR_REPORT_TITLES,
+	BirHeader,
+	birReportStyles,
+	formatPesoCell,
+	getBirSoloParentRows,
+} from './birReportHelper';
 
 export const printBirReportSP = (
 	transactions: Transaction[],
@@ -17,29 +16,22 @@ export const printBirReportSP = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = transactions.map((transaction) => {
-		const fields = getDiscountFields(
-			specialDiscountCodes.SOLO_PARENTS,
-			transaction.discount_option_additional_fields_values || '',
-		) as SPFields;
+	const rows = getBirSoloParentRows(transactions).map((row) => (
+		<tr>
+			<td>{formatDate(row.date)}</td>
 
-		return (
-			<tr>
-				<td>{formatDate(transaction.datetime_created)}</td>
+			<td>{row.name}</td>
+			<td>{row.id}</td>
+			<td>{row.childName}</td>
+			<td>{row.childBirthdate}</td>
+			<td>{row.childAge}</td>
 
-				<td>{fields.name}</td>
-				<td>{fields.id}</td>
-				<td>{fields.childName}</td>
-				<td>{fields.childBirthdate}</td>
-				<td>{fields.childAge}</td>
-
-				<td>{transaction.invoice.or_number}</td>
-				<td>{formatInPeso(transaction.gross_amount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
-			</tr>
-		);
-	});
+			<td>{row.orNumber}</td>
+			<td>{formatPesoCell(row.grossSales)}</td>
+			<td>{formatPesoCell(row.discount)}</td>
+			<td>{formatPesoCell(row.netSales)}</td>
+		</tr>
+	));
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
@@ -51,7 +43,7 @@ export const printBirReportSP = (
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}
 						user={user}
-						title="Solo Parents Sales Book/Report"
+						title={BIR_REPORT_TITLES.SP}
 					/>
 
 					<table className="bir-reports">

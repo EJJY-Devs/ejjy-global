@@ -1,7 +1,19 @@
+import { Dayjs } from 'dayjs';
 import React from 'react';
-import { BranchMachine, SiteSettings, User } from '../../../types';
+import { BirReport, BranchMachine, SiteSettings, Transaction, User } from '../../../types';
 type BirReportStylesVariant = 'wide' | 'compact';
 export declare const birReportStyles: (variant?: BirReportStylesVariant) => React.DetailedReactHTMLElement<{}, HTMLElement>;
+export type BirHeaderDetails = {
+    address?: string;
+    dateGenerated: Dayjs;
+    minNumber?: string;
+    proprietor?: string;
+    serialNumber?: string;
+    software: string;
+    tin?: string;
+    userId: User['employee_id'];
+};
+export declare const getBirHeaderDetails: (siteSettings: SiteSettings, user: User, branchMachine?: BranchMachine) => BirHeaderDetails;
 type BirHeaderProps = {
     branchMachine?: BranchMachine;
     siteSettings: SiteSettings;
@@ -9,4 +21,64 @@ type BirHeaderProps = {
     user: User;
 };
 export declare const BirHeader: ({ branchMachine, siteSettings, title, user, }: BirHeaderProps) => React.JSX.Element;
+export declare const toAmount: (value: unknown) => number | null;
+export declare const formatPesoCell: (amount: number | null) => string;
+export declare const NO_TRANSACTION_REMARK = "No transaction";
+export declare const BIR_REPORT_TITLES: {
+    SALES_SUMMARY: string;
+    NAAC: string;
+    PWD: string;
+    SC: string;
+    SP: string;
+};
+export declare const BIR_REPORT_AMOUNT_KEYS: readonly ["grand_accumulated_sales_ending_balance", "grand_accumulated_sales_beginning_balance", "sales_issue_with_manual", "gross_sales_for_the_day", "vatable_sales", "vat_amount", "vat_exempt_sales", "zero_rated_sales", "sc_discount", "pwd_discount", "naac_discount", "sp_discount", "others_discount", "returns", "void", "total_deductions", "vat_sc_discount", "vat_pwd_discount", "vat_others_discount", "vat_returns", "vat_others", "total_vat_adjusted", "vat_payable", "net_sales", "sales_overrun_or_overflow", "total_income"];
+export type BirReportAmountKey = (typeof BIR_REPORT_AMOUNT_KEYS)[number];
+export type BirSalesSummaryRow = {
+    amounts: Record<BirReportAmountKey, number | null>;
+    beginningOrNumber: string | null;
+    date: string;
+    endingOrNumber: string | null;
+    remarks: string | null;
+    resetCounter: number | null;
+    zCounter: number | null;
+};
+export declare const getBirSalesSummaryRows: (birReports: BirReport[]) => BirSalesSummaryRow[];
+export type BirSeniorPwdRow = {
+    date: string;
+    deduction5Percent: number;
+    deduction20Percent: number | null;
+    id: string;
+    name: string;
+    netSales: number | null;
+    orNumber: string;
+    sales: number | null;
+    tin: string;
+    vatAmount: number | null;
+    vatExempt: number | null;
+};
+export declare const getBirSeniorRows: (transactions: Transaction[]) => BirSeniorPwdRow[];
+export declare const getBirPwdRows: (transactions: Transaction[]) => BirSeniorPwdRow[];
+export type BirNaacRow = {
+    coach: string;
+    date: string;
+    discount: number | null;
+    grossSales: number | null;
+    id: string;
+    netSales: number | null;
+    orNumber: string;
+};
+export declare const getBirNaacRows: (transactions: Transaction[]) => BirNaacRow[];
+export type BirSoloParentRow = {
+    childAge: string;
+    childBirthdate: string;
+    childName: string;
+    date: string;
+    discount: number | null;
+    grossSales: number | null;
+    id: string;
+    name: string;
+    netSales: number | null;
+    orNumber: string;
+};
+export declare const getBirSoloParentRows: (transactions: Transaction[]) => BirSoloParentRow[];
 export {};

@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
+import { formatDate } from '../../../utils';
 import {
-	formatDate,
-	formatInPeso,
-	getDiscountFields,
-	NaacFields,
-} from '../../../utils';
-import { PESO_SIGN } from '../../helper-receipt';
-import { BirHeader, birReportStyles } from './birReportHelper';
-import { specialDiscountCodes } from '../../../globals';
+	BIR_REPORT_TITLES,
+	BirHeader,
+	birReportStyles,
+	formatPesoCell,
+	getBirNaacRows,
+} from './birReportHelper';
 
 export const printBirReportNAAC = (
 	transactions: Transaction[],
@@ -17,26 +16,19 @@ export const printBirReportNAAC = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = transactions.map((transaction) => {
-		const fields = getDiscountFields(
-			specialDiscountCodes.NATIONAL_ATHLETES_AND_COACHES,
-			transaction.discount_option_additional_fields_values || '',
-		) as NaacFields;
+	const rows = getBirNaacRows(transactions).map((row) => (
+		<tr>
+			<td>{formatDate(row.date)}</td>
 
-		return (
-			<tr>
-				<td>{formatDate(transaction.datetime_created)}</td>
+			<td>{row.coach}</td>
+			<td>{row.id}</td>
 
-				<td>{fields.coach}</td>
-				<td>{fields.id}</td>
-
-				<td>{transaction.invoice.or_number}</td>
-				<td>{formatInPeso(transaction.gross_amount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
-			</tr>
-		);
-	});
+			<td>{row.orNumber}</td>
+			<td>{formatPesoCell(row.grossSales)}</td>
+			<td>{formatPesoCell(row.discount)}</td>
+			<td>{formatPesoCell(row.netSales)}</td>
+		</tr>
+	));
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
@@ -48,7 +40,7 @@ export const printBirReportNAAC = (
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}
 						user={user}
-						title="National Athletes and Coaches Sales Book/Report"
+						title={BIR_REPORT_TITLES.NAAC}
 					/>
 
 					<table className="bir-reports">

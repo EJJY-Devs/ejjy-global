@@ -19,3 +19,4 @@ __exportStar(require("./printBirReportNAAC"), exports);
 __exportStar(require("./printBirReportPWD"), exports);
 __exportStar(require("./printBirReportSC"), exports);
 __exportStar(require("./printBirReportSP"), exports);
+__exportStar(require("./exportBirReportXlsx"), exports);

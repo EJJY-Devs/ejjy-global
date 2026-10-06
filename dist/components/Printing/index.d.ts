@@ -1,4 +1,5 @@
 export * from './Divider';
+export * from './ExcelButton';
 export * from './PdfButtons';
 export * from './PdfPreviewModal';
 export * from './ReceiptFooter';

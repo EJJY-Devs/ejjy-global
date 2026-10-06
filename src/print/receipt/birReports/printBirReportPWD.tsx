@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BranchMachine, SiteSettings, Transaction, User } from '../../../types';
+import { formatDate } from '../../../utils';
 import {
-	formatDate,
-	formatInPeso,
-	getDiscountFields,
-	PWDFields,
-} from '../../../utils';
-import { PESO_SIGN } from '../../helper-receipt';
-import { BirHeader, birReportStyles } from './birReportHelper';
-import { specialDiscountCodes } from '../../../globals';
+	BIR_REPORT_TITLES,
+	BirHeader,
+	birReportStyles,
+	formatPesoCell,
+	getBirPwdRows,
+} from './birReportHelper';
 
 export const printBirReportPWD = (
 	transactions: Transaction[],
@@ -17,30 +16,23 @@ export const printBirReportPWD = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = transactions.map((transaction) => {
-		const fields = getDiscountFields(
-			specialDiscountCodes.PERSONS_WITH_DISABILITY,
-			transaction.discount_option_additional_fields_values || '',
-		) as PWDFields;
+	const rows = getBirPwdRows(transactions).map((row) => (
+		<tr>
+			<td>{formatDate(row.date)}</td>
 
-		return (
-			<tr>
-				<td>{formatDate(transaction.datetime_created)}</td>
+			<td>{row.name}</td>
+			<td>{row.id}</td>
+			<td>{row.tin}</td>
 
-				<td>{fields.name}</td>
-				<td>{fields.id}</td>
-				<td>{fields.tin}</td>
-
-				<td>{transaction.invoice.or_number}</td>
-				<td>{formatInPeso(transaction.total_amount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.invoice.vat_amount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.invoice.vat_exempt, PESO_SIGN)}</td>
-				<td>{formatInPeso(0, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.overall_discount, PESO_SIGN)}</td>
-				<td>{formatInPeso(transaction.invoice.vat_sales, PESO_SIGN)}</td>
-			</tr>
-		);
-	});
+			<td>{row.orNumber}</td>
+			<td>{formatPesoCell(row.sales)}</td>
+			<td>{formatPesoCell(row.vatAmount)}</td>
+			<td>{formatPesoCell(row.vatExempt)}</td>
+			<td>{formatPesoCell(row.deduction5Percent)}</td>
+			<td>{formatPesoCell(row.deduction20Percent)}</td>
+			<td>{formatPesoCell(row.netSales)}</td>
+		</tr>
+	));
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
@@ -52,7 +44,7 @@ export const printBirReportPWD = (
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}
 						user={user}
-						title="Persons with Disability Sales Book/Report"
+						title={BIR_REPORT_TITLES.PWD}
 					/>
 
 					<table className="bir-reports">

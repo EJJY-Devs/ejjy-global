@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { BirReport, BranchMachine, SiteSettings, User } from '../../../types';
-import { formatDate, formatInPeso } from '../../../utils';
-import { EMPTY_CELL, PESO_SIGN } from '../../helper-receipt';
-import { BirHeader, birReportStyles } from './birReportHelper';
+import { formatDate } from '../../../utils';
+import {
+	BIR_REPORT_TITLES,
+	BirHeader,
+	birReportStyles,
+	formatPesoCell,
+	getBirSalesSummaryRows,
+	NO_TRANSACTION_REMARK,
+} from './birReportHelper';
 
-export const NO_TRANSACTION_REMARK = 'No transaction';
+// Kept here (re-exported) because it is part of the package's public API.
+export { NO_TRANSACTION_REMARK };
 
 export const printBirReport = (
 	birReports: BirReport[],
@@ -13,161 +20,46 @@ export const printBirReport = (
 	user: User,
 	branchMachine?: BranchMachine,
 ) => {
-	const rows = birReports.map((report) => {
-		const hasNoTransaction = Number(report.gross_sales_for_the_day) === 0;
-
-		return (
-			<tr>
-				<td>{formatDate(report.date)}</td>
-				<td>
-					{hasNoTransaction ? EMPTY_CELL : report?.beginning_or?.or_number}
-				</td>
-				<td>{hasNoTransaction ? EMPTY_CELL : report?.ending_or?.or_number}</td>
-
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(
-								report.grand_accumulated_sales_ending_balance,
-								PESO_SIGN,
-							)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(
-								report.grand_accumulated_sales_beginning_balance,
-								PESO_SIGN,
-							)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.sales_issue_with_manual, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.gross_sales_for_the_day, PESO_SIGN)}
-				</td>
-
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vatable_sales, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_amount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_exempt_sales, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.zero_rated_sales, PESO_SIGN)}
-				</td>
-
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.sc_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.pwd_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.naac_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.sp_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.others_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.returns, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction ? EMPTY_CELL : formatInPeso(report.void, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.total_deductions, PESO_SIGN)}
-				</td>
-
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_sc_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_pwd_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_others_discount, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_returns, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_others, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.total_vat_adjusted, PESO_SIGN)}
-				</td>
-
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.vat_payable, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.net_sales, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.sales_overrun_or_overflow, PESO_SIGN)}
-				</td>
-				<td>
-					{hasNoTransaction
-						? EMPTY_CELL
-						: formatInPeso(report.total_income, PESO_SIGN)}
-				</td>
-				<td>{hasNoTransaction ? EMPTY_CELL : report.reset_counter}</td>
-				<td>{hasNoTransaction ? EMPTY_CELL : report.z_counter}</td>
-				<td>{hasNoTransaction ? NO_TRANSACTION_REMARK : report.remarks}</td>
-			</tr>
-		);
-	});
+	const rows = getBirSalesSummaryRows(birReports).map((row) => (
+		<tr>
+			<td>{formatDate(row.date)}</td>
+			<td>{row.beginningOrNumber}</td>
+			<td>{row.endingOrNumber}</td>
+			<td>
+				{formatPesoCell(row.amounts.grand_accumulated_sales_ending_balance)}
+			</td>
+			<td>
+				{formatPesoCell(row.amounts.grand_accumulated_sales_beginning_balance)}
+			</td>
+			<td>{formatPesoCell(row.amounts.sales_issue_with_manual)}</td>
+			<td>{formatPesoCell(row.amounts.gross_sales_for_the_day)}</td>
+			<td>{formatPesoCell(row.amounts.vatable_sales)}</td>
+			<td>{formatPesoCell(row.amounts.vat_amount)}</td>
+			<td>{formatPesoCell(row.amounts.vat_exempt_sales)}</td>
+			<td>{formatPesoCell(row.amounts.zero_rated_sales)}</td>
+			<td>{formatPesoCell(row.amounts.sc_discount)}</td>
+			<td>{formatPesoCell(row.amounts.pwd_discount)}</td>
+			<td>{formatPesoCell(row.amounts.naac_discount)}</td>
+			<td>{formatPesoCell(row.amounts.sp_discount)}</td>
+			<td>{formatPesoCell(row.amounts.others_discount)}</td>
+			<td>{formatPesoCell(row.amounts.returns)}</td>
+			<td>{formatPesoCell(row.amounts.void)}</td>
+			<td>{formatPesoCell(row.amounts.total_deductions)}</td>
+			<td>{formatPesoCell(row.amounts.vat_sc_discount)}</td>
+			<td>{formatPesoCell(row.amounts.vat_pwd_discount)}</td>
+			<td>{formatPesoCell(row.amounts.vat_others_discount)}</td>
+			<td>{formatPesoCell(row.amounts.vat_returns)}</td>
+			<td>{formatPesoCell(row.amounts.vat_others)}</td>
+			<td>{formatPesoCell(row.amounts.total_vat_adjusted)}</td>
+			<td>{formatPesoCell(row.amounts.vat_payable)}</td>
+			<td>{formatPesoCell(row.amounts.net_sales)}</td>
+			<td>{formatPesoCell(row.amounts.sales_overrun_or_overflow)}</td>
+			<td>{formatPesoCell(row.amounts.total_income)}</td>
+			<td>{row.resetCounter}</td>
+			<td>{row.zCounter}</td>
+			<td>{row.remarks}</td>
+		</tr>
+	));
 
 	return ReactDOMServer.renderToStaticMarkup(
 		<html lang="en">
@@ -182,7 +74,7 @@ export const printBirReport = (
 						branchMachine={branchMachine}
 						siteSettings={siteSettings}
 						user={user}
-						title="BIR SALES SUMMARY REPORT"
+						title={BIR_REPORT_TITLES.SALES_SUMMARY}
 					/>
 
 					<table className="bir-reports">

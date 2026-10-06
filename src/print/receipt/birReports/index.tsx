@@ -3,3 +3,4 @@ export * from './printBirReportNAAC';
 export * from './printBirReportPWD';
 export * from './printBirReportSC';
 export * from './printBirReportSP';
+export * from './exportBirReportXlsx';
