@@ -32,6 +32,7 @@ export const createSalesInvoiceTxt = (
 		title,
 		fields,
 		change,
+		transactionFee,
 		previousTransactionOrNumber,
 		newTransactionOrNumber,
 	} = getTransactionData(transaction);
@@ -124,6 +125,20 @@ export const createSalesInvoiceTxt = (
 					{
 						label: '    CHANGE',
 						value: formatInPeso(change, PESO_SIGN) + TXT_NBSP,
+					},
+				]),
+			],
+		);
+	}
+
+	if (transactionFee > 0) {
+		rowData.push(
+			...[
+				TXT_LINE_BREAK,
+				...getTxtItemBlock([
+					{
+						label: '    TRANSACTION FEE',
+						value: formatInPeso(transactionFee, PESO_SIGN) + TXT_NBSP,
 					},
 				]),
 			],

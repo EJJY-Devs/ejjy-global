@@ -85,6 +85,9 @@ export const getTransactionData = (transaction: Transaction) => {
 	const change =
 		Number(transaction.payment.amount_tendered) - transaction.total_amount;
 
+	// Paid by the customer on top of an e-payment; not part of any total
+	const transactionFee = Number(transaction.payment?.transaction_fee) || 0;
+
 	const previousTransactionOrNumber =
 		transaction?.adjustment_remarks?.previous_voided_transaction?.invoice
 			?.or_number;
@@ -96,6 +99,7 @@ export const getTransactionData = (transaction: Transaction) => {
 		title,
 		fields,
 		change,
+		transactionFee,
 		previousTransactionOrNumber,
 		newTransactionOrNumber,
 	};
@@ -110,6 +114,7 @@ export const TransactionContent = ({
 		title,
 		fields,
 		change,
+		transactionFee,
 		previousTransactionOrNumber,
 		newTransactionOrNumber,
 	} = getTransactionData(transaction);
@@ -214,6 +219,20 @@ export const TransactionContent = ({
 							<td style={{ paddingLeft: '4ch' }}>CHANGE</td>
 							<td style={{ textAlign: 'right', fontWeight: 'bold' }}>
 								{formatInPeso(change, PESO_SIGN)}&nbsp;
+							</td>
+						</tr>
+					</table>
+					<br />
+				</>
+			)}
+
+			{transactionFee > 0 && (
+				<>
+					<table style={{ width: '100%' }}>
+						<tr>
+							<td style={{ paddingLeft: '4ch' }}>TRANSACTION FEE</td>
+							<td style={{ textAlign: 'right' }}>
+								{formatInPeso(transactionFee, PESO_SIGN)}&nbsp;
 							</td>
 						</tr>
 					</table>

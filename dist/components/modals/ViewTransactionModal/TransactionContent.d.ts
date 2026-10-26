@@ -10,6 +10,7 @@ export declare const getTransactionData: (transaction: Transaction) => {
     title: string;
     fields: Record<string, string | undefined>[];
     change: number;
+    transactionFee: number;
     previousTransactionOrNumber: string;
     newTransactionOrNumber: string;
 };

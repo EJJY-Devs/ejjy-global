@@ -41,6 +41,7 @@ export interface Payment {
     credit_payment_authorizer: User;
     creditor_account_id: string;
     creditor_account: Account;
+    transaction_fee?: number | string | null;
 }
 export type Teller = Pick<User, 'id' | 'first_name' | 'last_name' | 'employee_id'>;
 export interface TransactionProduct {

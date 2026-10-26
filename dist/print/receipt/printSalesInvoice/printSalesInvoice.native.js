@@ -39,7 +39,7 @@ const printSalesInvoiceNative = ({ transaction, siteSettings, isReprint = false,
 exports.printSalesInvoiceNative = printSalesInvoiceNative;
 const generateTransactionContentCommands = (transaction, siteSettings, isReprint) => {
     var _a;
-    const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, TransactionContent_1.getTransactionData)(transaction);
+    const { title, fields, change, transactionFee, previousTransactionOrNumber, newTransactionOrNumber, } = (0, TransactionContent_1.getTransactionData)(transaction);
     const commands = [];
     try {
         commands.push(...(0, helper_escpos_1.generateReceiptHeaderCommands)({
@@ -113,6 +113,15 @@ const generateTransactionContentCommands = (transaction, siteSettings, isReprint
                 {
                     label: 'CHANGE',
                     value: (0, utils_1.formatInPeso)(change, helper_receipt_1.PESO_SIGN),
+                },
+            ]));
+        }
+        if (transactionFee > 0) {
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+            commands.push(...(0, helper_escpos_1.generateItemBlockCommands)([
+                {
+                    label: 'TRANSACTION FEE',
+                    value: (0, utils_1.formatInPeso)(transactionFee, helper_receipt_1.PESO_SIGN),
                 },
             ]));
         }

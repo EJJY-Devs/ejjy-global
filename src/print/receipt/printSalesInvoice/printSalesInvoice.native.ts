@@ -76,6 +76,7 @@ const generateTransactionContentCommands = (
 		title,
 		fields,
 		change,
+		transactionFee,
 		previousTransactionOrNumber,
 		newTransactionOrNumber,
 	} = getTransactionData(transaction);
@@ -179,6 +180,18 @@ const generateTransactionContentCommands = (
 					{
 						label: 'CHANGE',
 						value: formatInPeso(change, PESO_SIGN),
+					},
+				]),
+			);
+		}
+
+		if (transactionFee > 0) {
+			commands.push(EscPosCommands.LINE_BREAK);
+			commands.push(
+				...generateItemBlockCommands([
+					{
+						label: 'TRANSACTION FEE',
+						value: formatInPeso(transactionFee, PESO_SIGN),
 					},
 				]),
 			);

@@ -12,7 +12,7 @@ const helper_receipt_1 = require("../helper-receipt");
 const helper_txt_1 = require("../helper-txt");
 const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, returnContent = false) => {
     var _a;
-    const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, TransactionContent_1.getTransactionData)(transaction);
+    const { title, fields, change, transactionFee, previousTransactionOrNumber, newTransactionOrNumber, } = (0, TransactionContent_1.getTransactionData)(transaction);
     const rowData = (0, helper_txt_1.getTxtHeader)({
         branchMachine: transaction.branch_machine,
         siteSettings,
@@ -78,6 +78,17 @@ const createSalesInvoiceTxt = (transaction, siteSettings, isReprint = false, ret
                 {
                     label: '    CHANGE',
                     value: (0, utils_1.formatInPeso)(change, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
+                },
+            ]),
+        ]);
+    }
+    if (transactionFee > 0) {
+        rowData.push(...[
+            helper_txt_1.TXT_LINE_BREAK,
+            ...(0, helper_txt_1.getTxtItemBlock)([
+                {
+                    label: '    TRANSACTION FEE',
+                    value: (0, utils_1.formatInPeso)(transactionFee, helper_receipt_1.PESO_SIGN) + helper_txt_1.TXT_NBSP,
                 },
             ]),
         ]);

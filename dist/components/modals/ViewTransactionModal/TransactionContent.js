@@ -16,7 +16,7 @@ const Printing_1 = require("../../Printing");
 const isNvatEntity = (siteSettings) => (siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.tax_type) === globals_1.taxTypes.NVAT;
 exports.isNvatEntity = isNvatEntity;
 const getTransactionData = (transaction) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
     let title = '';
     if (transaction.payment.mode === globals_1.saleTypes.CASH) {
         title = globals_1.salesInvoiceTitles.CASH;
@@ -60,12 +60,15 @@ const getTransactionData = (transaction) => {
         ];
     }
     const change = Number(transaction.payment.amount_tendered) - transaction.total_amount;
-    const previousTransactionOrNumber = (_p = (_o = (_m = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _m === void 0 ? void 0 : _m.previous_voided_transaction) === null || _o === void 0 ? void 0 : _o.invoice) === null || _p === void 0 ? void 0 : _p.or_number;
-    const newTransactionOrNumber = (_s = (_r = (_q = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _q === void 0 ? void 0 : _q.new_updated_transaction) === null || _r === void 0 ? void 0 : _r.invoice) === null || _s === void 0 ? void 0 : _s.or_number;
+    // Paid by the customer on top of an e-payment; not part of any total
+    const transactionFee = Number((_m = transaction.payment) === null || _m === void 0 ? void 0 : _m.transaction_fee) || 0;
+    const previousTransactionOrNumber = (_q = (_p = (_o = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _o === void 0 ? void 0 : _o.previous_voided_transaction) === null || _p === void 0 ? void 0 : _p.invoice) === null || _q === void 0 ? void 0 : _q.or_number;
+    const newTransactionOrNumber = (_t = (_s = (_r = transaction === null || transaction === void 0 ? void 0 : transaction.adjustment_remarks) === null || _r === void 0 ? void 0 : _r.new_updated_transaction) === null || _s === void 0 ? void 0 : _s.invoice) === null || _t === void 0 ? void 0 : _t.or_number;
     return {
         title,
         fields,
         change,
+        transactionFee,
         previousTransactionOrNumber,
         newTransactionOrNumber,
     };
@@ -73,7 +76,7 @@ const getTransactionData = (transaction) => {
 exports.getTransactionData = getTransactionData;
 const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
     var _a;
-    const { title, fields, change, previousTransactionOrNumber, newTransactionOrNumber, } = (0, exports.getTransactionData)(transaction);
+    const { title, fields, change, transactionFee, previousTransactionOrNumber, newTransactionOrNumber, } = (0, exports.getTransactionData)(transaction);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Printing_1.ReceiptHeader, { branchMachine: transaction.branch_machine, title: title }),
         react_1.default.createElement("br", null),
@@ -141,6 +144,14 @@ const TransactionContent = ({ transaction, siteSettings, isReprint, }) => {
                     react_1.default.createElement("td", { style: { paddingLeft: '4ch' } }, "CHANGE"),
                     react_1.default.createElement("td", { style: { textAlign: 'right', fontWeight: 'bold' } },
                         (0, utils_1.formatInPeso)(change, helper_receipt_1.PESO_SIGN),
+                        "\u00A0"))),
+            react_1.default.createElement("br", null))),
+        transactionFee > 0 && (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement("table", { style: { width: '100%' } },
+                react_1.default.createElement("tr", null,
+                    react_1.default.createElement("td", { style: { paddingLeft: '4ch' } }, "TRANSACTION FEE"),
+                    react_1.default.createElement("td", { style: { textAlign: 'right' } },
+                        (0, utils_1.formatInPeso)(transactionFee, helper_receipt_1.PESO_SIGN),
                         "\u00A0"))),
             react_1.default.createElement("br", null))),
         !(0, exports.isNvatEntity)(siteSettings) && (react_1.default.createElement(react_1.default.Fragment, null,

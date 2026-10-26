@@ -45,6 +45,8 @@ export interface Payment {
 	credit_payment_authorizer: User;
 	creditor_account_id: string;
 	creditor_account: Account;
+	// E-payment fee paid by the customer on top of the sale; display only
+	transaction_fee?: number | string | null;
 }
 
 export type Teller = Pick<
