@@ -61,6 +61,25 @@ const measureHtmlHeight = (html: string) => {
 	return height;
 };
 
+// html2canvas finds each font's baseline with a hidden 1x1 GIF <img> on the
+// live page. Tailwind's preflight (`img { display: block }`, in this
+// library's styles.css) pushes that probe onto its own line, so all text was
+// drawn ~10px below where it is laid out — enough to push the last line of a
+// continuous page onto a new page. This keeps only that probe inline.
+const HTML2CANVAS_PROBE_FIX_ID = 'html2canvas-probe-fix';
+
+const fixHtml2CanvasFontMetrics = () => {
+	if (document.getElementById(HTML2CANVAS_PROBE_FIX_ID)) {
+		return;
+	}
+
+	const style = document.createElement('style');
+	style.id = HTML2CANVAS_PROBE_FIX_ID;
+	style.textContent =
+		'img[src^="data:image/gif;base64,R0lGODlhAQABA"] { display: inline !important; }';
+	document.head.appendChild(style);
+};
+
 const usePdf = ({
 	title = '',
 	container,
@@ -154,6 +173,7 @@ const usePdf = ({
 				pdf.addImage(image!.src, 'png', image!.x, image!.y, image!.w, image!.h);
 			}
 
+			fixHtml2CanvasFontMetrics();
 			await pdf.html(dataHtml, {
 				margin: PDF_MARGIN_PX,
 				...htmlOptions,
