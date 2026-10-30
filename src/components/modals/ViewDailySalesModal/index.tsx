@@ -5,6 +5,7 @@ import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
 import {
 	createDailySalesTxt,
+	getPdfPageContentHeight,
 	paperSizes,
 	printDailySales,
 } from '../../../print';
@@ -47,7 +48,13 @@ export const ViewDailySalesModal = ({
 						}
 					: undefined,
 			print: () =>
-				printDailySales({ dailySales, siteSettings, user, isPdf: true }),
+				printDailySales({
+					dailySales,
+					siteSettings,
+					user,
+					isPdf: true,
+					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
+				}),
 		});
 
 	// METHODS

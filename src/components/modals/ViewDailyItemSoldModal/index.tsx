@@ -3,7 +3,11 @@ import { Button, Modal, Spin } from 'antd';
 import React from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { paperSizes, printDailyItemSold } from '../../../print';
+import {
+	getPdfPageContentHeight,
+	paperSizes,
+	printDailyItemSold,
+} from '../../../print';
 import { Branch, BranchMachine, User } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DailyItemSoldContent } from './DailyItemSoldContent';
@@ -61,6 +65,7 @@ export const ViewDailyItemSoldModal = ({
 					branchMachine,
 					user,
 					isPdf: true,
+					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
 					reportDate,
 				}),
 		});

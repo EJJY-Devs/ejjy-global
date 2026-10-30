@@ -1,6 +1,7 @@
 import { printingTypes } from '../../../globals';
 import { getAppReceiptPrintingType } from '../../../utils/localstorage';
 import { print } from '../../helper-receipt';
+import { escPosToHtml } from '../../utils/escPosToHtml';
 import { printZReadReportNative } from './printZReadReport.native';
 import { printZReadReportHtml } from './printZReadReport.html';
 import { PrintZReadReport } from './types';
@@ -11,7 +12,9 @@ export const printZReadReport = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printZReadReportDetails.isPdf) {
-		return printZReadReportHtml(printZReadReportDetails) || '';
+		return escPosToHtml(printZReadReportNative(printZReadReportDetails), {
+			pageHeightPx: printZReadReportDetails.pdfPageHeight,
+		});
 	}
 
 	let data: string | string[] = '';

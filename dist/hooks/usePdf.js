@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jspdf_1 = __importDefault(require("jspdf"));
 const react_1 = require("react");
 const antd_1 = require("antd");
+const paperSizes_1 = require("../print/utils/paperSizes");
 const utils_1 = require("../utils");
 const usePdfPreviewModal_1 = __importDefault(require("./usePdfPreviewModal"));
 const FORMAT_WIDTH = 400;
@@ -87,7 +88,7 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
             if (image) {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);
             }
-            yield pdf.html(dataHtml, Object.assign(Object.assign({ margin: 10 }, htmlOptions), { callback }));
+            yield pdf.html(dataHtml, Object.assign(Object.assign({ margin: paperSizes_1.PDF_MARGIN_PX }, htmlOptions), { callback }));
         }
         catch (error) {
             console.error(error);

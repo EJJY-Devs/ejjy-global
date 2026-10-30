@@ -1,6 +1,7 @@
 import { printingTypes } from '../../../globals';
 import { getAppReceiptPrintingType } from '../../../utils/localstorage';
 import { print } from '../../helper-receipt';
+import { escPosToHtml } from '../../utils/escPosToHtml';
 import { printRequisitionSlipNative } from './printRequisitionSlip.native';
 import { printRequisitionSlipHtml } from './printRequisitionSlip.html';
 import { PrintRequisitionSlip } from './types';
@@ -11,7 +12,9 @@ export const printRequisitionSlip = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printRequisitionSlipDetails.isPdf) {
-		return printRequisitionSlipHtml(printRequisitionSlipDetails) || '';
+		return escPosToHtml(
+			printRequisitionSlipNative(printRequisitionSlipDetails),
+		);
 	}
 
 	if (printingType === printingTypes.HTML) {

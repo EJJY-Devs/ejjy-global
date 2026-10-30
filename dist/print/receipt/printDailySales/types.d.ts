@@ -4,4 +4,5 @@ export type PrintDailySales = {
     siteSettings: SiteSettings;
     user?: User;
     isPdf?: boolean;
+    pdfPageHeight?: number;
 };

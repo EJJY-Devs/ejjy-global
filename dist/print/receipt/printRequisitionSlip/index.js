@@ -4,12 +4,13 @@ exports.printRequisitionSlip = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
+const escPosToHtml_1 = require("../../utils/escPosToHtml");
 const printRequisitionSlip_native_1 = require("./printRequisitionSlip.native");
 const printRequisitionSlip_html_1 = require("./printRequisitionSlip.html");
 const printRequisitionSlip = (printRequisitionSlipDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printRequisitionSlipDetails.isPdf) {
-        return (0, printRequisitionSlip_html_1.printRequisitionSlipHtml)(printRequisitionSlipDetails) || '';
+        return (0, escPosToHtml_1.escPosToHtml)((0, printRequisitionSlip_native_1.printRequisitionSlipNative)(printRequisitionSlipDetails));
     }
     if (printingType === globals_1.printingTypes.HTML) {
         const data = (0, printRequisitionSlip_html_1.printRequisitionSlipHtml)(printRequisitionSlipDetails) || '';

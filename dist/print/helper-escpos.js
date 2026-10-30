@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateThreeColumnLine = exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = exports.generateReceiptHeaderCommandsV2 = void 0;
+exports.generateThreeColumnLine = exports.generateItemBlockCommands = exports.printRight = exports.printCenter = exports.generateReceiptFooterCommands = exports.generateReceiptHeaderCommands = exports.generateReceiptHeaderCommandsV2 = exports.PAPER_CHARACTER_WIDTH = void 0;
 const utils_1 = require("../utils");
 const escpos_enum_1 = require("./utils/escpos.enum");
-const PAPER_CHARACTER_WIDTH = 40;
+exports.PAPER_CHARACTER_WIDTH = 40;
 const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }) => {
     const { branch } = branchMachine || {};
     const branchInfo = branch !== null && branch !== void 0 ? branch : branchHeader;
@@ -123,7 +123,7 @@ const printCenter = (text) => {
     const lines = [];
     let currentLine = '';
     for (const word of words) {
-        if ((currentLine + ' ' + word).trim().length <= PAPER_CHARACTER_WIDTH) {
+        if ((currentLine + ' ' + word).trim().length <= exports.PAPER_CHARACTER_WIDTH) {
             currentLine += (currentLine ? ' ' : '') + word;
         }
         else {
@@ -137,7 +137,7 @@ const printCenter = (text) => {
     // Manually center the text using spaces
     const result = lines
         .map((line) => {
-        const padding = Math.floor((PAPER_CHARACTER_WIDTH - line.length) / 2);
+        const padding = Math.floor((exports.PAPER_CHARACTER_WIDTH - line.length) / 2);
         return ' '.repeat(padding) + line;
     })
         .join('\n');
@@ -146,7 +146,7 @@ const printCenter = (text) => {
 exports.printCenter = printCenter;
 const printRight = (text) => {
     const textLength = text.length;
-    const spacesNeeded = PAPER_CHARACTER_WIDTH - textLength;
+    const spacesNeeded = exports.PAPER_CHARACTER_WIDTH - textLength;
     const spaces = ' '.repeat(Math.max(0, spacesNeeded));
     return spaces + text;
 };
@@ -162,10 +162,10 @@ const generateItemBlockCommands = (items) => {
             value = `(${value})`;
         // Ensure minimum spacing between label and value
         const minSpacing = 3;
-        const maxLabelLength = PAPER_CHARACTER_WIDTH - value.length - minSpacing;
+        const maxLabelLength = exports.PAPER_CHARACTER_WIDTH - value.length - minSpacing;
         if (label.length <= maxLabelLength) {
             // Single line: label + spaces + value (right-aligned)
-            const spacesNeeded = PAPER_CHARACTER_WIDTH - label.length - value.length;
+            const spacesNeeded = exports.PAPER_CHARACTER_WIDTH - label.length - value.length;
             const space = ' '.repeat(Math.max(minSpacing, spacesNeeded));
             const line = label + space + value;
             commands.push(line);
@@ -174,7 +174,7 @@ const generateItemBlockCommands = (items) => {
             // Multi-line: label first, then value right-aligned
             commands.push(label);
             commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
-            const valueIndent = ' '.repeat(Math.max(0, PAPER_CHARACTER_WIDTH - value.length));
+            const valueIndent = ' '.repeat(Math.max(0, exports.PAPER_CHARACTER_WIDTH - value.length));
             commands.push(valueIndent + value);
         }
         commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
@@ -183,7 +183,7 @@ const generateItemBlockCommands = (items) => {
 };
 exports.generateItemBlockCommands = generateItemBlockCommands;
 const generateThreeColumnLine = (leftText, centerText, rightText) => {
-    const totalWidth = PAPER_CHARACTER_WIDTH;
+    const totalWidth = exports.PAPER_CHARACTER_WIDTH;
     // Reserve space for center and right columns
     const rightWidth = Math.max(rightText.length, 8); // minimum 8 chars for quantity
     const centerWidth = Math.max(centerText.length, 4); // minimum 4 chars for unit

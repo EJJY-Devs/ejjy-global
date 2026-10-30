@@ -1,6 +1,7 @@
 import jsPDF, { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { MutableRefObject, useRef, useState } from 'react';
 import { message } from 'antd';
+import { PDF_MARGIN_PX } from '../print/utils/paperSizes';
 import { savePdf } from '../utils';
 import usePdfPreviewModal from './usePdfPreviewModal';
 
@@ -117,7 +118,7 @@ const usePdf = ({
 			}
 
 			await pdf.html(dataHtml, {
-				margin: 10,
+				margin: PDF_MARGIN_PX,
 				...htmlOptions,
 				callback,
 			});

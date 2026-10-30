@@ -4,12 +4,15 @@ exports.printDailyItemSold = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
+const escPosToHtml_1 = require("../../utils/escPosToHtml");
 const printDailyItemSold_native_1 = require("./printDailyItemSold.native");
 const printDailyItemSold_html_1 = require("./printDailyItemSold.html");
 const printDailyItemSold = (printDailyItemSoldDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printDailyItemSoldDetails.isPdf) {
-        return (0, printDailyItemSold_html_1.printDailyItemSoldHtml)(printDailyItemSoldDetails) || '';
+        return (0, escPosToHtml_1.escPosToHtml)((0, printDailyItemSold_native_1.printDailyItemSoldNative)(printDailyItemSoldDetails), {
+            pageHeightPx: printDailyItemSoldDetails.pdfPageHeight,
+        });
     }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {

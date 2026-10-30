@@ -3,7 +3,12 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { createXReadTxt, paperSizes, printXReadReport } from '../../../print';
+import {
+	createXReadTxt,
+	getPdfPageContentHeight,
+	paperSizes,
+	printXReadReport,
+} from '../../../print';
 import { SiteSettings, User, XReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { XReadContent } from './XReadContent';
@@ -45,7 +50,13 @@ export const ViewXReadReportModal = ({
 						}
 					: undefined,
 			print: () =>
-				printXReadReport({ report, siteSettings, user, isPdf: true }),
+				printXReadReport({
+					report,
+					siteSettings,
+					user,
+					isPdf: true,
+					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
+				}),
 		});
 
 	// METHODS

@@ -4,12 +4,15 @@ exports.printXReadReport = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
+const escPosToHtml_1 = require("../../utils/escPosToHtml");
 const printXReadReport_native_1 = require("./printXReadReport.native");
 const printXReadReport_html_1 = require("./printXReadReport.html");
 const printXReadReport = (printXReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printXReadReportDetails.isPdf) {
-        return (0, printXReadReport_html_1.printXReadReportHtml)(printXReadReportDetails) || '';
+        return (0, escPosToHtml_1.escPosToHtml)((0, printXReadReport_native_1.printXReadReportNative)(printXReadReportDetails), {
+            pageHeightPx: printXReadReportDetails.pdfPageHeight,
+        });
     }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {

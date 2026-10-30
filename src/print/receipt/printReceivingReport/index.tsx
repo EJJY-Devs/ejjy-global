@@ -1,6 +1,7 @@
 import { printingTypes } from '../../../globals';
 import { getAppReceiptPrintingType } from '../../../utils/localstorage';
 import { print } from '../../helper-receipt';
+import { escPosToHtml } from '../../utils/escPosToHtml';
 import { printReceivingReportHtml } from './printReceivingReport.html';
 import { printReceivingReportNative } from './printReceivingReport.native';
 import { PrintReceivingReport } from './types';
@@ -11,7 +12,9 @@ export const printReceivingReport = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printReceivingReportDetails.isPdf) {
-		return printReceivingReportHtml(printReceivingReportDetails) || '';
+		return escPosToHtml(
+			printReceivingReportNative(printReceivingReportDetails),
+		);
 	}
 
 	if (printingType === printingTypes.HTML) {

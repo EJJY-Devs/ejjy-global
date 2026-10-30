@@ -12,6 +12,7 @@ export declare const getHeader: (siteSettings: SiteSettings, branchMachine?: Bra
 export declare const getFooter: (siteSettings: SiteSettings) => string;
 export declare const getPageStyle: (extraStyle?: string) => string;
 export declare const getPageStyleObject: (extraStyle?: React.CSSProperties) => React.CSSProperties;
+export declare const RECEIPT_WIDTH_PX = 380;
 export declare const appendHtmlElement: (data: string, widthPx?: number) => string;
 export declare const print: (printData: string | string[], entity: string, onComplete?: () => void, type?: any) => Promise<void>;
 export declare const formatInPesoWithUnderline: (value: string | number) => string;

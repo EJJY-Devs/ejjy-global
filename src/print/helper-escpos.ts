@@ -4,7 +4,7 @@ import { SiteSettings } from '../types';
 import { getTaxTypeDescription } from '../utils';
 import { EscPosCommands } from './utils/escpos.enum';
 
-const PAPER_CHARACTER_WIDTH = 40;
+export const PAPER_CHARACTER_WIDTH = 40;
 
 export const generateReceiptHeaderCommandsV2 = ({
 	branchMachine,

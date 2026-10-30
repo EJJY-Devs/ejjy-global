@@ -4,12 +4,13 @@ exports.printDeliveryReceipt = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
+const escPosToHtml_1 = require("../../utils/escPosToHtml");
 const printDeliveryReceipt_html_1 = require("./printDeliveryReceipt.html");
 const printDeliveryReceipt_native_1 = require("./printDeliveryReceipt.native");
 const printDeliveryReceipt = (printDeliveryReceiptDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printDeliveryReceiptDetails.isPdf) {
-        return (0, printDeliveryReceipt_html_1.printDeliveryReceiptHtml)(printDeliveryReceiptDetails) || '';
+        return (0, escPosToHtml_1.escPosToHtml)((0, printDeliveryReceipt_native_1.printDeliveryReceiptNative)(printDeliveryReceiptDetails));
     }
     if (printingType === globals_1.printingTypes.HTML) {
         const data = (0, printDeliveryReceipt_html_1.printDeliveryReceiptHtml)(printDeliveryReceiptDetails) || '';

@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
 import React from 'react';
 import { usePdf } from '../../../hooks';
 import {
+	getPdfPageContentHeight,
 	paperSizes,
 	printOrderOfPayment,
 	PrintOrderOfPayment as PrintOrderOfPaymentType,
@@ -20,16 +21,15 @@ export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
 		usePdf({
 			title: `OrderOfPayment_${orderOfPayment.reference_number}`,
-			// PF B: A4 1/2 crosswise (short, wide landscape half-sheet). This
-			// document renders at 794px wide (see printOrderOfPaymentHtml) to match
-			// that layout, not the 400px-wide default jsPDF page every narrow
-			// receipt-format item relies on — otherwise jsPDF rasterizes the wider
-			// content onto a narrower page and clips the right side.
+			// PF B: A4 1/2 crosswise (short, wide landscape half-sheet). The PDF
+			// is the printed receipt centered on this page (see
+			// printOrderOfPayment), not the 400px-wide default jsPDF page.
 			jsPdfSettings: paperSizes.A4_CROSSWISE,
 			print: () =>
 				printOrderOfPayment({
 					orderOfPayment,
 					isPdf: true,
+					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_CROSSWISE),
 				} as PrintOrderOfPaymentType) as string | undefined,
 		});
 

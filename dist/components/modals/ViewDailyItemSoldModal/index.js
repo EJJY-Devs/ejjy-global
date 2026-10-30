@@ -37,6 +37,7 @@ reportDate, onClose, }) => {
             branchMachine,
             user,
             isPdf: true,
+            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
             reportDate,
         }),
     });

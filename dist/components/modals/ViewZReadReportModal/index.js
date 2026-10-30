@@ -53,7 +53,13 @@ const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printZReadReport)({ report, siteSettings, user, isPdf: true }),
+        print: () => (0, print_1.printZReadReport)({
+            report,
+            siteSettings,
+            user,
+            isPdf: true,
+            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
+        }),
     });
     // METHODS
     const handlePrint = () => {

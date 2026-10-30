@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.getPageStyleObject = exports.getPageStyle = exports.getFooter = exports.getHeader = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
+exports.addUnderline = exports.formatInPesoWithUnderline = exports.print = exports.appendHtmlElement = exports.RECEIPT_WIDTH_PX = exports.getPageStyleObject = exports.getPageStyle = exports.getFooter = exports.getHeader = exports.configurePrinter = exports.PRINT_MESSAGE_KEY = exports.QZ_MESSAGE_KEY = exports.PAPER_WIDTH_INCHES = exports.PAPER_MARGIN_INCHES = exports.UNDERLINE_TEXT = exports.EMPTY_CELL = exports.PESO_SIGN = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const antd_1 = require("antd");
 const qz_tray_1 = __importDefault(require("qz-tray"));
@@ -81,7 +81,8 @@ exports.getPageStyleObject = getPageStyleObject;
 // nearly everything printed through here uses. Callers whose content is
 // meant for a wider sheet (e.g. A4-1/2-crosswise/landscape) must pass their
 // own widthPx, or this forces their layout into the narrow receipt column.
-const appendHtmlElement = (data, widthPx = 380) => `
+exports.RECEIPT_WIDTH_PX = 380;
+const appendHtmlElement = (data, widthPx = exports.RECEIPT_WIDTH_PX) => `
   <html lang="en">
   <head>
     <style>

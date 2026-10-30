@@ -7,5 +7,8 @@ export type PrintDailyItemSold = {
 	branchMachine?: BranchMachine;
 	user?: User;
 	isPdf?: boolean;
+	// Content height of the PDF page (see getPdfPageContentHeight); paginates
+	// the PDF so no line or section is cut across pages.
+	pdfPageHeight?: number;
 	reportDate?: string;
 };

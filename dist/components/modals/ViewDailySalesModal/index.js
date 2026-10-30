@@ -52,7 +52,13 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printDailySales)({ dailySales, siteSettings, user, isPdf: true }),
+        print: () => (0, print_1.printDailySales)({
+            dailySales,
+            siteSettings,
+            user,
+            isPdf: true,
+            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
+        }),
     });
     // METHODS
     const handlePrint = () => {

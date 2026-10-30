@@ -29,6 +29,7 @@ export * from './txt/createVoidedTransactionsSummaryTxt';
 export * from './txt/createXReadTxt';
 export * from './txt/createZReadTxt';
 export * from './utils/cashier';
+export * from './utils/escPosToHtml';
 export * from './utils/paperSizes';
 export * from './utils/renderA4SinglePagePdf';
 export * from './receipt/printSalesInvoice/printSalesInvoice.native';

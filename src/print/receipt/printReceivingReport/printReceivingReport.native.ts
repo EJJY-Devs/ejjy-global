@@ -7,29 +7,19 @@ import {
 	printCenter,
 	printRight,
 } from '../../helper-escpos';
-import { appendHtmlElement } from '../../helper-receipt';
 import { PrintReceivingReport } from './types';
 
 export const printReceivingReportNative = ({
 	receivingReport,
-	isPdf,
-}: PrintReceivingReport): string[] | string => {
-	const commands = [
-		...generateReceivingReportContentCommands(receivingReport),
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	];
-
-	if (isPdf) {
-		return appendHtmlElement(commands.join(''));
-	}
-
-	return commands;
-};
+}: PrintReceivingReport): string[] => [
+	...generateReceivingReportContentCommands(receivingReport),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
 
 const generateReceivingReportContentCommands = (
 	receivingReport: PrintReceivingReport['receivingReport'],

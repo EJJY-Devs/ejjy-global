@@ -8,28 +8,18 @@ import {
 	generateThreeColumnLine,
 	printCenter,
 } from '../../helper-escpos';
-import { appendHtmlElement } from '../../helper-receipt';
 
 export const printRequisitionSlipNative = ({
 	requisitionSlip,
-	isPdf,
-}: PrintRequisitionSlip): string[] | string => {
-	const commands = [
-		...generateRequisitionSlipContentCommands(requisitionSlip),
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-		EscPosCommands.LINE_BREAK,
-	];
-
-	if (isPdf) {
-		return appendHtmlElement(commands.join(''));
-	}
-
-	return commands;
-};
+}: PrintRequisitionSlip): string[] => [
+	...generateRequisitionSlipContentCommands(requisitionSlip),
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+	EscPosCommands.LINE_BREAK,
+];
 
 const generateRequisitionSlipContentCommands = (
 	requisitionSlip: PrintRequisitionSlip['requisitionSlip'],

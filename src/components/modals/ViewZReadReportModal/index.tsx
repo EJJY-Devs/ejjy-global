@@ -3,7 +3,12 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import { createZReadTxt, paperSizes, printZReadReport } from '../../../print';
+import {
+	createZReadTxt,
+	getPdfPageContentHeight,
+	paperSizes,
+	printZReadReport,
+} from '../../../print';
 import { SiteSettings, User, ZReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { ZReadContent } from './ZReadContent';
@@ -44,7 +49,13 @@ export const ViewZReadReportModal = ({
 						}
 					: undefined,
 			print: () =>
-				printZReadReport({ report, siteSettings, user, isPdf: true }),
+				printZReadReport({
+					report,
+					siteSettings,
+					user,
+					isPdf: true,
+					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
+				}),
 		});
 
 	// METHODS

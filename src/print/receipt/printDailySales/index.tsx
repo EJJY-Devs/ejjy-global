@@ -1,6 +1,7 @@
 import { printingTypes } from '../../../globals';
 import { getAppReceiptPrintingType } from '../../../utils/localstorage';
 import { print } from '../../helper-receipt';
+import { escPosToHtml } from '../../utils/escPosToHtml';
 import { printDailySalesNative } from './printDailySales.native';
 import { printDailySalesHtml } from './printDailySales.html';
 import { PrintDailySales } from './types';
@@ -11,7 +12,9 @@ export const printDailySales = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printDailySalesDetails.isPdf) {
-		return printDailySalesHtml(printDailySalesDetails) || '';
+		return escPosToHtml(printDailySalesNative(printDailySalesDetails), {
+			pageHeightPx: printDailySalesDetails.pdfPageHeight,
+		});
 	}
 
 	let data: string | string[] = '';

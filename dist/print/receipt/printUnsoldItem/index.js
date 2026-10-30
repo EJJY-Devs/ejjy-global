@@ -4,12 +4,13 @@ exports.printUnsoldItem = void 0;
 const globals_1 = require("../../../globals");
 const localstorage_1 = require("../../../utils/localstorage");
 const helper_receipt_1 = require("../../helper-receipt");
+const escPosToHtml_1 = require("../../utils/escPosToHtml");
 const printUnsoldItem_native_1 = require("./printUnsoldItem.native");
 const printUnsoldItem_html_1 = require("./printUnsoldItem.html");
 const printUnsoldItem = (printUnsoldItemDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printUnsoldItemDetails.isPdf) {
-        return (0, printUnsoldItem_html_1.printUnsoldItemHtml)(printUnsoldItemDetails) || '';
+        return (0, escPosToHtml_1.escPosToHtml)((0, printUnsoldItem_native_1.printUnsoldItemNative)(printUnsoldItemDetails));
     }
     if (printingType === globals_1.printingTypes.HTML) {
         const htmlData = (0, printUnsoldItem_html_1.printUnsoldItemHtml)(printUnsoldItemDetails) || '';

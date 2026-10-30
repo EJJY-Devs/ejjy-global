@@ -101,7 +101,9 @@ export const getPageStyleObject = (
 // nearly everything printed through here uses. Callers whose content is
 // meant for a wider sheet (e.g. A4-1/2-crosswise/landscape) must pass their
 // own widthPx, or this forces their layout into the narrow receipt column.
-export const appendHtmlElement = (data: string, widthPx = 380) => `
+export const RECEIPT_WIDTH_PX = 380;
+
+export const appendHtmlElement = (data: string, widthPx = RECEIPT_WIDTH_PX) => `
   <html lang="en">
   <head>
     <style>
