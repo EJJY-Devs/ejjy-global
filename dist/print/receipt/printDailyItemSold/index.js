@@ -10,9 +10,7 @@ const printDailyItemSold_html_1 = require("./printDailyItemSold.html");
 const printDailyItemSold = (printDailyItemSoldDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printDailyItemSoldDetails.isPdf) {
-        return (0, escPosToHtml_1.escPosToHtml)((0, printDailyItemSold_native_1.printDailyItemSoldNative)(printDailyItemSoldDetails), {
-            pageHeightPx: printDailyItemSoldDetails.pdfPageHeight,
-        });
+        return (0, escPosToHtml_1.escPosToHtml)((0, printDailyItemSold_native_1.printDailyItemSoldNative)(printDailyItemSoldDetails));
     }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {

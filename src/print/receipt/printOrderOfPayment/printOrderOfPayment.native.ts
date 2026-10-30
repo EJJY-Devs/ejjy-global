@@ -42,8 +42,8 @@ export const printOrderOfPaymentNative = ({
 	if (storeName) {
 		for (const line of storeName.split('\n')) {
 			commands.push(line);
+			commands.push(EscPosCommands.LINE_BREAK);
 		}
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchName) {

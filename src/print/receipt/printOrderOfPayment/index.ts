@@ -20,7 +20,6 @@ export const printOrderOfPayment = (
 	if (printOrderOfPaymentDetails.isPdf) {
 		return escPosToHtml(printOrderOfPaymentNative(printOrderOfPaymentDetails), {
 			widthPx: PDF_CONTENT_WIDTH_PX,
-			pageHeightPx: printOrderOfPaymentDetails.pdfPageHeight,
 		});
 	}
 

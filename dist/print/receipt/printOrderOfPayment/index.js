@@ -15,7 +15,6 @@ const printOrderOfPayment = (printOrderOfPaymentDetails) => {
     if (printOrderOfPaymentDetails.isPdf) {
         return (0, escPosToHtml_1.escPosToHtml)((0, printOrderOfPayment_native_1.printOrderOfPaymentNative)(printOrderOfPaymentDetails), {
             widthPx: PDF_CONTENT_WIDTH_PX,
-            pageHeightPx: printOrderOfPaymentDetails.pdfPageHeight,
         });
     }
     let data = '';

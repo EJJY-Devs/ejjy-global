@@ -5,7 +5,6 @@ import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
 import {
 	createDailySalesTxt,
-	getPdfPageContentHeight,
 	paperSizes,
 	printDailySales,
 } from '../../../print';
@@ -35,8 +34,10 @@ export const ViewDailySalesModal = ({
 	const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } =
 		usePdf({
 			title: `DailySales_${dailySales.id}`,
-			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet); a longer report
+			// extends the page instead of breaking onto a second one.
 			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			continuousPage: true,
 			image:
 				dailySales?.gross_sales === 0
 					? {
@@ -48,13 +49,7 @@ export const ViewDailySalesModal = ({
 						}
 					: undefined,
 			print: () =>
-				printDailySales({
-					dailySales,
-					siteSettings,
-					user,
-					isPdf: true,
-					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
-				}),
+				printDailySales({ dailySales, siteSettings, user, isPdf: true }),
 		});
 
 	// METHODS

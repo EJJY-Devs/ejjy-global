@@ -43,8 +43,10 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
         title: `XReadReport_${report.id}`,
         // PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
         // receipt-width default (380px via appendHtmlElement), which sits inside
-        // this 397px-wide page; the report paginates onto real half-sheets.
+        // this 397px-wide page; a longer report extends the page instead of
+        // breaking onto a second one.
         jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
+        continuousPage: true,
         image: (report === null || report === void 0 ? void 0 : report.gross_sales) === 0
             ? {
                 src: no_transaction_png_1.default,
@@ -54,13 +56,7 @@ const ViewXReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printXReadReport)({
-            report,
-            siteSettings,
-            user,
-            isPdf: true,
-            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
-        }),
+        print: () => (0, print_1.printXReadReport)({ report, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {

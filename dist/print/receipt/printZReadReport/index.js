@@ -10,9 +10,7 @@ const printZReadReport_html_1 = require("./printZReadReport.html");
 const printZReadReport = (printZReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printZReadReportDetails.isPdf) {
-        return (0, escPosToHtml_1.escPosToHtml)((0, printZReadReport_native_1.printZReadReportNative)(printZReadReportDetails), {
-            pageHeightPx: printZReadReportDetails.pdfPageHeight,
-        });
+        return (0, escPosToHtml_1.escPosToHtml)((0, printZReadReport_native_1.printZReadReportNative)(printZReadReportDetails));
     }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {

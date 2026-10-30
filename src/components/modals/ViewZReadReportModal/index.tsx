@@ -3,12 +3,7 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import {
-	createZReadTxt,
-	getPdfPageContentHeight,
-	paperSizes,
-	printZReadReport,
-} from '../../../print';
+import { createZReadTxt, paperSizes, printZReadReport } from '../../../print';
 import { SiteSettings, User, ZReadReport } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { ZReadContent } from './ZReadContent';
@@ -36,8 +31,10 @@ export const ViewZReadReportModal = ({
 		usePdf({
 			title: `ZReadReport_${report.id}`,
 			// PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
-			// receipt-width default; the report paginates onto real half-sheets.
+			// receipt-width default; a longer report extends the page instead of
+			// breaking onto a second one.
 			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			continuousPage: true,
 			image:
 				report.total_transactions === 0
 					? {
@@ -49,13 +46,7 @@ export const ViewZReadReportModal = ({
 						}
 					: undefined,
 			print: () =>
-				printZReadReport({
-					report,
-					siteSettings,
-					user,
-					isPdf: true,
-					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
-				}),
+				printZReadReport({ report, siteSettings, user, isPdf: true }),
 		});
 
 	// METHODS

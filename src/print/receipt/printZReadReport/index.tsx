@@ -12,9 +12,7 @@ export const printZReadReport = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printZReadReportDetails.isPdf) {
-		return escPosToHtml(printZReadReportNative(printZReadReportDetails), {
-			pageHeightPx: printZReadReportDetails.pdfPageHeight,
-		});
+		return escPosToHtml(printZReadReportNative(printZReadReportDetails));
 	}
 
 	let data: string | string[] = '';

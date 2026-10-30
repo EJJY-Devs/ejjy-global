@@ -3,7 +3,6 @@ import { Button, Modal } from 'antd';
 import React from 'react';
 import { usePdf } from '../../../hooks';
 import {
-	getPdfPageContentHeight,
 	paperSizes,
 	printOrderOfPayment,
 	PrintOrderOfPayment as PrintOrderOfPaymentType,
@@ -25,11 +24,11 @@ export const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }: Props) => {
 			// is the printed receipt centered on this page (see
 			// printOrderOfPayment), not the 400px-wide default jsPDF page.
 			jsPdfSettings: paperSizes.A4_CROSSWISE,
+			continuousPage: true,
 			print: () =>
 				printOrderOfPayment({
 					orderOfPayment,
 					isPdf: true,
-					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_CROSSWISE),
 				} as PrintOrderOfPaymentType) as string | undefined,
 		});
 

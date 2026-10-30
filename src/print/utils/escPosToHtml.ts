@@ -148,72 +148,12 @@ const wrapLine = (line: Line): Line[] => {
 	return wrapped;
 };
 
-const getLineText = (line: Line) =>
-	line.segments.map((segment) => segment.text).join('');
-
-const isBlankLine = (line: Line) => getLineText(line).trim() === '';
-
-// The `----------------` dividers the templates print between sections.
-const isRuleLine = (line: Line) => /^-{3,}$/.test(getLineText(line).trim());
+const isBlankLine = (line: Line) =>
+	line.segments.every((segment) => segment.text.trim() === '');
 
 const getLineHeight = (line: Line) =>
 	LINE_HEIGHT_PX *
 	Math.max(1, ...line.segments.map((segment) => segment.scale));
-
-// A section starts at a divider or a blank line and runs until the next one.
-const splitIntoSections = (lines: Line[]) =>
-	lines.reduce<Line[][]>((sections, line) => {
-		if (!sections.length || isBlankLine(line) || isRuleLine(line)) {
-			sections.push([]);
-		}
-		sections[sections.length - 1].push(line);
-
-		return sections;
-	}, []);
-
-// Lays the lines out on pages of `pageHeightPx`, moving a section that does
-// not fit in what is left of a page to the next page instead of splitting it
-// (only sections taller than a whole page are split, line by line).
-const paginate = (lines: Line[], pageHeightPx: number) => {
-	const pages: Line[][] = [[]];
-	let usedHeight = 0;
-
-	const startPage = () => {
-		pages.push([]);
-		usedHeight = 0;
-	};
-
-	splitIntoSections(lines).forEach((section) => {
-		const sectionHeight = section.reduce(
-			(total, line) => total + getLineHeight(line),
-			0,
-		);
-		if (
-			usedHeight > 0 &&
-			usedHeight + sectionHeight > pageHeightPx &&
-			sectionHeight <= pageHeightPx
-		) {
-			startPage();
-		}
-
-		section.forEach((line) => {
-			const lineHeight = getLineHeight(line);
-			if (usedHeight > 0 && usedHeight + lineHeight > pageHeightPx) {
-				startPage();
-			}
-
-			// Spacing between sections is pointless at the top of a page.
-			if (usedHeight === 0 && isBlankLine(line)) {
-				return;
-			}
-
-			pages[pages.length - 1].push(line);
-			usedHeight += lineHeight;
-		});
-	});
-
-	return pages;
-};
 
 const escapeHtml = (text: string) =>
 	text
@@ -248,20 +188,17 @@ type EscPosToHtmlOptions = {
 	// appendHtmlElement's receipt width; pass the page's content width for
 	// wider papers (e.g. A4 crosswise) to center the receipt on the page.
 	widthPx?: number;
-	// Content height of one PDF page (see getPdfPageContentHeight). When set,
-	// every page but the last is exactly this tall, so jsPDF's page slicing
-	// never cuts through a line and sections are kept on a single page.
-	pageHeightPx?: number;
 };
 
 /**
  * Converts a native (ESC/POS) template's commands into a standalone HTML
  * document (see appendHtmlElement) for usePdf, laid out exactly as the
- * thermal printer prints it.
+ * thermal printer prints it. Pair it with usePdf's `continuousPage` so a long
+ * document stays on one page, like the printed roll.
  */
 export const escPosToHtml = (
 	commands: string[],
-	{ widthPx = RECEIPT_WIDTH_PX, pageHeightPx }: EscPosToHtmlOptions = {},
+	{ widthPx = RECEIPT_WIDTH_PX }: EscPosToHtmlOptions = {},
 ) => {
 	const lines = parseCommands(commands).reduce<Line[]>(
 		(wrapped, line) => wrapped.concat(wrapLine(line)),
@@ -274,21 +211,13 @@ export const escPosToHtml = (
 		lines.pop();
 	}
 
-	const pages = pageHeightPx ? paginate(lines, pageHeightPx) : [lines];
-	const content = pages
-		.map((page, index) => {
-			const isLastPage = index === pages.length - 1;
-			const height = isLastPage ? '' : ` style="height: ${pageHeightPx}px;"`;
-
-			return `<div${height}>${page.map(renderLine).join('')}</div>`;
-		})
-		.join('');
-
 	// The container is sized inline because jsPDF sanitizes away the <head>
 	// style appendHtmlElement adds. That style still sizes `.container > div`
 	// where it does apply, so the fixed-width receipt grid sits one level
 	// deeper and is centered within it.
-	const data = `<div class="container" style="width: ${widthPx}px;"><div><div style="width: ${PAPER_CHARACTER_WIDTH}ch; margin: 0 auto; font-family: 'Courier New', Courier, monospace; font-size: ${FONT_SIZE_PX}px; white-space: pre; color: #000;">${content}</div></div></div>`;
+	const data = `<div class="container" style="width: ${widthPx}px;"><div><div style="width: ${PAPER_CHARACTER_WIDTH}ch; margin: 0 auto; font-family: 'Courier New', Courier, monospace; font-size: ${FONT_SIZE_PX}px; white-space: pre; color: #000;">${lines
+		.map(renderLine)
+		.join('')}</div></div></div>`;
 
 	return appendHtmlElement(data, widthPx);
 };

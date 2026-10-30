@@ -26,7 +26,19 @@ const JSPDF_SETTINGS = {
     hotfixes: ['px_scaling'],
     format: [FORMAT_WIDTH, FORMAT_HEIGHT],
 };
-const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, image, }) => {
+// Height the HTML lays out at. jsPDF sanitizes away <head> (and its styles)
+// before rendering, so only the body is measured, the same way.
+const measureHtmlHeight = (html) => {
+    const element = document.createElement('div');
+    element.style.cssText =
+        'position: absolute; top: 0; left: -10000px; visibility: hidden;';
+    element.innerHTML = new DOMParser().parseFromString(html, 'text/html').body.innerHTML;
+    document.body.appendChild(element);
+    const height = Math.ceil(element.getBoundingClientRect().height);
+    document.body.removeChild(element);
+    return height;
+};
+const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, image, continuousPage = false, }) => {
     const [htmlPdf, setHtmlPdf] = (0, react_1.useState)('');
     const [isLoadingPdf, setLoadingPdf] = (0, react_1.useState)(false);
     // Keep the most recently generated document so the preview modal's Download
@@ -83,7 +95,16 @@ const usePdf = ({ title = '', container, print, jsPdfSettings, htmlOptions, imag
                 JSPDF_SETTINGS.format = [width, height];
                 JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
             }
-            const pdf = new jspdf_1.default(Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings));
+            const settings = Object.assign(Object.assign({}, JSPDF_SETTINGS), jsPdfSettings);
+            if (continuousPage) {
+                const [width, height] = settings.format;
+                // +1: jsPDF starts a new (empty) page for content that ends exactly
+                // at the bottom margin.
+                const pageHeight = Math.max(height, measureHtmlHeight(dataHtml) + paperSizes_1.PDF_MARGIN_PX * 2 + 1);
+                settings.format = [width, pageHeight];
+                settings.orientation = width > pageHeight ? 'l' : 'p';
+            }
+            const pdf = new jspdf_1.default(settings);
             pdf.setProperties({ title });
             if (image) {
                 pdf.addImage(image.src, 'png', image.x, image.y, image.w, image.h);

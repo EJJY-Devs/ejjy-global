@@ -30,16 +30,3 @@ export const paperSizes: Record<string, PaperSetting> = {
 
 // usePdf's page margin, applied on every side of every page.
 export const PDF_MARGIN_PX = 10;
-
-// Height of the content area of one usePdf page on `paper` — the height of
-// each slice jsPDF cuts the rendered HTML into when it paginates.
-export const getPdfPageContentHeight = ({
-	format,
-	orientation,
-}: PaperSetting) => {
-	const [width, height] = format as number[];
-	const pageHeight =
-		orientation === 'l' ? Math.min(width, height) : Math.max(width, height);
-
-	return pageHeight - PDF_MARGIN_PX * 2;
-};

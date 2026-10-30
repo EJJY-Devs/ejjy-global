@@ -4,5 +4,4 @@ export type PrintXReadReport = {
     siteSettings: SiteSettings;
     user?: User;
     isPdf?: boolean;
-    pdfPageHeight?: number;
 };

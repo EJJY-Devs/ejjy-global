@@ -10,9 +10,7 @@ const printXReadReport_html_1 = require("./printXReadReport.html");
 const printXReadReport = (printXReadReportDetails) => {
     const printingType = (0, localstorage_1.getAppReceiptPrintingType)();
     if (printXReadReportDetails.isPdf) {
-        return (0, escPosToHtml_1.escPosToHtml)((0, printXReadReport_native_1.printXReadReportNative)(printXReadReportDetails), {
-            pageHeightPx: printXReadReportDetails.pdfPageHeight,
-        });
+        return (0, escPosToHtml_1.escPosToHtml)((0, printXReadReport_native_1.printXReadReportNative)(printXReadReportDetails));
     }
     let data = '';
     if (printingType === globals_1.printingTypes.HTML) {

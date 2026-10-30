@@ -12,9 +12,7 @@ export const printDailyItemSold = (
 	const printingType = getAppReceiptPrintingType();
 
 	if (printDailyItemSoldDetails.isPdf) {
-		return escPosToHtml(printDailyItemSoldNative(printDailyItemSoldDetails), {
-			pageHeightPx: printDailyItemSoldDetails.pdfPageHeight,
-		});
+		return escPosToHtml(printDailyItemSoldNative(printDailyItemSoldDetails));
 	}
 
 	let data: string | string[] = '';

@@ -20,8 +20,10 @@ reportDate, onClose, }) => {
         // falls back to today only when the caller didn't pass one (e.g. a
         // "current day so far" view where there's no distinct report date yet).
         title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
-        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet); a longer report
+        // extends the page instead of breaking onto a second one.
         jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
+        continuousPage: true,
         image: dailyItemSoldSummary.length === 0 && !loading
             ? {
                 src: no_transaction_png_1.default,
@@ -37,7 +39,6 @@ reportDate, onClose, }) => {
             branchMachine,
             user,
             isPdf: true,
-            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
             reportDate,
         }),
     });

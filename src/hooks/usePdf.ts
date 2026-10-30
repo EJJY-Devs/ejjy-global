@@ -36,6 +36,29 @@ type UsePDFProps = {
 		w: number;
 		h: number;
 	};
+	// Grow the page to fit the content instead of splitting it into pages,
+	// so a long document comes out as one continuous page (like the printed
+	// roll) that ends right after its last line. Shorter content keeps the
+	// paper's normal size.
+	continuousPage?: boolean;
+};
+
+// Height the HTML lays out at. jsPDF sanitizes away <head> (and its styles)
+// before rendering, so only the body is measured, the same way.
+const measureHtmlHeight = (html: string) => {
+	const element = document.createElement('div');
+	element.style.cssText =
+		'position: absolute; top: 0; left: -10000px; visibility: hidden;';
+	element.innerHTML = new DOMParser().parseFromString(
+		html,
+		'text/html',
+	).body.innerHTML;
+
+	document.body.appendChild(element);
+	const height = Math.ceil(element.getBoundingClientRect().height);
+	document.body.removeChild(element);
+
+	return height;
 };
 
 const usePdf = ({
@@ -45,6 +68,7 @@ const usePdf = ({
 	jsPdfSettings,
 	htmlOptions,
 	image,
+	continuousPage = false,
 }: UsePDFProps) => {
 	const [htmlPdf, setHtmlPdf] = useState<string>('');
 	const [isLoadingPdf, setLoadingPdf] = useState<boolean>(false);
@@ -110,7 +134,20 @@ const usePdf = ({
 				JSPDF_SETTINGS.orientation = width > height ? 'l' : 'p';
 			}
 
-			const pdf = new jsPDF({ ...JSPDF_SETTINGS, ...jsPdfSettings });
+			const settings: jsPDFOptions = { ...JSPDF_SETTINGS, ...jsPdfSettings };
+			if (continuousPage) {
+				const [width, height] = settings.format as number[];
+				// +1: jsPDF starts a new (empty) page for content that ends exactly
+				// at the bottom margin.
+				const pageHeight = Math.max(
+					height,
+					measureHtmlHeight(dataHtml) + PDF_MARGIN_PX * 2 + 1,
+				);
+				settings.format = [width, pageHeight];
+				settings.orientation = width > pageHeight ? 'l' : 'p';
+			}
+
+			const pdf = new jsPDF(settings);
 			pdf.setProperties({ title });
 
 			if (image) {

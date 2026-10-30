@@ -18,10 +18,10 @@ const ViewOrderOfPaymentModal = ({ orderOfPayment, onClose }) => {
         // is the printed receipt centered on this page (see
         // printOrderOfPayment), not the 400px-wide default jsPDF page.
         jsPdfSettings: print_1.paperSizes.A4_CROSSWISE,
+        continuousPage: true,
         print: () => (0, print_1.printOrderOfPayment)({
             orderOfPayment,
             isPdf: true,
-            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_CROSSWISE),
         }),
     });
     const handlePrint = () => {

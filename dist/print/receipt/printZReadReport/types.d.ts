@@ -4,5 +4,4 @@ export type PrintZReadReport = {
     siteSettings: SiteSettings;
     user?: User;
     isPdf?: boolean;
-    pdfPageHeight?: number;
 };

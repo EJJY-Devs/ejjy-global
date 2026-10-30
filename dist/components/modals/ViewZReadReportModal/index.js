@@ -42,8 +42,10 @@ const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `ZReadReport_${report.id}`,
         // PF A: A4 1/2 lengthwise (tall, narrow half-sheet). Content stays at the
-        // receipt-width default; the report paginates onto real half-sheets.
+        // receipt-width default; a longer report extends the page instead of
+        // breaking onto a second one.
         jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
+        continuousPage: true,
         image: report.total_transactions === 0
             ? {
                 src: no_transaction_png_1.default,
@@ -53,13 +55,7 @@ const ViewZReadReportModal = ({ report, siteSettings, user, isForPrint, onClose,
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printZReadReport)({
-            report,
-            siteSettings,
-            user,
-            isPdf: true,
-            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
-        }),
+        print: () => (0, print_1.printZReadReport)({ report, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {

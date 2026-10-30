@@ -20,8 +20,9 @@ type UsePDFProps = {
         w: number;
         h: number;
     };
+    continuousPage?: boolean;
 };
-declare const usePdf: ({ title, container, print, jsPdfSettings, htmlOptions, image, }: UsePDFProps) => {
+declare const usePdf: ({ title, container, print, jsPdfSettings, htmlOptions, image, continuousPage, }: UsePDFProps) => {
     htmlPdf: string;
     isLoadingPdf: boolean;
     previewPdf: () => void;

@@ -3,11 +3,7 @@ import { Button, Modal, Spin } from 'antd';
 import React from 'react';
 import imgNoTransaction from '../../../../public/no-transaction.png';
 import { usePdf } from '../../../hooks';
-import {
-	getPdfPageContentHeight,
-	paperSizes,
-	printDailyItemSold,
-} from '../../../print';
+import { paperSizes, printDailyItemSold } from '../../../print';
 import { Branch, BranchMachine, User } from '../../../types';
 import { PdfButtons } from '../../Printing';
 import { DailyItemSoldContent } from './DailyItemSoldContent';
@@ -46,8 +42,10 @@ export const ViewDailyItemSoldModal = ({
 			// falls back to today only when the caller didn't pass one (e.g. a
 			// "current day so far" view where there's no distinct report date yet).
 			title: `DailyItemSoldSummary_${reportDate || new Date().toISOString().split('T')[0]}`,
-			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+			// PF B: A4 1/2 lengthwise (tall, narrow half-sheet); a longer report
+			// extends the page instead of breaking onto a second one.
 			jsPdfSettings: paperSizes.A4_LENGTHWISE,
+			continuousPage: true,
 			image:
 				dailyItemSoldSummary.length === 0 && !loading
 					? {
@@ -65,7 +63,6 @@ export const ViewDailyItemSoldModal = ({
 					branchMachine,
 					user,
 					isPdf: true,
-					pdfPageHeight: getPdfPageContentHeight(paperSizes.A4_LENGTHWISE),
 					reportDate,
 				}),
 		});

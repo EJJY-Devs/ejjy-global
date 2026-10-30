@@ -20,8 +20,8 @@ export const generateReceiptHeaderCommandsV2 = ({
 		const lines = branchInfo.store_name.split('\n');
 		for (const line of lines) {
 			commands.push(printCenter(line));
+			commands.push(EscPosCommands.LINE_BREAK);
 		}
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.name) {
@@ -60,15 +60,15 @@ export const generateReceiptHeaderCommands = ({
 	if (branchInfo?.store_name) {
 		for (const line of branchInfo.store_name.split('\n')) {
 			commands.push(line); // Let ESC/POS center alignment handle it
+			commands.push(EscPosCommands.LINE_BREAK);
 		}
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.store_address) {
 		for (const line of branchInfo.store_address.split('\n')) {
 			commands.push(line); // Let ESC/POS center alignment handle it
+			commands.push(EscPosCommands.LINE_BREAK);
 		}
-		commands.push(EscPosCommands.LINE_BREAK);
 	}
 
 	if (branchInfo?.contact_number || name) {
@@ -166,6 +166,11 @@ export const generateReceiptFooterCommands = (siteSettings: SiteSettings) => {
 
 	commands.push(EscPosCommands.LINE_BREAK);
 	commands.push(EscPosCommands.LINE_BREAK);
+
+	// Reset to left alignment, like the header: text that follows is either
+	// pre-centered with printCenter (which centering again would push right)
+	// or sets its own alignment.
+	commands.push(EscPosCommands.ALIGN_LEFT);
 
 	return commands;
 };

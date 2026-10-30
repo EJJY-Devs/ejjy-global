@@ -59,7 +59,7 @@ const generateZReadContentCommands = (report, siteSettings, user) => {
         },
         {
             label: 'Beg Void #:',
-            value: ((_c = report.ending_void_or) === null || _c === void 0 ? void 0 : _c.or_number) || helper_receipt_1.EMPTY_CELL,
+            value: ((_c = report.beginning_void_or) === null || _c === void 0 ? void 0 : _c.or_number) || helper_receipt_1.EMPTY_CELL,
         },
         {
             label: 'End Void #:',

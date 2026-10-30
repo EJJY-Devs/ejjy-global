@@ -31,8 +31,8 @@ const printOrderOfPaymentNative = ({ orderOfPayment, }) => {
     if (storeName) {
         for (const line of storeName.split('\n')) {
             commands.push(line);
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchName) {
         commands.push(`${branchName} `);

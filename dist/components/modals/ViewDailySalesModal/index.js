@@ -41,8 +41,10 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
     // CUSTOM HOOKS
     const { htmlPdf, isLoadingPdf, previewPdf, downloadPdf, pdfPreviewModal } = (0, hooks_1.usePdf)({
         title: `DailySales_${dailySales.id}`,
-        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet).
+        // PF B: A4 1/2 lengthwise (tall, narrow half-sheet); a longer report
+        // extends the page instead of breaking onto a second one.
         jsPdfSettings: print_1.paperSizes.A4_LENGTHWISE,
+        continuousPage: true,
         image: (dailySales === null || dailySales === void 0 ? void 0 : dailySales.gross_sales) === 0
             ? {
                 src: no_transaction_png_1.default,
@@ -52,13 +54,7 @@ const ViewDailySalesModal = ({ dailySales, siteSettings, user, isForPrint, onClo
                 h: 600,
             }
             : undefined,
-        print: () => (0, print_1.printDailySales)({
-            dailySales,
-            siteSettings,
-            user,
-            isPdf: true,
-            pdfPageHeight: (0, print_1.getPdfPageContentHeight)(print_1.paperSizes.A4_LENGTHWISE),
-        }),
+        print: () => (0, print_1.printDailySales)({ dailySales, siteSettings, user, isPdf: true }),
     });
     // METHODS
     const handlePrint = () => {

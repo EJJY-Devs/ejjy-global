@@ -12,8 +12,8 @@ const generateReceiptHeaderCommandsV2 = ({ branchMachine, title, branchHeader, }
         const lines = branchInfo.store_name.split('\n');
         for (const line of lines) {
             commands.push((0, exports.printCenter)(line));
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.name) {
         commands.push((0, exports.printCenter)(branchInfo.name));
@@ -35,14 +35,14 @@ const generateReceiptHeaderCommands = ({ branchMachine, title, branchHeader, }) 
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_name) {
         for (const line of branchInfo.store_name.split('\n')) {
             commands.push(line); // Let ESC/POS center alignment handle it
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if (branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.store_address) {
         for (const line of branchInfo.store_address.split('\n')) {
             commands.push(line); // Let ESC/POS center alignment handle it
+            commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
         }
-        commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     }
     if ((branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number) || name) {
         commands.push([branchInfo === null || branchInfo === void 0 ? void 0 : branchInfo.contact_number, name].filter(Boolean).join(' | '));
@@ -115,6 +115,10 @@ const generateReceiptFooterCommands = (siteSettings) => {
     }
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
     commands.push(escpos_enum_1.EscPosCommands.LINE_BREAK);
+    // Reset to left alignment, like the header: text that follows is either
+    // pre-centered with printCenter (which centering again would push right)
+    // or sets its own alignment.
+    commands.push(escpos_enum_1.EscPosCommands.ALIGN_LEFT);
     return commands;
 };
 exports.generateReceiptFooterCommands = generateReceiptFooterCommands;

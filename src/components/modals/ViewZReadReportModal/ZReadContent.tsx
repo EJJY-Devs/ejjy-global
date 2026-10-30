@@ -80,7 +80,7 @@ export const ZReadContent = ({
 				},
 				{
 					label: 'Beg Void #:',
-					value: report.ending_void_or?.or_number || EMPTY_CELL,
+					value: report.beginning_void_or?.or_number || EMPTY_CELL,
 				},
 				{
 					label: 'End Void #:',
